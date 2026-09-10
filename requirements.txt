@@ -1,0 +1,6 @@
+Flask
+mysql-connector-python
+scikit-learn
+numpy
+underthesea
+python-dotenv
