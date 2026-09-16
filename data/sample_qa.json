@@ -1,0 +1,260 @@
+[
+  {
+    "question": "Xin chào",
+    "answer": "Xin chào! Tôi là chatbot tư vấn du lịch. Tôi có thể giúp bạn tìm kiếm tour, xem giá vé, lịch trình và các điểm đến hấp dẫn.",
+    "intent": "chao_hoi",
+    "tour_id": null
+  },
+  {
+    "question": "Chào bạn",
+    "answer": "Chào bạn! Chúc bạn một ngày tốt lành. Bạn đang muốn tìm tour du lịch ở đâu?",
+    "intent": "chao_hoi",
+    "tour_id": null
+  },
+  {
+    "question": "Hello",
+    "answer": "Xin chào! Rất vui được hỗ trợ bạn. Bạn cần tư vấn tour du lịch nào?",
+    "intent": "chao_hoi",
+    "tour_id": null
+  },
+  {
+    "question": "Hi bot",
+    "answer": "Chào bạn! Tôi có thể hỗ trợ gì cho kế hoạch du lịch của bạn?",
+    "intent": "chao_hoi",
+    "tour_id": null
+  },
+  {
+    "question": "Tạm biệt",
+    "answer": "Cảm ơn bạn đã sử dụng dịch vụ tư vấn. Chúc bạn có chuyến đi thật vui vẻ và an toàn!",
+    "intent": "tam_biet",
+    "tour_id": null
+  },
+  {
+    "question": "Cảm ơn bạn nhé",
+    "answer": "Không có gì ạ! Nếu cần hỗ trợ thêm thông tin về tour, bạn cứ nhắn cho tôi nhé.",
+    "intent": "tam_biet",
+    "tour_id": null
+  },
+  {
+    "question": "Bye bot",
+    "answer": "Tạm biệt bạn! Hẹn gặp lại bạn trong những chuyến hành trình sắp tới.",
+    "intent": "tam_biet",
+    "tour_id": null
+  },
+  {
+    "question": "Tour Đà Nẵng giá bao nhiêu?",
+    "answer": "Giá Tour Đà Nẵng 3 ngày 2 đêm hiện tại là 4.500.000 VNĐ/khách.",
+    "intent": "hoi_gia",
+    "tour_id": 1
+  },
+  {
+    "question": "Chi phí đi tour Đà Nẵng",
+    "answer": "Tour Đà Nẵng trọn gói 3 ngày 2 đêm có giá 4.500.000 VNĐ bao gồm khách sạn, ăn uống và vé tham quan.",
+    "intent": "hoi_gia",
+    "tour_id": 1
+  },
+  {
+    "question": "Giá tour Đà Nẵng hết bao nhiêu tiền",
+    "answer": "Tour Đà Nẵng trọn gói có giá 4.500.000 VNĐ/khách.",
+    "intent": "hoi_gia",
+    "tour_id": 1
+  },
+  {
+    "question": "Bảng giá tour du lịch Đà Nẵng",
+    "answer": "Hiện tại Tour Đà Nẵng 3 ngày 2 đêm có mức giá ưu đãi là 4.500.000 VNĐ.",
+    "intent": "hoi_gia",
+    "tour_id": 1
+  },
+  {
+    "question": "Tour Nha Trang giá bao nhiêu?",
+    "answer": "Giá Tour Nha Trang 3 ngày 2 đêm là 4.200.000 VNĐ/khách.",
+    "intent": "hoi_gia",
+    "tour_id": 2
+  },
+  {
+    "question": "Chi phí đi Nha Trang 3 ngày 2 đêm",
+    "answer": "Tour Nha Trang trọn gói 3N2Đ có giá 4.200.000 VNĐ/khách.",
+    "intent": "hoi_gia",
+    "tour_id": 2
+  },
+  {
+    "question": "Giá tour Nha Trang",
+    "answer": "Giá Tour Nha Trang là 4.200.000 VNĐ/khách.",
+    "intent": "hoi_gia",
+    "tour_id": 2
+  },
+  {
+    "question": "Tour Hạ Long giá bao nhiêu?",
+    "answer": "Giá Tour Hạ Long 2 ngày 1 đêm là 3.500.000 VNĐ/khách.",
+    "intent": "hoi_gia",
+    "tour_id": 3
+  },
+  {
+    "question": "Chi phí tour vịnh Hạ Long",
+    "answer": "Tour Hạ Long 2 ngày 1 đêm trọn gói du thuyền có giá 3.500.000 VNĐ/khách.",
+    "intent": "hoi_gia",
+    "tour_id": 3
+  },
+  {
+    "question": "Giá cả tour du lịch",
+    "answer": "Giá các tour hiện tại: Tour Hạ Long từ 3.500.000đ, Nha Trang từ 4.200.000đ, Đà Nẵng từ 4.500.000đ.",
+    "intent": "hoi_gia",
+    "tour_id": null
+  },
+  {
+    "question": "Bảng giá các tour du lịch hiện có",
+    "answer": "Hạ Long: 3.500.000 VNĐ, Nha Trang: 4.200.000 VNĐ, Đà Nẵng: 4.500.000 VNĐ.",
+    "intent": "hoi_gia",
+    "tour_id": null
+  },
+  {
+    "question": "Tour Đà Nẵng đi mấy ngày?",
+    "answer": "Tour Đà Nẵng có thời lượng 3 ngày 2 đêm.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": 1
+  },
+  {
+    "question": "Thời gian tour Đà Nẵng là bao lâu",
+    "answer": "Thời gian tham quan tour Đà Nẵng là 3 ngày 2 đêm.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": 1
+  },
+  {
+    "question": "Tour Nha Trang đi mấy ngày mấy đêm?",
+    "answer": "Tour Nha Trang diễn ra trong 3 ngày 2 đêm.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": 2
+  },
+  {
+    "question": "Thời gian tour Nha Trang",
+    "answer": "Tour Nha Trang có thời lượng 3 ngày 2 đêm.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": 2
+  },
+  {
+    "question": "Tour Hạ Long đi mấy ngày?",
+    "answer": "Tour Hạ Long có lịch trình 2 ngày 1 đêm.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": 3
+  },
+  {
+    "question": "Thời gian đi tour vịnh Hạ Long",
+    "answer": "Tour Hạ Long khởi hành định kỳ với thời gian 2 ngày 1 đêm.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": 3
+  },
+  {
+    "question": "Lịch trình tour Đà Nẵng thế nào?",
+    "answer": "Lịch trình tour Đà Nẵng: Ngày 1 tham quan trung tâm thành phố và biển Mỹ Khê, Ngày 2 khám phá Bà Nà Hills, Ngày 3 tắm biển mua sắm và tiễn khách.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 1
+  },
+  {
+    "question": "Tour Đà Nẵng có những địa điểm nào?",
+    "answer": "Tour sẽ đưa bạn tham quan Cầu Rồng, Bán đảo Sơn Trà, Bà Nà Hills, Cầu Vàng và Biển Mỹ Khê.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 1
+  },
+  {
+    "question": "Đi Đà Nẵng tham quan những đâu",
+    "answer": "Tại Đà Nẵng bạn sẽ tham quan Bà Nà Hills, Cầu Vàng, Bán đảo Sơn Trà, Chùa Linh Ứng và bãi biển Mỹ Khê.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 1
+  },
+  {
+    "question": "Lịch trình tour Nha Trang",
+    "answer": "Tour Nha Trang gồm: tham quan Tháp Bà Ponagar, du ngoạn vịnh Nha Trang, tắm bùn khoáng và vui chơi giải trí VinWonders.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 2
+  },
+  {
+    "question": "Tour Nha Trang có những điểm du lịch nào",
+    "answer": "Các điểm tham quan chính: Khu du lịch VinWonders, Tháp Bà Ponagar, Hòn Mun, Hòn Tằm và Chùa Long Sơn.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 2
+  },
+  {
+    "question": "Lịch trình vịnh Hạ Long",
+    "answer": "Tour Hạ Long gồm: chèo thuyền kayak khám phá hang Sửng Sốt, tắm biển đảo Ti Tốp và ngắm hoàng hôn trên vịnh.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 3
+  },
+  {
+    "question": "Tour Hạ Long có những địa điểm tham quan nào",
+    "answer": "Tour đưa bạn đến Hang Sửng Sốt, Đảo Ti Tốp, Hang Luồn và ngắm toàn cảnh Vịnh Hạ Long.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 3
+  },
+  {
+    "question": "Có điểm du lịch nào đẹp không",
+    "answer": "Chúng tôi có các điểm du lịch tuyệt đẹp: Biển Mỹ Khê & Bà Nà Hills (Đà Nẵng), VinWonders biển đảo (Nha Trang), Kỳ quan thế giới (Vịnh Hạ Long).",
+    "intent": "hoi_lich_trinh",
+    "tour_id": null
+  },
+  {
+    "question": "Tôi muốn đi du lịch Đà Nẵng",
+    "answer": "Đà Nẵng là điểm đến tuyệt vời! Chúng tôi có Tour Đà Nẵng 3 ngày 2 đêm tham quan Bà Nà Hills, Cầu Vàng và biển Mỹ Khê.",
+    "intent": "tim_tour",
+    "tour_id": 1
+  },
+  {
+    "question": "Có tour Đà Nẵng không?",
+    "answer": "Có bạn nhé! Hiện có Tour Đà Nẵng 3 ngày 2 đêm với giá ưu đãi 4.500.000 VNĐ.",
+    "intent": "tim_tour",
+    "tour_id": 1
+  },
+  {
+    "question": "Tôi muốn đi Nha Trang",
+    "answer": "Nha Trang thiên đường biển đảo! Chúng tôi có Tour Nha Trang 3 ngày 2 đêm khám phá VinWonders và các đảo tuyệt đẹp.",
+    "intent": "tim_tour",
+    "tour_id": 2
+  },
+  {
+    "question": "Có tour đi biển Nha Trang không?",
+    "answer": "Có bạn nhé! Tour Nha Trang 3 ngày 2 đêm có giá 4.200.000 VNĐ.",
+    "intent": "tim_tour",
+    "tour_id": 2
+  },
+  {
+    "question": "Tôi muốn đi Hạ Long",
+    "answer": "Hạ Long là di sản thiên nhiên thế giới! Bạn có thể chọn Tour Hạ Long 2 ngày 1 đêm nghỉ dưỡng trên du thuyền sang trọng.",
+    "intent": "tim_tour",
+    "tour_id": 3
+  },
+  {
+    "question": "Có tour vịnh Hạ Long không?",
+    "answer": "Có bạn nhé! Tour Hạ Long 2 ngày 1 đêm giá chỉ 3.500.000 VNĐ.",
+    "intent": "tim_tour",
+    "tour_id": 3
+  },
+  {
+    "question": "Có các tour du lịch nào?",
+    "answer": "Hiện tại hệ thống có các tour: Đà Nẵng 3N2Đ, Nha Trang 3N2Đ, Hạ Long 2N1Đ. Mời bạn vào mục 'Danh sách tour' để xem chi tiết.",
+    "intent": "tim_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Tìm kiếm tour du lịch",
+    "answer": "Bạn có thể vào mục 'Tour du lịch' trên thanh điều hướng để tìm kiếm và lọc tour theo mức giá, danh mục nhé.",
+    "intent": "tim_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Làm sao để đặt tour?",
+    "answer": "Bạn có thể xem chi tiết tour trong mục 'Danh sách tour' hoặc đăng ký tài khoản để được tư vấn và đặt chỗ nhanh nhất.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Cách thức thanh toán tour thế nào?",
+    "answer": "Chúng tôi hỗ trợ thanh toán qua chuyển khoản ngân hàng, ví điện tử (MoMo, ZaloPay) hoặc thanh toán trực tiếp tại văn phòng.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Thủ tục đặt cọc và hủy tour",
+    "answer": "Khách hàng vui lòng đặt cọc 50% chi phí khi xác nhận đặt tour. Chính sách hoàn hủy linh hoạt trong vòng 48 giờ trước khi khởi hành.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  }
+]

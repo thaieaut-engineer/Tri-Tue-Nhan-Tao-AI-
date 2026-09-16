@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}TourAI - Chatbot Tư Vấn Tour Du Lịch Thông Minh{% endblock %}
+
+{% block content %}
+<!-- HERO BANNER TỐI GIẢN & ĐẸP -->
+<div class="card border-0 p-4 p-md-5 mb-5 rounded-4 text-center text-md-start" style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color: white;">
+    <div class="row align-items-center">
+        <div class="col-lg-8">
+            <span class="badge bg-white text-primary px-3 py-2 rounded-pill small fw-semibold mb-3">
+                <i class="bi bi-sparkles me-1"></i> Trợ lý du lịch thông minh
+            </span>
+            <h1 class="display-5 fw-bold mb-3">Tìm Tour & Tư Vấn Du Lịch Cùng Chatbot AI</h1>
+            <p class="lead mb-4 text-white-50" style="max-width: 600px;">
+                Giải đáp nhanh chóng về giá tour, lịch trình và cẩm nang du lịch mọi lúc mọi nơi bằng công nghệ xử lý ngôn ngữ tự nhiên.
+            </p>
+            <div class="d-flex flex-wrap justify-content-center justify-content-md-start gap-3">
+                <a href="/chatbot" class="btn btn-light btn-lg px-4 fw-semibold text-primary rounded-pill shadow-sm">
+                    <i class="bi bi-chat-dots-fill me-2"></i>Trò chuyện với AI
+                </a>
+                <a href="/tours" class="btn btn-outline-light btn-lg px-4 rounded-pill">
+                    Xem danh sách Tour
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-4 text-center d-none d-lg-block">
+            <div style="font-size: 5rem;">🏖️</div>
+            <div class="fw-bold fs-5 mt-2">Khám Phá Việt Nam</div>
+            <p class="small text-white-50 mb-0">Đà Nẵng &bull; Nha Trang &bull; Hạ Long</p>
+        </div>
+    </div>
+</div>
+
+<!-- TÍNH NĂNG NỔI BẬT GỌN GÀNG -->
+<div class="row g-3 mb-5">
+    <div class="col-6 col-md-3">
+        <div class="card h-100 p-3 text-center border">
+            <div class="fs-2 text-primary mb-1"><i class="bi bi-robot"></i></div>
+            <h6 class="fw-bold mb-1">Chatbot Thông Minh</h6>
+            <p class="text-muted small mb-0">Ứng dụng TF-IDF, Naive Bayes & Cosine Similarity.</p>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card h-100 p-3 text-center border">
+            <div class="fs-2 text-success mb-1"><i class="bi bi-globe2"></i></div>
+            <h6 class="fw-bold mb-1">Tìm Kiếm Mạng</h6>
+            <p class="text-muted small mb-0">Tự tra cứu thời tiết, ẩm thực và địa điểm mở rộng.</p>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card h-100 p-3 text-center border">
+            <div class="fs-2 text-warning mb-1"><i class="bi bi-compass"></i></div>
+            <h6 class="fw-bold mb-1">Lọc Tour Dễ Dàng</h6>
+            <p class="text-muted small mb-0">Tìm theo từ khóa, danh mục và khoảng giá.</p>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card h-100 p-3 text-center border">
+            <div class="fs-2 text-info mb-1"><i class="bi bi-clock-history"></i></div>
+            <h6 class="fw-bold mb-1">Lưu Trữ Lịch Sử</h6>
+            <p class="text-muted small mb-0">Đồng bộ phiên chat và câu hỏi tư vấn.</p>
+        </div>
+    </div>
+</div>
+
+<!-- TOUR TIÊU BIỂU -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4 class="fw-bold mb-1">Tour Du Lịch Tiêu Biểu</h4>
+        <p class="text-muted small mb-0">Các hành trình được lựa chọn nhiều nhất</p>
+    </div>
+    <a href="/tours" class="text-decoration-none small fw-semibold text-primary">Xem tất cả <i class="bi bi-arrow-right"></i></a>
+</div>
+
+<div class="row g-4 mb-5">
+    {% for tour in tours %}
+    <div class="col-md-4">
+        <div class="card h-100 tour-card border bg-white">
+            {% if tour.image %}
+                <img src="{{ tour.image }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ tour.name }}">
+            {% else %}
+                <div class="bg-light text-muted d-flex align-items-center justify-content-center" style="height: 200px;">
+                    <i class="bi bi-geo-alt fs-2 text-secondary opacity-50"></i>
+                </div>
+            {% endif %}
+
+            <div class="card-body d-flex flex-column p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge bg-light text-primary border" style="font-size: 0.75rem;">{{ tour.category_name or 'Du lịch' }}</span>
+                    <span class="text-muted small"><i class="bi bi-clock me-1"></i>{{ tour.duration }}</span>
+                </div>
+
+                <h6 class="card-title fw-bold mb-2">
+                    <a href="/tours/{{ tour.id }}" class="text-dark text-decoration-none">
+                        {{ tour.name }}
+                    </a>
+                </h6>
+
+                <p class="card-text text-muted small flex-grow-1">
+                    {{ tour.description[:95] if tour.description else '' }}...
+                </p>
+
+                <div class="pt-2 border-top d-flex justify-content-between align-items-center mt-2">
+                    <span class="text-danger fw-bold fs-6">{{ "{:,.0f}".format(tour.price) }} đ</span>
+                    <a href="/tours/{{ tour.id }}" class="btn btn-sm btn-outline-primary rounded-pill px-3">Chi tiết</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12">
+        <div class="alert alert-light text-center py-4 border rounded-3">Chưa có dữ liệu tour trong hệ thống.</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

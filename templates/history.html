@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Lịch Sử Trò Chuyện - TourAI{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <h1 class="fw-bold mb-1">🕒 Lịch Sử Trò Chuyện</h1>
+    <p class="text-muted">Xem lại các câu hỏi tư vấn du lịch và giải đáp từ Chatbot AI</p>
+</div>
+
+<div class="row g-4">
+    <!-- CỘT DANH SÁCH PHIÊN CHAT -->
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 p-3">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="fw-bold mb-0 text-secondary text-uppercase small">Danh sách phiên trò chuyện</h6>
+                <a href="/chatbot" class="btn btn-sm btn-primary">
+                    <i class="bi bi-plus-lg me-1"></i>Chat mới
+                </a>
+            </div>
+
+            <div class="list-group list-group-flush overflow-y-auto" style="max-height: 600px;">
+                {% for s in sessions %}
+                <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-3 rounded-3 mb-2 border {% if selected_session and selected_session.id == s.id %}bg-light border-primary{% endif %}">
+                    <a href="/history?session_id={{ s.id }}" class="text-decoration-none text-dark flex-grow-1 me-2 text-truncate">
+                        <div class="fw-semibold text-truncate mb-1">{{ s.title }}</div>
+                        <div class="small text-muted">
+                            <i class="bi bi-clock me-1"></i>{{ s.created_at.strftime('%d/%m/%Y %H:%M') if s.created_at else '' }}
+                        </div>
+                    </a>
+                    
+                    <form method="POST" action="/history/delete/{{ s.id }}" onsubmit="return confirm('Bạn có chắc chắn muốn xóa cuộc trò chuyện này?');">
+                        <button type="submit" class="btn btn-sm btn-outline-danger border-0" title="Xóa cuộc trò chuyện">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                    </form>
+                </div>
+                {% else %}
+                <div class="text-center py-5 text-muted">
+                    <i class="bi bi-chat-left-dots fs-1 d-block mb-2 text-secondary"></i>
+                    <p class="small mb-0">Bạn chưa có phiên trò chuyện nào.</p>
+                    <a href="/chatbot" class="btn btn-sm btn-primary mt-2">Bắt đầu chat</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- CỘT NỘI DUNG CHI TIẾT HỘI THOẠI -->
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm rounded-4 p-4">
+            {% if selected_session %}
+                <div class="d-flex justify-content-between align-items-center pb-3 mb-4 border-bottom">
+                    <div>
+                        <h4 class="fw-bold mb-1">{{ selected_session.title }}</h4>
+                        <span class="text-muted small">
+                            <i class="bi bi-calendar3 me-1"></i>Thời gian: {{ selected_session.created_at.strftime('%d/%m/%Y %H:%M:%S') if selected_session.created_at else '' }}
+                        </span>
+                    </div>
+
+                    <a href="/chatbot?session_id={{ selected_session.id }}" class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-arrow-return-right me-1"></i>Tiếp tục chat phiên này
+                    </a>
+                </div>
+
+                <!-- Danh sách tin nhắn hỏi đáp -->
+                <div class="d-flex flex-column gap-3" style="max-height: 520px; overflow-y: auto;">
+                    {% for msg in messages %}
+                        <!-- Câu hỏi của người dùng -->
+                        <div class="d-flex justify-content-end">
+                            <div class="bg-primary text-white p-3 rounded-4 shadow-sm" style="max-width: 80%; border-bottom-right-radius: 4px;">
+                                <div class="small fw-semibold opacity-75 mb-1"><i class="bi bi-person me-1"></i>Bạn hỏi:</div>
+                                <div>{{ msg.question }}</div>
+                            </div>
+                        </div>
+
+                        <!-- Trả lời của AI -->
+                        <div class="d-flex justify-content-start">
+                            <div class="bg-light text-dark p-3 rounded-4 border shadow-sm" style="max-width: 80%; border-bottom-left-radius: 4px; white-space: pre-line;">
+                                <div class="small fw-semibold text-primary mb-1"><i class="bi bi-robot me-1"></i>TourAI trả lời:</div>
+                                <div>{{ msg.answer }}</div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info text-center">Phiên trò chuyện này chưa có nội dung tin nhắn.</div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="text-center py-5 text-muted">
+                    <i class="bi bi-chat-square-text fs-1 d-block mb-2 text-secondary"></i>
+                    <h5>Chưa chọn phiên trò chuyện</h5>
+                    <p class="small">Vui lòng chọn một cuộc trò chuyện từ danh sách bên trái để xem lại nội dung chi tiết.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

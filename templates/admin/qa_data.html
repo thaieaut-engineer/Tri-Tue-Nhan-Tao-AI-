@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+
+{% block title %}Quản Lý Dữ Liệu AI (Q&A) - Admin TourAI{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+    <div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-1">
+                <li class="breadcrumb-item"><a href="/admin">Admin</a></li>
+                <li class="breadcrumb-item active">Dữ liệu AI Q&A</li>
+            </ol>
+        </nav>
+        <h1 class="fw-bold mb-0">🤖 Dữ Liệu Huấn Luyện AI (Q&A)</h1>
+    </div>
+    <div class="d-flex gap-2">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addQaModal">
+            <i class="bi bi-plus-circle me-1"></i>Thêm Câu Hỏi Mẫu
+        </button>
+        <form method="POST" action="/admin/qa/retrain">
+            <button type="submit" class="btn btn-success" title="Đồng bộ hóa vào mô hình AI">
+                <i class="bi bi-arrow-repeat me-1"></i>Huấn Luyện Lại AI
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- GIẢI THÍCH INTENT CHO ADMIN -->
+<div class="alert alert-info border-0 shadow-sm rounded-3 mb-4">
+    <div class="fw-bold mb-1"><i class="bi bi-info-circle-fill me-1"></i> Các ý định (intent) được hỗ trợ:</div>
+    <div class="small d-flex flex-wrap gap-2 mt-2">
+        <span class="badge bg-white text-primary border">hoi_gia: Hỏi giá tour</span>
+        <span class="badge bg-white text-primary border">hoi_thoi_gian: Hỏi số ngày / thời gian</span>
+        <span class="badge bg-white text-primary border">hoi_lich_trinh: Hỏi chi tiết lịch trình</span>
+        <span class="badge bg-white text-primary border">tim_tour: Tìm kiếm tour theo điểm đến</span>
+        <span class="badge bg-white text-primary border">chao_hoi: Lời chào hỏi</span>
+        <span class="badge bg-white text-primary border">tam_biet: Lời cảm ơn, tạm biệt</span>
+        <span class="badge bg-white text-primary border">tu_van_dat_tour: Hướng dẫn đặt tour</span>
+    </div>
+</div>
+
+<!-- BẢNG DỮ LIỆU Q&A -->
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th style="width: 60px;">ID</th>
+                    <th style="width: 280px;">Câu hỏi mẫu</th>
+                    <th>Câu trả lời của Bot</th>
+                    <th style="width: 140px;">Ý định (Intent)</th>
+                    <th style="width: 160px;">Tour liên quan</th>
+                    <th class="text-end" style="width: 120px;">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for qa in qa_list %}
+                <tr>
+                    <td class="text-muted small">#{{ qa.id }}</td>
+                    <td class="fw-semibold text-dark">{{ qa.question }}</td>
+                    <td class="small text-secondary" style="white-space: pre-line;">{{ qa.answer }}</td>
+                    <td>
+                        <span class="badge bg-primary-subtle text-primary">{{ qa.intent }}</span>
+                    </td>
+                    <td>
+                        {% if qa.tour_name %}
+                            <a href="/tours/{{ qa.tour_id }}" target="_blank" class="small text-decoration-none fw-semibold">
+                                {{ qa.tour_name }}
+                            </a>
+                        {% else %}
+                            <span class="text-muted small">Chung (Không gắn tour)</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-end">
+                        <div class="btn-group btn-group-sm">
+                            <button type="button" class="btn btn-outline-primary btn-edit-qa"
+                                    data-id="{{ qa.id }}"
+                                    data-question="{{ qa.question }}"
+                                    data-answer="{{ qa.answer }}"
+                                    data-intent="{{ qa.intent }}"
+                                    data-tour-id="{{ qa.tour_id or '' }}"
+                                    title="Sửa">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <form method="POST" action="/admin/qa/delete/{{ qa.id }}" class="d-inline" onsubmit="return confirm('Bạn có chắc muốn xóa câu hỏi này?');">
+                                <button type="submit" class="btn btn-outline-danger" title="Xóa">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" class="text-center py-5 text-muted">Chưa có câu hỏi mẫu nào.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- MODAL THÊM CÂU HỎI MẪU -->
+<div class="modal fade" id="addQaModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <form method="POST" action="/admin/qa/create" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">Thêm Câu Hỏi & Trả Lời Mới Cho AI</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body row g-3">
+                <div class="col-md-8">
+                    <label class="form-label fw-semibold">Ý định (Intent) <span class="text-danger">*</span></label>
+                    <input type="text" name="intent" class="form-control" list="intentList" placeholder="Chọn hoặc nhập intent mới..." required>
+                    <datalist id="intentList">
+                        <option value="chao_hoi">
+                        <option value="tam_biet">
+                        <option value="hoi_gia">
+                        <option value="hoi_thoi_gian">
+                        <option value="hoi_lich_trinh">
+                        <option value="tim_tour">
+                        <option value="tu_van_dat_tour">
+                    </datalist>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Gắn với Tour (nếu có)</label>
+                    <select name="tour_id" class="form-select">
+                        <option value="">-- Không gắn tour cụ thể --</option>
+                        {% for t in tours %}
+                            <option value="{{ t.id }}">{{ t.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label class="form-label fw-semibold">Câu hỏi của người dùng <span class="text-danger">*</span></label>
+                    <input type="text" name="question" class="form-control" placeholder="Ví dụ: Tour Đà Nẵng 3 ngày 2 đêm giá thế nào?" required>
+                </div>
+                <div class="col-12">
+                    <label class="form-label fw-semibold">Câu trả lời tương ứng <span class="text-danger">*</span></label>
+                    <textarea name="answer" class="form-control" rows="4" placeholder="Nội dung câu trả lời của chatbot..." required></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-check2 me-1"></i>Lưu & Cập Nhật AI</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL SỬA CÂU HỎI MẪU -->
+<div class="modal fade" id="editQaModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <form method="POST" id="editQaForm" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">Chỉnh Sửa Câu Hỏi & Trả Lời AI</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body row g-3">
+                <div class="col-md-8">
+                    <label class="form-label fw-semibold">Ý định (Intent) <span class="text-danger">*</span></label>
+                    <input type="text" name="intent" id="edit_intent" class="form-control" list="intentList" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Gắn với Tour</label>
+                    <select name="tour_id" id="edit_tour_id" class="form-select">
+                        <option value="">-- Không gắn tour cụ thể --</option>
+                        {% for t in tours %}
+                            <option value="{{ t.id }}">{{ t.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label class="form-label fw-semibold">Câu hỏi mẫu <span class="text-danger">*</span></label>
+                    <input type="text" name="question" id="edit_question" class="form-control" required>
+                </div>
+                <div class="col-12">
+                    <label class="form-label fw-semibold">Câu trả lời <span class="text-danger">*</span></label>
+                    <textarea name="answer" id="edit_answer" class="form-control" rows="4" required></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i>Lưu Cập Nhật</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.querySelectorAll(".btn-edit-qa").forEach(btn => {
+    btn.addEventListener("click", function() {
+        const id = this.dataset.id;
+        document.getElementById("editQaForm").action = `/admin/qa/edit/${id}`;
+        document.getElementById("edit_question").value = this.dataset.question;
+        document.getElementById("edit_answer").value = this.dataset.answer;
+        document.getElementById("edit_intent").value = this.dataset.intent;
+        document.getElementById("edit_tour_id").value = this.dataset.tourId;
+
+        const modal = new bootstrap.Modal(document.getElementById("editQaModal"));
+        modal.show();
+    });
+});
+</script>
+{% endblock %}

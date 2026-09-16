@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Đăng ký tài khoản - TourAI{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center py-4">
+    <div class="col-md-6 col-lg-5">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4 p-sm-5">
+                <div class="text-center mb-4">
+                    <span class="fs-1">📝</span>
+                    <h2 class="fw-bold mt-2">Đăng Ký Tài Khoản</h2>
+                    <p class="text-muted small">Tạo tài khoản để đồng bộ hóa các cuộc trò chuyện với Chatbot</p>
+                </div>
+
+                <form method="POST" action="/register">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Họ và tên <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-card-text"></i></span>
+                            <input type="text" name="full_name" class="form-control" placeholder="Ví dụ: Nguyễn Văn A" value="{{ full_name or '' }}" required autofocus>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Tên đăng nhập <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-person"></i></span>
+                            <input type="text" name="username" class="form-control" placeholder="Tối thiểu 3 ký tự viết liền không dấu" value="{{ username or '' }}" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Mật khẩu <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-lock"></i></span>
+                            <input type="password" name="password" class="form-control" placeholder="Tối thiểu 6 ký tự" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Xác nhận mật khẩu <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-lock-fill"></i></span>
+                            <input type="password" name="confirm_password" class="form-control" placeholder="Nhập lại mật khẩu" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold mb-3">
+                        <i class="bi bi-person-plus me-2"></i>Đăng Ký Ngay
+                    </button>
+
+                    <div class="text-center small text-muted">
+                        Đã có tài khoản? <a href="/login" class="fw-bold text-decoration-none">Đăng nhập</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

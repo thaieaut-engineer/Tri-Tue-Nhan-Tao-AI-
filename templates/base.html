@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TourAI - Chatbot Tư Vấn Du Lịch{% endblock %}</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/static/css/style.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar-minimal {
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 12px 0;
+        }
+        .navbar-brand-clean {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: #2563eb !important;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        .nav-link-clean {
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: #475569 !important;
+            padding: 6px 14px !important;
+            border-radius: 8px;
+            transition: color 0.15s, background 0.15s;
+        }
+        .nav-link-clean:hover, .nav-link-clean.active {
+            color: #2563eb !important;
+            background: #eff6ff;
+        }
+        .footer-minimal {
+            background: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            margin-top: auto;
+            padding: 20px 0;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+    </style>
+    {% block head %}{% endblock %}
+</head>
+<body>
+
+    <!-- NAVBAR TỐI GIẢN & ĐẸP -->
+    <nav class="navbar navbar-expand-lg navbar-minimal sticky-top">
+        <div class="container">
+            <a class="navbar-brand-clean d-flex align-items-center gap-2" href="/">
+                <span class="fs-4">✈️</span>
+                <span>TourAI</span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                <i class="bi bi-list fs-3 text-secondary"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3 gap-1">
+                    <li class="nav-item">
+                        <a class="nav-link-clean" href="/">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link-clean" href="/tours">Tour du lịch</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link-clean fw-semibold text-primary" href="/chatbot">
+                            <i class="bi bi-robot me-1"></i>Chatbot AI
+                        </a>
+                    </li>
+                    {% if session.get('user_id') %}
+                    <li class="nav-item">
+                        <a class="nav-link-clean" href="/history">Lịch sử chat</a>
+                    </li>
+                    {% endif %}
+                    {% if session.get('role') == 'admin' %}
+                    <li class="nav-item">
+                        <a class="nav-link-clean text-danger fw-semibold" href="/admin">
+                            <i class="bi bi-shield-check me-1"></i>Quản trị
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+
+                <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0">
+                    {% if session.get('user_id') %}
+                        <div class="dropdown">
+                            <button class="btn btn-light btn-sm border rounded-pill px-3 py-2 dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-person-circle text-primary"></i>
+                                <span class="fw-medium">{{ session.get('full_name', session.get('username')) }}</span>
+                                {% if session.get('role') == 'admin' %}
+                                    <span class="badge bg-danger ms-1" style="font-size: 0.65rem;">Admin</span>
+                                {% endif %}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border rounded-3 mt-1">
+                                <li class="dropdown-header small">Tài khoản: @{{ session.get('username') }}</li>
+                                <li><a class="dropdown-item small" href="/history"><i class="bi bi-chat-text me-2"></i>Lịch sử trò chuyện</a></li>
+                                {% if session.get('role') == 'admin' %}
+                                    <li><hr class="dropdown-divider my-1"></li>
+                                    <li><a class="dropdown-item small text-danger" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Bảng điều khiển Admin</a></li>
+                                {% endif %}
+                                <li><hr class="dropdown-divider my-1"></li>
+                                <li><a class="dropdown-item small text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                    {% else %}
+                        <a href="/login" class="btn btn-sm btn-outline-secondary rounded-pill px-3">Đăng nhập</a>
+                        <a href="/register" class="btn btn-sm btn-primary rounded-pill px-3">Đăng ký</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- THÔNG BÁO FLASH -->
+    <div class="container mt-3">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show border-0 shadow-sm rounded-3 py-2 px-3 small" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close py-2" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- NỘI DUNG CHÍNH -->
+    <main class="main-content container py-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- FOOTER TỐI GIẢN -->
+    <footer class="footer-minimal">
+        <div class="container text-center">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+                <div>
+                    <strong>TourAI</strong> &bull; Đề tài AI Chatbot Tư vấn Tour Du lịch
+                </div>
+                <div class="text-muted small">
+                    Quang Duy Thai &bull; Truong Hoai Son &bull; Tran Long Vu &bull; Le Nguyen Nam Anh
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/script.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

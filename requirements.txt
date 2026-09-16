@@ -4,3 +4,5 @@ scikit-learn
 numpy
 underthesea
 python-dotenv
+requests
+ddgs

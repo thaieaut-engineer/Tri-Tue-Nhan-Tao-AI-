@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block title %}Quản Lý Tour Du Lịch - Admin TourAI{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-1">
+                <li class="breadcrumb-item"><a href="/admin">Admin</a></li>
+                <li class="breadcrumb-item active">Quản lý Tour</li>
+            </ol>
+        </nav>
+        <h1 class="fw-bold mb-0">✈️ Quản Lý Tour Du Lịch</h1>
+    </div>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTourModal">
+        <i class="bi bi-plus-circle me-1"></i>Thêm Tour Mới
+    </button>
+</div>
+
+<!-- BẢNG DANH SÁCH TOUR -->
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th style="width: 60px;">ID</th>
+                    <th style="width: 90px;">Hình ảnh</th>
+                    <th>Tên tour</th>
+                    <th>Danh mục</th>
+                    <th>Điểm đến</th>
+                    <th>Thời gian</th>
+                    <th>Giá</th>
+                    <th class="text-end" style="width: 200px;">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tour in tours %}
+                <tr>
+                    <td class="text-muted small">#{{ tour.id }}</td>
+                    <td>
+                        {% if tour.image %}
+                            <img src="{{ tour.image }}" class="rounded" style="width: 65px; height: 45px; object-fit: cover;" alt="">
+                        {% else %}
+                            <div class="bg-light rounded text-center text-muted" style="width: 65px; height: 45px; line-height: 45px;">
+                                <i class="bi bi-image"></i>
+                            </div>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="/tours/{{ tour.id }}" target="_blank" class="fw-bold text-dark text-decoration-none hover-primary">
+                            {{ tour.name }}
+                        </a>
+                    </td>
+                    <td>
+                        <span class="badge bg-light text-primary border">{{ tour.category_name or 'Chưa phân loại' }}</span>
+                    </td>
+                    <td>{{ tour.destination }}</td>
+                    <td><small class="text-muted">{{ tour.duration }}</small></td>
+                    <td class="text-danger fw-bold">{{ "{:,.0f}".format(tour.price) }} đ</td>
+                    <td class="text-end">
+                        <div class="btn-group btn-group-sm">
+                            <a href="/admin/tours/{{ tour.id }}/schedule" class="btn btn-outline-info" title="Quản lý lịch trình">
+                                <i class="bi bi-calendar-event"></i>
+                            </a>
+                            <button type="button" class="btn btn-outline-primary btn-edit-tour"
+                                    data-id="{{ tour.id }}"
+                                    data-name="{{ tour.name }}"
+                                    data-category-id="{{ tour.category_id or '' }}"
+                                    data-destination="{{ tour.destination }}"
+                                    data-duration="{{ tour.duration }}"
+                                    data-price="{{ tour.price }}"
+                                    data-image="{{ tour.image or '' }}"
+                                    data-description="{{ tour.description or '' }}"
+                                    title="Chỉnh sửa tour">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <form method="POST" action="/admin/tours/delete/{{ tour.id }}" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa tour này cùng toàn bộ lịch trình liên quan?');">
+                                <button type="submit" class="btn btn-outline-danger" title="Xóa tour">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="8" class="text-center py-5 text-muted">Chưa có dữ liệu tour nào trong hệ thống.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- MODAL THÊM TOUR MỚI -->
+<div class="modal fade" id="addTourModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <form method="POST" action="/admin/tours/create" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">Thêm Tour Du Lịch Mới</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body row g-3">
+                <div class="col-md-8">
+                    <label class="form-label fw-semibold">Tên tour <span class="text-danger">*</span></label>
+                    <input type="text" name="name" class="form-control" placeholder="Ví dụ: Tour Đà Nẵng 3 ngày 2 đêm" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Danh mục</label>
+                    <select name="category_id" class="form-select">
+                        <option value="">-- Chọn danh mục --</option>
+                        {% for cat in categories %}
+                            <option value="{{ cat.id }}">{{ cat.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Điểm đến <span class="text-danger">*</span></label>
+                    <input type="text" name="destination" class="form-control" placeholder="Ví dụ: Đà Nẵng" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Thời gian <span class="text-danger">*</span></label>
+                    <input type="text" name="duration" class="form-control" placeholder="Ví dụ: 3 ngày 2 đêm" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Giá tour (VNĐ) <span class="text-danger">*</span></label>
+                    <input type="number" name="price" class="form-control" placeholder="Ví dụ: 4500000" min="0" step="10000" required>
+                </div>
+                <div class="col-12">
+                    <label class="form-label fw-semibold">Link ảnh đại diện</label>
+                    <input type="url" name="image" class="form-control" placeholder="https://example.com/image.jpg">
+                </div>
+                <div class="col-12">
+                    <label class="form-label fw-semibold">Mô tả tổng quan</label>
+                    <textarea name="description" class="form-control" rows="4" placeholder="Mô tả chi tiết điểm nổi bật của tour..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-check2 me-1"></i>Lưu Tour</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL CHỈNH SỬA TOUR -->
+<div class="modal fade" id="editTourModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <form method="POST" id="editTourForm" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">Chỉnh Sửa Tour Du Lịch</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body row g-3">
+                <div class="col-md-8">
+                    <label class="form-label fw-semibold">Tên tour <span class="text-danger">*</span></label>
+                    <input type="text" name="name" id="edit_name" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Danh mục</label>
+                    <select name="category_id" id="edit_category_id" class="form-select">
+                        <option value="">-- Chọn danh mục --</option>
+                        {% for cat in categories %}
+                            <option value="{{ cat.id }}">{{ cat.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Điểm đến <span class="text-danger">*</span></label>
+                    <input type="text" name="destination" id="edit_destination" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Thời gian <span class="text-danger">*</span></label>
+                    <input type="text" name="duration" id="edit_duration" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Giá tour (VNĐ) <span class="text-danger">*</span></label>
+                    <input type="number" name="price" id="edit_price" class="form-control" min="0" step="10000" required>
+                </div>
+                <div class="col-12">
+                    <label class="form-label fw-semibold">Link ảnh đại diện</label>
+                    <input type="url" name="image" id="edit_image" class="form-control">
+                </div>
+                <div class="col-12">
+                    <label class="form-label fw-semibold">Mô tả tổng quan</label>
+                    <textarea name="description" id="edit_description" class="form-control" rows="4"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i>Cập Nhật</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.querySelectorAll(".btn-edit-tour").forEach(button => {
+    button.addEventListener("click", function() {
+        const id = this.dataset.id;
+        document.getElementById("editTourForm").action = `/admin/tours/edit/${id}`;
+        document.getElementById("edit_name").value = this.dataset.name;
+        document.getElementById("edit_category_id").value = this.dataset.categoryId;
+        document.getElementById("edit_destination").value = this.dataset.destination;
+        document.getElementById("edit_duration").value = this.dataset.duration;
+        document.getElementById("edit_price").value = this.dataset.price;
+        document.getElementById("edit_image").value = this.dataset.image;
+        document.getElementById("edit_description").value = this.dataset.description;
+
+        const editModal = new bootstrap.Modal(document.getElementById("editTourModal"));
+        editModal.show();
+    });
+});
+</script>
+{% endblock %}

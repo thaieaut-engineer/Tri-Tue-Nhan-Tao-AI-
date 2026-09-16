@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Quản Lý Người Dùng - Admin TourAI{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-1">
+            <li class="breadcrumb-item"><a href="/admin">Admin</a></li>
+            <li class="breadcrumb-item active">Người dùng</li>
+        </ol>
+    </nav>
+    <h1 class="fw-bold mb-0">👥 Quản Lý Tài Khoản Người Dùng</h1>
+</div>
+
+<!-- BẢNG NGƯỜI DÙNG -->
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th style="width: 70px;">ID</th>
+                    <th>Tên đăng nhập</th>
+                    <th>Họ và tên</th>
+                    <th style="width: 130px;">Vai trò</th>
+                    <th style="width: 180px;">Ngày tạo</th>
+                    <th class="text-end" style="width: 200px;">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr>
+                    <td class="text-muted small">#{{ u.id }}</td>
+                    <td class="fw-semibold">
+                        <i class="bi bi-person me-1 text-secondary"></i>{{ u.username }}
+                        {% if u.id == session.get('user_id') %}
+                            <span class="badge bg-secondary-subtle text-secondary ms-1">Bạn</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ u.full_name }}</td>
+                    <td>
+                        {% if u.role == 'admin' %}
+                            <span class="badge bg-danger">Admin</span>
+                        {% else %}
+                            <span class="badge bg-primary">Khách hàng</span>
+                        {% endif %}
+                    </td>
+                    <td class="small text-muted">
+                        {{ u.created_at.strftime('%d/%m/%Y %H:%M') if u.created_at else '' }}
+                    </td>
+                    <td class="text-end">
+                        <div class="d-flex justify-content-end gap-2">
+                            <!-- Chuyển đổi vai trò -->
+                            <form method="POST" action="/admin/users/role/{{ u.id }}" class="d-inline">
+                                {% if u.role == 'admin' %}
+                                    <input type="hidden" name="role" value="user">
+                                    <button type="submit" class="btn btn-sm btn-outline-warning" title="Chuyển thành Khách hàng" {% if u.id == session.get('user_id') %}disabled{% endif %}>
+                                        Hạ quyền
+                                    </button>
+                                {% else %}
+                                    <input type="hidden" name="role" value="admin">
+                                    <button type="submit" class="btn btn-sm btn-outline-success" title="Cấp quyền Quản trị viên">
+                                        Nâng Admin
+                                    </button>
+                                {% endif %}
+                            </form>
+
+                            <!-- Xóa tài khoản -->
+                            <form method="POST" action="/admin/users/delete/{{ u.id }}" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa tài khoản này?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Xóa tài khoản" {% if u.id == session.get('user_id') %}disabled{% endif %}>
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" class="text-center py-5 text-muted">Chưa có người dùng nào.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

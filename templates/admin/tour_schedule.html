@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Quản Lý Lịch Trình - {{ tour.name }} - Admin TourAI{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-1">
+            <li class="breadcrumb-item"><a href="/admin">Admin</a></li>
+            <li class="breadcrumb-item"><a href="/admin/tours">Quản lý Tour</a></li>
+            <li class="breadcrumb-item active">Lịch trình</li>
+        </ol>
+    </nav>
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="fw-bold mb-1">📅 Lịch Trình: {{ tour.name }}</h1>
+            <p class="text-muted mb-0">Điểm đến: <strong>{{ tour.destination }}</strong> &bull; Thời gian: <strong>{{ tour.duration }}</strong></p>
+        </div>
+        <a href="/admin/tours" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i>Quay lại danh sách Tour
+        </a>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- FORM THÊM MỤC LỊCH TRÌNH -->
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm rounded-4 p-4">
+            <h5 class="fw-bold mb-3"><i class="bi bi-plus-circle me-1 text-primary"></i>Thêm Ngày Lịch Trình</h5>
+            <form method="POST" action="/admin/tours/{{ tour.id }}/schedule">
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Ngày thứ mấy <span class="text-danger">*</span></label>
+                    <input type="number" name="day_number" class="form-control" placeholder="1, 2, 3..." min="1" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Địa điểm tham quan <span class="text-danger">*</span></label>
+                    <input type="text" name="location" class="form-control" placeholder="Ví dụ: Bà Nà Hills, Biển Mỹ Khê..." required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Hoạt động chính <span class="text-danger">*</span></label>
+                    <input type="text" name="activity" class="form-control" placeholder="Ví dụ: Tham quan và trải nghiệm Cầu Vàng..." required>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">Mô tả chi tiết</label>
+                    <textarea name="description" class="form-control" rows="3" placeholder="Mô tả cụ thể lịch trình trong ngày..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="bi bi-check2 me-1"></i>Thêm Vào Lịch Trình
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- DANH SÁCH CÁC NGÀY TRONG LỊCH TRÌNH -->
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4 p-4">
+            <h5 class="fw-bold mb-3">Lịch Trình Đã Thiết Lập ({{ schedule|length }} ngày)</h5>
+
+            {% if schedule %}
+                <div class="d-flex flex-column gap-3">
+                    {% for item in schedule %}
+                    <div class="p-3 bg-light rounded-3 border d-flex justify-content-between align-items-start">
+                        <div class="me-3">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <span class="badge bg-primary px-2 py-1">Ngày {{ item.day_number }}</span>
+                                <h6 class="fw-bold mb-0 text-dark">{{ item.location }}</h6>
+                            </div>
+                            <div class="small mb-1"><strong>Hoạt động:</strong> {{ item.activity }}</div>
+                            {% if item.description %}
+                            <div class="small text-muted">{{ item.description }}</div>
+                            {% endif %}
+                        </div>
+
+                        <form method="POST" action="/admin/tours/schedule/delete/{{ item.id }}" onsubmit="return confirm('Bạn có chắc muốn xóa mục lịch trình ngày này?');">
+                            <input type="hidden" name="tour_id" value="{{ tour.id }}">
+                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Xóa">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-warning text-center py-4">
+                    <i class="bi bi-calendar-x fs-1 d-block mb-2"></i>
+                    Tour này hiện chưa có lịch trình nào. Hãy sử dụng biểu mẫu bên trái để thêm các ngày lịch trình.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

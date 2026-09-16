@@ -1,90 +1,115 @@
-<!DOCTYPE html>
-<html lang="vi">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
+{% block title %}Danh Sách Tour Du Lịch - TourAI{% endblock %}
 
-    <title>Danh sách tour</title>
-
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
-</head>
-
-<body>
-
-<div class="container mt-5">
-
-    <h1 class="mb-4">
-        🌏 Danh sách tour du lịch
-    </h1>
-
-    <div class="row">
-
-        {% for tour in tours %}
-
-        <div class="col-md-4 mb-4">
-
-            <div class="card h-100 shadow-sm">
-
-                {% if tour.image %}
-
-                <img
-                    src="{{ tour.image }}"
-                    class="card-img-top"
-                    style="height: 220px; object-fit: cover;"
-                >
-
-                {% endif %}
-
-                <div class="card-body">
-
-                    <h5 class="card-title">
-                        {{ tour.name }}
-                    </h5>
-
-                    <p class="card-text">
-                        📍 {{ tour.destination }}
-                    </p>
-
-                    <p class="card-text">
-                        ⏱ {{ tour.duration }}
-                    </p>
-
-                    <p class="text-danger fw-bold">
-                        💰 {{ "{:,.0f}".format(tour.price) }} VNĐ
-                    </p>
-
-                    <p class="card-text">
-                        {{ tour.description }}
-                    </p>
-
-                    <a
-                        href="/tours/{{ tour.id }}"
-                        class="btn btn-primary"
-                    >
-                        Xem chi tiết
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        {% else %}
-
-        <div class="alert alert-warning">
-            Chưa có tour nào.
-        </div>
-
-        {% endfor %}
-
+{% block content %}
+<div class="d-flex justify-content-between align-items-end mb-4">
+    <div>
+        <h3 class="fw-bold mb-1">Khám Phá Các Tour Du Lịch</h3>
+        <p class="text-muted small mb-0">Hành trình trải nghiệm trọn gói được thiết kế đa dạng</p>
     </div>
-
+    <a href="/chatbot" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+        <i class="bi bi-robot me-1"></i>Hỏi tư vấn AI
+    </a>
 </div>
 
-</body>
+<!-- BỘ LỌC TỐI GIẢN -->
+<div class="card p-3 mb-4 border bg-white rounded-3 shadow-none">
+    <form method="GET" action="/tours" class="row g-2 align-items-center">
+        <div class="col-md-4">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-muted"></i></span>
+                <input type="text" name="q" class="form-control border-start-0" placeholder="Tìm theo tên tour, điểm đến..." value="{{ keyword or '' }}">
+            </div>
+        </div>
 
-</html>
+        <div class="col-md-3">
+            <select name="category_id" class="form-select form-select-sm">
+                <option value="">Tất cả danh mục</option>
+                {% for cat in categories %}
+                    <option value="{{ cat.id }}" {% if selected_category == cat.id %}selected{% endif %}>
+                        {{ cat.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <select name="sort" class="form-select form-select-sm">
+                <option value="">Mới nhất</option>
+                <option value="price_asc" {% if sort_by == 'price_asc' %}selected{% endif %}>Giá: Thấp đến Cao</option>
+                <option value="price_desc" {% if sort_by == 'price_desc' %}selected{% endif %}>Giá: Cao đến Thấp</option>
+                <option value="name_asc" {% if sort_by == 'name_asc' %}selected{% endif %}>Tên tour A-Z</option>
+            </select>
+        </div>
+
+        <div class="col-md-2 d-flex gap-1">
+            <button type="submit" class="btn btn-sm btn-primary w-100 rounded-pill">Lọc</button>
+            {% if keyword or selected_category or sort_by %}
+            <a href="/tours" class="btn btn-sm btn-light border rounded-pill" title="Xóa lọc"><i class="bi bi-x"></i></a>
+            {% endif %}
+        </div>
+    </form>
+</div>
+
+<!-- DANH SÁCH TOUR -->
+<div class="row g-4">
+    {% for tour in tours %}
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 tour-card border bg-white">
+            {% if tour.image %}
+                <img src="{{ tour.image }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ tour.name }}">
+            {% else %}
+                <div class="bg-light text-muted d-flex align-items-center justify-content-center" style="height: 200px;">
+                    <div class="text-center">
+                        <i class="bi bi-geo-alt fs-2 text-secondary opacity-50"></i>
+                        <div class="small fw-medium mt-1 text-muted">{{ tour.destination }}</div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="card-body d-flex flex-column p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge bg-light text-primary border" style="font-size: 0.72rem;">
+                        {{ tour.category_name or 'Du lịch' }}
+                    </span>
+                    <span class="text-muted small">
+                        <i class="bi bi-clock me-1"></i>{{ tour.duration }}
+                    </span>
+                </div>
+
+                <h6 class="card-title fw-bold mb-2">
+                    <a href="/tours/{{ tour.id }}" class="text-dark text-decoration-none hover-primary">
+                        {{ tour.name }}
+                    </a>
+                </h6>
+
+                <p class="card-text text-muted small flex-grow-1">
+                    {{ tour.description[:95] if tour.description else '' }}...
+                </p>
+
+                <div class="pt-2 border-top mt-2 d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="text-danger fw-bold fs-6">{{ "{:,.0f}".format(tour.price) }} đ</span>
+                    </div>
+                    <a href="/tours/{{ tour.id }}" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                        Chi tiết
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12">
+        <div class="card text-center py-5 border rounded-4">
+            <i class="bi bi-search fs-2 text-muted mb-2"></i>
+            <h6>Không tìm thấy tour phù hợp</h6>
+            <p class="text-muted small">Hãy thử tìm kiếm với từ khóa khác hoặc xóa bộ lọc.</p>
+            <div>
+                <a href="/tours" class="btn btn-sm btn-primary rounded-pill px-3">Xóa bộ lọc</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

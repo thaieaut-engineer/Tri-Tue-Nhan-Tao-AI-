@@ -1,107 +1,107 @@
-<!DOCTYPE html>
-<html lang="vi">
+{% extends "base.html" %}
 
-<head>
+{% block title %}{{ tour.name }} - Chi Tiết Tour - TourAI{% endblock %}
 
-    <meta charset="UTF-8">
+{% block content %}
+<!-- BREADCRUMB -->
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Trang chủ</a></li>
+        <li class="breadcrumb-item"><a href="/tours" class="text-decoration-none">Danh sách tour</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ tour.name }}</li>
+    </ol>
+</nav>
 
-    <title>
-        {{ tour.name }}
-    </title>
+<div class="row g-4 mb-5">
+    <!-- CỘT THÔNG TIN TOUR -->
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+            {% if tour.image %}
+                <img src="{{ tour.image }}" class="w-100" style="max-height: 400px; object-fit: cover;" alt="{{ tour.name }}">
+            {% endif %}
+            <div class="card-body p-4">
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2">
+                        <i class="bi bi-tag me-1"></i>{{ tour.category_name or 'Du lịch tổng hợp' }}
+                    </span>
+                    <span class="badge bg-light text-dark border px-3 py-2">
+                        <i class="bi bi-clock me-1"></i>{{ tour.duration }}
+                    </span>
+                    <span class="badge bg-light text-danger border px-3 py-2">
+                        <i class="bi bi-geo-alt me-1"></i>{{ tour.destination }}
+                    </span>
+                </div>
 
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
+                <h1 class="fw-bold h2 mb-3">{{ tour.name }}</h1>
 
-</head>
-
-<body>
-
-<div class="container mt-5">
-
-    <a href="/tours" class="btn btn-secondary mb-4">
-        ← Quay lại danh sách
-    </a>
-
-    <h1>
-        {{ tour.name }}
-    </h1>
-
-    <hr>
-
-    <p>
-        <strong>📍 Điểm đến:</strong>
-        {{ tour.destination }}
-    </p>
-
-    <p>
-        <strong>⏱ Thời gian:</strong>
-        {{ tour.duration }}
-    </p>
-
-    <p>
-        <strong>🏷 Danh mục:</strong>
-        {{ tour.category_name }}
-    </p>
-
-    <p>
-        <strong>💰 Giá:</strong>
-
-        <span class="text-danger fw-bold">
-            {{ "{:,.0f}".format(tour.price) }} VNĐ
-        </span>
-    </p>
-
-    <h3 class="mt-4">
-        Mô tả
-    </h3>
-
-    <p>
-        {{ tour.description }}
-    </p>
-
-    <h3 class="mt-4 mb-3">
-        🗺 Lịch trình
-    </h3>
-
-    {% for item in schedule %}
-
-    <div class="card mb-3">
-
-        <div class="card-body">
-
-            <h5>
-                Ngày {{ item.day_number }}:
-                {{ item.location }}
-            </h5>
-
-            <p>
-                <strong>
-                    Hoạt động:
-                </strong>
-
-                {{ item.activity }}
-            </p>
-
-            <p>
-                {{ item.description }}
-            </p>
-
+                <h4 class="fw-semibold mt-4 mb-2">Giới thiệu tour</h4>
+                <p class="text-secondary leading-relaxed" style="white-space: pre-line;">{{ tour.description }}</p>
+            </div>
         </div>
 
+        <!-- LỊCH TRÌNH CHI TIẾT -->
+        <div class="card border-0 shadow-sm rounded-4 p-4">
+            <h3 class="fw-bold mb-4 d-flex align-items-center gap-2">
+                <span>🗺️</span> Lịch Trình Chi Tiết
+            </h3>
+
+            {% if schedule %}
+                <div class="timeline">
+                    {% for item in schedule %}
+                    <div class="card border-0 bg-light rounded-3 mb-3 p-3">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <span class="badge bg-primary text-white rounded-pill px-3 py-1">Ngày {{ item.day_number }}</span>
+                            <h5 class="fw-bold mb-0 text-primary">{{ item.location }}</h5>
+                        </div>
+                        <div class="ms-1">
+                            <p class="mb-1"><strong><i class="bi bi-activity me-1"></i>Hoạt động:</strong> {{ item.activity }}</p>
+                            {% if item.description %}
+                            <p class="text-muted small mb-0">{{ item.description }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-info d-flex align-items-center gap-2">
+                    <i class="bi bi-info-circle fs-4"></i>
+                    <div>Lịch trình chi tiết cho tour này đang được cập nhật. Bạn có thể hỏi trực tiếp Chatbot để biết thêm thông tin!</div>
+                </div>
+            {% endif %}
+        </div>
     </div>
 
-    {% else %}
+    <!-- CỘT SIDEBAR ĐẶT TOUR & TƯ VẤN -->
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm rounded-4 p-4 sticky-top" style="top: 80px;">
+            <div class="small text-muted mb-1">Giá trọn gói mỗi khách:</div>
+            <div class="text-danger fw-bold display-6 mb-3">
+                {{ "{:,.0f}".format(tour.price) }} <span class="fs-5">VNĐ</span>
+            </div>
 
-    <div class="alert alert-info">
-        Tour này chưa có lịch trình.
+            <hr class="my-3">
+
+            <ul class="list-unstyled small text-muted mb-4 space-y-2">
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Bao gồm vé tham quan các điểm</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Xe đưa đón đời mới máy lạnh</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Hướng dẫn viên nhiệt tình suốt tuyến</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Bảo hiểm du lịch trọn gói</li>
+            </ul>
+
+            <div class="d-grid gap-2">
+                <a href="/chatbot" class="btn btn-primary btn-lg shadow-sm">
+                    <i class="bi bi-robot me-2"></i>Hỏi AI về Tour này
+                </a>
+                <a href="/tours" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-1"></i>Quay lại danh sách
+                </a>
+            </div>
+
+            <div class="mt-4 p-3 bg-light rounded-3 text-center small text-muted">
+                <i class="bi bi-shield-check text-primary fs-5 d-block mb-1"></i>
+                Hỗ trợ tư vấn trực tuyến 24/7 với Chatbot AI
+            </div>
+        </div>
     </div>
-
-    {% endfor %}
-
 </div>
-
-</body>
-
-</html>
+{% endblock %}
