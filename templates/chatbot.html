@@ -1,32 +1,35 @@
 {% extends "base.html" %}
 
-{% block title %}Chatbot AI Tư Vấn Tour - TourAI{% endblock %}
+{% block title %}Chatbot AI Tư Vấn Du Lịch - TourAI{% endblock %}
 
 {% block head %}
 <style>
-    /* KHUNG CHAT TỐI GIẢN HIỆN ĐẠI */
-    .chat-container-wrap {
-        max-width: 960px;
+    /* ============================================================
+       GIAO DIỆN CHATBOT TỐI GIẢN, DỄ NHÌN & DỄ TƯƠNG TÁC
+       ============================================================ */
+    .chat-wrapper {
+        max-width: 900px;
         margin: 0 auto;
-        height: calc(100vh - 170px);
-        min-height: 580px;
+        height: calc(100vh - 160px);
+        min-height: 600px;
         display: flex;
         flex-direction: column;
     }
 
-    .chat-card {
+    .chat-box-card {
         background: #ffffff;
         border: 1px solid #e2e8f0;
         border-radius: 20px;
-        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -2px rgba(15, 23, 42, 0.02);
         display: flex;
         flex-direction: column;
         flex: 1;
         overflow: hidden;
     }
 
-    .chat-header {
-        padding: 14px 20px;
+    /* HEADER GỌN GÀNG, TINH TẾ */
+    .chat-topbar {
+        padding: 14px 22px;
         border-bottom: 1px solid #f1f5f9;
         display: flex;
         align-items: center;
@@ -34,130 +37,256 @@
         background: #ffffff;
     }
 
-    .chat-messages {
+    .bot-status-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #10b981;
+        border-radius: 50%;
+        display: inline-block;
+        box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+    }
+
+    /* VÙNG NỘI DUNG HỘI THOẠI */
+    .chat-stream {
         flex: 1;
         overflow-y: auto;
-        padding: 20px;
+        padding: 24px;
         display: flex;
         flex-direction: column;
-        gap: 16px;
-        background: #fafbfc;
+        gap: 20px;
+        background: #f8fafc;
+        scroll-behavior: smooth;
     }
 
-    /* BONG BÓNG TIN NHẮN */
-    .msg-row {
-        display: flex;
+    /* KHUNG CHÀO MỪNG BAN ĐẦU */
+    .welcome-container {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 24px;
+        text-align: center;
+        margin-bottom: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    .welcome-emoji {
+        font-size: 2.5rem;
+        margin-bottom: 8px;
+        display: inline-block;
+    }
+
+    .prompt-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
         gap: 10px;
-        max-width: 82%;
-        animation: fadeIn 0.15s ease-out;
+        margin-top: 16px;
     }
 
-    .msg-user {
+    .prompt-card {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 10px 14px;
+        font-size: 0.88rem;
+        color: #334155;
+        text-align: left;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .prompt-card:hover {
+        background: #eff6ff;
+        border-color: #93c5fd;
+        color: #1d4ed8;
+        transform: translateY(-1px);
+    }
+
+    /* BONG BÓNG TIN NHẮN (MESSAGE BUBBLES) */
+    .msg-group {
+        display: flex;
+        gap: 12px;
+        max-width: 85%;
+        animation: fadeInMsg 0.2s ease-out;
+    }
+
+    .msg-group-user {
         align-self: flex-end;
         flex-direction: row-reverse;
     }
 
-    .msg-bot {
+    .msg-group-bot {
         align-self: flex-start;
     }
 
-    .msg-avatar {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
+    .msg-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 14px;
+        font-size: 15px;
         flex-shrink: 0;
+        margin-top: 2px;
     }
 
-    .msg-avatar-bot {
+    .msg-icon-bot {
         background: #eff6ff;
         color: #2563eb;
+        border: 1px solid #dbeafe;
     }
 
-    .msg-avatar-user {
+    .msg-icon-user {
         background: #e0e7ff;
         color: #4338ca;
     }
 
-    .msg-bubble {
+    .msg-content-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .msg-bubble-main {
         padding: 12px 18px;
-        border-radius: 18px;
-        line-height: 1.6;
-        font-size: 0.95rem;
+        border-radius: 16px;
+        line-height: 1.65;
+        font-size: 0.94rem;
         word-break: break-word;
     }
 
-    .msg-user .msg-bubble {
+    .msg-group-user .msg-bubble-main {
         background: #2563eb;
         color: #ffffff;
         border-bottom-right-radius: 4px;
+        box-shadow: 0 2px 4px rgba(37, 99, 235, 0.15);
     }
 
-    .msg-bot .msg-bubble {
+    .msg-group-bot .msg-bubble-main {
         background: #ffffff;
-        color: #1e293b;
+        color: #0f172a;
         border: 1px solid #e2e8f0;
         border-bottom-left-radius: 4px;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.03);
-        white-space: pre-line;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
     }
 
-    /* GỢI Ý CÂU HỎI NHANH */
-    .quick-chips {
+    .msg-meta {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.75rem;
+        color: #94a3b8;
+        padding: 0 4px;
+    }
+
+    .msg-group-user .msg-meta {
+        justify-content: flex-end;
+    }
+
+    .copy-btn {
+        background: none;
+        border: none;
+        color: #94a3b8;
+        padding: 2px 6px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.75rem;
+        transition: all 0.15s;
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+    }
+
+    .copy-btn:hover {
+        background: #f1f5f9;
+        color: #475569;
+    }
+
+    /* ĐỊNH DẠNG LINK TOUR ĐẸP MẮT */
+    .tour-action-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #eff6ff;
+        color: #2563eb;
+        border: 1px solid #bfdbfe;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.88rem;
+        text-decoration: none;
+        margin-top: 8px;
+        transition: all 0.15s;
+    }
+
+    .tour-action-badge:hover {
+        background: #2563eb;
+        color: #ffffff;
+        border-color: #2563eb;
+        transform: translateY(-1px);
+    }
+
+    /* THANH GỢI Ý NHANH (QUICK CHIPS) */
+    .chips-tray {
         display: flex;
         gap: 8px;
         overflow-x: auto;
-        padding: 10px 20px 4px;
+        padding: 10px 20px 6px;
         background: #ffffff;
+        border-top: 1px solid #f1f5f9;
         scrollbar-width: none;
     }
-    .quick-chips::-webkit-scrollbar {
+    .chips-tray::-webkit-scrollbar {
         display: none;
     }
 
-    .chip-btn {
+    .chip-item {
         font-size: 0.82rem;
-        background: #f1f5f9;
+        background: #f8fafc;
         color: #475569;
-        border: 1px solid transparent;
+        border: 1px solid #e2e8f0;
         padding: 6px 14px;
         border-radius: 9999px;
         white-space: nowrap;
         cursor: pointer;
-        transition: all 0.15s;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
     }
 
-    .chip-btn:hover {
-        background: #e2e8f0;
-        color: #1e293b;
+    .chip-item:hover {
+        background: #eff6ff;
+        border-color: #93c5fd;
+        color: #1d4ed8;
     }
 
-    /* KHUNG NHẬP LIỆU PHONG CÁCH FLOATING */
-    .chat-input-area {
+    /* KHUNG NHẬP LIỆU (FLOATING INPUT) */
+    .chat-composer {
         padding: 12px 20px 16px;
         background: #ffffff;
     }
 
-    .input-pill {
+    .composer-pill {
         display: flex;
         align-items: center;
         background: #f8fafc;
-        border: 1px solid #e2e8f0;
-        border-radius: 30px;
-        padding: 4px 6px 4px 18px;
-        transition: border 0.2s, box-shadow 0.2s;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 32px;
+        padding: 6px 8px 6px 18px;
+        transition: all 0.2s ease;
     }
 
-    .input-pill:focus-within {
-        border-color: #93c5fd;
+    .composer-pill:focus-within {
+        border-color: #3b82f6;
         background: #ffffff;
-        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
     }
 
-    .input-pill input {
+    .composer-pill input {
         border: none;
         background: transparent;
         outline: none;
@@ -167,55 +296,119 @@
         color: #0f172a;
     }
 
-    .send-circle-btn {
+    .composer-pill input::placeholder {
+        color: #94a3b8;
+    }
+
+    .btn-clear-text {
+        background: none;
+        border: none;
+        color: #94a3b8;
+        font-size: 0.9rem;
+        padding: 0 8px;
+        cursor: pointer;
+        display: none;
+    }
+
+    .btn-clear-text:hover {
+        color: #475569;
+    }
+
+    .btn-send-msg {
         width: 38px;
         height: 38px;
         border-radius: 50%;
         background: #2563eb;
-        color: white;
+        color: #ffffff;
         border: none;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
-        transition: transform 0.15s, background 0.15s;
+        transition: all 0.15s ease;
+        cursor: pointer;
     }
 
-    .send-circle-btn:hover {
+    .btn-send-msg:hover {
         background: #1d4ed8;
         transform: scale(1.05);
     }
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(4px); }
+    .btn-send-msg:disabled {
+        background: #cbd5e1;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    /* HIỆU ỨNG ĐANG NHẬP (TYPING INDICATOR) */
+    .typing-dots {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 6px 8px;
+    }
+
+    .typing-dots span {
+        width: 6px;
+        height: 6px;
+        background: #3b82f6;
+        border-radius: 50%;
+        animation: typingBounce 1.2s infinite ease-in-out;
+    }
+
+    .typing-dots span:nth-child(1) { animation-delay: 0s; }
+    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typingBounce {
+        0%, 80%, 100% { transform: scale(0); opacity: 0.4; }
+        40% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes fadeInMsg {
+        from { opacity: 0; transform: translateY(6px); }
         to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+        .chat-wrapper {
+            height: calc(100vh - 130px);
+            min-height: 500px;
+        }
+        .msg-group {
+            max-width: 94%;
+        }
+        .prompt-grid {
+            grid-template-columns: 1fr;
+        }
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="chat-container-wrap">
-    <div class="chat-card">
-        <!-- HEADER TINH TẾ -->
-        <div class="chat-header">
+<div class="chat-wrapper">
+    <div class="chat-box-card">
+        <!-- THANH TIÊU ĐỀ GỌN GÀNG -->
+        <div class="chat-topbar">
             <div class="d-flex align-items-center gap-2">
-                <div class="msg-avatar msg-avatar-bot">
+                <div class="msg-icon msg-icon-bot">
                     <i class="bi bi-robot"></i>
                 </div>
                 <div>
-                    <span class="fw-bold fs-6">TourAI Assistant</span>
-                    <span class="badge bg-success-subtle text-success p-0 ms-1 small" style="font-size: 0.7rem;">
-                        <span class="spinner-grow spinner-grow-sm" style="width: 6px; height: 6px;"></span> Sẵn sàng
-                    </span>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="fw-bold fs-6">TourAI Assistant</span>
+                        <span class="bot-status-dot" title="Sẵn sàng phản hồi"></span>
+                    </div>
+                    <span class="text-muted small" style="font-size: 0.78rem;">TF-IDF &bull; Naive Bayes &bull; Cosine Similarity</span>
                 </div>
             </div>
 
             <div class="d-flex align-items-center gap-2">
-                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3" onclick="newChatSession()">
+                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3" onclick="newChatSession()" title="Bắt đầu phiên hỏi đáp mới">
                     <i class="bi bi-plus-circle me-1"></i>Hội thoại mới
                 </button>
                 {% if session.get('user_id') %}
-                <a href="/history" class="btn btn-sm btn-light text-muted rounded-pill px-3" title="Xem lịch sử chat">
+                <a href="/history" class="btn btn-sm btn-light border rounded-pill px-3 text-muted" title="Xem lịch sử trò chuyện đã lưu">
                     <i class="bi bi-clock-history me-1"></i>Lịch sử
                 </a>
                 {% endif %}
@@ -223,42 +416,90 @@
         </div>
 
         <!-- VÙNG HIỂN THỊ TIN NHẮN -->
-        <div id="chatBox" class="chat-messages">
-            <!-- Tin nhắn chào mừng -->
-            <div class="msg-row msg-bot">
-                <div class="msg-avatar msg-avatar-bot"><i class="bi bi-robot"></i></div>
-                <div class="msg-bubble">
-                    Xin chào! Tôi có thể tư vấn các <strong>tour du lịch trọn gói</strong> (Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Quy Nhơn, Cần Thơ) hoặc <strong>tra cứu thông tin thời tiết & du lịch trực tuyến</strong> tại bất kỳ điểm đến nào bạn muốn khám phá!
+        <div id="chatBox" class="chat-stream">
+            <!-- Khung chào mừng & gợi ý câu hỏi thông minh -->
+            <div class="welcome-container" id="welcomeBox">
+                <div class="welcome-emoji">🏖️</div>
+                <h6 class="fw-bold mb-1 text-dark">Xin chào! Tôi có thể tư vấn chuyến đi nào cho bạn?</h6>
+                <p class="text-muted small mb-0">Hỏi nhanh về giá vé, lịch trình, thời tiết và kinh nghiệm du lịch tại các điểm đến nổi tiếng:</p>
+
+                <div class="prompt-grid">
+                    <div class="prompt-card" onclick="askQuick('Tour Phú Quốc 3 ngày 2 đêm giá bao nhiêu?')">
+                        <span class="fs-6">🌊</span>
+                        <span>Tour Phú Quốc 3N2Đ giá bao nhiêu?</span>
+                    </div>
+                    <div class="prompt-card" onclick="askQuick('Lịch trình tour Sa Pa đi những đâu?')">
+                        <span class="fs-6">🏔️</span>
+                        <span>Lịch trình tour Sa Pa đi những đâu?</span>
+                    </div>
+                    <div class="prompt-card" onclick="askQuick('Thời tiết Đà Lạt hôm nay thế nào?')">
+                        <span class="fs-6">🌤️</span>
+                        <span>Thời tiết Đà Lạt hôm nay thế nào?</span>
+                    </div>
+                    <div class="prompt-card" onclick="askQuick('Khách sạn trong tour là tiêu chuẩn mấy sao?')">
+                        <span class="fs-6">🏨</span>
+                        <span>Khách sạn trong tour mấy sao?</span>
+                    </div>
+                    <div class="prompt-card" onclick="askQuick('Giá tour đã bao gồm vé máy bay chưa?')">
+                        <span class="fs-6">✈️</span>
+                        <span>Giá tour đã có vé máy bay chưa?</span>
+                    </div>
+                    <div class="prompt-card" onclick="askQuick('Đi Sa Pa có cần mang áo ấm không?')">
+                        <span class="fs-6">🧥</span>
+                        <span>Đi Sa Pa cần mang áo ấm không?</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Tin nhắn cũ nếu có -->
+            <!-- Các tin nhắn đã lưu trong phiên (nếu có) -->
             {% for msg in messages %}
-                <div class="msg-row msg-user">
-                    <div class="msg-bubble">{{ msg.question }}</div>
+                <div class="msg-group msg-group-user">
+                    <div class="msg-icon msg-icon-user"><i class="bi bi-person"></i></div>
+                    <div class="msg-content-wrap">
+                        <div class="msg-bubble-main">{{ msg.question }}</div>
+                    </div>
                 </div>
-                <div class="msg-row msg-bot">
-                    <div class="msg-avatar msg-avatar-bot"><i class="bi bi-robot"></i></div>
-                    <div class="msg-bubble">{{ msg.answer }}</div>
+                <div class="msg-group msg-group-bot">
+                    <div class="msg-icon msg-icon-bot"><i class="bi bi-robot"></i></div>
+                    <div class="msg-content-wrap">
+                        <div class="msg-bubble-main formatted-text">{{ msg.answer }}</div>
+                        <div class="msg-meta">
+                            <button class="copy-btn" onclick="copyMessage(this)" title="Sao chép nội dung">
+                                <i class="bi bi-clipboard"></i> Sao chép
+                            </button>
+                        </div>
+                    </div>
                 </div>
             {% endfor %}
         </div>
 
-        <!-- GỢI Ý CÂU HỎI TINH GỌN -->
-        <div class="quick-chips">
-            <span class="chip-btn" onclick="askQuick(this.innerText)">Tour Phú Quốc giá bao nhiêu?</span>
-            <span class="chip-btn" onclick="askQuick(this.innerText)">Lịch trình tour Sa Pa thế nào?</span>
-            <span class="chip-btn" onclick="askQuick(this.innerText)">Thời tiết Đà Lạt hôm nay có mưa không?</span>
-            <span class="chip-btn" onclick="askQuick(this.innerText)">Giá tour đã bao gồm những gì?</span>
+        <!-- THANH GỢI Ý CHỦ ĐỀ 1 CHẠM -->
+        <div class="chips-tray">
+            <span class="chip-item" onclick="askQuick('Tour Đà Nẵng 3N2Đ')"><i class="bi bi-geo-alt text-primary"></i> Đà Nẵng</span>
+            <span class="chip-item" onclick="askQuick('Tour Hạ Long 2N1Đ')"><i class="bi bi-geo-alt text-primary"></i> Hạ Long</span>
+            <span class="chip-item" onclick="askQuick('Tour Phú Quốc 3N2Đ')"><i class="bi bi-geo-alt text-primary"></i> Phú Quốc</span>
+            <span class="chip-item" onclick="askQuick('Tour Đà Lạt 3N2Đ')"><i class="bi bi-geo-alt text-primary"></i> Đà Lạt</span>
+            <span class="chip-item" onclick="askQuick('Tour Sa Pa 3N2Đ')"><i class="bi bi-geo-alt text-primary"></i> Sa Pa</span>
+            <span class="chip-item" onclick="askQuick('Tour Quy Nhơn - Phú Yên')"><i class="bi bi-geo-alt text-primary"></i> Quy Nhơn</span>
+            <span class="chip-item" onclick="askQuick('Tour Cần Thơ Miền Tây')"><i class="bi bi-geo-alt text-primary"></i> Cần Thơ</span>
+            <span class="chip-item" onclick="askQuick('Chính sách hủy tour và hoàn tiền')"><i class="bi bi-shield-check text-success"></i> Hoàn hủy tour</span>
+            <span class="chip-item" onclick="askQuick('Tour có xuất hóa đơn đỏ VAT không?')"><i class="bi bi-receipt text-warning"></i> Hóa đơn VAT</span>
+            <span class="chip-item" onclick="askQuick('Người ăn chay có đi tour được không?')"><i class="bi bi-egg-fried text-info"></i> Ăn chay</span>
         </div>
 
-        <!-- Ô NHẬP TIN NHẮN PHONG CÁCH HIỆN ĐẠI -->
-        <div class="chat-input-area">
-            <div class="input-pill">
-                <input type="text" id="questionInput" placeholder="Nhập câu hỏi của bạn..." autocomplete="off">
-                <button class="send-circle-btn" id="sendBtn" onclick="sendChatMessage()" title="Gửi tin nhắn">
+        <!-- Ô NHẬP LIỆU PHONG CÁCH TỐI GIẢN -->
+        <div class="chat-composer">
+            <div class="composer-pill">
+                <input type="text" id="questionInput" placeholder="Nhập câu hỏi của bạn (Ví dụ: Giá tour Đà Lạt, thời tiết Nha Trang...)" autocomplete="off" />
+                <button type="button" class="btn-clear-text" id="clearBtn" onclick="clearInput()" title="Xóa nội dung">
+                    <i class="bi bi-x-circle-fill"></i>
+                </button>
+                <button type="button" class="btn-send-msg" id="sendBtn" onclick="sendChatMessage()" title="Gửi tin nhắn (Enter)">
                     <i class="bi bi-arrow-up-short fs-4"></i>
                 </button>
+            </div>
+            <div class="text-center text-muted mt-2" style="font-size: 0.75rem;">
+                Nhấn <kbd class="bg-light text-dark border px-1 rounded">Enter</kbd> để gửi &bull; Trợ lý AI sẵn sàng hỗ trợ bạn 24/7
             </div>
         </div>
     </div>
@@ -275,60 +516,151 @@ function scrollToBottom() {
 }
 
 function askQuick(text) {
-    document.getElementById("questionInput").value = text;
+    const input = document.getElementById("questionInput");
+    input.value = text;
     sendChatMessage();
+}
+
+function clearInput() {
+    const input = document.getElementById("questionInput");
+    input.value = "";
+    document.getElementById("clearBtn").style.display = "none";
+    input.focus();
+}
+
+function getTimeString() {
+    const now = new Date();
+    const h = String(now.getHours()).padStart(2, '0');
+    const m = String(now.getMinutes()).padStart(2, '0');
+    return `${h}:${m}`;
+}
+
+function formatMarkdown(raw) {
+    if (!raw) return "";
+
+    let text = escapeHtml(raw);
+
+    // 1. Chuyển đổi in đậm **text** -> <strong>text</strong>
+    text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+    // 2. Chuyển đổi in nghiêng *text* -> <em>text</em>
+    text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+    // 3. Định dạng link chi tiết tour nội bộ /tours/X thành nút bấm đẹp
+    text = text.replace(
+        /(?:\/tours\/(\d+))/g,
+        '<a href="/tours/$1" class="tour-action-badge"><i class="bi bi-compass"></i> Xem chi tiết tour</a>'
+    );
+
+    // 4. Chuyển đổi link web bên ngoài thành link mở tab mới
+    text = text.replace(
+        /(https?:\/\/[^\s]+)/g,
+        '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-primary text-decoration-none fw-semibold"><i class="bi bi-box-arrow-up-right me-1 small"></i>$1</a>'
+    );
+
+    // 5. Chuyển đổi các dòng gạch đầu dòng hoặc ký hiệu thành ngắt dòng sạch
+    text = text.replace(/\n/g, '<br>');
+
+    return text;
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.innerText = text;
+    return div.innerHTML;
+}
+
+async function copyMessage(btn) {
+    const bubble = btn.closest('.msg-content-wrap').querySelector('.msg-bubble-main');
+    if (!bubble) return;
+
+    try {
+        await navigator.clipboard.writeText(bubble.innerText);
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="bi bi-check2 text-success"></i> Đã chép!';
+        setTimeout(() => {
+            btn.innerHTML = originalHtml;
+        }, 1800);
+    } catch (err) {
+        console.error("Không thể sao chép:", err);
+    }
 }
 
 function newChatSession() {
     currentSessionId = null;
     const chatBox = document.getElementById("chatBox");
+
+    // Giữ lại khung chào mừng sạch sẽ
     chatBox.innerHTML = `
-        <div class="msg-row msg-bot">
-            <div class="msg-avatar msg-avatar-bot"><i class="bi bi-robot"></i></div>
-            <div class="msg-bubble">
-                Cuộc trò chuyện mới đã bắt đầu. Hãy hỏi tôi về tour du lịch, giá vé, lịch trình hoặc bất kỳ thông tin nào bạn cần tra cứu nhé!
+        <div class="welcome-container" id="welcomeBox">
+            <div class="welcome-emoji">✨</div>
+            <h6 class="fw-bold mb-1 text-dark">Cuộc trò chuyện mới đã sẵn sàng!</h6>
+            <p class="text-muted small mb-0">Bạn có thể hỏi bất kỳ thông tin nào về các tour, lịch trình hoặc giá vé:</p>
+
+            <div class="prompt-grid">
+                <div class="prompt-card" onclick="askQuick('Tour Phú Quốc 3 ngày 2 đêm giá bao nhiêu?')">
+                    <span class="fs-6">🌊</span>
+                    <span>Tour Phú Quốc 3N2Đ giá bao nhiêu?</span>
+                </div>
+                <div class="prompt-card" onclick="askQuick('Lịch trình tour Sa Pa đi những đâu?')">
+                    <span class="fs-6">🏔️</span>
+                    <span>Lịch trình tour Sa Pa đi những đâu?</span>
+                </div>
+                <div class="prompt-card" onclick="askQuick('Thời tiết Đà Lạt hôm nay thế nào?')">
+                    <span class="fs-6">🌤️</span>
+                    <span>Thời tiết Đà Lạt hôm nay thế nào?</span>
+                </div>
+                <div class="prompt-card" onclick="askQuick('Khách sạn trong tour là tiêu chuẩn mấy sao?')">
+                    <span class="fs-6">🏨</span>
+                    <span>Khách sạn trong tour mấy sao?</span>
+                </div>
             </div>
         </div>
     `;
-    document.getElementById("questionInput").focus();
-}
-
-function formatContent(text) {
-    let safe = escapeHtml(text);
-
-    // Chuyển link nội bộ /tours/1 thành thẻ link đẹp
-    safe = safe.replace(/(\/tours\/\d+)/g, '<a href="$1" class="fw-bold text-primary text-decoration-none"><i class="bi bi-compass me-1"></i>Xem chi tiết tour</a>');
-
-    // Chuyển link web thành thẻ link mở tab mới
-    safe = safe.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-primary text-decoration-none fw-medium"><i class="bi bi-box-arrow-up-right small me-1"></i>$1</a>');
-
-    return safe;
+    const input = document.getElementById("questionInput");
+    input.value = "";
+    input.focus();
 }
 
 async function sendChatMessage() {
     const input = document.getElementById("questionInput");
+    const sendBtn = document.getElementById("sendBtn");
     const question = input.value.trim();
     if (!question) return;
 
     const chatBox = document.getElementById("chatBox");
+    const timeStr = getTimeString();
 
-    // Hiển thị tin nhắn người dùng
+    // 1. Thêm tin nhắn của người dùng
     chatBox.innerHTML += `
-        <div class="msg-row msg-user">
-            <div class="msg-bubble">${escapeHtml(question)}</div>
+        <div class="msg-group msg-group-user">
+            <div class="msg-icon msg-icon-user"><i class="bi bi-person"></i></div>
+            <div class="msg-content-wrap">
+                <div class="msg-bubble-main">${escapeHtml(question)}</div>
+                <div class="msg-meta"><span>${timeStr}</span></div>
+            </div>
         </div>
     `;
+
     input.value = "";
+    document.getElementById("clearBtn").style.display = "none";
+    input.disabled = true;
+    sendBtn.disabled = true;
     scrollToBottom();
 
-    // Hiển thị hiệu ứng loading tinh gọn
+    // 2. Thêm hiệu ứng gõ tin nhắn (Typing Indicator) tinh tế
     const loadingId = "loading-" + Date.now();
     chatBox.innerHTML += `
-        <div class="msg-row msg-bot" id="${loadingId}">
-            <div class="msg-avatar msg-avatar-bot"><i class="bi bi-robot"></i></div>
-            <div class="msg-bubble text-muted small d-flex align-items-center gap-2">
-                <span class="spinner-border spinner-border-sm text-primary" role="status"></span>
-                <span>Đang xử lý câu trả lời...</span>
+        <div class="msg-group msg-group-bot" id="${loadingId}">
+            <div class="msg-icon msg-icon-bot"><i class="bi bi-robot"></i></div>
+            <div class="msg-content-wrap">
+                <div class="msg-bubble-main text-muted">
+                    <div class="typing-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
             </div>
         </div>
     `;
@@ -352,12 +684,23 @@ async function sendChatMessage() {
             currentSessionId = data.session_id;
         }
 
-        const formattedAnswer = formatContent(data.answer);
+        const answerText = data.answer || data.response || "Tôi đã nhận được câu hỏi của bạn.";
+        const formattedAnswer = formatMarkdown(answerText);
+        const respTime = getTimeString();
 
         chatBox.innerHTML += `
-            <div class="msg-row msg-bot">
-                <div class="msg-avatar msg-avatar-bot"><i class="bi bi-robot"></i></div>
-                <div class="msg-bubble">${formattedAnswer}</div>
+            <div class="msg-group msg-group-bot">
+                <div class="msg-icon msg-icon-bot"><i class="bi bi-robot"></i></div>
+                <div class="msg-content-wrap">
+                    <div class="msg-bubble-main">${formattedAnswer}</div>
+                    <div class="msg-meta">
+                        <span>${respTime}</span>
+                        <span>&bull;</span>
+                        <button class="copy-btn" onclick="copyMessage(this)" title="Sao chép nội dung">
+                            <i class="bi bi-clipboard"></i> Sao chép
+                        </button>
+                    </div>
+                </div>
             </div>
         `;
         scrollToBottom();
@@ -367,31 +710,45 @@ async function sendChatMessage() {
         if (loadingElem) loadingElem.remove();
 
         chatBox.innerHTML += `
-            <div class="msg-row msg-bot">
-                <div class="msg-avatar msg-avatar-bot"><i class="bi bi-robot"></i></div>
-                <div class="msg-bubble text-danger small">
-                    <i class="bi bi-exclamation-circle me-1"></i> Có lỗi kết nối đến máy chủ AI. Vui lòng thử lại!
+            <div class="msg-group msg-group-bot">
+                <div class="msg-icon msg-icon-bot"><i class="bi bi-robot"></i></div>
+                <div class="msg-content-wrap">
+                    <div class="msg-bubble-main text-danger small">
+                        <i class="bi bi-exclamation-triangle-fill me-1"></i> Có lỗi khi kết nối đến máy chủ AI. Vui lòng thử lại!
+                    </div>
                 </div>
             </div>
         `;
         scrollToBottom();
-        console.error(error);
+        console.error("Lỗi gửi tin nhắn:", error);
+    } finally {
+        input.disabled = false;
+        sendBtn.disabled = false;
+        input.focus();
     }
 }
 
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.innerText = text;
-    return div.innerHTML;
-}
+// Xử lý sự kiện bàn phím và nút xóa
+const questionInput = document.getElementById("questionInput");
+const clearBtn = document.getElementById("clearBtn");
 
-document.getElementById("questionInput").addEventListener("keydown", function(event) {
+questionInput.addEventListener("input", function() {
+    clearBtn.style.display = this.value.length > 0 ? "block" : "none";
+});
+
+questionInput.addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
         event.preventDefault();
         sendChatMessage();
     }
 });
 
-window.addEventListener("DOMContentLoaded", scrollToBottom);
+// Định dạng lại các tin nhắn cũ từ lịch sử
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".formatted-text").forEach(function(elem) {
+        elem.innerHTML = formatMarkdown(elem.innerText);
+    });
+    scrollToBottom();
+});
 </script>
 {% endblock %}
