@@ -142,7 +142,7 @@ class Chatbot:
 
     def __init__(self):
         self.vectorizer = None   # Mô hình TF-IDF
-        self.model = None        # Mô hình Naive Bayes (ComplementNB / MultinomialNB)
+        self.model = None        # Mô hình DeepHybridModel (Deep MLP + ComplementNB)
         self.data_vectors = None # Vector TF-IDF của tập dữ liệu mẫu
 
         self.questions = []
@@ -262,8 +262,9 @@ class Chatbot:
                 matched_local.append(tour)
 
         matched_outside = []
+        q_unaccent = remove_accents(q_low)
         for out_dest in OUTSIDE_DESTINATIONS:
-            if out_dest in q_low:
+            if out_dest in q_low or remove_accents(out_dest) in q_unaccent:
                 matched_outside.append(out_dest)
 
         return matched_local, matched_outside
@@ -271,10 +272,10 @@ class Chatbot:
     def compute_hybrid_cosine_similarity(self, question_vector, intent_probs, allowed_tour_ids=None):
         """
         THUẬT TOÁN SO KHỚP KẾT HỢP (HYBRID INTENT-WEIGHTED COSINE SIMILARITY):
-        Kết hợp trực tiếp ma trận xác suất từ Naive Bayes với độ đo Cosine TF-IDF:
+        Kết hợp ma trận xác suất từ DeepHybridModel (Deep MLP + Naive Bayes) với độ đo Cosine TF-IDF:
         - Tính độ đo Cosine thuần túy giữa vector câu hỏi và các câu hỏi mẫu.
         - Tăng trọng số (boost) lên đến +25% cho các câu hỏi mẫu có intent trùng khớp với
-          phân phối xác suất Naive Bayes.
+          phân phối xác suất từ mô hình học sâu.
         - Lọc ưu tiên theo allowed_tour_ids nếu có điểm đến cụ thể.
         """
         if self.data_vectors is None or self.vectorizer is None or len(self.questions) == 0:
@@ -282,7 +283,7 @@ class Chatbot:
 
         raw_similarities = cosine_similarity(question_vector, self.data_vectors)[0]
 
-        # Áp dụng trọng số tăng cường từ Naive Bayes Intent Probabilities
+        # Áp dụng trọng số tăng cường từ DeepHybridModel Intent Probabilities
         weighted_similarities = raw_similarities.copy()
         if intent_probs:
             for i, intent in enumerate(self.intents):
@@ -463,12 +464,12 @@ class Chatbot:
                 return rec_result
 
         # -------------------------------------------------------------
-        # XỬ LÝ 4: TF-IDF VECTORIZATION & NAIVE BAYES PROBABILITIES
+        # XỬ LÝ 4: TF-IDF VECTORIZATION & DEEP HYBRID INTENT PROBABILITIES
         # -------------------------------------------------------------
         processed_question = preprocess_text(q_clean)
         question_vector = self.vectorizer.transform([processed_question])
 
-        # Phân phối xác suất tất cả các intent từ mô hình Naive Bayes
+        # Phân phối xác suất tất cả các intent từ mô hình DeepHybridModel (Deep MLP + Naive Bayes)
         try:
             intent_prob_arr = self.model.predict_proba(question_vector)[0]
             intent_probs = dict(zip(self.model.classes_, intent_prob_arr))

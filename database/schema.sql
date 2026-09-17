@@ -1,9 +1,6 @@
-CREATE DATABASE chatbot_tour
-CHARACTER SET utf8mb4
-COLLATE utf8mb4_unicode_ci;
-
-USE chatbot_tour;
-
+-- =======================================================
+-- HỆ THỐNG CƠ SỞ DỮ LIỆU TOURAI (chatbot_tour)
+-- =======================================================
 CREATE DATABASE IF NOT EXISTS chatbot_tour
 CHARACTER SET utf8mb4
 COLLATE utf8mb4_unicode_ci;
