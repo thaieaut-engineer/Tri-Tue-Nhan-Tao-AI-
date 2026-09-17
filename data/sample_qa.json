@@ -1,55 +1,133 @@
 [
   {
     "question": "Xin chào",
-    "answer": "Xin chào! Tôi là chatbot tư vấn du lịch. Tôi có thể giúp bạn tìm kiếm tour, xem giá vé, lịch trình và các điểm đến hấp dẫn.",
+    "answer": "Xin chào! Tôi là trợ lý AI của TourAI. Tôi có thể giúp bạn tìm kiếm tour du lịch, kiểm tra giá vé, xem lịch trình chi tiết và tra cứu thời tiết thời gian thực.",
     "intent": "chao_hoi",
     "tour_id": null
   },
   {
     "question": "Chào bạn",
-    "answer": "Chào bạn! Chúc bạn một ngày tốt lành. Bạn đang muốn tìm tour du lịch ở đâu?",
+    "answer": "Chào bạn! Chúc bạn một ngày tốt lành. Bạn đang muốn tìm kiếm tour du lịch ở điểm đến nào?",
     "intent": "chao_hoi",
     "tour_id": null
   },
   {
-    "question": "Hello",
-    "answer": "Xin chào! Rất vui được hỗ trợ bạn. Bạn cần tư vấn tour du lịch nào?",
+    "question": "Hello bot",
+    "answer": "Xin chào! Rất vui được hỗ trợ bạn. Bạn cần tư vấn tour biển đảo, nghỉ dưỡng hay khám phá vùng cao?",
     "intent": "chao_hoi",
     "tour_id": null
   },
   {
     "question": "Hi bot",
-    "answer": "Chào bạn! Tôi có thể hỗ trợ gì cho kế hoạch du lịch của bạn?",
+    "answer": "Chào bạn! Tôi có thể hỗ trợ gì cho kế hoạch du lịch sắp tới của bạn?",
+    "intent": "chao_hoi",
+    "tour_id": null
+  },
+  {
+    "question": "Alo chatbot",
+    "answer": "Dạ TourAI xin chào! Bạn cần tìm thông tin tour, giá vé hay lịch trình tham quan nào ạ?",
+    "intent": "chao_hoi",
+    "tour_id": null
+  },
+  {
+    "question": "Chào buổi sáng",
+    "answer": "Chào buổi sáng bạn! Chúc bạn một ngày mới tràn đầy năng lượng. Hãy để tôi giúp bạn lên kế hoạch du lịch tuyệt vời nhé!",
+    "intent": "chao_hoi",
+    "tour_id": null
+  },
+  {
+    "question": "Chào buổi chiều",
+    "answer": "Chào bạn! Chúc bạn một buổi chiều vui vẻ. Bạn đang quan tâm đến chuyến đi du lịch nào?",
+    "intent": "chao_hoi",
+    "tour_id": null
+  },
+  {
+    "question": "Có ai ở đây không?",
+    "answer": "Chào bạn, tôi là trợ lý ảo TourAI luôn sẵn sàng hỗ trợ bạn 24/7. Bạn cần tư vấn tour du lịch nào?",
+    "intent": "chao_hoi",
+    "tour_id": null
+  },
+  {
+    "question": "Tư vấn giúp tôi với",
+    "answer": "Chào bạn! Tôi rất sẵn lòng hỗ trợ. Bạn muốn đi du lịch ở đâu (Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa...) và dự kiến đi mấy ngày?",
+    "intent": "chao_hoi",
+    "tour_id": null
+  },
+  {
+    "question": "Tôi cần trợ giúp về tour",
+    "answer": "Vâng, bạn cần thông tin về tour nào, giá cả, thời gian khởi hành hay lịch trình chi tiết cứ hỏi tôi nhé!",
+    "intent": "chao_hoi",
+    "tour_id": null
+  },
+  {
+    "question": "Xin chào TourAI",
+    "answer": "Xin chào bạn! Cảm ơn bạn đã ghé thăm TourAI. Bạn muốn khám phá điểm đến hấp dẫn nào hôm nay?",
+    "intent": "chao_hoi",
+    "tour_id": null
+  },
+  {
+    "question": "Bắt đầu tư vấn nào",
+    "answer": "Tuyệt vời! Bạn hãy cho tôi biết điểm đến mong muốn hoặc mức ngân sách dự kiến, tôi sẽ gợi ý tour phù hợp nhất.",
     "intent": "chao_hoi",
     "tour_id": null
   },
   {
     "question": "Tạm biệt",
-    "answer": "Cảm ơn bạn đã sử dụng dịch vụ tư vấn. Chúc bạn có chuyến đi thật vui vẻ và an toàn!",
+    "answer": "Cảm ơn bạn đã trò chuyện cùng TourAI. Chúc bạn có những chuyến đi thật trọn vẹn và nhiều trải nghiệm đẹp!",
     "intent": "tam_biet",
     "tour_id": null
   },
   {
     "question": "Cảm ơn bạn nhé",
-    "answer": "Không có gì ạ! Nếu cần hỗ trợ thêm thông tin về tour, bạn cứ nhắn cho tôi nhé.",
+    "answer": "Không có gì ạ! Rất vui được hỗ trợ bạn. Khi nào cần tư vấn thêm, bạn cứ quay lại nhắn cho tôi nhé!",
     "intent": "tam_biet",
     "tour_id": null
   },
   {
     "question": "Bye bot",
-    "answer": "Tạm biệt bạn! Hẹn gặp lại bạn trong những chuyến hành trình sắp tới.",
+    "answer": "Tạm biệt bạn! Chúc bạn một ngày tốt lành và hẹn gặp lại trong những chuyến hành trình sắp tới.",
+    "intent": "tam_biet",
+    "tour_id": null
+  },
+  {
+    "question": "Cảm ơn rất nhiều",
+    "answer": "Dạ không có chi ạ! Chúc bạn và gia đình có một kỳ nghỉ thật vui vẻ, an toàn và ý nghĩa!",
+    "intent": "tam_biet",
+    "tour_id": null
+  },
+  {
+    "question": "Hẹn gặp lại nhé",
+    "answer": "Hẹn gặp lại bạn! Bất cứ khi nào cần thông tin du lịch hay thời tiết, hãy ghé thăm TourAI nhé.",
+    "intent": "tam_biet",
+    "tour_id": null
+  },
+  {
+    "question": "Thanks bot",
+    "answer": "You're welcome! Chúc bạn có chuyến du lịch đáng nhớ!",
+    "intent": "tam_biet",
+    "tour_id": null
+  },
+  {
+    "question": "Cảm ơn em tư vấn nhiệt tình",
+    "answer": "Dạ cảm ơn anh/chị nhiều ạ! Chúc anh/chị chọn được tour ưng ý và có chuyến đi thật vui vẻ!",
+    "intent": "tam_biet",
+    "tour_id": null
+  },
+  {
+    "question": "OK cảm ơn bạn",
+    "answer": "Dạ, chúc bạn một ngày tuyệt vời nhé!",
     "intent": "tam_biet",
     "tour_id": null
   },
   {
     "question": "Tour Đà Nẵng giá bao nhiêu?",
-    "answer": "Giá Tour Đà Nẵng 3 ngày 2 đêm hiện tại là 4.500.000 VNĐ/khách.",
+    "answer": "Giá Tour Đà Nẵng 3 ngày 2 đêm hiện tại là 4.500.000 VNĐ/khách trọn gói.",
     "intent": "hoi_gia",
     "tour_id": 1
   },
   {
     "question": "Chi phí đi tour Đà Nẵng",
-    "answer": "Tour Đà Nẵng trọn gói 3 ngày 2 đêm có giá 4.500.000 VNĐ bao gồm khách sạn, ăn uống và vé tham quan.",
+    "answer": "Tour Đà Nẵng trọn gói 3 ngày 2 đêm có giá 4.500.000 VNĐ bao gồm khách sạn, các bữa ăn chính, xe đưa đón và vé tham quan Bà Nà Hills.",
     "intent": "hoi_gia",
     "tour_id": 1
   },
@@ -61,49 +139,187 @@
   },
   {
     "question": "Bảng giá tour du lịch Đà Nẵng",
-    "answer": "Hiện tại Tour Đà Nẵng 3 ngày 2 đêm có mức giá ưu đãi là 4.500.000 VNĐ.",
+    "answer": "Hiện tại Tour Đà Nẵng 3 ngày 2 đêm có mức giá ưu đãi là 4.500.000 VNĐ/khách.",
     "intent": "hoi_gia",
     "tour_id": 1
   },
   {
     "question": "Tour Nha Trang giá bao nhiêu?",
-    "answer": "Giá Tour Nha Trang 3 ngày 2 đêm là 4.200.000 VNĐ/khách.",
+    "answer": "Giá Tour Nha Trang 3 ngày 2 đêm là 4.200.000 VNĐ/khách trọn gói.",
     "intent": "hoi_gia",
     "tour_id": 2
   },
   {
     "question": "Chi phí đi Nha Trang 3 ngày 2 đêm",
-    "answer": "Tour Nha Trang trọn gói 3N2Đ có giá 4.200.000 VNĐ/khách.",
+    "answer": "Tour Nha Trang trọn gói 3N2Đ có giá 4.200.000 VNĐ/khách đã bao gồm vé vui chơi VinWonders và lặn ngắm san hô.",
     "intent": "hoi_gia",
     "tour_id": 2
   },
   {
     "question": "Giá tour Nha Trang",
-    "answer": "Giá Tour Nha Trang là 4.200.000 VNĐ/khách.",
+    "answer": "Giá Tour Nha Trang 3 ngày 2 đêm là 4.200.000 VNĐ/khách.",
+    "intent": "hoi_gia",
+    "tour_id": 2
+  },
+  {
+    "question": "Đi Nha Trang trọn gói hết bao nhiêu",
+    "answer": "Tour du lịch Nha Trang 3 ngày 2 đêm trọn gói có mức giá là 4.200.000 VNĐ/người.",
     "intent": "hoi_gia",
     "tour_id": 2
   },
   {
     "question": "Tour Hạ Long giá bao nhiêu?",
-    "answer": "Giá Tour Hạ Long 2 ngày 1 đêm là 3.500.000 VNĐ/khách.",
+    "answer": "Giá Tour Hạ Long 2 ngày 1 đêm là 3.500.000 VNĐ/khách nghỉ dưỡng trên du thuyền.",
     "intent": "hoi_gia",
     "tour_id": 3
   },
   {
     "question": "Chi phí tour vịnh Hạ Long",
-    "answer": "Tour Hạ Long 2 ngày 1 đêm trọn gói du thuyền có giá 3.500.000 VNĐ/khách.",
+    "answer": "Tour Hạ Long 2 ngày 1 đêm trọn gói du thuyền cao cấp có giá 3.500.000 VNĐ/khách.",
     "intent": "hoi_gia",
     "tour_id": 3
   },
   {
-    "question": "Giá cả tour du lịch",
-    "answer": "Giá các tour hiện tại: Tour Hạ Long từ 3.500.000đ, Nha Trang từ 4.200.000đ, Đà Nẵng từ 4.500.000đ.",
+    "question": "Giá vé du thuyền Hạ Long 2 ngày 1 đêm",
+    "answer": "Tour du thuyền Vịnh Hạ Long 2N1Đ có giá ưu đãi là 3.500.000 VNĐ bao gồm phòng nghỉ ngắm vịnh và chèo kayak.",
+    "intent": "hoi_gia",
+    "tour_id": 3
+  },
+  {
+    "question": "Tour Phú Quốc giá bao nhiêu?",
+    "answer": "Giá Tour Phú Quốc 3 ngày 2 đêm hiện tại là 5.200.000 VNĐ/khách trọn gói.",
+    "intent": "hoi_gia",
+    "tour_id": 4
+  },
+  {
+    "question": "Chi phí đi đảo ngọc Phú Quốc",
+    "answer": "Tour Phú Quốc trọn gói 3 ngày 2 đêm có giá 5.200.000 VNĐ/khách, bao gồm vé cáp treo Hòn Thơm và khám phá Grand World.",
+    "intent": "hoi_gia",
+    "tour_id": 4
+  },
+  {
+    "question": "Giá tour Phú Quốc 3 ngày 2 đêm trọn gói",
+    "answer": "Mức giá trọn gói Tour Phú Quốc 3 ngày 2 đêm là 5.200.000 VNĐ/người.",
+    "intent": "hoi_gia",
+    "tour_id": 4
+  },
+  {
+    "question": "Đi Phú Quốc hết bao nhiêu tiền",
+    "answer": "Tour Phú Quốc 3N2Đ tại TourAI có giá 5.200.000 VNĐ/khách đã bao gồm khách sạn resort, các bữa ăn và vé tham quan.",
+    "intent": "hoi_gia",
+    "tour_id": 4
+  },
+  {
+    "question": "Tour Đà Lạt giá bao nhiêu?",
+    "answer": "Giá Tour Đà Lạt 3 ngày 2 đêm là 3.800.000 VNĐ/khách trọn gói.",
+    "intent": "hoi_gia",
+    "tour_id": 5
+  },
+  {
+    "question": "Chi phí du lịch Đà Lạt trọn gói",
+    "answer": "Tour Đà Lạt 3 ngày 2 đêm có giá 3.800.000 VNĐ/khách, bao gồm xe đưa đón, khách sạn trung tâm, vé Langbiang và Thung Lũng Tình Yêu.",
+    "intent": "hoi_gia",
+    "tour_id": 5
+  },
+  {
+    "question": "Giá tour đi Đà Lạt 3N2Đ",
+    "answer": "Tour Đà Lạt 3 ngày 2 đêm có mức giá ưu đãi là 3.800.000 VNĐ/người.",
+    "intent": "hoi_gia",
+    "tour_id": 5
+  },
+  {
+    "question": "Bảng giá tour Đà Lạt",
+    "answer": "Hiện tại Tour Đà Lạt 3 ngày 2 đêm khám phá thành phố sương mù có giá là 3.800.000 VNĐ.",
+    "intent": "hoi_gia",
+    "tour_id": 5
+  },
+  {
+    "question": "Tour Sa Pa giá bao nhiêu?",
+    "answer": "Giá Tour Sa Pa 3 ngày 2 đêm hiện tại là 4.100.000 VNĐ/khách trọn gói.",
+    "intent": "hoi_gia",
+    "tour_id": 6
+  },
+  {
+    "question": "Chi phí đi Sa Pa Fansipan",
+    "answer": "Tour Sa Pa 3 ngày 2 đêm chinh phục đỉnh Fansipan có giá 4.100.000 VNĐ/khách.",
+    "intent": "hoi_gia",
+    "tour_id": 6
+  },
+  {
+    "question": "Giá tour Sa Pa 3 ngày 2 đêm",
+    "answer": "Tour Sa Pa 3N2Đ trọn gói có giá 4.100.000 VNĐ/khách.",
+    "intent": "hoi_gia",
+    "tour_id": 6
+  },
+  {
+    "question": "Đi Sa Pa hết bao nhiêu tiền",
+    "answer": "Chi phí trọn gói Tour Sa Pa 3 ngày 2 đêm là 4.100.000 VNĐ bao gồm khách sạn, ăn uống, xe đưa đón và vé tham quan bản Cát Cát.",
+    "intent": "hoi_gia",
+    "tour_id": 6
+  },
+  {
+    "question": "Tour Quy Nhơn Phú Yên giá bao nhiêu?",
+    "answer": "Giá Tour Quy Nhơn - Phú Yên 4 ngày 3 đêm là 4.900.000 VNĐ/khách.",
+    "intent": "hoi_gia",
+    "tour_id": 7
+  },
+  {
+    "question": "Chi phí tour Quy Nhơn 4 ngày 3 đêm",
+    "answer": "Tour Quy Nhơn - Phú Yên 4 ngày 3 đêm khám phá Kỳ Co, Eo Gió và Ghềnh Đá Đĩa có giá 4.900.000 VNĐ/khách.",
+    "intent": "hoi_gia",
+    "tour_id": 7
+  },
+  {
+    "question": "Giá vé tour Kỳ Co Eo Gió Quy Nhơn",
+    "answer": "Tour Quy Nhơn - Phú Yên trọn gói 4N3Đ có giá ưu đãi là 4.900.000 VNĐ/người.",
+    "intent": "hoi_gia",
+    "tour_id": 7
+  },
+  {
+    "question": "Tour Cần Thơ Miền Tây giá bao nhiêu?",
+    "answer": "Giá Tour Cần Thơ - Miền Tây 2 ngày 1 đêm là 2.800.000 VNĐ/khách.",
+    "intent": "hoi_gia",
+    "tour_id": 8
+  },
+  {
+    "question": "Chi phí đi chợ nổi Cái Răng Cần Thơ",
+    "answer": "Tour Cần Thơ - Sông nước miền Tây 2 ngày 1 đêm có giá 2.800.000 VNĐ/khách bao gồm thuyền tham quan chợ nổi và vườn trái cây.",
+    "intent": "hoi_gia",
+    "tour_id": 8
+  },
+  {
+    "question": "Giá tour miền tây 2 ngày 1 đêm",
+    "answer": "Tour Cần Thơ 2N1Đ có mức giá tiết kiệm chỉ 2.800.000 VNĐ/người.",
+    "intent": "hoi_gia",
+    "tour_id": 8
+  },
+  {
+    "question": "Bảng giá các tour du lịch hiện có",
+    "answer": "Bảng giá tour hiện tại: Cần Thơ (2.800.000đ), Hạ Long (3.500.000đ), Đà Lạt (3.800.000đ), Sa Pa (4.100.000đ), Nha Trang (4.200.000đ), Đà Nẵng (4.500.000đ), Quy Nhơn (4.900.000đ), Phú Quốc (5.200.000đ).",
     "intent": "hoi_gia",
     "tour_id": null
   },
   {
-    "question": "Bảng giá các tour du lịch hiện có",
-    "answer": "Hạ Long: 3.500.000 VNĐ, Nha Trang: 4.200.000 VNĐ, Đà Nẵng: 4.500.000 VNĐ.",
+    "question": "Tour du lịch nào rẻ nhất?",
+    "answer": "Hiện tại tour có chi phí tiết kiệm nhất là Tour Cần Thơ - Miền Tây 2 ngày 1 đêm với giá chỉ 2.800.000 VNĐ/khách.",
+    "intent": "hoi_gia",
+    "tour_id": 8
+  },
+  {
+    "question": "Có tour nào dưới 4 triệu không?",
+    "answer": "Chúng tôi có 3 tour dưới 4 triệu: Tour Cần Thơ 2N1Đ (2.800.000đ), Tour Hạ Long 2N1Đ (3.500.000đ) và Tour Đà Lạt 3N2Đ (3.800.000đ).",
+    "intent": "hoi_gia",
+    "tour_id": null
+  },
+  {
+    "question": "Có tour nào dưới 5 triệu không?",
+    "answer": "Các tour dưới 5 triệu gồm: Cần Thơ (2.8tr), Hạ Long (3.5tr), Đà Lạt (3.8tr), Sa Pa (4.1tr), Nha Trang (4.2tr), Đà Nẵng (4.5tr) và Quy Nhơn (4.9tr).",
+    "intent": "hoi_gia",
+    "tour_id": null
+  },
+  {
+    "question": "Giá cả các tour du lịch trong nước",
+    "answer": "Các tour nội địa của TourAI có mức giá dao động từ 2.800.000đ đến 5.200.000đ tùy thuộc vào điểm đến và thời gian lưu trú.",
     "intent": "hoi_gia",
     "tour_id": null
   },
@@ -115,25 +331,25 @@
   },
   {
     "question": "Thời gian tour Đà Nẵng là bao lâu",
-    "answer": "Thời gian tham quan tour Đà Nẵng là 3 ngày 2 đêm.",
+    "answer": "Thời gian tham quan tour Đà Nẵng trọn vẹn là 3 ngày 2 đêm.",
     "intent": "hoi_thoi_gian",
     "tour_id": 1
   },
   {
     "question": "Tour Nha Trang đi mấy ngày mấy đêm?",
-    "answer": "Tour Nha Trang diễn ra trong 3 ngày 2 đêm.",
+    "answer": "Tour Nha Trang diễn ra trong thời gian 3 ngày 2 đêm.",
     "intent": "hoi_thoi_gian",
     "tour_id": 2
   },
   {
     "question": "Thời gian tour Nha Trang",
-    "answer": "Tour Nha Trang có thời lượng 3 ngày 2 đêm.",
+    "answer": "Thời gian tour Nha Trang là 3 ngày 2 đêm.",
     "intent": "hoi_thoi_gian",
     "tour_id": 2
   },
   {
     "question": "Tour Hạ Long đi mấy ngày?",
-    "answer": "Tour Hạ Long có lịch trình 2 ngày 1 đêm.",
+    "answer": "Tour Hạ Long có lịch trình nghỉ dưỡng 2 ngày 1 đêm trên du thuyền.",
     "intent": "hoi_thoi_gian",
     "tour_id": 3
   },
@@ -144,26 +360,122 @@
     "tour_id": 3
   },
   {
+    "question": "Tour Phú Quốc đi mấy ngày?",
+    "answer": "Tour Phú Quốc có thời lượng 3 ngày 2 đêm.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": 4
+  },
+  {
+    "question": "Thời gian tham quan tour Phú Quốc",
+    "answer": "Tour Phú Quốc diễn ra trong 3 ngày 2 đêm với lịch trình khám phá Bắc đảo và Nam đảo.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": 4
+  },
+  {
+    "question": "Tour Phú Quốc kéo dài bao lâu",
+    "answer": "Thời lượng tour Phú Quốc là 3 ngày 2 đêm.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": 4
+  },
+  {
+    "question": "Tour Đà Lạt đi mấy ngày mấy đêm?",
+    "answer": "Tour Đà Lạt có thời gian 3 ngày 2 đêm.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": 5
+  },
+  {
+    "question": "Thời gian đi tour Đà Lạt",
+    "answer": "Tour du lịch Đà Lạt diễn ra trong 3 ngày 2 đêm.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": 5
+  },
+  {
+    "question": "Tour Sa Pa đi mấy ngày?",
+    "answer": "Tour Sa Pa có thời lượng 3 ngày 2 đêm.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": 6
+  },
+  {
+    "question": "Thời gian tour du lịch Sa Pa",
+    "answer": "Thời gian tour Sa Pa là 3 ngày 2 đêm với trải nghiệm cáp treo Fansipan và bản làng Tây Bắc.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": 6
+  },
+  {
+    "question": "Đi Fansipan Sa Pa mất mấy ngày",
+    "answer": "Tour Sa Pa Fansipan được thiết kế tối ưu trong 3 ngày 2 đêm để bạn có đủ thời gian nghỉ ngơi và ngắm cảnh.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": 6
+  },
+  {
+    "question": "Tour Quy Nhơn đi mấy ngày?",
+    "answer": "Tour Quy Nhơn - Phú Yên có thời lượng 4 ngày 3 đêm.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": 7
+  },
+  {
+    "question": "Thời gian tour Quy Nhơn Phú Yên",
+    "answer": "Hành trình Quy Nhơn - Phú Yên kéo dài 4 ngày 3 đêm để bạn trải nghiệm trọn vẹn 2 vùng đất biển miền Trung.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": 7
+  },
+  {
+    "question": "Tour Cần Thơ miền tây đi mấy ngày?",
+    "answer": "Tour Cần Thơ - Miền Tây diễn ra trong 2 ngày 1 đêm.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": 8
+  },
+  {
+    "question": "Thời gian tham quan Cần Thơ",
+    "answer": "Tour Cần Thơ có thời gian 2 ngày 1 đêm, khởi hành phù hợp vào dịp cuối tuần.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": 8
+  },
+  {
+    "question": "Có tour nào đi 2 ngày cuối tuần không?",
+    "answer": "Có ạ! Bạn có thể chọn Tour Hạ Long 2N1Đ hoặc Tour Cần Thơ Miền Tây 2N1Đ rất thích hợp đi vào thứ 7 và chủ nhật.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": null
+  },
+  {
+    "question": "Các tour ngắn ngày 2 ngày 1 đêm",
+    "answer": "Hiện có 2 tour 2 ngày 1 đêm: Tour Du thuyền Hạ Long (3.500.000đ) và Tour Cần Thơ Miền Tây (2.800.000đ).",
+    "intent": "hoi_thoi_gian",
+    "tour_id": null
+  },
+  {
+    "question": "Có tour 3 ngày 2 đêm nào đẹp?",
+    "answer": "Các tour 3 ngày 2 đêm rất được yêu thích: Đà Nẵng, Nha Trang, Phú Quốc, Đà Lạt và Sa Pa.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": null
+  },
+  {
+    "question": "Thời gian khởi hành các tour",
+    "answer": "Các tour của chúng tôi khởi hành định kỳ hàng tuần vào Thứ 5, Thứ 6 và Thứ 7. Bạn có thể liên hệ để chọn ngày phù hợp nhất.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": null
+  },
+  {
     "question": "Lịch trình tour Đà Nẵng thế nào?",
-    "answer": "Lịch trình tour Đà Nẵng: Ngày 1 tham quan trung tâm thành phố và biển Mỹ Khê, Ngày 2 khám phá Bà Nà Hills, Ngày 3 tắm biển mua sắm và tiễn khách.",
+    "answer": "Lịch trình tour Đà Nẵng: Ngày 1 tham quan trung tâm thành phố và biển Mỹ Khê, Ngày 2 khám phá Bà Nà Hills và Cầu Vàng, Ngày 3 tham quan Bán đảo Sơn Trà, mua sắm đặc sản và tiễn khách.",
     "intent": "hoi_lich_trinh",
     "tour_id": 1
   },
   {
     "question": "Tour Đà Nẵng có những địa điểm nào?",
-    "answer": "Tour sẽ đưa bạn tham quan Cầu Rồng, Bán đảo Sơn Trà, Bà Nà Hills, Cầu Vàng và Biển Mỹ Khê.",
+    "answer": "Tour sẽ đưa bạn tham quan Cầu Rồng, Bán đảo Sơn Trà, Bà Nà Hills, Cầu Vàng, Chùa Linh Ứng và Bãi biển Mỹ Khê.",
     "intent": "hoi_lich_trinh",
     "tour_id": 1
   },
   {
     "question": "Đi Đà Nẵng tham quan những đâu",
-    "answer": "Tại Đà Nẵng bạn sẽ tham quan Bà Nà Hills, Cầu Vàng, Bán đảo Sơn Trà, Chùa Linh Ứng và bãi biển Mỹ Khê.",
+    "answer": "Tại Đà Nẵng bạn sẽ được tham quan Bà Nà Hills, Cầu Vàng, Bán đảo Sơn Trà, Chùa Linh Ứng và tắm biển Mỹ Khê xinh đẹp.",
     "intent": "hoi_lich_trinh",
     "tour_id": 1
   },
   {
     "question": "Lịch trình tour Nha Trang",
-    "answer": "Tour Nha Trang gồm: tham quan Tháp Bà Ponagar, du ngoạn vịnh Nha Trang, tắm bùn khoáng và vui chơi giải trí VinWonders.",
+    "answer": "Lịch trình tour Nha Trang: Ngày 1 đón khách và tham quan Tháp Bà Ponagar, tắm bùn khoáng; Ngày 2 vui chơi trọn ngày tại VinWonders Nha Trang; Ngày 3 du ngoạn Hòn Mun, Hòn Tằm lặn ngắm san hô.",
     "intent": "hoi_lich_trinh",
     "tour_id": 2
   },
@@ -174,87 +486,1053 @@
     "tour_id": 2
   },
   {
+    "question": "Đi Nha Trang có đi VinWonders không?",
+    "answer": "Có bạn nhé! Tour Nha Trang 3 ngày 2 đêm đã bao gồm trọn gói vé cáp treo và vé vui chơi tại thiên đường giải trí VinWonders.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 2
+  },
+  {
     "question": "Lịch trình vịnh Hạ Long",
-    "answer": "Tour Hạ Long gồm: chèo thuyền kayak khám phá hang Sửng Sốt, tắm biển đảo Ti Tốp và ngắm hoàng hôn trên vịnh.",
+    "answer": "Tour Hạ Long gồm: Ngày 1 lên du thuyền 5 sao, tham quan Hang Sửng Sốt, chèo kayak tại Hang Luồn; Ngày 2 leo núi tắm biển Đảo Ti Tốp, ngắm toàn cảnh vịnh và thưởng thức buffet.",
     "intent": "hoi_lich_trinh",
     "tour_id": 3
   },
   {
     "question": "Tour Hạ Long có những địa điểm tham quan nào",
-    "answer": "Tour đưa bạn đến Hang Sửng Sốt, Đảo Ti Tốp, Hang Luồn và ngắm toàn cảnh Vịnh Hạ Long.",
+    "answer": "Tour đưa bạn đến Hang Sửng Sốt, Đảo Ti Tốp, Hang Luồn, ngắm hàng ngàn đảo đá kỳ vĩ trên Vịnh Hạ Long.",
     "intent": "hoi_lich_trinh",
     "tour_id": 3
   },
   {
+    "question": "Đi Hạ Long có ngủ đêm trên du thuyền không?",
+    "answer": "Có bạn nhé! Điểm đặc sắc nhất của Tour Hạ Long là bạn sẽ được trải nghiệm 1 đêm nghỉ dưỡng chuẩn 5 sao trên du thuyền giữa vịnh.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 3
+  },
+  {
+    "question": "Lịch trình tour Phú Quốc thế nào?",
+    "answer": "Lịch trình Phú Quốc: Ngày 1 tham quan Grand World thành phố không ngủ; Ngày 2 đi cáp treo vượt biển Hòn Thơm, lặn ngắm san hô 4 đảo; Ngày 3 tham quan Dinh Cậu, vườn tiêu, nhà thùng nước mắm và mua sắm.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 4
+  },
+  {
+    "question": "Tour Phú Quốc tham quan những đâu?",
+    "answer": "Tour Phú Quốc đưa bạn khám phá Grand World, Cáp treo Hòn Thơm, Sunset Town (Thị trấn Hoàng Hôn), Bãi Sao và Dinh Cậu.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 4
+  },
+  {
+    "question": "Đi Phú Quốc có đi cáp treo Hòn Thơm không?",
+    "answer": "Có ạ! Tour Phú Quốc 3N2Đ đã bao gồm vé cáp treo vượt biển 3 dây dài nhất thế giới sang Hòn Thơm.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 4
+  },
+  {
+    "question": "Lịch trình tour Đà Lạt",
+    "answer": "Lịch trình tour Đà Lạt: Ngày 1 tham quan Quảng trường Lâm Viên, Hồ Xuân Hương, Chợ đêm Đà Lạt; Ngày 2 chinh phục Đỉnh Langbiang, Thung Lũng Tình Yêu, Vườn dâu tây; Ngày 3 check-in Đồi chè Cầu Đất và Chùa Linh Phước.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 5
+  },
+  {
+    "question": "Tour Đà Lạt tham quan những địa điểm nào?",
+    "answer": "Tour Đà Lạt gồm: Đỉnh Langbiang, Thung Lũng Tình Yêu, Quảng trường Lâm Viên, Đồi chè Cầu Đất, Chùa Ve Chai và các vườn hoa công nghệ cao.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 5
+  },
+  {
+    "question": "Đi Đà Lạt có ghé Thung Lũng Tình Yêu không?",
+    "answer": "Có bạn nhé! Thung Lũng Tình Yêu là một trong những điểm tham quan trọng tâm trong ngày thứ 2 của tour Đà Lạt.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 5
+  },
+  {
+    "question": "Lịch trình tour Sa Pa",
+    "answer": "Lịch trình tour Sa Pa: Ngày 1 đến Sa Pa, check-in Nhà thờ đá, tham quan Bản Cát Cát; Ngày 2 đi cáp treo chinh phục Đỉnh Fansipan nóc nhà Đông Dương, tham quan Núi Hàm Rồng; Ngày 3 ngắm cảnh Đèo Ô Quy Hồ và mua sắm đặc sản.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 6
+  },
+  {
+    "question": "Tour Sa Pa có đi Fansipan không?",
+    "answer": "Chắc chắn rồi! Chinh phục đỉnh Fansipan 3.143m bằng hệ thống cáp treo hiện đại là điểm nhấn nổi bật nhất của Tour Sa Pa.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 6
+  },
+  {
+    "question": "Những điểm du lịch trong tour Sa Pa",
+    "answer": "Tour Sa Pa gồm: Đỉnh Fansipan, Bản Cát Cát của người H'Mông, Núi Hàm Rồng, Nhà thờ đá cổ Sa Pa và Cổng trời Ô Quy Hồ.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 6
+  },
+  {
+    "question": "Lịch trình tour Quy Nhơn Phú Yên",
+    "answer": "Lịch trình Quy Nhơn - Phú Yên: Ngày 1 ngắm Eo Gió, check-in Kỳ Co; Ngày 2 khám phá Ghềnh Đá Đĩa, Bãi Xép 'Hoa vàng trên cỏ xanh'; Ngày 3 viếng Chùa Thiên Hưng, Tháp Bánh Ít; Ngày 4 dạo biển Quy Nhơn và mua sắm.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 7
+  },
+  {
+    "question": "Đi Kỳ Co Eo Gió và Ghềnh Đá Đĩa trong tour nào?",
+    "answer": "Bạn hãy chọn Tour Quy Nhơn - Phú Yên 4 ngày 3 đêm để tham quan trọn gói Kỳ Co, Eo Gió và Ghềnh Đá Đĩa nhé!",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 7
+  },
+  {
+    "question": "Lịch trình tour Cần Thơ miền tây",
+    "answer": "Lịch trình Cần Thơ: Ngày 1 viếng Nhà cổ Bình Thủy, tham quan Bến Ninh Kiều, thưởng thức bữa tối trên du thuyền; Ngày 2 dậy sớm đi thuyền khám phá Chợ nổi Cái Răng và miệt vườn trái cây trĩu quả.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 8
+  },
+  {
+    "question": "Tour Cần Thơ có đi chợ nổi Cái Răng không?",
+    "answer": "Có bạn nhé! Đi chợ nổi Cái Răng vào buổi sáng sớm bằng thuyền máy là trải nghiệm đặc sắc nhất của Tour Cần Thơ.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 8
+  },
+  {
     "question": "Có điểm du lịch nào đẹp không",
-    "answer": "Chúng tôi có các điểm du lịch tuyệt đẹp: Biển Mỹ Khê & Bà Nà Hills (Đà Nẵng), VinWonders biển đảo (Nha Trang), Kỳ quan thế giới (Vịnh Hạ Long).",
+    "answer": "Hệ thống có rất nhiều điểm đến tuyệt đẹp: Kỳ quan Vịnh Hạ Long, biển Mỹ Khê (Đà Nẵng), biển đảo VinWonders (Nha Trang), đảo ngọc Phú Quốc, thành phố hoa Đà Lạt hay mây ngàn Sa Pa.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": null
+  },
+  {
+    "question": "Lịch trình tour có tự do buổi tối không?",
+    "answer": "Dạ có ạ! Hầu hết các tour đều dành buổi tối tự do để bạn thoải mái khám phá ẩm thực đường phố, đi dạo chợ đêm hoặc tận hưởng không gian riêng.",
     "intent": "hoi_lich_trinh",
     "tour_id": null
   },
   {
     "question": "Tôi muốn đi du lịch Đà Nẵng",
-    "answer": "Đà Nẵng là điểm đến tuyệt vời! Chúng tôi có Tour Đà Nẵng 3 ngày 2 đêm tham quan Bà Nà Hills, Cầu Vàng và biển Mỹ Khê.",
+    "answer": "Đà Nẵng là điểm đến tuyệt vời! Chúng tôi có Tour Đà Nẵng 3 ngày 2 đêm tham quan Bà Nà Hills, Cầu Vàng và biển Mỹ Khê với giá 4.500.000 VNĐ.",
     "intent": "tim_tour",
     "tour_id": 1
   },
   {
     "question": "Có tour Đà Nẵng không?",
-    "answer": "Có bạn nhé! Hiện có Tour Đà Nẵng 3 ngày 2 đêm với giá ưu đãi 4.500.000 VNĐ.",
+    "answer": "Có bạn nhé! Tour Đà Nẵng 3 ngày 2 đêm đang có giá ưu đãi là 4.500.000 VNĐ/khách.",
+    "intent": "tim_tour",
+    "tour_id": 1
+  },
+  {
+    "question": "Tìm tour Đà Nẵng cho gia đình",
+    "answer": "Tour Đà Nẵng 3N2Đ rất thích hợp cho gia đình với lịch trình vừa phải, tham quan Bà Nà Hills và tắm biển Mỹ Khê tiện nghi.",
     "intent": "tim_tour",
     "tour_id": 1
   },
   {
     "question": "Tôi muốn đi Nha Trang",
-    "answer": "Nha Trang thiên đường biển đảo! Chúng tôi có Tour Nha Trang 3 ngày 2 đêm khám phá VinWonders và các đảo tuyệt đẹp.",
+    "answer": "Nha Trang thiên đường biển đảo! Chúng tôi có Tour Nha Trang 3 ngày 2 đêm khám phá VinWonders và lặn ngắm san hô giá 4.200.000 VNĐ.",
     "intent": "tim_tour",
     "tour_id": 2
   },
   {
     "question": "Có tour đi biển Nha Trang không?",
-    "answer": "Có bạn nhé! Tour Nha Trang 3 ngày 2 đêm có giá 4.200.000 VNĐ.",
+    "answer": "Có bạn nhé! Tour Nha Trang 3 ngày 2 đêm trọn gói biển đảo có giá 4.200.000 VNĐ.",
+    "intent": "tim_tour",
+    "tour_id": 2
+  },
+  {
+    "question": "Tư vấn tour Nha Trang",
+    "answer": "Tour Nha Trang 3N2Đ giá 4.200.000đ bao gồm vé VinWonders, tắm bùn khoáng Tháp Bà và du ngoạn đảo Hòn Mun.",
     "intent": "tim_tour",
     "tour_id": 2
   },
   {
     "question": "Tôi muốn đi Hạ Long",
-    "answer": "Hạ Long là di sản thiên nhiên thế giới! Bạn có thể chọn Tour Hạ Long 2 ngày 1 đêm nghỉ dưỡng trên du thuyền sang trọng.",
+    "answer": "Hạ Long là kỳ quan thế giới! Bạn có thể chọn Tour Hạ Long 2 ngày 1 đêm nghỉ dưỡng trên du thuyền sang trọng giá 3.500.000 VNĐ.",
     "intent": "tim_tour",
     "tour_id": 3
   },
   {
     "question": "Có tour vịnh Hạ Long không?",
-    "answer": "Có bạn nhé! Tour Hạ Long 2 ngày 1 đêm giá chỉ 3.500.000 VNĐ.",
+    "answer": "Có bạn nhé! Tour du thuyền Vịnh Hạ Long 2 ngày 1 đêm giá chỉ 3.500.000 VNĐ/khách.",
     "intent": "tim_tour",
     "tour_id": 3
   },
   {
+    "question": "Tôi muốn đi Phú Quốc",
+    "answer": "Tuyệt vời! Phú Quốc có Tour Phú Quốc 3 ngày 2 đêm nghỉ dưỡng biển đảo, Grand World và cáp treo Hòn Thơm với giá 5.200.000 VNĐ.",
+    "intent": "tim_tour",
+    "tour_id": 4
+  },
+  {
+    "question": "Có tour đảo ngọc Phú Quốc không?",
+    "answer": "Có bạn nhé! Tour Phú Quốc 3 ngày 2 đêm giá 5.200.000 VNĐ/khách, khởi hành định kỳ hàng tuần.",
+    "intent": "tim_tour",
+    "tour_id": 4
+  },
+  {
+    "question": "Tư vấn tour đi biển Phú Quốc",
+    "answer": "Tour Phú Quốc 3N2Đ đưa bạn đến Grand World, Thị trấn Hoàng Hôn, Cáp treo Hòn Thơm và lặn ngắm san hô tuyệt đẹp.",
+    "intent": "tim_tour",
+    "tour_id": 4
+  },
+  {
+    "question": "Tôi muốn đi Đà Lạt",
+    "answer": "Đà Lạt xứ sở ngàn hoa lãng mạn! Tour Đà Lạt 3 ngày 2 đêm giá 3.800.000 VNĐ với các điểm check-in Langbiang, Thung Lũng Tình Yêu.",
+    "intent": "tim_tour",
+    "tour_id": 5
+  },
+  {
+    "question": "Có tour du lịch Đà Lạt ngàn hoa không?",
+    "answer": "Có bạn nhé! Tour Đà Lạt 3 ngày 2 đêm có giá ưu đãi là 3.800.000 VNĐ/khách.",
+    "intent": "tim_tour",
+    "tour_id": 5
+  },
+  {
+    "question": "Tìm tour Đà Lạt lãng mạn",
+    "answer": "Tour Đà Lạt 3N2Đ là sự lựa chọn hoàn hảo cho các cặp đôi và gia đình với không khí se lạnh và ngàn hoa khoe sắc.",
+    "intent": "tim_tour",
+    "tour_id": 5
+  },
+  {
+    "question": "Tôi muốn đi Sa Pa",
+    "answer": "Sa Pa mùa này rất đẹp! Tour Sa Pa 3 ngày 2 đêm chinh phục Fansipan và khám phá bản Cát Cát có giá 4.100.000 VNĐ.",
+    "intent": "tim_tour",
+    "tour_id": 6
+  },
+  {
+    "question": "Có tour Sa Pa săn mây không?",
+    "answer": "Có bạn nhé! Tour Sa Pa 3 ngày 2 đêm giá 4.100.000 VNĐ đưa bạn lên đỉnh Fansipan săn mây kỳ vĩ.",
+    "intent": "tim_tour",
+    "tour_id": 6
+  },
+  {
+    "question": "Tư vấn tour đi Tây Bắc Sa Pa",
+    "answer": "Tour Sa Pa 3N2Đ (4.100.000đ) trọn gói xe limousine đưa đón, khách sạn trung tâm, vé tham quan bản Cát Cát và cáp treo Fansipan.",
+    "intent": "tim_tour",
+    "tour_id": 6
+  },
+  {
+    "question": "Tôi muốn đi Quy Nhơn",
+    "answer": "Biển Quy Nhơn trong xanh ngút ngàn! Tour Quy Nhơn - Phú Yên 4 ngày 3 đêm có giá 4.900.000 VNĐ khám phá Kỳ Co, Eo Gió, Ghềnh Đá Đĩa.",
+    "intent": "tim_tour",
+    "tour_id": 7
+  },
+  {
+    "question": "Có tour Quy Nhơn Phú Yên không?",
+    "answer": "Có bạn nhé! Tour Quy Nhơn - Phú Yên 4 ngày 3 đêm đang có giá 4.900.000 VNĐ/khách.",
+    "intent": "tim_tour",
+    "tour_id": 7
+  },
+  {
+    "question": "Tôi muốn đi Cần Thơ miền tây",
+    "answer": "Về miền Tây sông nước hữu tình! Tour Cần Thơ 2 ngày 1 đêm khám phá chợ nổi Cái Răng chỉ có giá 2.800.000 VNĐ.",
+    "intent": "tim_tour",
+    "tour_id": 8
+  },
+  {
+    "question": "Có tour sông nước miền Tây không?",
+    "answer": "Có bạn nhé! Tour Cần Thơ - Miền Tây 2 ngày 1 đêm giá 2.800.000 VNĐ/khách.",
+    "intent": "tim_tour",
+    "tour_id": 8
+  },
+  {
     "question": "Có các tour du lịch nào?",
-    "answer": "Hiện tại hệ thống có các tour: Đà Nẵng 3N2Đ, Nha Trang 3N2Đ, Hạ Long 2N1Đ. Mời bạn vào mục 'Danh sách tour' để xem chi tiết.",
+    "answer": "Hiện tại hệ thống có 8 tour: Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Quy Nhơn và Cần Thơ. Mời bạn vào mục 'Tour du lịch' để xem chi tiết.",
     "intent": "tim_tour",
     "tour_id": null
   },
   {
-    "question": "Tìm kiếm tour du lịch",
-    "answer": "Bạn có thể vào mục 'Tour du lịch' trên thanh điều hướng để tìm kiếm và lọc tour theo mức giá, danh mục nhé.",
+    "question": "Gợi ý tour du lịch biển đảo",
+    "answer": "Nếu thích biển đảo, bạn có thể tham khảo: Tour Nha Trang 3N2Đ, Tour Phú Quốc 3N2Đ hoặc Tour Quy Nhơn 4N3Đ nhé!",
+    "intent": "tim_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Có tour nào dành cho cặp đôi không?",
+    "answer": "Tour Đà Lạt mộng mơ và Tour Du thuyền Hạ Long ngắm hoàng hôn là 2 tour lãng mạn được các cặp đôi lựa chọn nhiều nhất.",
+    "intent": "tim_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Tìm tour du lịch miền Bắc",
+    "answer": "Tour miền Bắc gồm: Tour Du thuyền Hạ Long 2 ngày 1 đêm (3.500.000đ) và Tour Sa Pa Fansipan 3 ngày 2 đêm (4.100.000đ).",
+    "intent": "tim_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Tìm tour du lịch miền Trung",
+    "answer": "Tour miền Trung gồm: Tour Đà Nẵng Bà Nà Hills (4.500.000đ), Tour Nha Trang biển đảo (4.200.000đ) và Tour Quy Nhơn Phú Yên (4.900.000đ).",
+    "intent": "tim_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Tìm tour du lịch miền Nam",
+    "answer": "Tour miền Nam gồm: Tour Phú Quốc đảo ngọc (5.200.000đ) và Tour Cần Thơ miệt vườn sông nước (2.800.000đ).",
+    "intent": "tim_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Các tour hot nhất hiện nay",
+    "answer": "Top 3 tour được đặt nhiều nhất: Tour Đà Nẵng 3N2Đ, Tour Phú Quốc 3N2Đ và Tour Hạ Long du thuyền 2N1Đ.",
     "intent": "tim_tour",
     "tour_id": null
   },
   {
     "question": "Làm sao để đặt tour?",
-    "answer": "Bạn có thể xem chi tiết tour trong mục 'Danh sách tour' hoặc đăng ký tài khoản để được tư vấn và đặt chỗ nhanh nhất.",
+    "answer": "Bạn có thể vào mục 'Tour du lịch', chọn tour yêu thích và nhấn 'Xem chi tiết', hoặc đăng ký tài khoản để quản lý đặt tour và lưu lịch sử chat nhé.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Quy trình đặt tour thế nào?",
+    "answer": "Quy trình đặt tour rất nhanh chóng: 1. Chọn tour ưng ý -> 2. Để lại thông tin liên hệ và số lượng khách -> 3. Nhân viên xác nhận lịch và hướng dẫn đặt cọc.",
     "intent": "tu_van_dat_tour",
     "tour_id": null
   },
   {
     "question": "Cách thức thanh toán tour thế nào?",
-    "answer": "Chúng tôi hỗ trợ thanh toán qua chuyển khoản ngân hàng, ví điện tử (MoMo, ZaloPay) hoặc thanh toán trực tiếp tại văn phòng.",
+    "answer": "Chúng tôi hỗ trợ thanh toán linh hoạt qua chuyển khoản ngân hàng (QR Code), ví điện tử (MoMo, ZaloPay, VNPay) hoặc tiền mặt tại văn phòng.",
     "intent": "tu_van_dat_tour",
     "tour_id": null
   },
   {
-    "question": "Thủ tục đặt cọc và hủy tour",
-    "answer": "Khách hàng vui lòng đặt cọc 50% chi phí khi xác nhận đặt tour. Chính sách hoàn hủy linh hoạt trong vòng 48 giờ trước khi khởi hành.",
+    "question": "Có thanh toán chuyển khoản hoặc MoMo được không?",
+    "answer": "Dạ có ạ! Bạn có thể chuyển khoản trực tiếp qua ngân hàng hoặc quét mã MoMo nhanh chóng và an toàn.",
     "intent": "tu_van_dat_tour",
     "tour_id": null
+  },
+  {
+    "question": "Thủ tục đặt cọc tour thế nào?",
+    "answer": "Quý khách chỉ cần đặt cọc 50% chi phí khi xác nhận đặt tour. 50% còn lại sẽ thanh toán trước ngày khởi hành hoặc vào ngày đầu tiên của chuyến đi.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Đặt cọc bao nhiêu phần trăm chi phí?",
+    "answer": "Tiêu chuẩn đặt cọc là 50% tổng giá trị tour để giữ chỗ dịch vụ khách sạn và vé máy bay/xe đưa đón.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Chính sách hủy tour và hoàn tiền",
+    "answer": "Khách hàng được hủy tour miễn phí trước 7 ngày khởi hành. Hủy trước 3 - 6 ngày hoàn lại 50% tiền cọc. Hủy trong vòng 48 giờ không được hoàn cọc.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Nếu tôi bận hủy tour có được hoàn tiền không?",
+    "answer": "Có ạ! Nếu bạn báo hủy trước 7 ngày so với ngày khởi hành, công ty sẽ hỗ trợ hoàn 100% chi phí hoặc dời sang ngày khác miễn phí.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Quy định đổi ngày khởi hành",
+    "answer": "Quý khách được đổi ngày khởi hành miễn phí 1 lần nếu thông báo trước ít nhất 5 ngày trước chuyến đi.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Giá vé trẻ em tính thế nào?",
+    "answer": "Trẻ em dưới 5 tuổi miễn phí vé tour (bố mẹ tự lo cho bé). Từ 5 đến dưới 10 tuổi tính 75% giá tour người lớn. Từ 10 tuổi trở lên tính như người lớn.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Trẻ em dưới 5 tuổi có mất tiền tour không?",
+    "answer": "Bé dưới 5 tuổi hoàn toàn miễn phí vé tour, gia đình chỉ cần tự túc các chi phí phát sinh nếu có.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Đặt tour cho đoàn đông người có giảm giá không?",
+    "answer": "Có bạn nhé! Đoàn từ 5 khách trở lên giảm ngay 5%, đoàn từ 10 khách trở lên giảm 10% và được thiết kế lịch trình riêng theo yêu cầu.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Chính sách chiết khấu nhóm hoặc công ty",
+    "answer": "Chúng tôi có chính sách chiết khấu hấp dẫn cho khách đoàn, công ty từ 5% đến 15%, hỗ trợ tổ chức teambuilding và gala dinner.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Giá tour đã bao gồm những gì?",
+    "answer": "Giá tour trọn gói bao gồm: Xe ô tô du lịch đời mới đưa đón suốt tuyến, phòng khách sạn chuẩn 3-5 sao, các bữa ăn theo chương trình, vé tham quan tất cả các điểm, nước uống và bảo hiểm du lịch.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Tour trọn gói gồm các dịch vụ nào?",
+    "answer": "Tour trọn gói đã bao gồm phòng khách sạn, ăn sáng buffet, bữa chính ẩm thực địa phương, vé thắng cảnh, hướng dẫn viên và bảo hiểm.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Chi phí tour đã có bảo hiểm du lịch chưa?",
+    "answer": "Dạ toàn bộ tour của TourAI đều đã bao gồm bảo hiểm du lịch với mức bồi thường tối đa lên đến 50.000.000 VNĐ/vụ/người.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Giá tour có bao gồm vé máy bay không?",
+    "answer": "Giá tour niêm yết là giá tour đường bộ hoặc tour tại điểm đến. Chúng tôi có hỗ trợ đặt kèm vé máy bay khứ hồi với mức giá ưu đãi từ các hãng hàng không.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Phương tiện di chuyển trong tour là gì?",
+    "answer": "Trong tour sử dụng xe du lịch đời mới máy lạnh từ 16 đến 45 chỗ tùy theo số lượng đoàn, tài xế kinh nghiệm và nhiệt tình.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Khách sạn trong tour là tiêu chuẩn mấy sao?",
+    "answer": "Khách sạn trong tour là tiêu chuẩn từ 3 sao đến 5 sao sang trọng, phòng nghỉ sạch đẹp, đầy đủ tiện nghi và gần trung tâm hoặc biển.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Ăn uống các bữa trong tour thế nào?",
+    "answer": "Chương trình tour bao gồm ăn sáng buffet tại khách sạn và các bữa trưa, tối tại các nhà hàng uy tín với các món đặc sản địa phương phong phú.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Tour có hướng dẫn viên đi kèm không?",
+    "answer": "Dạ luôn có hướng dẫn viên kinh nghiệm, vui tính và am hiểu văn hóa đi kèm chăm sóc đoàn suốt toàn bộ chuyến đi.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Tour có phụ thu phòng đơn không?",
+    "answer": "Nếu bạn đi 1 mình và muốn ở riêng 1 phòng thì sẽ có phụ thu phòng đơn tùy theo tiêu chuẩn khách sạn, còn nếu ghép phòng thì không phụ thu nhé.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Đi du lịch cần mang theo những giấy tờ gì?",
+    "answer": "Bạn cần mang theo Căn cước công dân (CCCD) hoặc Hộ chiếu gốc còn hạn, giấy khai sinh bản sao có công chứng cho trẻ em dưới 14 tuổi để làm thủ tục khách sạn và sân bay.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Đi máy bay cần CCCD hay hộ chiếu?",
+    "answer": "Với các chặng bay nội địa Việt Nam, bạn chỉ cần xuất trình Căn cước công dân (hoặc Hộ chiếu còn hạn) là làm thủ tục được nhé.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Đi du lịch biển cần chuẩn bị những gì?",
+    "answer": "Khi đi tour biển (Nha Trang, Phú Quốc, Quy Nhơn, Hạ Long), bạn nên chuẩn bị: Đồ bơi, kem chống nắng, kính râm, mũ rộng vành, túi chống nước cho điện thoại và dép lê.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Đi Sa Pa cần chuẩn bị trang phục gì?",
+    "answer": "Sa Pa có khí hậu vùng cao mát lạnh, bạn nên mang theo áo khoác ấm, khăn choàng, giày thể thao êm chân để đi bộ bản làng và leo núi.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 6
+  },
+  {
+    "question": "Kinh nghiệm du lịch Đà Lạt mùa nào đẹp nhất?",
+    "answer": "Đà Lạt đẹp quanh năm, nhưng đẹp nhất là từ tháng 11 đến tháng 3 khi trời ít mưa, se lạnh và mùa hoa mai anh đào, dã quỳ nở rộ.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 5
+  },
+  {
+    "question": "Mùa nào đi Phú Quốc đẹp nhất?",
+    "answer": "Mùa đẹp nhất của Phú Quốc là từ cuối tháng 10 đến tháng 4 năm sau, biển lặng sóng, nắng vàng và nước biển trong xanh như ngọc bích.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 4
+  },
+  {
+    "question": "Nên đi Hạ Long vào tháng mấy?",
+    "answer": "Thời điểm lý tưởng nhất để du ngoạn Vịnh Hạ Long là từ tháng 3 đến tháng 5 và từ tháng 9 đến tháng 11 khi trời trong xanh, mát mẻ và ít bão.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 3
+  },
+  {
+    "question": "Thời điểm đẹp nhất để đi du lịch Đà Nẵng là khi nào?",
+    "answer": "Thời điểm lý tưởng nhất để du lịch Đà Nẵng là từ tháng 3 đến tháng 8. Lúc này trời nắng đẹp, biển êm, ít mưa, rất thích hợp cho các hoạt động tắm biển Mỹ Khê, tham quan Bà Nà Hills và bán đảo Sơn Trà.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 1
+  },
+  {
+    "question": "Đi Đà Nẵng mùa nào đẹp nhất?",
+    "answer": "Thời điểm lý tưởng nhất để du lịch Đà Nẵng là từ tháng 3 đến tháng 8. Lúc này trời nắng đẹp, biển êm, ít mưa, rất thích hợp cho các hoạt động tắm biển Mỹ Khê, tham quan Bà Nà Hills và bán đảo Sơn Trà.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 1
+  },
+  {
+    "question": "Tour Đà Nẵng có đi Cầu Rồng phun lửa không?",
+    "answer": "Có ạ! Nếu chuyến đi của bạn rơi vào tối thứ Bảy hoặc Chủ Nhật, lịch trình tour Đà Nẵng sẽ đưa đoàn đi dạo ngắm Cầu Rồng phun lửa và phun nước lúc 21h00 rất ngoạn mục.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 1
+  },
+  {
+    "question": "Cầu Rồng Đà Nẵng phun lửa vào ngày nào?",
+    "answer": "Cầu Rồng phun lửa và phun nước vào lúc 21h00 các tối thứ Bảy, Chủ Nhật hàng tuần và các ngày lễ lớn trong năm.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": 1
+  },
+  {
+    "question": "Ẩm thực Đà Nẵng có những món ngon gì nên thử?",
+    "answer": "Đến Đà Nẵng bạn nhất định nên thưởng thức: Mì Quảng ếch/tôm thịt, Bánh tráng cuốn thịt heo hai đầu da, Bún chả cá, Bánh xèo nem lụi bà Dưỡng, Gỏi cá Nam Ô và hải sản tươi sống bãi biển Mỹ Khê.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 1
+  },
+  {
+    "question": "Đặc sản Đà Nẵng ăn gì ngon?",
+    "answer": "Đặc sản nổi tiếng Đà Nẵng gồm: Mì Quảng, Bánh tráng cuốn thịt heo hai đầu da, Bún chả cá, Bánh xèo nem lụi, Gỏi cá Nam Ô, Chả bò Đà Nẵng và tré Bà Đệ.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 1
+  },
+  {
+    "question": "Tour Đà Nẵng có ghé phố cổ Hội An không?",
+    "answer": "Tour Đà Nẵng 3N2Đ tiêu chuẩn tập trung vào Bà Nà Hills, Bán đảo Sơn Trà, Cầu Rồng và Ngũ Hành Sơn. Tuy nhiên TourAI có hỗ trợ sắp xếp xe đưa bạn ghé thăm Phố cổ Hội An vào buổi tối theo yêu cầu.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 1
+  },
+  {
+    "question": "Vé cáp treo Bà Nà Hills đã bao gồm trong giá tour chưa?",
+    "answer": "Dạ vé cáp treo Bà Nà Hills khứ hồi và vé tham quan Cầu Vàng đã được bao gồm trọn gói trong giá tour Đà Nẵng 3N2Đ (4.500.000đ), bạn không phải trả thêm tiền vé cáp treo.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 1
+  },
+  {
+    "question": "Thời điểm nào đi du lịch Nha Trang đẹp nhất?",
+    "answer": "Nha Trang đẹp nhất từ tháng 1 đến tháng 8. Đây là mùa khô, trời trong xanh, biển lặng, nước trong vắt cực kỳ lý tưởng để tắm biển, lặn ngắm san hô Hòn Mun và vui chơi tại VinWonders.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 2
+  },
+  {
+    "question": "Đi Nha Trang tháng mấy biển đẹp nhất?",
+    "answer": "Thời điểm biển Nha Trang đẹp nhất là từ tháng 3 đến tháng 8, sóng êm nước trong vắt, nắng ấm rất thuận lợi cho các tour cano đảo và lặn ngắm san hô.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 2
+  },
+  {
+    "question": "Tour Nha Trang đã bao gồm vé vui chơi VinWonders chưa?",
+    "answer": "Dạ gói tour Nha Trang 3N2Đ đã bao gồm vé cáp treo và vui chơi trọn gói tại công viên giải trí VinWonders Nha Trang trên đảo Hòn Tre.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 2
+  },
+  {
+    "question": "Đi tour Nha Trang có được tắm bùn khoáng không?",
+    "answer": "Có ạ! Lịch trình ngày 3 của tour Nha Trang sẽ đưa đoàn đến Trung tâm bùn khoáng Tháp Bà hoặc I-Resort để ngâm bùn khoáng nóng thiên nhiên phục hồi sức khỏe.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 2
+  },
+  {
+    "question": "Đặc sản Nha Trang nên mua gì làm quà?",
+    "answer": "Những đặc sản nổi tiếng Nha Trang bạn nên mua làm quà gồm: Yến sào Khánh Hòa, Nem nướng Ninh Hòa, Chả cá Nha Trang, Mực một nắng, Rong biển sấy và Bánh xoài Cam Ranh.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 2
+  },
+  {
+    "question": "Ăn gì ở Nha Trang ngon?",
+    "answer": "Đến Nha Trang bạn nhất định phải thử: Nem nướng Đặng Văn Quyên, Bún sứa chả cá, Bánh căn hải sản, Bò nướng Lạc Cảnh và các món hải sản tươi sống làng chài.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 2
+  },
+  {
+    "question": "Lặn biển ngắm san hô tại Hòn Mun có an toàn không?",
+    "answer": "Rất an toàn bạn nhé! Hoạt động lặn ngắm san hô tại Hòn Mun có huấn luyện viên chuyên nghiệp kèm 1-1, trang bị đầy đủ áo phao, bình dưỡng khí và kính lặn đạt chuẩn quốc tế, người không biết bơi vẫn tham gia được.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 2
+  },
+  {
+    "question": "Mùa nào đi du thuyền vịnh Hạ Long đẹp nhất?",
+    "answer": "Vịnh Hạ Long đẹp nhất vào 2 khoảng thời gian: mùa hè thu (tháng 4 - tháng 6) khi trời nắng ấm trong lành, và mùa thu đông (tháng 9 - tháng 11) khi thời tiết se lạnh mát mẻ, hoàng hôn trên vịnh tuyệt đẹp.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 3
+  },
+  {
+    "question": "Nên đi Hạ Long vào mùa nào?",
+    "answer": "Từ tháng 4 đến tháng 6 và từ tháng 9 đến tháng 11 là hai khoảng thời gian lý tưởng nhất để du lịch và trải nghiệm du thuyền Hạ Long.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 3
+  },
+  {
+    "question": "Tour Hạ Long 2N1Đ ngủ đêm trên du thuyền hay khách sạn?",
+    "answer": "Tour Hạ Long 2 ngày 1 đêm của TourAI là trải nghiệm ngủ đêm trên Du thuyền 5 sao sang trọng giữa lòng vịnh, phòng có ban công riêng view ngắm trọn kỳ quan thiên nhiên thế giới.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 3
+  },
+  {
+    "question": "Đi tour Hạ Long có được chèo kayak không?",
+    "answer": "Có ạ! Bạn sẽ được miễn phí trải nghiệm tự tay chèo thuyền kayak hoặc ngồi thuyền nan luồn lách qua các hang động đá vôi kỳ vĩ tại khu vực Hang Luồn và Hang Sửng Sốt.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 3
+  },
+  {
+    "question": "Đặc sản ẩm thực Hạ Long Quảng Ninh có gì ngon?",
+    "answer": "Đến Hạ Long bạn không thể bỏ qua: Chả mực giã tay ăn kèm bánh cuốn hoặc xôi trắng, Sam biển nướng, Bún bề bề, Sá sùng xào tỏi, Ngán hấp rượu và Sữa chua trân châu Hạ Long chính gốc.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 3
+  },
+  {
+    "question": "Đi du thuyền Hạ Long có bị say sóng không?",
+    "answer": "Vịnh Hạ Long được bao bọc bởi hàng nghìn đảo đá vôi nên mặt nước rất phẳng lặng, hầu như không có sóng lớn. Du thuyền 5 sao có hệ thống cân bằng hiện đại nên cực kỳ êm ái, rất hiếm người bị say sóng.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 3
+  },
+  {
+    "question": "Thời tiết Phú Quốc mùa mưa là vào những tháng nào?",
+    "answer": "Mùa mưa ở Phú Quốc thường diễn ra từ khoảng tháng 5 đến tháng 10. Nếu đi vào mùa này, bạn nên theo dõi dự báo thời tiết trước chuyến đi và ưu tiên tắm biển bãi Sao ở phía Đông Nam đảo sóng êm.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 4
+  },
+  {
+    "question": "Phú Quốc mùa mưa tháng mấy?",
+    "answer": "Mùa mưa ở Phú Quốc kéo dài từ tháng 5 đến tháng 10. Thời gian còn lại từ tháng 11 đến tháng 4 là mùa khô biển lặng tuyệt đẹp.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 4
+  },
+  {
+    "question": "Tour Phú Quốc có vé cáp treo Hòn Thơm chưa?",
+    "answer": "Dạ tour Phú Quốc 3N2Đ đã bao gồm vé cáp treo Hòn Thơm 3 dây vượt biển dài nhất thế giới và vé vào cổng công viên nước Aquatopia.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 4
+  },
+  {
+    "question": "Thành phố không ngủ Grand World Phú Quốc có những hoạt động gì?",
+    "answer": "Tại Grand World, bạn sẽ được đi thuyền gondola trên kênh đào Venice, ngắm Cầu Ánh Sáng, xem show thực cảnh Tinh hoa Việt Nam, show nhạc nước Sắc màu Venice và khám phá bảo tàng Gấu Teddy Bear.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 4
+  },
+  {
+    "question": "Đặc sản Phú Quốc nên mua về làm quà là gì?",
+    "answer": "Đặc sản tiêu biểu Phú Quốc gồm có: Nước mắm truyền thống Phú Quốc, Hạt tiêu đen/tiêu chín ngào đường, Rượu sim rừng, Ngọc trai Phú Quốc và các loại hải sản khô.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 4
+  },
+  {
+    "question": "Ăn gì ngon ở Phú Quốc?",
+    "answer": "Đến Phú Quốc bạn nên thử: Gỏi cá trích bãi Khem cuốn rau rừng, Bún quậy Kiến Xây, Nhum biển nướng mỡ hành, Còi biên mai nướng muối ớt và ghẹ Hàm Ninh tươi luộc.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 4
+  },
+  {
+    "question": "Tour Phú Quốc có xe đưa đón tại sân bay Phú Quốc không?",
+    "answer": "Có ạ! Tour Phú Quốc bao gồm dịch vụ xe ô tô du lịch đời mới đón và tiễn tận nơi tại Sân bay Quốc tế Phú Quốc theo đúng giờ hạ cánh chuyến bay của bạn.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 4
+  },
+  {
+    "question": "Mùa hoa dã quỳ và mai anh đào Đà Lạt vào tháng mấy?",
+    "answer": "Hoa dã quỳ nở rộ vào khoảng cuối tháng 10 đến tháng 11. Còn mùa hoa mai anh đào hồng rực rỡ khắp phố núi Đà Lạt thường xuất hiện từ tháng 1 đến đầu tháng 2 dương lịch.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 5
+  },
+  {
+    "question": "Đà Lạt mùa mai anh đào tháng mấy?",
+    "answer": "Mùa hoa mai anh đào ở Đà Lạt thường bắt đầu từ tháng 1 đến tháng 2 (dịp trước và sau Tết Nguyên Đán), hoa nở rực hồng quanh Hồ Xuân Hương, đường Trần Hưng Đạo và dốc Đa Quý.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 5
+  },
+  {
+    "question": "Tour Đà Lạt có chương trình đi săn mây Đồi chè Cầu Đất không?",
+    "answer": "Có bạn nhé! Trong lịch trình ngày 2 của tour Đà Lạt, xe sẽ đưa đoàn khởi hành sớm để trải nghiệm săn mây bồng bềnh tại thảm gỗ Cầu Đất và đón bình minh trên đồi chè.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 5
+  },
+  {
+    "question": "Buổi tối Đà Lạt nhiệt độ thế nào, có cần mang áo ấm không?",
+    "answer": "Đà Lạt về đêm và sáng sớm nhiệt độ giảm xuống khoảng 14 - 17°C, khá lạnh. Bạn chắc chắn nên chuẩn bị sẵn áo khoác ấm, áo len, khăn quàng mỏng và giày ấm khi đi dạo Chợ đêm hay Hồ Xuân Hương.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 5
+  },
+  {
+    "question": "Đi Đà Lạt có cần mang áo ấm không?",
+    "answer": "Rất cần bạn nhé! Đà Lạt về đêm và sáng sớm se lạnh từ 14 đến 17 độ C, bạn nên chuẩn bị áo len, áo khoác ấm và khăn quàng để thoải mái dạo chơi.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 5
+  },
+  {
+    "question": "Ăn gì ở chợ đêm Đà Lạt?",
+    "answer": "Chợ đêm Đà Lạt nổi tiếng với bánh tráng nướng, sữa đậu nành nóng hổi ăn cùng bánh su kem, khoai lang nướng, bắp nướng mỡ hành, dâu lắc và lẩu gà lá é ấm nồng.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 5
+  },
+  {
+    "question": "Tour Đà Lạt có tham quan Thung Lũng Tình Yêu không?",
+    "answer": "Dạ có! Lịch trình tour Đà Lạt 3N2Đ đã bao gồm vé tham quan và xe điện di chuyển bên trong quần thể du lịch Thung Lũng Tình Yêu & Đồi Mộng Mơ.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 5
+  },
+  {
+    "question": "Mùa lúa chín và săn mây Sa Pa đẹp nhất vào tháng mấy?",
+    "answer": "Mùa lúa chín vàng rực trên những thửa ruộng bậc thang Sa Pa đẹp nhất là tháng 9 - tháng 10. Còn mùa săn mây bồng bềnh và ngắm đèo Ô Quy Hồ lý tưởng nhất là từ tháng 11 đến tháng 3 năm sau.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 6
+  },
+  {
+    "question": "Sa Pa mùa lúa chín tháng mấy?",
+    "answer": "Mùa lúa chín vàng tại Sa Pa diễn ra rực rỡ nhất từ tháng 9 đến đầu tháng 10, đặc biệt tại thung lũng Mường Hoa, Tả Van và bản Cát Cát.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 6
+  },
+  {
+    "question": "Giá tour Sa Pa đã bao gồm vé cáp treo Fansipan chưa?",
+    "answer": "Dạ tour Sa Pa 3N2Đ bao gồm xe đưa đón đến ga cáp treo Fansipan. Vé cáp treo Fansipan khứ hồi của Sun World (khoảng 850.000đ/vé) bạn có thể đăng ký mua kèm với giá ưu đãi ngay khi đặt tour.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 6
+  },
+  {
+    "question": "Đi bản Cát Cát có thuê trang phục dân tộc chụp ảnh được không?",
+    "answer": "Rất nhiều điểm cho thuê trang phục H Mông, Dao đỏ, Thái... ngay cổng bản Cát Cát với giá chỉ từ 50.000 - 100.000đ/bộ, kèm nón, ô và vòng bạc để bạn check-in sống ảo cực đẹp.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 6
+  },
+  {
+    "question": "Mùa đông ở Sa Pa có tuyết rơi không?",
+    "answer": "Vào những đợt rét đậm khoảng cuối tháng 12 đến tháng 1, Sa Pa và đỉnh Fansipan thường xuyên có hiện tượng băng giá và tuyết rơi trắng xóa, thu hút rất đông du khách săn tuyết.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 6
+  },
+  {
+    "question": "Đặc sản Sa Pa có những món gì ngon nên thử?",
+    "answer": "Đến Sa Pa bạn nên thử: Lẩu cá tầm, cá hồi tươi sống, Thịt lợn cắp nách nướng, Thắng cố Tây Bắc, Gà đen hầm hạt sen, Rau cải mèo luộc chấm trứng và Rượu táo mèo thơm nồng.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 6
+  },
+  {
+    "question": "Thời điểm lý tưởng nhất để đi du lịch Quy Nhơn Phú Yên?",
+    "answer": "Từ tháng 3 đến tháng 8 là thời gian lý tưởng nhất. Lúc này trời nắng vàng, biển Quy Nhơn và Phú Yên cực kỳ trong xanh, sóng êm rất an toàn để cano ra đảo Kỳ Co và lặn ngắm san hô.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 7
+  },
+  {
+    "question": "Tour Quy Nhơn có đi cano cao tốc ra đảo Kỳ Co không?",
+    "answer": "Có ạ! Tour Quy Nhơn - Phú Yên 4N3Đ bao gồm cano cao tốc khứ hồi ra đảo Kỳ Co, vé tham quan bãi biển, trải nghiệm lặn ngắm san hô tự nhiên và chụp ảnh tại Cầu Tình Yêu.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 7
+  },
+  {
+    "question": "Ghềnh Đá Đĩa Phú Yên cách trung tâm Quy Nhơn bao xa?",
+    "answer": "Ghềnh Đá Đĩa nằm ở Tuy An - Phú Yên, cách trung tâm TP Quy Nhơn khoảng 75km (khoảng 1 tiếng 30 phút di chuyển bằng ô tô du lịch chất lượng cao theo cung đường ven biển tuyệt đẹp).",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 7
+  },
+  {
+    "question": "Đặc sản Quy Nhơn Phú Yên có món gì ngon?",
+    "answer": "Ẩm thực xứ Nẫu rất phong phú: Bánh xèo tôm nhảy, Bún chả cá Quy Nhơn, Chả ram tôm đất, Mắt cá ngừ đại dương hầm thuốc bắc, Bánh ít lá gai, Tré Bình Định và Gà chỉ Quy Nhơn.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 7
+  },
+  {
+    "question": "Ngắm hoàng hôn ở Eo Gió Quy Nhơn lúc mấy giờ đẹp nhất?",
+    "answer": "Eo Gió được mệnh danh là nơi ngắm hoàng hôn đẹp nhất Việt Nam. Thời gian đẹp nhất để đến Eo Gió ngắm chiều tà và chụp ảnh là từ 16h30 đến 17h45.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 7
+  },
+  {
+    "question": "Chợ nổi Cái Răng Cần Thơ họp vào khung giờ nào?",
+    "answer": "Chợ nổi Cái Răng bắt đầu họp từ sáng sớm, khoảng 5h00 đến 8h00 sáng là lúc sầm uất nhất. Đoàn sẽ xuống thuyền lúc 5h30 sáng để bạn đón bình minh trên sông và ăn sáng hủ tiếu chợ nổi.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 8
+  },
+  {
+    "question": "Mùa trái cây miệt vườn Cần Thơ chín rộ vào tháng mấy?",
+    "answer": "Mùa trái cây Nam Bộ rộ nhất là vào mùa hè, từ tháng 5 đến tháng 8. Bạn sẽ được tự tay hái và thưởng thức no nê chôm chôm, sầu riêng, măng cụt, dâu Hạ Châu ngay tại vườn sinh thái.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 8
+  },
+  {
+    "question": "Tour Cần Thơ có tham quan Nhà cổ Bình Thủy không?",
+    "answer": "Có ạ! Lịch trình ngày 2 sẽ đưa bạn ghé thăm Nhà cổ Bình Thủy - ngôi nhà cổ hơn 140 năm tuổi với kiến trúc giao thoa Pháp - Việt độc đáo từng là bối cảnh phim Người Tình nổi tiếng.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 8
+  },
+  {
+    "question": "Đặc sản Cần Thơ Miền Tây có gì hấp dẫn?",
+    "answer": "Các món ngon nức tiếng miền Tây gồm: Lẩu mắm Cần Thơ, Cá lóc nướng trui cuốn lá sen non, Bánh xèo miền Tây củ hủ dừa, Nem nướng Cái Răng, Vịt nấu chao và bánh cống giòn rụm.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 8
+  },
+  {
+    "question": "Đi tàu ghe sông nước Miền Tây có áo phao bảo hộ không?",
+    "answer": "Toàn bộ tàu du lịch, xuồng ba lá trong tour Cần Thơ đều được cấp phép an toàn giao thông đường thủy và trang bị đầy đủ 100% áo phao cứu sinh cho hành khách trước khi rời bến.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 8
+  },
+  {
+    "question": "Tour có xuất hóa đơn đỏ VAT cho công ty không?",
+    "answer": "Dạ có! TourAI hỗ trợ xuất hóa đơn điện tử VAT (hóa đơn giá trị gia tăng) đầy đủ và hợp lệ cho các doanh nghiệp, cơ quan đoàn thể. Quý khách vui lòng cung cấp thông tin mã số thuế khi đặt tour.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Có hóa đơn GTGT không?",
+    "answer": "Có ạ, TourAI xuất hóa đơn GTGT điện tử đầy đủ theo yêu cầu của công ty hoặc đoàn thể.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Đi tour có được mang theo thú cưng chó mèo không?",
+    "answer": "Rất tiếc, theo quy định chung của các hãng xe du lịch, hàng không và khách sạn lưu trú, thú cưng hiện chưa được phép mang theo trong các chuyến tour ghép đoàn để đảm bảo vệ sinh chung.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Người ăn chay hoặc dị ứng thực phẩm có được hỗ trợ không?",
+    "answer": "Dạ hoàn toàn được! Bạn chỉ cần báo trước cho TourAI khi đặt tour, công ty sẽ thông báo nhà hàng chuẩn bị các suất ăn chay thanh tịnh hoặc đổi món phù hợp với tình trạng của bạn.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Ăn chay có đi tour được không?",
+    "answer": "Hoàn toàn được bạn nhé! Bạn chỉ cần báo trước với tư vấn viên khi đặt tour để nhà hàng sắp xếp các suất ăn chay ngon miệng và đầy đủ dinh dưỡng cho bạn.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Phụ nữ mang thai có tham gia tour du lịch được không?",
+    "answer": "Phụ nữ mang thai dưới 26 tuần có sức khỏe tốt có thể tham gia các tour nghỉ dưỡng nhẹ nhàng (Đà Nẵng, Hạ Long, Đà Lạt). Đối với các tour đi cano tốc độ cao, quý khách nên hỏi ý kiến bác sĩ trước.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Người cao tuổi đi tour có cần lưu ý gì không?",
+    "answer": "Người cao tuổi đi tour sẽ được ưu tiên xếp ghế ngồi phía trước xe, bố trí phòng nghỉ tầng thấp hoặc gần thang máy. Hướng dẫn viên luôn hỗ trợ chu đáo trong suốt hành trình.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Tour có giới hạn số lượng hành lý mang theo không?",
+    "answer": "Mỗi khách có thể mang theo 1 vali tiêu chuẩn (dưới 20kg) và 1 balo hoặc túi xách tay nhỏ. Xe du lịch của chúng tôi có khoang hành lý rộng rãi và bảo đảm an toàn.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Nên đặt tour trước ngày đi bao nhiêu lâu?",
+    "answer": "Để giữ được phòng khách sạn đẹp và giá tốt nhất, bạn nên đăng ký tour trước ít nhất 7 đến 15 ngày vào ngày thường, và từ 30 đến 45 ngày vào dịp Lễ, Tết hoặc mùa hè cao điểm.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Có tour ghép cho người đi du lịch một mình không?",
+    "answer": "TourAI thường xuyên tổ chức tour ghép đoàn khởi hành hàng tuần rất phù hợp cho khách đi một mình. Bạn có thể chọn ghép phòng cùng bạn đồng hành cùng giới hoặc trả thêm phụ thu phòng đơn để ở riêng.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Đi một mình có phải trả phụ thu phòng đơn không?",
+    "answer": "Nếu bạn đi một mình và muốn ở riêng một phòng tiêu chuẩn thì sẽ có phụ thu phòng đơn. Nếu bạn đồng ý ghép phòng với khách cùng giới trong đoàn, bạn sẽ không mất khoản phí này.",
+    "intent": "hoi_gia",
+    "tour_id": null
+  },
+  {
+    "question": "Số điện thoại hotline hỗ trợ khẩn cấp của TourAI là gì?",
+    "answer": "Tổng đài tư vấn và hỗ trợ khách hàng của TourAI hoạt động 24/7 qua Hotline: 1900 6868 hoặc số di động khẩn cấp 0988 123 456. Bạn cũng có thể gửi email đến support@tourai.vn.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Hotline tư vấn đặt tour là số nào?",
+    "answer": "Hotline tư vấn đặt tour TourAI là 1900 6868 (hoặc 0988 123 456), tư vấn viên luôn sẵn sàng hỗ trợ bạn 24/7.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "TourAI có nhận thiết kế tour riêng cho công ty teambuilding không?",
+    "answer": "Có ạ! TourAI chuyên tổ chức tour riêng, tour đoàn gia đình và chương trình Teambuilding, Gala Dinner cho doanh nghiệp với lịch trình thiết kế riêng theo ngân sách và yêu cầu.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Công ty muốn tổ chức teambuilding thì liên hệ thế nào?",
+    "answer": "Quý công ty vui lòng liên hệ Hotline doanh nghiệp 0988 123 456 hoặc gửi email về info@tourai.vn, đội ngũ chuyên viên TourAI sẽ liên hệ gửi kịch bản và báo giá chi tiết trong vòng 2 giờ.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Thanh toán bằng thẻ tín dụng Visa Mastercard được không?",
+    "answer": "Có ạ! TourAI chấp nhận thanh toán qua thẻ tín dụng quốc tế (Visa, MasterCard, JCB), thẻ ATM nội địa qua cổng thanh toán an toàn VNPAY hoặc chuyển khoản ngân hàng và ví MoMo/ZaloPay.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Chuyển khoản thanh toán tour vào tài khoản nào?",
+    "answer": "Quý khách chuyển khoản đến STK Công ty Cổ phần Du Lịch TourAI - Vietcombank CN Hà Nội: 0123456789. Cú pháp: [Họ tên] + [Tên tour hoặc SĐT].",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Tour khởi hành vào những ngày nào trong tuần?",
+    "answer": "Các tour nội địa của TourAI khởi hành định kỳ vào thứ Năm và thứ Sáu hàng tuần. Riêng dịp Lễ, Tết hoặc mùa hè cao điểm sẽ có lịch khởi hành hàng ngày.",
+    "intent": "hoi_thoi_gian",
+    "tour_id": null
+  },
+  {
+    "question": "Điểm đón khách ở đâu, có đón tại nhà không?",
+    "answer": "Xe du lịch đón khách tại các điểm hẹn trung tâm cố định trong thành phố (Nhà hát Lớn, Sân bay hoặc khách sạn trung tâm). Đối với đoàn riêng từ 10 khách trở lên, xe sẽ đón tận nơi theo yêu cầu.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Xe đưa đón trong tour là xe gì?",
+    "answer": "TourAI sử dụng dòng xe du lịch đời mới cao cấp (16, 29, 45 chỗ như Ford Transit, Thaco, Hyundai Universe) có máy lạnh, ghế ngả êm ái, bảo hiểm đầy đủ và bác tài nhiều năm kinh nghiệm.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Có hỗ trợ người say xe không?",
+    "answer": "Đội ngũ lái xe chạy rất êm và cẩn thận. Hướng dẫn viên luôn chuẩn bị sẵn thuốc chống say xe, gừng tươi và túi dự phòng. Bạn bị say xe hãy báo trước để được ưu tiên ngồi hàng ghế đầu.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Khách sạn mấy sao?",
+    "answer": "TourAI sử dụng hệ thống khách sạn và resort tiêu chuẩn từ 3 đến 5 sao (tùy gói tour bạn chọn), phòng đầy đủ tiện nghi, sạch sẽ, vị trí trung tâm hoặc view biển đẹp.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Khách sạn trong tour mấy sao?",
+    "answer": "TourAI sử dụng hệ thống khách sạn và resort tiêu chuẩn từ 3 đến 5 sao (tùy gói tour bạn chọn), phòng đầy đủ tiện nghi, sạch sẽ, vị trí trung tâm hoặc view biển đẹp.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "KS trong tour mấy sao?",
+    "answer": "TourAI sử dụng hệ thống khách sạn và resort tiêu chuẩn từ 3 đến 5 sao (tùy gói tour bạn chọn), phòng đầy đủ tiện nghi, sạch sẽ, vị trí trung tâm hoặc view biển đẹp.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Ở khách sạn nào?",
+    "answer": "TourAI bố trí lưu trú tại các khách sạn và resort tiêu chuẩn từ 3 đến 5 sao có thương hiệu uy tín, vị trí trung tâm hoặc sát biển, đầy đủ buffet sáng và tiện ích.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Tour có xe đưa đón không?",
+    "answer": "Có ạ! Tất cả các gói tour trọn gói của TourAI đều có xe ô tô du lịch đời mới máy lạnh đưa đón quý khách suốt tuyến theo lịch trình.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Xe đưa đón tận nơi không?",
+    "answer": "Đối với tour ghép, xe đón tại các điểm hẹn trung tâm thuận tiện. Đối với đoàn gia đình hoặc công ty từ 10 khách trở lên, xe sẽ đón và trả tận nơi tại nhà hoặc cơ quan.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Ăn uống trong tour như thế nào?",
+    "answer": "Các bữa ăn trong tour đều được bố trí tại nhà hàng địa phương uy tín với tiêu chuẩn từ 150.000đ - 250.000đ/suất, bao gồm thực đơn đặc sản địa phương phong phú và buffet sáng tại khách sạn.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Bữa ăn trong tour thế nào?",
+    "answer": "Các bữa ăn trong tour đều được bố trí tại nhà hàng địa phương uy tín với tiêu chuẩn từ 150.000đ - 250.000đ/suất, bao gồm thực đơn đặc sản địa phương phong phú và buffet sáng tại khách sạn.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Tour có bao gồm vé máy bay không?",
+    "answer": "Giá các tour tiêu chuẩn của TourAI chưa bao gồm vé máy bay khứ hồi (chỉ bao gồm xe du lịch máy lạnh đưa đón theo chương trình). Nếu bạn cần đặt vé máy bay theo đoàn, TourAI có hỗ trợ đặt vé với giá đại lý tốt nhất.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Giá tour có vé máy bay chưa?",
+    "answer": "Giá các tour tiêu chuẩn của TourAI chưa bao gồm vé máy bay khứ hồi (chỉ bao gồm xe du lịch máy lạnh đưa đón theo chương trình). Nếu bạn cần đặt vé máy bay theo đoàn, TourAI có hỗ trợ đặt vé với giá đại lý tốt nhất.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Đi Sa Pa có cần mang áo ấm không?",
+    "answer": "Rất cần bạn nhé! Sa Pa có khí hậu vùng cao mát lạnh quanh năm, ban đêm và mùa đông nhiệt độ xuống rất thấp (thậm chí có băng giá). Bạn nên chuẩn bị áo khoác dày, khăn len, găng tay và giày thể thao êm chân.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 6
+  },
+  {
+    "question": "Đi Sa Pa mặc gì?",
+    "answer": "Ban ngày bạn có thể mặc trang phục năng động, váy vintage chụp ảnh bản Cát Cát hoặc Fansipan, nhưng nhớ luôn mang theo một chiếc áo khoác ấm vì thời tiết Sa Pa thay đổi nhanh và ban đêm se lạnh.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 6
+  },
+  {
+    "question": "Đi du lịch Sa Pa mặc gì đẹp?",
+    "answer": "Bạn nên chọn các trang phục tông màu ấm, phong cách bohemian hoặc áo dạ, khăn thổ cẩm để check-in bản Cát Cát, Cổng Trời Ô Quy Hồ và đỉnh Fansipan cực kỳ nổi bật.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 6
+  },
+  {
+    "question": "Đi Đà Lạt mặc gì?",
+    "answer": "Đà Lạt mát mẻ ban ngày và se lạnh ban đêm, rất hợp với áo len mỏng, áo măng tô, blazer, chân váy dài hoặc váy hoa vintage kết hợp cùng khăn choàng và mũ nồi.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 5
+  },
+  {
+    "question": "Đi du lịch Đà Lạt cần chuẩn bị gì?",
+    "answer": "Bạn nên chuẩn bị: Áo ấm, khăn choàng, ô dù gấp nhỏ (phòng mưa rào bất chợt), kem chống nắng, giày bệt/thể thao để thoải mái đi dạo dốc và CCCD để nhận phòng khách sạn.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 5
+  },
+  {
+    "question": "Đi Phú Quốc mặc gì?",
+    "answer": "Đi Phú Quốc bạn nên chuẩn bị đồ bơi, bikini, váy maxi đi biển màu sắc rực rỡ, kính râm, mũ cói rộng vành và dép xỏ ngón để thoải mái tắm biển, check-in hoàng hôn Sunset Town và Grand World.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 4
+  },
+  {
+    "question": "Đi du lịch Phú Quốc cần chuẩn bị gì?",
+    "answer": "Bạn nên mang theo đồ bơi, kem chống nắng chống nước, túi chống nước cho điện thoại khi đi cano/lặn biển, kính râm, thuốc say sóng và sạc dự phòng.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 4
+  },
+  {
+    "question": "Đi tour Hạ Long mặc gì?",
+    "answer": "Trên du thuyền Hạ Long bạn nên chuẩn bị trang phục thanh lịch cho bữa tiệc tối, đồ bơi/quần áo thoải mái gọn nhẹ để chèo kayak hoặc tắm biển Ti Tốp, và áo khoác nhẹ khi ngắm cảnh vịnh về đêm.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 3
+  },
+  {
+    "question": "Đi du lịch Hạ Long cần chuẩn bị gì?",
+    "answer": "Bạn cần mang CCCD/hộ chiếu gốc để làm thủ tục lên tàu, đồ bơi, kem chống nắng, kính râm, giày thể thao đế chống trơn để leo đảo Ti Tốp và hang Sửng Sốt.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 3
+  },
+  {
+    "question": "Đi du lịch Đà Nẵng cần chuẩn bị gì?",
+    "answer": "Bạn nên chuẩn bị đồ bơi tắm biển Mỹ Khê, kem chống nắng, kính râm, mũ nón, trang phục lịch sự khi viếng Chùa Linh Ứng - Bán đảo Sơn Trà và áo khoác mỏng vì Bà Nà Hills trên đỉnh núi khá mát mẻ.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 1
+  },
+  {
+    "question": "Đi Đà Nẵng mặc gì đẹp?",
+    "answer": "Đà Nẵng có cả biển và núi: Bạn nên mang váy maxi sáng màu đi biển Mỹ Khê, trang phục phong cách châu Âu check-in Làng Pháp Bà Nà Hills và trang phục kín đáo khi thăm Chùa Linh Ứng.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 1
+  },
+  {
+    "question": "Đi du lịch Nha Trang cần chuẩn bị gì?",
+    "answer": "Bạn nên mang theo trang phục đi biển, kem chống nắng, kính mát, đồ bơi để vui chơi tại VinWonders hoặc lặn ngắm san hô, và đồ bơi tối màu nếu trải nghiệm ngâm bùn khoáng nóng.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 2
+  },
+  {
+    "question": "Đi Nha Trang mặc gì đẹp?",
+    "answer": "Bạn hãy mang nhiều váy maxi màu sắc nổi bật như vàng, trắng, xanh dương chụp ở bãi biển và VinWonders, kèm mũ cói rộng vành, kính mát thời trang.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 2
+  },
+  {
+    "question": "Đi Quy Nhơn mặc gì đẹp?",
+    "answer": "Biển Kỳ Co và Eo Gió có cảnh quan đá và biển xanh ngắt, bạn nên chọn trang phục màu trắng, vàng, cam hoặc đỏ rực rỡ, váy maxi thướt tha, kèm mũ cói để có những bức ảnh check-in sống ảo triệu like.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 7
+  },
+  {
+    "question": "Đi du lịch Quy Nhơn Phú Yên cần chuẩn bị gì?",
+    "answer": "Nắng miền Trung khá gắt nên kem chống nắng chỉ số cao, mũ rộng vành, kính mát, áo chống nắng và dép quai hậu đế bám tốt là những vật dụng không thể thiếu.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 7
+  },
+  {
+    "question": "Đi Cần Thơ Miền Tây mặc gì?",
+    "answer": "Bạn nên mặc trang phục gọn gàng, thoáng mát bằng chất liệu cotton hoặc lanh, đi giày bệt/dép quai hậu để dễ dàng lên xuống xuồng ghe. Có thể chuẩn bị thêm áo bà ba hoặc khăn rằn Nam Bộ chụp ảnh rất duyên dáng.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 8
+  },
+  {
+    "question": "Đi du lịch Cần Thơ cần chuẩn bị gì?",
+    "answer": "Bạn nên mang nón lá hoặc mũ rộng vành, kem chống muỗi/côn trùng khi tham quan miệt vườn sinh thái, ô dù che nắng và một ít tiền mặt mệnh giá nhỏ để tiện mua đồ ăn vặt tại Chợ nổi Cái Răng.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 8
   }
 ]

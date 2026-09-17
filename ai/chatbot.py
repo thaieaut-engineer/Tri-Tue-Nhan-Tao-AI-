@@ -29,13 +29,13 @@ OUTSIDE_DESTINATIONS = [
     "nước ngoài", "quốc tế", "ngoại quốc", "thái lan", "nhật bản", "hàn quốc", "trung quốc",
     "châu âu", "châu á", "mỹ", "hoa kỳ", "singapore", "malaysia", "đài loan", "bali", "úc",
     "pháp", "anh", "đức", "ý", "nga", "campuchia", "lào", "dubai", "hồng kông", "ấn độ",
-    # Các tỉnh thành / địa danh du lịch Việt Nam khác ngoài các tour trong DB
-    "hải phòng", "hà nội", "sài gòn", "hồ chí minh", "tphcm", "phú quốc", "đà lạt", "sa pa",
-    "sapa", "huế", "hội an", "quy nhơn", "côn đảo", "vũng tàu", "hà giang", "mộc châu",
-    "ninh bình", "cát bà", "tam đảo", "mai châu", "ba bể", "quảng bình", "phong nha",
-    "kẻ bàng", "cần thơ", "bến tre", "an giang", "mũi né", "phan thiết", "tây bắc", "đông bắc",
-    "đồng tháp", "bạc liêu", "cà mau", "bình định", "phú yên", "buôn ma thuột", "đắk lắk",
-    "quảng ninh", "đồ sơn", "bạch long vĩ", "lý sơn", "bình ba", "nam du", "phú thọ"
+    # Các tỉnh thành / địa danh du lịch Việt Nam khác ngoài 8 tour trong DB
+    "hải phòng", "hà nội", "sài gòn", "hồ chí minh", "tphcm", "huế", "hội an",
+    "côn đảo", "vũng tàu", "hà giang", "mộc châu", "ninh bình", "cát bà", "tam đảo",
+    "mai châu", "ba bể", "quảng bình", "phong nha", "kẻ bàng", "bến tre", "an giang",
+    "mũi né", "phan thiết", "tây bắc", "đông bắc", "đồng tháp", "bạc liêu", "cà mau",
+    "bình định", "buôn ma thuột", "đắk lắk", "quảng ninh", "đồ sơn", "bạch long vĩ",
+    "lý sơn", "bình ba", "nam du", "phú thọ"
 ]
 
 # Các chủ đề du lịch mở rộng
@@ -103,9 +103,14 @@ class Chatbot:
 
         if not self.local_tours:
             self.local_tours = [
-                {"id": 1, "name": "Tour Đà Nẵng 3 ngày 2 đêm", "destination": "Đà Nẵng", "price": 4500000, "duration": "3 ngày 2 đêm", "description": "Khám phá Bà Nà Hills, Cầu Vàng, Bán đảo Sơn Trà và biển Mỹ Khê."},
+                {"id": 1, "name": "Tour Đà Nẵng 3 ngày 2 đêm", "destination": "Đà Nẵng", "price": 4500000, "duration": "3 ngày 2 đêm", "description": "Khám phá Bà Nà Hills, Cầu Vàng, Bán đảo Sơn Trà, Chùa Linh Ứng và biển Mỹ Khê."},
                 {"id": 2, "name": "Tour Nha Trang 3 ngày 2 đêm", "destination": "Nha Trang", "price": 4200000, "duration": "3 ngày 2 đêm", "description": "Trải nghiệm VinWonders, lặn biển ngắm san hô tại Hòn Mun, tắm bùn khoáng."},
-                {"id": 3, "name": "Tour Hạ Long 2 ngày 1 đêm", "destination": "Hạ Long", "price": 3500000, "duration": "2 ngày 1 đêm", "description": "Du thuyền 5 sao vịnh Hạ Long, chèo thuyền kayak, tham quan hang Sửng Sốt."}
+                {"id": 3, "name": "Tour Hạ Long 2 ngày 1 đêm", "destination": "Hạ Long", "price": 3500000, "duration": "2 ngày 1 đêm", "description": "Du thuyền 5 sao vịnh Hạ Long, chèo thuyền kayak, tham quan hang Sửng Sốt."},
+                {"id": 4, "name": "Tour Phú Quốc 3 ngày 2 đêm", "destination": "Phú Quốc", "price": 5200000, "duration": "3 ngày 2 đêm", "description": "Khám phá đảo ngọc Phú Quốc, check-in Grand World, Cáp treo Hòn Thơm và lặn ngắm san hô."},
+                {"id": 5, "name": "Tour Đà Lạt 3 ngày 2 đêm", "destination": "Đà Lạt", "price": 3800000, "duration": "3 ngày 2 đêm", "description": "Thành phố ngàn hoa Đà Lạt, chinh phục Đỉnh Langbiang, Thung Lũng Tình Yêu, Đồi chè Cầu Đất."},
+                {"id": 6, "name": "Tour Sa Pa 3 ngày 2 đêm", "destination": "Sa Pa", "price": 4100000, "duration": "3 ngày 2 đêm", "description": "Chinh phục đỉnh Fansipan nóc nhà Đông Dương, tìm hiểu văn hóa bản Cát Cát và ngắm đèo Ô Quy Hồ."},
+                {"id": 7, "name": "Tour Quy Nhơn - Phú Yên 4 ngày 3 đêm", "destination": "Quy Nhơn", "price": 4900000, "duration": "4 ngày 3 đêm", "description": "Khám phá Kỳ Co, Eo Gió, Ghềnh Đá Đĩa và xứ sở hoa vàng trên cỏ xanh Phú Yên."},
+                {"id": 8, "name": "Tour Cần Thơ - Miền Tây 2 ngày 1 đêm", "destination": "Cần Thơ", "price": 2800000, "duration": "2 ngày 1 đêm", "description": "Trải nghiệm văn hóa chợ nổi Cái Răng, thưởng thức trái cây miệt vườn Nam Bộ và Bến Ninh Kiều."}
             ]
 
     def load_data(self):
@@ -157,9 +162,14 @@ class Chatbot:
         q_low = question.lower()
 
         local_keywords_map = {
-            "đà nẵng": ["đà nẵng", "da nang", "bà nà", "ba na", "mỹ khê", "sơn trà", "cầu rồng"],
+            "đà nẵng": ["đà nẵng", "da nang", "bà nà", "ba na", "mỹ khê", "sơn trà", "cầu rồng", "linh ứng"],
             "nha trang": ["nha trang", "vinpearl", "vinwonders", "tháp bà", "hòn tằm", "hòn mun"],
-            "hạ long": ["hạ long", "ha long", "tuần châu", "vịnh hạ long", "hang sửng sốt", "ti tốp"]
+            "hạ long": ["hạ long", "ha long", "tuần châu", "vịnh hạ long", "hang sửng sốt", "ti tốp", "du thuyền hạ long"],
+            "phú quốc": ["phú quốc", "phu quoc", "hòn thơm", "grand world", "sunset town", "bãi sao", "dinh cậu"],
+            "đà lạt": ["đà lạt", "da lat", "langbiang", "thung lũng tình yêu", "đồi chè cầu đất", "hồ xuân hương"],
+            "sa pa": ["sa pa", "sapa", "fansipan", "cát cát", "ô quy hồ", "hàm rồng"],
+            "quy nhơn": ["quy nhơn", "quy nhon", "kỳ co", "eo gió", "ghềnh đá đĩa", "phú yên"],
+            "cần thơ": ["cần thơ", "can tho", "cái răng", "chợ nổi", "bến ninh kiều", "miền tây"]
         }
 
         matched_local = []
@@ -176,17 +186,32 @@ class Chatbot:
 
         return matched_local, matched_outside
 
-    def compute_cosine_similarity(self, question_vector):
+    def compute_cosine_similarity(self, question_vector, allowed_tour_ids=None):
         """
         ÁP DỤNG COSINE SIMILARITY:
         Tính độ tương đồng Cosine giữa vector TF-IDF của câu hỏi người dùng
         với toàn bộ ma trận vector TF-IDF của tập câu hỏi mẫu.
+        Nếu allowed_tour_ids được chỉ định, ưu tiên các câu hỏi thuộc tour tương ứng
+        hoặc câu hỏi chung (tour_id is None).
         """
-        if self.data_vectors is None or self.vectorizer is None:
+        if self.data_vectors is None or self.vectorizer is None or len(self.questions) == 0:
             return -1, 0.0
 
         # Tính toán ma trận độ tương đồng Cosine
         similarities = cosine_similarity(question_vector, self.data_vectors)[0]
+
+        if allowed_tour_ids:
+            # Lọc các index phù hợp (cùng tour_id hoặc tour_id is None)
+            valid_indices = [
+                i for i, tid in enumerate(self.tour_ids)
+                if tid is None or tid in allowed_tour_ids
+            ]
+            if valid_indices:
+                filtered_sims = similarities[valid_indices]
+                best_sub_idx = int(filtered_sims.argmax())
+                best_index = valid_indices[best_sub_idx]
+                best_score = float(similarities[best_index])
+                return best_index, best_score
 
         best_index = int(similarities.argmax())
         best_score = float(similarities[best_index])
@@ -219,8 +244,9 @@ class Chatbot:
         3. Naive Bayes (MultinomialNB): Dự đoán phân loại Ý định (Intent Classification).
         4. Cosine Similarity: Đo lường độ tương đồng ngữ nghĩa giữa vector câu hỏi và cơ sở tri thức.
         5. Ra quyết định:
-           - Khớp chính xác nội bộ -> Trả lời theo mẫu và Intent của tour tương ứng.
-           - Độ tương đồng thấp hoặc điểm đến ngoài hệ thống -> Tận dụng Intent từ Naive Bayes để tìm kiếm Internet có định hướng!
+           - Khớp chính xác nội bộ (Cosine Similarity >= 0.50) -> Trả về câu trả lời chi tiết, chuẩn xác từ cơ sở tri thức.
+           - Khớp tương đối theo tour nội bộ (0.30 <= Cosine < 0.50) -> Tổng hợp trực tiếp từ bảng dữ liệu tour theo Intent.
+           - Điểm đến ngoài hệ thống hoặc độ tương đồng thấp -> Tận dụng Naive Bayes Intent kết hợp tra cứu Internet có định hướng!
         """
         if not question or not question.strip():
             return "Bạn hãy nhập câu hỏi để tôi có thể tư vấn nhé."
@@ -275,19 +301,22 @@ class Chatbot:
 
         # -------------------------------------------------------------
         # BƯỚC 3: COSINE SIMILARITY MATCHING
-        # Đo độ tương đồng ngữ nghĩa giữa câu hỏi người dùng và tập câu hỏi mẫu
+        # Đo độ tương đồng ngữ nghĩa, ưu tiên các câu hỏi liên quan đến điểm đến nếu có
         # -------------------------------------------------------------
-        best_index, cosine_score = self.compute_cosine_similarity(question_vector)
+        allowed_tour_ids = {t["id"] for t in matched_local} if matched_local else None
+        best_index, cosine_score = self.compute_cosine_similarity(question_vector, allowed_tour_ids)
 
         # -------------------------------------------------------------
-        # BƯỚC 4: XỬ LÝ CÁC TRƯỜNG HỢP NGOÀI HỆ THỐNG / CHỦ ĐỀ MỞ RỘNG
+        # BƯỚC 4: XỬ LÝ KHI NGƯỜI DÙNG YÊU CẦU TRA CỨU MẠNG HOẶC HỎI ĐIỂM NGOÀI HỆ THỐNG
         # -------------------------------------------------------------
-        # Nếu hỏi về điểm đến ngoài hệ thống (Hải Phòng, Đà Lạt, nước ngoài...)
-        # hoặc người dùng chủ động chọn tìm kiếm web
-        if (matched_outside and not matched_local) or (force_web_search and not matched_local):
-            out_name = matched_outside[0].title() if matched_outside else "điểm đến này"
+        if force_web_search or is_explicit_web:
+            web_results = search_web_for_travel(q_raw)
+            if web_results:
+                return format_web_response(q_raw, web_results)
 
-            # Tối ưu từ khóa tìm kiếm dựa trên Intent dự đoán bởi Naive Bayes
+        if matched_outside and not matched_local:
+            out_name = matched_outside[0].title()
+
             search_query = q_raw
             if predicted_intent in ("hoi_gia", "tour_price"):
                 search_query = f"giá tour du lịch {out_name}"
@@ -299,87 +328,79 @@ class Chatbot:
             prefix = ""
             if any(w in q_low for w in ["tour", "giá", "chi phí", "điểm du lịch", "tham quan", "có gì", "đâu"]):
                 if "nước ngoài" in q_low or "quốc tế" in q_low:
-                    prefix = "Hiện tại hệ thống TourAI chủ yếu cung cấp các tour nội địa (Đà Nẵng, Nha Trang, Hạ Long).\n\n"
+                    prefix = "Hiện tại hệ thống TourAI chủ yếu cung cấp các tour nội địa (Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Quy Nhơn, Cần Thơ).\n\n"
                 else:
-                    prefix = f"Hiện tại hệ thống TourAI chưa có tour khởi hành đến {out_name} (chúng tôi hiện có tour Đà Nẵng, Nha Trang, Hạ Long).\n\n"
+                    prefix = f"Hiện tại hệ thống TourAI chưa có tour khởi hành đến {out_name} (chúng tôi hiện có tour Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Quy Nhơn, Cần Thơ).\n\n"
 
             if web_results:
                 return prefix + format_web_response(q_raw, web_results)
             else:
                 return (
                     f"{prefix}Tôi đã tìm kiếm trên mạng về '{q_raw}' nhưng chưa có kết quả chi tiết. "
-                    f"Bạn có thể tham khảo các tour hiện có tại Đà Nẵng, Nha Trang, Hạ Long nhé!"
+                    f"Bạn có thể tham khảo các tour hiện có (Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Quy Nhơn, Cần Thơ) nhé!"
                 )
 
-        # Nếu hỏi về chủ đề mở rộng (thời tiết, ẩm thực, kinh nghiệm)
+        # -------------------------------------------------------------
+        # BƯỚC 5: KHỚP CHÍNH XÁC NỘI BỘ VỚI COSINE SIMILARITY >= 0.50
+        # Ưu tiên các câu trả lời chuyên sâu, đã biên soạn hoàn chỉnh
+        # -------------------------------------------------------------
+        if best_index >= 0 and cosine_score >= 0.50:
+            return self.answers[best_index]
+
+        # -------------------------------------------------------------
+        # BƯỚC 6: KHỚP VỪA PHẢI (0.30 <= COSINE < 0.50) VỚI TOUR NỘI BỘ
+        # Dùng Naive Bayes Predicted Intent kết hợp thuộc tính từ bảng Tour
+        # -------------------------------------------------------------
+        if matched_local:
+            tour = matched_local[0]
+            if predicted_intent in ("tour_price", "hoi_gia") or any(k in q_low for k in ["giá", "chi phí", "bao nhiêu tiền", "bao tiền", "hết bao nhiêu"]):
+                return f"💰 {tour['name']} có giá {tour['price']:,.0f} VNĐ."
+
+            elif predicted_intent in ("tour_duration", "hoi_thoi_gian") or any(k in q_low for k in ["mấy ngày", "bao lâu", "thời gian"]):
+                return f"⏱ {tour['name']} có thời gian {tour['duration']}."
+
+            elif predicted_intent in ("tour_search", "tim_tour"):
+                return (
+                    f"🌏 Chúng tôi có {tour['name']} tại {tour['destination']}.\n"
+                    f"Thời gian: {tour['duration']} | Giá: {tour['price']:,.0f} VNĐ.\n"
+                    f"Bạn có thể xem chi tiết tại: /tours/{tour['id']}"
+                )
+
+            elif predicted_intent in ("tour_info", "hoi_lich_trinh", "thong_tin_tour"):
+                desc = tour.get("description") or "Tour trải nghiệm trọn vẹn với các điểm đến nổi tiếng, dịch vụ chất lượng."
+                return (
+                    f"🌏 {tour['name']}\n\n"
+                    f"📍 Điểm đến: {tour['destination']}\n"
+                    f"⏱ Thời gian: {tour['duration']}\n"
+                    f"💰 Giá: {tour['price']:,.0f} VNĐ\n\n"
+                    f"📝 {desc}\n\n"
+                    f"👉 Xem chi tiết tại: /tours/{tour['id']}"
+                )
+
+        if best_index >= 0 and cosine_score >= 0.35:
+            return self.answers[best_index]
+
+        # -------------------------------------------------------------
+        # BƯỚC 7: XỬ LÝ Ý ĐỊNH GIAO TIẾP CƠ BẢN HOẶC TẬN DỤNG TÌM KIẾM WEB
+        # -------------------------------------------------------------
+        if predicted_intent == "chao_hoi" or any(w in q_low for w in ["xin chào", "chào bạn", "hello", "hi", "alo", "chào"]):
+            return "👋 Xin chào! Tôi là trợ lý AI của TourAI. Tôi có thể giúp bạn tìm kiếm tour du lịch, kiểm tra giá vé, xem lịch trình chi tiết và tra cứu thời tiết thời gian thực."
+
+        if predicted_intent == "tam_biet" or any(w in q_low for w in ["tạm biệt", "cảm ơn", "bye", "hẹn gặp", "thank"]):
+            return "Cảm ơn bạn đã sử dụng TourAI! Chúc bạn có những chuyến du lịch thật vui vẻ và trọn vẹn!"
+
+        # Nếu là câu hỏi về chủ đề du lịch nói chung hoặc câu hỏi mở rộng
         if is_travel_topic or is_explicit_web:
             web_results = search_web_for_travel(q_raw)
             if web_results:
                 return format_web_response(q_raw, web_results)
 
-        # -------------------------------------------------------------
-        # BƯỚC 5: ĐÁNH GIÁ KẾT HỢP NAIVE BAYES & COSINE SIMILARITY NỘI BỘ
-        # -------------------------------------------------------------
-        target_tour_id = self.tour_ids[best_index] if best_index >= 0 else None
+        # Fallback tìm kiếm web cho các câu hỏi chưa rõ ràng
+        web_results = search_web_for_travel(q_raw)
+        if web_results:
+            return format_web_response(q_raw, web_results)
 
-        # Kiểm tra tính hợp lệ của tour (Guard Clause)
-        is_valid_tour_match = True
-        if target_tour_id is not None:
-            tour_obj = self.get_tour(target_tour_id)
-            if tour_obj:
-                dest_low = tour_obj["destination"].lower()
-                if dest_low not in q_low:
-                    is_valid_tour_match = False
-
-        # Nếu Cosine Similarity thấp (< 0.35) hoặc khớp nhầm Tour
-        if cosine_score < 0.35 or not is_valid_tour_match:
-            # Kiểm tra intent chào hỏi hoặc tạm biệt từ Naive Bayes
-            if predicted_intent == "chao_hoi" or any(w in q_low for w in ["xin chào", "chào bạn", "hello", "hi"]):
-                return "👋 Xin chào! Tôi là trợ lý AI của TourAI. Tôi có thể tư vấn tour du lịch hoặc tra cứu thông tin trên Internet giúp bạn."
-
-            if predicted_intent == "tam_biet" or any(w in q_low for w in ["tạm biệt", "cảm ơn", "bye", "hẹn gặp"]):
-                return "Cảm ơn bạn đã sử dụng TourAI! Chúc bạn có những chuyến du lịch thật vui vẻ và trọn vẹn!"
-
-            # Khi không khớp được trong DB -> Tận dụng intent tìm kiếm Internet
-            web_results = search_web_for_travel(q_raw)
-            if web_results:
-                return format_web_response(q_raw, web_results)
-            else:
-                return (
-                    "Xin lỗi, tôi chưa tìm thấy thông tin phù hợp trong cơ sở dữ liệu cũng như trên mạng. "
-                    "Bạn có thể hỏi về các tour hiện có (Đà Nẵng, Nha Trang, Hạ Long), giá vé, lịch trình nhé!"
-                )
-
-        # -------------------------------------------------------------
-        # BƯỚC 6: XUẤT CÂU TRẢ LỜI TỪ DATABASE KHI KHỚP CHÍNH XÁC
-        # -------------------------------------------------------------
-        if target_tour_id and is_valid_tour_match:
-            tour = self.get_tour(target_tour_id)
-            if tour:
-                # Dựa vào Naive Bayes Predicted Intent để trả về trường dữ liệu chính xác
-                if predicted_intent in ("tour_price", "hoi_gia") or "giá" in q_low:
-                    return f"💰 {tour['name']} có giá {tour['price']:,.0f} VNĐ."
-
-                elif predicted_intent in ("tour_duration", "hoi_thoi_gian") or "mấy ngày" in q_low:
-                    return f"⏱ {tour['name']} có thời gian {tour['duration']}."
-
-                elif predicted_intent in ("tour_search", "tim_tour"):
-                    return (
-                        f"🌏 Chúng tôi có {tour['name']} tại {tour['destination']}.\n"
-                        f"Thời gian: {tour['duration']} | Giá: {tour['price']:,.0f} VNĐ.\n"
-                        f"Bạn có thể xem chi tiết tại đường dẫn: /tours/{tour['id']}"
-                    )
-
-                elif predicted_intent in ("tour_info", "hoi_lich_trinh", "thong_tin_tour"):
-                    desc = tour.get("description") or "Tour trải nghiệm trọn vẹn với các điểm đến nổi tiếng, dịch vụ chất lượng."
-                    return (
-                        f"🌏 {tour['name']}\n\n"
-                        f"📍 Điểm đến: {tour['destination']}\n"
-                        f"⏱ Thời gian: {tour['duration']}\n"
-                        f"💰 Giá: {tour['price']:,.0f} VNĐ\n\n"
-                        f"📝 {desc}\n\n"
-                        f"👉 Xem chi tiết tại: /tours/{tour['id']}"
-                    )
-
-        # Trả về câu trả lời mẫu khớp từ Cosine Similarity
-        return self.answers[best_index]
+        return (
+            "Xin lỗi, tôi chưa tìm thấy thông tin phù hợp trong cơ sở dữ liệu cũng như trên mạng. "
+            "Bạn có thể hỏi về các tour hiện có (Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Quy Nhơn, Cần Thơ), giá vé, lịch trình nhé!"
+        )

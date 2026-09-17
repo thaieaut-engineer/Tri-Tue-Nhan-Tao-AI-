@@ -278,41 +278,36 @@ def ensure_admin_account(connection, db_name):
 
 
 def ensure_sample_qa_imported(connection, db_name):
-    """Nạp thêm câu hỏi phong phú từ data/sample_qa.json nếu chưa có."""
+    """Nạp và đồng bộ đầy đủ câu hỏi từ data/sample_qa.json vào database."""
     if not SAMPLE_QA_FILE.exists():
         return
 
     cursor = connection.cursor(dictionary=True)
-    cursor.execute(f"SELECT COUNT(*) AS total FROM `{db_name}`.qa_data;")
-    qa_count = cursor.fetchone()["total"]
-
-    if qa_count < 10:
-        print_step("Đang đồng bộ thêm câu hỏi mẫu phong phú từ data/sample_qa.json...")
-        try:
-            with open(SAMPLE_QA_FILE, "r", encoding="utf-8") as f:
-                samples = json.load(f)
-            insert_sql = f"""
-                INSERT INTO `{db_name}`.qa_data (question, answer, intent, tour_id)
-                VALUES (%s, %s, %s, %s)
-            """
-            added = 0
-            for item in samples:
-                # Kiểm tra tránh trùng lặp
-                cursor.execute(f"SELECT id FROM `{db_name}`.qa_data WHERE question = %s", (item["question"],))
-                if not cursor.fetchone():
-                    cursor.execute(insert_sql, (
-                        item["question"],
-                        item["answer"],
-                        item["intent"],
-                        item.get("tour_id")
-                    ))
-                    added += 1
-            connection.commit()
-            if added > 0:
-                print_success(f"Đã bổ sung thêm {added} câu hỏi mẫu đa dạng vào tập dữ liệu AI!")
-        except Exception as e:
-            print_warning(f"Lỗi nạp sample_qa.json: {e}")
-    cursor.close()
+    try:
+        with open(SAMPLE_QA_FILE, "r", encoding="utf-8") as f:
+            samples = json.load(f)
+        insert_sql = f"""
+            INSERT INTO `{db_name}`.qa_data (question, answer, intent, tour_id)
+            VALUES (%s, %s, %s, %s)
+        """
+        added = 0
+        for item in samples:
+            cursor.execute(f"SELECT id FROM `{db_name}`.qa_data WHERE question = %s", (item["question"],))
+            if not cursor.fetchone():
+                cursor.execute(insert_sql, (
+                    item["question"],
+                    item["answer"],
+                    item["intent"],
+                    item.get("tour_id")
+                ))
+                added += 1
+        connection.commit()
+        if added > 0:
+            print_success(f"Đã bổ sung thêm {added} câu hỏi mẫu mới vào tập dữ liệu AI!")
+    except Exception as e:
+        print_warning(f"Lỗi đồng bộ sample_qa.json: {e}")
+    finally:
+        cursor.close()
 
 
 # =======================================================
