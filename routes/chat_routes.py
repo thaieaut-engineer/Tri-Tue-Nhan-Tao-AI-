@@ -64,8 +64,12 @@ def chat():
     if not question:
         return jsonify({"answer": "Bạn hãy nhập câu hỏi để tôi có thể tư vấn nhé.", "response": "Bạn hãy nhập câu hỏi để tôi có thể tư vấn nhé."}), 400
 
-    # AI sinh câu trả lời kết hợp DB nội bộ và Tìm kiếm trên Internet
-    answer = chatbot.generate_response(question, force_web_search=force_web_search)
+    # AI sinh câu trả lời kết hợp DB nội bộ, Memory đa lượt và Tìm kiếm Internet
+    answer = chatbot.generate_response(
+        question,
+        session_id=session_id,
+        force_web_search=force_web_search
+    )
 
     user_id = session.get("user_id")
     active_session_id = session_id

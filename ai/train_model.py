@@ -1,7 +1,7 @@
 import os
 import json
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.naive_bayes import MultinomialNB
+from sklearn.naive_bayes import ComplementNB, MultinomialNB
 
 from database.db import get_connection
 from ai.preprocess import preprocess_text
@@ -54,7 +54,10 @@ def load_training_data():
 
 def train_model():
     """
-    Huấn luyện mô hình Naive Bayes phân loại ý định (intent classification).
+    HUẤN LUYỆN MÔ HÌNH AI PHÂN LOẠI Ý ĐỊNH (INTENT CLASSIFICATION):
+    - TfidfVectorizer nâng cao với 1-gram, 2-gram, 3-gram và log-scaling (sublinear_tf=True).
+    - Naive Bayes nâng cao (ComplementNB với smoothing alpha=0.5), tối ưu hóa đặc thù cho
+      dữ liệu văn bản và giải quyết hiện tượng mất cân bằng lớp (class imbalance).
     """
     questions, intents = load_training_data()
 
@@ -62,13 +65,22 @@ def train_model():
         print("Không đủ dữ liệu để huấn luyện AI.")
         return None, None
 
+    # Vectorizer với n-gram mở rộng lên đến 3 từ ghép liên tiếp
     vectorizer = TfidfVectorizer(
-        ngram_range=(1, 2)
+        ngram_range=(1, 3),
+        sublinear_tf=True,
+        min_df=1
     )
 
     X = vectorizer.fit_transform(questions)
 
-    model = MultinomialNB()
-    model.fit(X, intents)
+    # Sử dụng Complement Naive Bayes (biến thể nâng cao của MultinomialNB)
+    try:
+        model = ComplementNB(alpha=0.5)
+        model.fit(X, intents)
+    except Exception:
+        # Fallback sang MultinomialNB truyền thống nếu môi trường yêu cầu
+        model = MultinomialNB(alpha=0.1)
+        model.fit(X, intents)
 
     return vectorizer, model
