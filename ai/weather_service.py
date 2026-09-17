@@ -41,73 +41,99 @@ WMO_WEATHER_CODES = {
     99: ("Dông bão kèm mưa đá mạnh", "⛈️")
 }
 
-# Danh mục các địa danh phổ biến tại Việt Nam
+# Danh mục các địa danh phổ biến tại Việt Nam (có dấu và không dấu)
 KNOWN_VIETNAM_CITIES = {
     "hồ chí minh": ("Thành phố Hồ Chí Minh", "Ho Chi Minh"),
     "thành phố hồ chí minh": ("Thành phố Hồ Chí Minh", "Ho Chi Minh"),
     "tp hcm": ("Thành phố Hồ Chí Minh", "Ho Chi Minh"),
     "tphcm": ("Thành phố Hồ Chí Minh", "Ho Chi Minh"),
     "sài gòn": ("Thành phố Hồ Chí Minh", "Ho Chi Minh"),
+    "sai gon": ("Thành phố Hồ Chí Minh", "Ho Chi Minh"),
+    "ho chi minh": ("Thành phố Hồ Chí Minh", "Ho Chi Minh"),
     "hà nội": ("Hà Nội", "Hanoi"),
+    "ha noi": ("Hà Nội", "Hanoi"),
     "đà nẵng": ("Đà Nẵng", "Da Nang"),
+    "da nang": ("Đà Nẵng", "Da Nang"),
     "nha trang": ("Nha Trang", "Nha Trang"),
     "hạ long": ("Hạ Long", "Ha Long"),
+    "ha long": ("Hạ Long", "Ha Long"),
     "hải phòng": ("Hải Phòng", "Hai Phong"),
+    "hai phong": ("Hải Phòng", "Hai Phong"),
     "cần thơ": ("Cần Thơ", "Can Tho"),
+    "can tho": ("Cần Thơ", "Can Tho"),
     "đà lạt": ("Đà Lạt", "Da Lat"),
+    "da lat": ("Đà Lạt", "Da Lat"),
     "sa pa": ("Sa Pa", "Sa Pa"),
     "sapa": ("Sa Pa", "Sa Pa"),
     "phú quốc": ("Phú Quốc", "Phu Quoc"),
+    "phu quoc": ("Phú Quốc", "Phu Quoc"),
     "quy nhơn": ("Quy Nhơn", "Quy Nhon"),
+    "quy nhon": ("Quy Nhơn", "Quy Nhon"),
     "huế": ("Huế", "Hue"),
+    "hue": ("Huế", "Hue"),
     "hội an": ("Hội An", "Hoi An"),
+    "hoi an": ("Hội An", "Hoi An"),
     "vũng tàu": ("Vũng Tàu", "Vung Tau"),
+    "vung tau": ("Vũng Tàu", "Vung Tau"),
     "côn đảo": ("Côn Đảo", "Con Dao"),
+    "con dao": ("Côn Đảo", "Con Dao"),
     "phan thiết": ("Phan Thiết", "Phan Thiet"),
+    "phan thiet": ("Phan Thiết", "Phan Thiet"),
     "mũi né": ("Mũi Né", "Mui Ne"),
+    "mui ne": ("Mũi Né", "Mui Ne"),
     "hà giang": ("Hà Giang", "Ha Giang"),
+    "ha giang": ("Hà Giang", "Ha Giang"),
     "mộc châu": ("Mộc Châu", "Moc Chau"),
+    "moc chau": ("Mộc Châu", "Moc Chau"),
     "ninh bình": ("Ninh Bình", "Ninh Binh"),
+    "ninh binh": ("Ninh Bình", "Ninh Binh"),
     "tam đảo": ("Tam Đảo", "Tam Dao"),
+    "tam dao": ("Tam Đảo", "Tam Dao"),
     "quảng ninh": ("Quảng Ninh", "Quang Ninh"),
+    "quang ninh": ("Quảng Ninh", "Quang Ninh"),
     "quảng bình": ("Quảng Bình", "Quang Binh"),
+    "quang binh": ("Quảng Bình", "Quang Binh"),
     "bến tre": ("Bến Tre", "Ben Tre"),
+    "ben tre": ("Bến Tre", "Ben Tre"),
     "an giang": ("An Giang", "An Giang"),
-    "cà mau": ("Cà Mau", "Ca Mau")
+    "cà mau": ("Cà Mau", "Ca Mau"),
+    "ca mau": ("Cà Mau", "Ca Mau")
 }
 
 
 def extract_city_from_question(question):
     """
     Trích xuất tên hiển thị và tên tìm kiếm quốc tế của địa danh từ câu hỏi.
+    Hỗ trợ cả câu hỏi có dấu tiếng Việt và không dấu.
     Trả về: (display_name, query_name)
     """
     if not question:
         return None, None
     q_low = question.lower().strip()
+    q_unaccent = remove_accents(q_low)
 
     # 1. So khớp từ điển thành phố phổ biến (ưu tiên từ khóa dài trước)
     sorted_cities = sorted(KNOWN_VIETNAM_CITIES.items(), key=lambda x: len(x[0]), reverse=True)
     for key, (display_name, query_name) in sorted_cities:
-        if key in q_low:
+        if key in q_low or key in q_unaccent:
             return display_name, query_name
 
-    # 2. Nhận diện theo các mẫu câu hỏi tự nhiên
+    # 2. Nhận diện theo các mẫu câu hỏi tự nhiên (cả có dấu và không dấu)
     patterns = [
         # Mẫu 1: thời tiết / nhiệt độ ở [địa danh] thế nào
-        r"(?:thời tiết|nhiệt độ|dự báo thời tiết)(?:\s+(?:ở|tại|khu vực|thành phố|tỉnh))?\s+([A-Za-zÀ-ỹ0-9\s]+?)(?:\s+(?:thế nào|như thế nào|hôm nay|ngày mai|có mưa không|ra sao|hiện tại|bao nhiêu)|\?|$)",
+        r"(?:thời tiết|nhiệt độ|dự báo thời tiết|thoi tiet|nhiet do)(?:\s+(?:ở|tại|o|tai|khu vực|thành phố|tỉnh))?\s+([A-Za-zÀ-ỹ0-9\s]+?)(?:\s+(?:thế nào|như thế nào|the nao|nhu the nao|hôm nay|ngày mai|hom nay|ngay mai|có mưa không|co mua khong|ra sao|hiện tại|bao nhiêu)|\?|$)",
         # Mẫu 2: ở / tại [địa danh] có mưa / có lạnh không
-        r"(?:ở|tại)\s+([A-Za-zÀ-ỹ0-9\s]+?)\s+(?:có mưa|có lạnh|có nóng|mưa không|lạnh không|nóng không|thời tiết|nhiệt độ|hôm nay)",
+        r"(?:ở|tại|o|tai)\s+([A-Za-zÀ-ỹ0-9\s]+?)\s+(?:có mưa|co mua|có lạnh|co lanh|có nóng|co nong|mưa không|mua khong|lạnh không|lanh khong|nóng không|nong khong|thời tiết|thoi tiet|nhiệt độ|nhiet do|hôm nay|hom nay)",
         # Mẫu 3: [địa danh] có mưa không / có lạnh không
-        r"^([A-Za-zÀ-ỹ0-9\s]+?)\s+(?:có mưa không|có mưa ko|mưa không|mưa ko|có lạnh không|lạnh không|có nóng không|nóng không|bao nhiêu độ|thời tiết thế nào)"
+        r"^([A-Za-zÀ-ỹ0-9\s]+?)\s+(?:có mưa không|co mua khong|có mưa ko|co mua ko|mưa không|mua khong|mưa ko|mua ko|có lạnh không|co lanh khong|lạnh không|lanh khong|có nóng không|co nong khong|nóng không|nong khong|bao nhiêu độ|bao nhieu do|thời tiết thế nào|thoi tiet the nao)"
     ]
 
     for pat in patterns:
-        match = re.search(pat, q_low)
+        match = re.search(pat, q_low) or re.search(pat, q_unaccent)
         if match:
             candidate = match.group(1).strip()
-            candidate = re.sub(r"^(thành phố|tỉnh|khu vực|ở|tại)\s+", "", candidate).strip()
-            if candidate and len(candidate) >= 2 and candidate not in ["hôm nay", "ngày mai", "hiện tại", "nào", "đâu"]:
+            candidate = re.sub(r"^(thành phố|tỉnh|khu vực|ở|tại|o|tai)\s+", "", candidate).strip()
+            if candidate and len(candidate) >= 2 and candidate not in ["hôm nay", "ngày mai", "hiện tại", "nào", "đâu", "hom nay", "ngay mai", "hien tai", "nao", "dau"]:
                 display = candidate.title()
                 query = remove_accents(candidate)
                 return display, query
@@ -437,12 +463,13 @@ def format_weather_response(city_name, w_data, question=None):
 
 
 def is_weather_query(question):
-    """Kiểm tra câu hỏi có liên quan đến thời tiết, nhiệt độ, mưa nắng, đi lại hay không"""
+    """Kiểm tra câu hỏi có liên quan đến thời tiết, nhiệt độ, mưa nắng, đi lại hay không (hỗ trợ cả có dấu và không dấu)"""
     if not question:
         return False
     q_low = question.lower()
+    q_unaccent = remove_accents(q_low)
 
-    # Các từ khóa thời tiết trực tiếp
+    # Các từ khóa thời tiết trực tiếp có dấu
     weather_keywords = [
         "thời tiết", "dự báo thời tiết", "nhiệt độ", "bao nhiêu độ", "mấy độ",
         "có mưa không", "có mưa ko", "mưa không", "mưa ko", "trời mưa", "mưa to",
@@ -456,8 +483,22 @@ def is_weather_query(question):
     if any(kw in q_low for kw in weather_keywords):
         return True
 
+    # Các từ khóa thời tiết trực tiếp không dấu
+    weather_keywords_unaccent = [
+        "thoi tiet", "du bao thoi tiet", "nhiet do", "bao nhieu do", "may do",
+        "co mua khong", "co mua ko", "mua khong", "mua ko", "troi mua", "mua to",
+        "mua rao", "mua dong", "mua hay nang", "nang hay mua", "troi co mua",
+        "co lanh khong", "lanh khong", "lanh ko", "troi lanh", "co ret khong", "ret khong",
+        "co nong khong", "nong khong", "nong ko", "troi nong", "oi buc",
+        "co nang khong", "nang khong", "troi nang", "nang gat",
+        "thoi tiet dep khong", "thoi tiet co dep", "thoi tiet di choi", "thich hop di choi",
+        "di choi duoc khong", "thoi tiet dao nay"
+    ]
+    if any(kw in q_unaccent for kw in weather_keywords_unaccent):
+        return True
+
     # Câu hỏi trang phục kết hợp địa danh/thời tiết
-    if ("mặc gì" in q_low or "mặc đồ gì" in q_low) and any(w in q_low for w in ["thời tiết", "trời", "lạnh", "nóng", "nắng", "mưa", "hôm nay"]):
+    if ("mặc gì" in q_low or "mặc đồ gì" in q_low or "mac gi" in q_unaccent or "mac do gi" in q_unaccent) and any(w in q_low or w in q_unaccent for w in ["thời tiết", "trời", "lạnh", "nóng", "nắng", "mưa", "hôm nay", "thoi tiet", "troi", "lanh", "nong", "nang", "mua", "hom nay"]):
         return True
 
     return False

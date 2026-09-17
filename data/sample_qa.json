@@ -1534,5 +1534,107 @@
     "answer": "Bạn nên mang nón lá hoặc mũ rộng vành, kem chống muỗi/côn trùng khi tham quan miệt vườn sinh thái, ô dù che nắng và một ít tiền mặt mệnh giá nhỏ để tiện mua đồ ăn vặt tại Chợ nổi Cái Răng.",
     "intent": "kinh_nghiem_du_lich",
     "tour_id": 8
+  },
+  {
+    "question": "1 vài khách sạn ở Cần Thơ",
+    "answer": "Một số khách sạn và resort chất lượng hàng đầu tại Cần Thơ bạn có thể tham khảo:\n1. **Vinpearl Hotel Cần Thơ (5 sao)** - Khách sạn cao nhất ĐBSCL, view trọn vẹn sông Hậu và Bến Ninh Kiều.\n2. **Victoria Cần Thơ Resort (4 sao)** - Khu nghỉ dưỡng phong cách Đông Dương cổ điển ven sông êm đềm.\n3. **Mường Thanh Luxury Cần Thơ (5 sao)** - Nằm tại Cồn Cái Khế, đầy đủ tiện ích hồ bơi, spa.\n4. **TTC Hotel Premium Cần Thơ (4 sao)** - Nằm ngay Bến Ninh Kiều, đi bộ ra chợ đêm và chợ nổi rất tiện.\n5. **Azerai Cần Thơ (5 sao cao cấp)** - Ốc đảo biệt lập trên Cồn Ấu, thích hợp nghỉ dưỡng yên tĩnh sang trọng.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 8
+  },
+  {
+    "question": "Gợi ý khách sạn ở Cần Thơ",
+    "answer": "Một số khách sạn và resort chất lượng hàng đầu tại Cần Thơ bạn có thể tham khảo:\n1. **Vinpearl Hotel Cần Thơ (5 sao)** - Khách sạn cao nhất ĐBSCL, view trọn vẹn sông Hậu và Bến Ninh Kiều.\n2. **Victoria Cần Thơ Resort (4 sao)** - Khu nghỉ dưỡng phong cách Đông Dương cổ điển ven sông êm đềm.\n3. **Mường Thanh Luxury Cần Thơ (5 sao)** - Nằm tại Cồn Cái Khế, đầy đủ tiện ích hồ bơi, spa.\n4. **TTC Hotel Premium Cần Thơ (4 sao)** - Nằm ngay Bến Ninh Kiều, đi bộ ra chợ đêm và chợ nổi rất tiện.\n5. **Azerai Cần Thơ (5 sao cao cấp)** - Ốc đảo biệt lập trên Cồn Ấu, thích hợp nghỉ dưỡng yên tĩnh sang trọng.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 8
+  },
+  {
+    "question": "Khách sạn ở Cần Thơ",
+    "answer": "Tại Cần Thơ có nhiều khách sạn chất lượng từ 3-5 sao như: Vinpearl Hotel Cần Thơ (5 sao Bến Ninh Kiều), Victoria Cần Thơ Resort (4 sao ven sông), Mường Thanh Luxury Cần Thơ, TTC Hotel Premium và Azerai Cần Thơ trên cồn Ấu.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 8
+  },
+  {
+    "question": "1 vài khách sạn ở Đà Nẵng",
+    "answer": "Các khách sạn và resort view đẹp nổi tiếng tại Đà Nẵng gồm:\n1. **Novotel Danang Premier Han River (5 sao)** - Nằm bên bờ sông Hàn, ngắm trọn Cầu Rồng và Cầu Quay.\n2. **Vinpearl Resort & Spa Đà Nẵng (5 sao)** - Biệt thự nghỉ dưỡng sang trọng ven biển Non Nước.\n3. **InterContinental Danang Sun Peninsula Resort (6 sao)** - Kiệt tác kiến trúc đẳng cấp thế giới tại bán đảo Sơn Trà.\n4. **Sala Danang Beach Hotel (4 sao)** - Sát bãi biển Mỹ Khê với hồ bơi vô cực trên tầng thượng.\n5. **Mường Thanh Luxury Đà Nẵng (5 sao)** - Khách sạn quy mô lớn đối diện bãi biển Mỹ Khê.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 1
+  },
+  {
+    "question": "Gợi ý khách sạn ở Đà Nẵng",
+    "answer": "Các khách sạn và resort view đẹp nổi tiếng tại Đà Nẵng gồm:\n1. **Novotel Danang Premier Han River (5 sao)** - Nằm bên bờ sông Hàn, ngắm trọn Cầu Rồng và Cầu Quay.\n2. **Vinpearl Resort & Spa Đà Nẵng (5 sao)** - Biệt thự nghỉ dưỡng sang trọng ven biển Non Nước.\n3. **InterContinental Danang Sun Peninsula Resort (6 sao)** - Kiệt tác kiến trúc đẳng cấp thế giới tại bán đảo Sơn Trà.\n4. **Sala Danang Beach Hotel (4 sao)** - Sát bãi biển Mỹ Khê với hồ bơi vô cực trên tầng thượng.\n5. **Mường Thanh Luxury Đà Nẵng (5 sao)** - Khách sạn quy mô lớn đối diện bãi biển Mỹ Khê.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 1
+  },
+  {
+    "question": "1 vài khách sạn ở Nha Trang",
+    "answer": "Tại Nha Trang, các điểm lưu trú hàng đầu được du khách đánh giá cao gồm:\n1. **Vinpearl Resort & Spa Nha Trang (5 sao)** - Nằm trên đảo Hòn Tre với bãi biển riêng và công viên VinWonders.\n2. **InterContinental Nha Trang (5 sao)** - Tọa lạc ngay cung đường vàng Trần Phú sát biển.\n3. **Sheraton Nha Trang Hotel & Spa (5 sao)** - View toàn cảnh vịnh Nha Trang với hồ bơi vô cực.\n4. **Amiana Resort Nha Trang (5 sao)** - Nằm nép mình bên vịnh Nha Trang với hồ bơi nước biển tự nhiên rộng lớn.\n5. **Havana Nha Trang Hotel (5 sao)** - Khách sạn có đường hầm ngầm thông ra bãi biển riêng.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 2
+  },
+  {
+    "question": "Khách sạn ở Nha Trang",
+    "answer": "Tại Nha Trang, các điểm lưu trú hàng đầu được du khách đánh giá cao gồm:\n1. **Vinpearl Resort & Spa Nha Trang (5 sao)** - Nằm trên đảo Hòn Tre với bãi biển riêng và công viên VinWonders.\n2. **InterContinental Nha Trang (5 sao)** - Tọa lạc ngay cung đường vàng Trần Phú sát biển.\n3. **Sheraton Nha Trang Hotel & Spa (5 sao)** - View toàn cảnh vịnh Nha Trang với hồ bơi vô cực.\n4. **Amiana Resort Nha Trang (5 sao)** - Nằm nép mình bên vịnh Nha Trang với hồ bơi nước biển tự nhiên rộng lớn.\n5. **Havana Nha Trang Hotel (5 sao)** - Khách sạn có đường hầm ngầm thông ra bãi biển riêng.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 2
+  },
+  {
+    "question": "1 vài khách sạn ở Hạ Long",
+    "answer": "Tại Hạ Long, các khách sạn và du thuyền nghỉ dưỡng lý tưởng nhất gồm:\n1. **FLC Grand Hotel Hạ Long (5 sao)** - Tọa lạc trên đồi cao với tầm nhìn ôm trọn Vịnh Hạ Long kỳ vĩ.\n2. **Vinpearl Resort & Spa Hạ Long (5 sao)** - Nằm biệt lập 100% trên Đảo Rều xinh đẹp.\n3. **Wyndham Legend Hạ Long (5 sao)** - Nằm cạnh Cầu Bãi Cháy, view trực diện vòng quay Mặt Trời.\n4. **Du thuyền 5 sao Ambassador / Paradise Elegance** - Trải nghiệm ngủ đêm đẳng cấp trên vịnh với phòng ban công riêng và ẩm thực thượng hạng.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 3
+  },
+  {
+    "question": "Khách sạn ở Hạ Long",
+    "answer": "Tại Hạ Long, các khách sạn và du thuyền nghỉ dưỡng lý tưởng nhất gồm:\n1. **FLC Grand Hotel Hạ Long (5 sao)** - Tọa lạc trên đồi cao với tầm nhìn ôm trọn Vịnh Hạ Long kỳ vĩ.\n2. **Vinpearl Resort & Spa Hạ Long (5 sao)** - Nằm biệt lập 100% trên Đảo Rều xinh đẹp.\n3. **Wyndham Legend Hạ Long (5 sao)** - Nằm cạnh Cầu Bãi Cháy, view trực diện vòng quay Mặt Trời.\n4. **Du thuyền 5 sao Ambassador / Paradise Elegance** - Trải nghiệm ngủ đêm đẳng cấp trên vịnh với phòng ban công riêng và ẩm thực thượng hạng.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 3
+  },
+  {
+    "question": "1 vài khách sạn ở Phú Quốc",
+    "answer": "Tại Đảo Ngọc Phú Quốc, các resort và khách sạn nổi bật gồm:\n1. **Vinpearl Resort & Spa Phú Quốc (5 sao)** - Quần thể nghỉ dưỡng Bãi Dài kế bên Grand World và VinWonders.\n2. **Premier Village Phu Quoc Resort (5 sao)** - Nằm tại Mũi Ông Đội, ngắm được cả bình minh và hoàng hôn cùng một vị trí.\n3. **Seashells Hotel & Spa (5 sao)** - Ngay trung tâm Dương Đông sát biển, đi bộ ra Chợ đêm và Dinh Cậu chỉ 5 phút.\n4. **Novotel Phu Quoc Resort (5 sao)** - Bãi Trường với bãi cát dài thoai thoải và hoàng hôn tuyệt đẹp.\n5. **Mövenpick Resort Waverly Phú Quốc (5 sao)** - Nổi tiếng với tiện ích 5 sao và chương trình Chocolate Hour miễn phí.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 4
+  },
+  {
+    "question": "Khách sạn ở Phú Quốc",
+    "answer": "Tại Đảo Ngọc Phú Quốc, các resort và khách sạn nổi bật gồm:\n1. **Vinpearl Resort & Spa Phú Quốc (5 sao)** - Quần thể nghỉ dưỡng Bãi Dài kế bên Grand World và VinWonders.\n2. **Premier Village Phu Quoc Resort (5 sao)** - Nằm tại Mũi Ông Đội, ngắm được cả bình minh và hoàng hôn cùng một vị trí.\n3. **Seashells Hotel & Spa (5 sao)** - Ngay trung tâm Dương Đông sát biển, đi bộ ra Chợ đêm và Dinh Cậu chỉ 5 phút.\n4. **Novotel Phu Quoc Resort (5 sao)** - Bãi Trường với bãi cát dài thoai thoải và hoàng hôn tuyệt đẹp.\n5. **Mövenpick Resort Waverly Phú Quốc (5 sao)** - Nổi tiếng với tiện ích 5 sao và chương trình Chocolate Hour miễn phí.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 4
+  },
+  {
+    "question": "1 vài khách sạn ở Đà Lạt",
+    "answer": "Tại Đà Lạt, các khách sạn và resort lãng mạn nhất gồm:\n1. **Dalat Edensee Lake Resort & Spa (5 sao)** - Ốc đảo thông reo thơ mộng bên bờ Hồ Tuyền Lâm.\n2. **Colline Hotel Đà Lạt (4 sao)** - Khách sạn hiện đại nằm ngay tổ hợp Dalat Center cạnh Chợ đêm Đà Lạt.\n3. **Ana Mandara Villas Dalat Resort (5 sao)** - Quần thể 17 dinh thự kiến trúc Pháp cổ kính giữa rừng thông.\n4. **Terracotta Hotel & Resort (4 sao)** - Không gian xanh mát ven hồ Tuyền Lâm, vườn hoa rực rỡ.\n5. **Golf Valley Hotel (4 sao)** - Thiết kế Bắc Âu sang trọng, view thung lũng ngay trung tâm thành phố.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 5
+  },
+  {
+    "question": "Khách sạn ở Đà Lạt",
+    "answer": "Tại Đà Lạt, các khách sạn và resort lãng mạn nhất gồm:\n1. **Dalat Edensee Lake Resort & Spa (5 sao)** - Ốc đảo thông reo thơ mộng bên bờ Hồ Tuyền Lâm.\n2. **Colline Hotel Đà Lạt (4 sao)** - Khách sạn hiện đại nằm ngay tổ hợp Dalat Center cạnh Chợ đêm Đà Lạt.\n3. **Ana Mandara Villas Dalat Resort (5 sao)** - Quần thể 17 dinh thự kiến trúc Pháp cổ kính giữa rừng thông.\n4. **Terracotta Hotel & Resort (4 sao)** - Không gian xanh mát ven hồ Tuyền Lâm, vườn hoa rực rỡ.\n5. **Golf Valley Hotel (4 sao)** - Thiết kế Bắc Âu sang trọng, view thung lũng ngay trung tâm thành phố.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 5
+  },
+  {
+    "question": "1 vài khách sạn ở Sa Pa",
+    "answer": "Tại Sa Pa, các khách sạn view núi Fansipan và thung lũng Mường Hoa đẹp nhất gồm:\n1. **Hotel de la Coupole - MGallery (5 sao)** - Kiệt tác kiến trúc Pháp kết hợp văn hóa Tây Bắc ngay trung tâm Sa Pa.\n2. **Silk Path Grand Resort & Spa Sapa (5 sao)** - Châu Âu thu nhỏ ngắm trọn dãy Hoàng Liên Sơn hùng vĩ.\n3. **Pao Sapa Leisure Hotel (5 sao)** - View thung lũng Mường Hoa thơ mộng và ruộng bậc thang.\n4. **Bamboo Sapa Hotel (4 sao)** - Sở hữu hồ bơi vô cực nước ấm view mây trời Tây Bắc cực đỉnh.\n5. **Topas Ecolodge (4 sao sinh thái)** - Khu nghỉ dưỡng trên đỉnh đồi từng lọt top đẹp nhất thế giới.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 6
+  },
+  {
+    "question": "Khách sạn ở Sa Pa",
+    "answer": "Tại Sa Pa, các khách sạn view núi Fansipan và thung lũng Mường Hoa đẹp nhất gồm:\n1. **Hotel de la Coupole - MGallery (5 sao)** - Kiệt tác kiến trúc Pháp kết hợp văn hóa Tây Bắc ngay trung tâm Sa Pa.\n2. **Silk Path Grand Resort & Spa Sapa (5 sao)** - Châu Âu thu nhỏ ngắm trọn dãy Hoàng Liên Sơn hùng vĩ.\n3. **Pao Sapa Leisure Hotel (5 sao)** - View thung lũng Mường Hoa thơ mộng và ruộng bậc thang.\n4. **Bamboo Sapa Hotel (4 sao)** - Sở hữu hồ bơi vô cực nước ấm view mây trời Tây Bắc cực đỉnh.\n5. **Topas Ecolodge (4 sao sinh thái)** - Khu nghỉ dưỡng trên đỉnh đồi từng lọt top đẹp nhất thế giới.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 6
+  },
+  {
+    "question": "1 vài khách sạn ở Quy Nhơn",
+    "answer": "Tại Quy Nhơn - Phú Yên, những khách sạn và resort được ưa chuộng nhất gồm:\n1. **FLC Luxury Resort Quy Nhơn (5 sao)** - Ôm trọn bãi biển Eo Gió hoang sơ tuyệt đẹp.\n2. **Anya Hotel Quy Nhơn (4-5 sao)** - Ngay trung tâm TP Quy Nhơn, dịch vụ hiện đại và tiện nghi.\n3. **Seagull Hotel (Khách sạn Hải Âu - 4 sao)** - Tọa lạc sát mép sóng biển Quy Nhơn.\n4. **Avani Quy Nhơn Resort (5 sao)** - Bãi biển riêng biệt Bãi Dài nước trong vắt và vách đá kỳ vĩ.\n5. **Rosa Alba Resort Phú Yên (5 sao)** - Resort cao cấp có đường hầm thông ra biển Tuy Hòa.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 7
+  },
+  {
+    "question": "Khách sạn ở Quy Nhơn",
+    "answer": "Tại Quy Nhơn - Phú Yên, những khách sạn và resort được ưa chuộng nhất gồm:\n1. **FLC Luxury Resort Quy Nhơn (5 sao)** - Ôm trọn bãi biển Eo Gió hoang sơ tuyệt đẹp.\n2. **Anya Hotel Quy Nhơn (4-5 sao)** - Ngay trung tâm TP Quy Nhơn, dịch vụ hiện đại và tiện nghi.\n3. **Seagull Hotel (Khách sạn Hải Âu - 4 sao)** - Tọa lạc sát mép sóng biển Quy Nhơn.\n4. **Avani Quy Nhơn Resort (5 sao)** - Bãi biển riêng biệt Bãi Dài nước trong vắt và vách đá kỳ vĩ.\n5. **Rosa Alba Resort Phú Yên (5 sao)** - Resort cao cấp có đường hầm thông ra biển Tuy Hòa.",
+    "intent": "hoi_dich_vu",
+    "tour_id": 7
   }
 ]

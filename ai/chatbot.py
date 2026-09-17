@@ -16,7 +16,7 @@ import time
 from sklearn.metrics.pairwise import cosine_similarity
 
 from database.db import get_connection
-from ai.preprocess import preprocess_text, remove_accents
+from ai.preprocess import preprocess_text, remove_accents, correct_travel_typos
 from ai.train_model import train_model
 from ai.web_search import search_web_for_travel, format_web_response
 from ai.weather_service import (
@@ -396,15 +396,16 @@ class Chatbot:
             return "Bạn hãy nhập câu hỏi để tôi có thể tư vấn nhé."
 
         q_raw = question.strip()
-        q_low = q_raw.lower()
+        q_clean = correct_travel_typos(q_raw)
+        q_low = q_clean.lower()
 
         # -------------------------------------------------------------
         # XỬ LÝ 1: TRA CỨU THỜI TIẾT THỜI GIAN THỰC (OPENWEATHERMAP)
         # -------------------------------------------------------------
-        matched_local, matched_outside = self.detect_destination_context(q_raw)
+        matched_local, matched_outside = self.detect_destination_context(q_clean)
 
-        if is_weather_query(q_raw):
-            display_name, query_name = extract_city_from_question(q_raw)
+        if is_weather_query(q_clean):
+            display_name, query_name = extract_city_from_question(q_clean)
             if not display_name:
                 if matched_local:
                     display_name = matched_local[0]["destination"]
@@ -422,7 +423,7 @@ class Chatbot:
             if display_name:
                 weather_data = get_weather_for_location(display_name, query_name)
                 if weather_data:
-                    return format_weather_response(display_name, weather_data, q_raw)
+                    return format_weather_response(display_name, weather_data, q_clean)
 
             return (
                 "🌤️ Bạn đang muốn xem thông tin thời tiết ở khu vực nào? "
@@ -457,14 +458,14 @@ class Chatbot:
         ]) and any(w in q_low for w in ["triệu", "trieu", "tr", "k", "tiền", "tour", "hợp"])
 
         if is_recommend_query:
-            rec_result = self.recommend_tours_by_criteria(q_raw)
+            rec_result = self.recommend_tours_by_criteria(q_clean)
             if rec_result:
                 return rec_result
 
         # -------------------------------------------------------------
         # XỬ LÝ 4: TF-IDF VECTORIZATION & NAIVE BAYES PROBABILITIES
         # -------------------------------------------------------------
-        processed_question = preprocess_text(q_raw)
+        processed_question = preprocess_text(q_clean)
         question_vector = self.vectorizer.transform([processed_question])
 
         # Phân phối xác suất tất cả các intent từ mô hình Naive Bayes
@@ -495,13 +496,13 @@ class Chatbot:
         # XỬ LÝ 6: ĐIỂM ĐẾN NGOÀI HỆ THỐNG HOẶC YÊU CẦU TÌM KIẾM MẠNG
         # -------------------------------------------------------------
         if force_web_search or is_explicit_web:
-            web_results = search_web_for_travel(q_raw)
+            web_results = search_web_for_travel(q_clean)
             if web_results:
                 return format_web_response(q_raw, web_results)
 
         if matched_outside and not matched_local:
             out_name = matched_outside[0].title()
-            search_query = q_raw
+            search_query = q_clean
             if predicted_intent in ("hoi_gia", "tour_price"):
                 search_query = f"giá tour du lịch {out_name}"
             elif predicted_intent in ("hoi_lich_trinh", "tour_info"):
@@ -599,7 +600,7 @@ class Chatbot:
             return "Cảm ơn bạn đã sử dụng TourAI! Chúc bạn có những chuyến du lịch thật vui vẻ và trọn vẹn!"
 
         # Khi không khớp được trong tri thức nội bộ -> Tự động tìm kiếm Internet
-        web_results = search_web_for_travel(q_raw)
+        web_results = search_web_for_travel(q_clean)
         if web_results:
             return format_web_response(q_raw, web_results)
 
