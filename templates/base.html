@@ -86,6 +86,16 @@
                     </li>
                     {% if session.get('user_id') %}
                     <li class="nav-item">
+                        <a class="nav-link-clean" href="/my-bookings">
+                            <i class="bi bi-receipt me-1"></i>Đơn đặt tour
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link-clean" href="/favorites">
+                            <i class="bi bi-heart me-1"></i>Yêu thích
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link-clean" href="/history">Lịch sử chat</a>
                     </li>
                     {% endif %}
@@ -110,10 +120,16 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end shadow-sm border rounded-3 mt-1">
                                 <li class="dropdown-header small">Tài khoản: @{{ session.get('username') }}</li>
+                                <li><a class="dropdown-item small" href="/profile"><i class="bi bi-person-gear me-2"></i>Thông tin cá nhân</a></li>
+                                <li><a class="dropdown-item small" href="/my-bookings"><i class="bi bi-receipt me-2"></i>Đơn đặt tour của tôi</a></li>
+                                <li><a class="dropdown-item small" href="/favorites"><i class="bi bi-heart me-2"></i>Tour đã lưu</a></li>
                                 <li><a class="dropdown-item small" href="/history"><i class="bi bi-chat-text me-2"></i>Lịch sử trò chuyện</a></li>
                                 {% if session.get('role') == 'admin' %}
                                     <li><hr class="dropdown-divider my-1"></li>
                                     <li><a class="dropdown-item small text-danger" href="/admin"><i class="bi bi-speedometer2 me-2"></i>Bảng điều khiển Admin</a></li>
+                                    <li><a class="dropdown-item small text-danger" href="/admin/self-learning"><i class="bi bi-mortarboard me-2"></i>AI Tự học (Continual Learning)</a></li>
+                                    <li><a class="dropdown-item small text-danger" href="/admin/bookings"><i class="bi bi-card-checklist me-2"></i>Quản lý đơn đặt tour</a></li>
+                                    <li><a class="dropdown-item small text-danger" href="/admin/reviews"><i class="bi bi-star me-2"></i>Quản lý đánh giá</a></li>
                                 {% endif %}
                                 <li><hr class="dropdown-divider my-1"></li>
                                 <li><a class="dropdown-item small text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Đăng xuất</a></li>

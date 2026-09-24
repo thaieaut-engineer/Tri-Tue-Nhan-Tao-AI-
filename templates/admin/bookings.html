@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block title %}Quản Lý Đơn Đặt Tour - Admin TourAI{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bold mb-1">📋 Quản Lý Đơn Đặt Tour</h3>
+        <p class="text-muted small mb-0">Theo dõi, duyệt và cập nhật tiến độ phục vụ khách hàng đặt tour</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a href="/admin" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
+            <i class="bi bi-arrow-left me-1"></i>Về Dashboard
+        </a>
+    </div>
+</div>
+
+<!-- THỐNG KÊ NHANH TRẠNG THÁI -->
+<div class="row g-3 mb-4">
+    <div class="col">
+        <a href="/admin/bookings" class="card border bg-white p-3 text-decoration-none rounded-3 shadow-sm text-center {% if not current_status %}border-primary border-2{% endif %}">
+            <div class="fs-4 fw-bold text-dark">{{ stats.total }}</div>
+            <div class="text-muted small">Tất cả</div>
+        </a>
+    </div>
+    <div class="col">
+        <a href="/admin/bookings?status=pending" class="card border bg-white p-3 text-decoration-none rounded-3 shadow-sm text-center {% if current_status == 'pending' %}border-warning border-2{% endif %}">
+            <div class="fs-4 fw-bold text-warning">{{ stats.pending }}</div>
+            <div class="text-muted small">Chờ duyệt</div>
+        </a>
+    </div>
+    <div class="col">
+        <a href="/admin/bookings?status=confirmed" class="card border bg-white p-3 text-decoration-none rounded-3 shadow-sm text-center {% if current_status == 'confirmed' %}border-info border-2{% endif %}">
+            <div class="fs-4 fw-bold text-info">{{ stats.confirmed }}</div>
+            <div class="text-muted small">Đã xác nhận</div>
+        </a>
+    </div>
+    <div class="col">
+        <a href="/admin/bookings?status=completed" class="card border bg-white p-3 text-decoration-none rounded-3 shadow-sm text-center {% if current_status == 'completed' %}border-success border-2{% endif %}">
+            <div class="fs-4 fw-bold text-success">{{ stats.completed }}</div>
+            <div class="text-muted small">Hoàn thành</div>
+        </a>
+    </div>
+    <div class="col">
+        <a href="/admin/bookings?status=cancelled" class="card border bg-white p-3 text-decoration-none rounded-3 shadow-sm text-center {% if current_status == 'cancelled' %}border-secondary border-2{% endif %}">
+            <div class="fs-4 fw-bold text-secondary">{{ stats.cancelled }}</div>
+            <div class="text-muted small">Đã hủy</div>
+        </a>
+    </div>
+</div>
+
+<!-- BỘ TÌM KIẾM -->
+<div class="card p-3 mb-4 border bg-white rounded-3 shadow-none">
+    <form method="GET" action="/admin/bookings" class="row g-2 align-items-center">
+        {% if current_status %}
+        <input type="hidden" name="status" value="{{ current_status }}">
+        {% endif %}
+        <div class="col-md-9">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-muted"></i></span>
+                <input type="text" name="search" class="form-control border-start-0" placeholder="Tìm theo tên khách hàng, số điện thoại, email hoặc tên tour..." value="{{ search or '' }}">
+            </div>
+        </div>
+        <div class="col-md-3 d-flex gap-1">
+            <button type="submit" class="btn btn-sm btn-primary w-100 rounded-pill">Tìm kiếm</button>
+            {% if search %}
+            <a href="/admin/bookings{% if current_status %}?status={{ current_status }}{% endif %}" class="btn btn-sm btn-light border rounded-pill" title="Xóa tìm kiếm"><i class="bi bi-x"></i></a>
+            {% endif %}
+        </div>
+    </form>
+</div>
+
+<!-- DANH SÁCH BẢNG ĐƠN ĐẶT TOUR -->
+<div class="card border bg-white rounded-4 shadow-sm overflow-hidden">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light small">
+                <tr>
+                    <th style="width: 70px;">Mã đơn</th>
+                    <th>Thông tin khách hàng</th>
+                    <th>Tour đăng ký</th>
+                    <th>Ngày đi & Khách</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                    <th style="width: 80px;" class="text-center">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for b in bookings %}
+                <tr>
+                    <td class="fw-bold text-secondary small">#{{ b.id }}</td>
+                    <td>
+                        <div class="fw-bold small">{{ b.full_name }}</div>
+                        <div class="text-muted small" style="font-size: 0.75rem;">
+                            <i class="bi bi-telephone me-1"></i>{{ b.phone }}
+                        </div>
+                        <div class="text-muted small" style="font-size: 0.75rem;">
+                            <i class="bi bi-envelope me-1"></i>{{ b.email }}
+                        </div>
+                    </td>
+                    <td>
+                        <a href="/tours/{{ b.tour_id }}" target="_blank" class="fw-semibold text-dark text-decoration-none hover-primary small d-block">
+                            {{ b.tour_name }}
+                        </a>
+                        <span class="text-muted" style="font-size: 0.72rem;">
+                            <i class="bi bi-geo-alt me-1 text-danger"></i>{{ b.destination }} &bull; {{ b.duration }}
+                        </span>
+                        {% if b.note %}
+                        <div class="text-muted small fst-italic mt-1" style="font-size: 0.72rem;">
+                            Note: {{ b.note }}
+                        </div>
+                        {% endif %}
+                    </td>
+                    <td class="small">
+                        <div class="fw-semibold text-primary">
+                            <i class="bi bi-calendar3 me-1"></i>{{ b.start_date.strftime('%d/%m/%Y') if b.start_date else '' }}
+                        </div>
+                        <div class="text-muted" style="font-size: 0.75rem;">
+                            {{ b.adults }} người lớn{% if b.children %}, {{ b.children }} trẻ em{% endif %}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="text-danger fw-bold fs-6">
+                            {{ "{:,.0f}".format(b.total_price) }} đ
+                        </div>
+                        <div class="text-muted" style="font-size: 0.72rem;">
+                            {{ b.created_at.strftime('%d/%m %H:%M') if b.created_at else '' }}
+                        </div>
+                    </td>
+                    <td>
+                        <!-- Form cập nhật trạng thái nhanh -->
+                        <form action="/admin/bookings/status/{{ b.id }}" method="POST" class="d-inline">
+                            <select name="status" class="form-select form-select-sm py-1 px-2 rounded-pill fw-semibold border"
+                                    style="font-size: 0.75rem; width: auto;"
+                                    onchange="this.form.submit()">
+                                <option value="pending" class="text-warning" {% if b.status == 'pending' %}selected{% endif %}>⏳ Chờ duyệt</option>
+                                <option value="confirmed" class="text-info" {% if b.status == 'confirmed' %}selected{% endif %}>✓ Đã xác nhận</option>
+                                <option value="completed" class="text-success" {% if b.status == 'completed' %}selected{% endif %}>★ Hoàn thành</option>
+                                <option value="cancelled" class="text-secondary" {% if b.status == 'cancelled' %}selected{% endif %}>✕ Đã hủy</option>
+                            </select>
+                        </form>
+                    </td>
+                    <td class="text-center">
+                        <form action="/admin/bookings/delete/{{ b.id }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa vĩnh viễn đơn đặt tour #{{ b.id }} này không?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger rounded-circle p-1" style="width: 28px; height: 28px;" title="Xóa đơn">
+                                <i class="bi bi-trash" style="font-size: 0.8rem;"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="7" class="text-center py-5 text-muted">
+                        <i class="bi bi-inbox fs-2 d-block mb-2 opacity-50"></i>
+                        Không có đơn đặt tour nào phù hợp với điều kiện tìm kiếm.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

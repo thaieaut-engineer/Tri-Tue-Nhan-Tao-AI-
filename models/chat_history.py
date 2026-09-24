@@ -1,9 +1,10 @@
 from database.db import get_connection
 
 
-def save_chat_message(session_id, question, answer):
+def save_chat_message(session_id, question, answer, intent=None, confidence=None):
     """
-    Lưu một tin nhắn (câu hỏi và câu trả lời) vào lịch sử phiên trò chuyện.
+    Lưu một tin nhắn (câu hỏi và câu trả lời) vào lịch sử phiên trò chuyện
+    kèm intent và điểm tin cậy (confidence) phục vụ Continual Learning.
     """
     connection = get_connection()
     if not connection:
@@ -12,10 +13,16 @@ def save_chat_message(session_id, question, answer):
     try:
         cursor = connection.cursor()
         sql = """
-            INSERT INTO chat_history (session_id, question, answer)
-            VALUES (%s, %s, %s)
+            INSERT INTO chat_history (session_id, question, answer, intent, confidence, is_learned)
+            VALUES (%s, %s, %s, %s, %s, FALSE)
         """
-        cursor.execute(sql, (session_id, question.strip(), answer.strip()))
+        cursor.execute(sql, (
+            session_id,
+            question.strip(),
+            answer.strip(),
+            intent.strip() if intent else None,
+            float(confidence) if confidence is not None else None
+        ))
         connection.commit()
         return cursor.lastrowid
     except Exception as e:
@@ -107,3 +114,77 @@ def count_chat_messages():
     finally:
         cursor.close()
         connection.close()
+
+
+def get_unlearned_chat_history(limit=500):
+    """
+    Lấy danh sách các câu hỏi từ người dùng chưa được mô hình AI học (is_learned = FALSE).
+    """
+    conn = get_connection()
+    if not conn:
+        return []
+
+    try:
+        cursor = conn.cursor(dictionary=True)
+        sql = """
+            SELECT id, session_id, question, answer, intent, confidence, created_at
+            FROM chat_history
+            WHERE is_learned = FALSE AND LENGTH(TRIM(question)) >= 6
+            ORDER BY id DESC
+            LIMIT %s
+        """
+        cursor.execute(sql, (limit,))
+        return cursor.fetchall()
+    except Exception as e:
+        print("Lỗi lấy tin nhắn chưa học:", e)
+        return []
+    finally:
+        cursor.close()
+        conn.close()
+
+
+def mark_as_learned(history_ids):
+    """
+    Đánh dấu danh sách các câu hỏi đã được tích hợp thành công vào tập huấn luyện của AI.
+    """
+    if not history_ids:
+        return 0
+
+    conn = get_connection()
+    if not conn:
+        return 0
+
+    try:
+        cursor = conn.cursor()
+        format_strings = ','.join(['%s'] * len(history_ids))
+        sql = f"UPDATE chat_history SET is_learned = TRUE WHERE id IN ({format_strings})"
+        cursor.execute(sql, tuple(history_ids))
+        conn.commit()
+        return cursor.rowcount
+    except Exception as e:
+        print("Lỗi đánh dấu tin nhắn đã học:", e)
+        return 0
+    finally:
+        cursor.close()
+        conn.close()
+
+
+def count_learned_messages():
+    """
+    Đếm tổng số câu hỏi từ lịch sử chat đã được mô hình AI tự học thành công.
+    """
+    conn = get_connection()
+    if not conn:
+        return 0
+
+    try:
+        cursor = conn.cursor()
+        cursor.execute("SELECT COUNT(*) FROM chat_history WHERE is_learned = TRUE")
+        res = cursor.fetchone()
+        return res[0] if res else 0
+    except Exception as e:
+        print("Lỗi đếm số tin nhắn đã học:", e)
+        return 0
+    finally:
+        cursor.close()
+        conn.close()

@@ -1,6 +1,11 @@
 from functools import wraps
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
-from models.user import verify_user, create_user, get_user_by_username
+from models.user import (
+    verify_user, create_user, get_user_by_username, get_user_by_id,
+    update_user_profile, change_user_password
+)
+from models.booking import get_user_bookings
+from models.favorite import get_user_favorites
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -124,3 +129,61 @@ def logout():
     session.clear()
     flash("Đã đăng xuất thành công.", "info")
     return redirect(url_for("auth.login"))
+
+
+@auth_bp.route("/profile", methods=["GET", "POST"])
+@login_required
+def profile():
+    """
+    Trang quản lý thông tin cá nhân và đổi mật khẩu người dùng.
+    """
+    user_id = session["user_id"]
+
+    if request.method == "POST":
+        action = request.form.get("action", "")
+
+        if action == "update_profile":
+            full_name = request.form.get("full_name", "").strip()
+            email = request.form.get("email", "").strip()
+            phone = request.form.get("phone", "").strip()
+
+            if not full_name:
+                flash("Họ và tên không được để trống.", "danger")
+            else:
+                success, msg = update_user_profile(user_id, full_name, email, phone)
+                if success:
+                    session["full_name"] = full_name
+                    flash(msg, "success")
+                else:
+                    flash(msg, "danger")
+
+        elif action == "change_password":
+            old_password = request.form.get("old_password", "").strip()
+            new_password = request.form.get("new_password", "").strip()
+            confirm_password = request.form.get("confirm_password", "").strip()
+
+            if not old_password or not new_password:
+                flash("Vui lòng nhập đầy đủ mật khẩu hiện tại và mật khẩu mới.", "danger")
+            elif new_password != confirm_password:
+                flash("Mật khẩu mới xác nhận không khớp.", "danger")
+            elif len(new_password) < 6:
+                flash("Mật khẩu mới phải có ít nhất 6 ký tự.", "danger")
+            else:
+                success, msg = change_user_password(user_id, old_password, new_password)
+                if success:
+                    flash(msg, "success")
+                else:
+                    flash(msg, "danger")
+
+        return redirect(url_for("auth.profile"))
+
+    user = get_user_by_id(user_id)
+    bookings = get_user_bookings(user_id)
+    favorites = get_user_favorites(user_id)
+
+    return render_template(
+        "profile.html",
+        user=user,
+        booking_count=len(bookings),
+        favorite_count=len(favorites)
+    )

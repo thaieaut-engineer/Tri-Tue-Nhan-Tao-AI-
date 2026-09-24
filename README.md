@@ -210,5 +210,15 @@ Truy cập ứng dụng tại trình duyệt: `http://localhost:5000`
    - `da lta co lanh k` *(thử nghiệm không dấu, lỗi chính tả gõ phím nhanh)*
    - `Hôm nay ở Hà Nội có mưa không?`
 4. **Tìm kiếm địa điểm mở rộng qua Internet**:
-   - `vài điểm tham quan ở hồ chí minh` *(khử nhập nhằng, lọc loại trừ tiểu sử nhân vật)*
-   - `Điểm du lịch đẹp ở Huế`
+    - `vài điểm tham quan ở hồ chí minh` *(khử nhập nhằng, lọc loại trừ tiểu sử nhân vật)*
+    - `Điểm du lịch đẹp ở Huế`
+
+---
+
+### I. Thư mục Báo cáo bài tập lớn (`bao_cao/`)
+
+Toàn bộ tài liệu báo cáo kỹ thuật và sơ đồ minh chứng của đề tài được lưu trữ tập trung trong thư mục [`bao_cao/`](bao_cao/):
+* **Báo cáo hoàn chỉnh (Word)**: [`bao_cao/Đề số 34_Nhóm 13_Báo cáo hoàn chỉnh.docx`](bao_cao/Đề%20số%2034_Nhóm%2013_Báo%20cáo%20hoàn%20chỉnh.docx)
+* **Bản nháp báo cáo kỹ thuật (Markdown)**: [`bao_cao/BAO_CAO_NHOM_13_DE_34.md`](bao_cao/BAO_CAO_NHOM_13_DE_34.md)
+* **Thư mục sơ đồ & hình ảnh báo cáo**: [`bao_cao/report_images/`](bao_cao/report_images/) (Sơ đồ ERD 7 bảng, Kiến trúc 3 tầng, Sơ đồ khối ra quyết định AI, Giao diện thực nghiệm).
+* **Mã nguồn sinh báo cáo & sơ đồ**: [`bao_cao/build_complete_report.py`](bao_cao/build_complete_report.py), [`bao_cao/generate_extra_diagrams.py`](bao_cao/generate_extra_diagrams.py).

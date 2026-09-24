@@ -5,22 +5,33 @@
 {% block content %}
 <!-- BREADCRUMB -->
 <nav aria-label="breadcrumb" class="mb-4">
-    <ol class="breadcrumb">
+    <ol class="breadcrumb small">
         <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Trang chủ</a></li>
         <li class="breadcrumb-item"><a href="/tours" class="text-decoration-none">Danh sách tour</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{ tour.name }}</li>
+        <li class="breadcrumb-item active text-truncate" style="max-width: 300px;" aria-current="page">{{ tour.name }}</li>
     </ol>
 </nav>
 
 <div class="row g-4 mb-5">
-    <!-- CỘT THÔNG TIN TOUR -->
+    <!-- CỘT THÔNG TIN TOUR VÀ ĐÁNH GIÁ -->
     <div class="col-lg-8">
-        <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+        <div class="card border bg-white shadow-sm rounded-4 overflow-hidden mb-4 position-relative">
+            <!-- Nút yêu thích trên ảnh -->
+            <button type="button" 
+                    id="tourDetailFavBtn"
+                    class="btn btn-light position-absolute top-0 end-0 m-3 rounded-circle shadow p-0 d-flex align-items-center justify-content-center"
+                    style="width: 44px; height: 44px; z-index: 5;"
+                    data-tour-id="{{ tour.id }}"
+                    title="Lưu vào danh sách yêu thích">
+                <i class="bi {% if is_favorited %}bi-heart-fill text-danger{% else %}bi-heart text-secondary{% endif %} fs-5"></i>
+            </button>
+
             {% if tour.image %}
-                <img src="{{ tour.image }}" class="w-100" style="max-height: 400px; object-fit: cover;" alt="{{ tour.name }}">
+                <img src="{{ tour.image }}" class="w-100" style="max-height: 420px; object-fit: cover;" alt="{{ tour.name }}">
             {% endif %}
+
             <div class="card-body p-4">
-                <div class="d-flex flex-wrap gap-2 mb-3">
+                <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
                     <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2">
                         <i class="bi bi-tag me-1"></i>{{ tour.category_name or 'Du lịch tổng hợp' }}
                     </span>
@@ -30,31 +41,41 @@
                     <span class="badge bg-light text-danger border px-3 py-2">
                         <i class="bi bi-geo-alt me-1"></i>{{ tour.destination }}
                     </span>
+                    <!-- Điểm đánh giá sao -->
+                    <div class="badge bg-warning-subtle text-dark border border-warning-subtle px-3 py-2 d-flex align-items-center gap-1">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <span class="fw-bold">{{ rating_stats.avg_rating }} / 5</span>
+                        <span class="text-muted">({{ rating_stats.total_reviews }} đánh giá)</span>
+                    </div>
                 </div>
 
                 <h1 class="fw-bold h2 mb-3">{{ tour.name }}</h1>
 
-                <h4 class="fw-semibold mt-4 mb-2">Giới thiệu tour</h4>
-                <p class="text-secondary leading-relaxed" style="white-space: pre-line;">{{ tour.description }}</p>
+                <h5 class="fw-bold mt-4 mb-2 text-primary">
+                    <i class="bi bi-info-circle me-1"></i>Giới thiệu hành trình
+                </h5>
+                <p class="text-secondary leading-relaxed mb-0" style="white-space: pre-line; line-height: 1.7;">{{ tour.description }}</p>
             </div>
         </div>
 
         <!-- LỊCH TRÌNH CHI TIẾT -->
-        <div class="card border-0 shadow-sm rounded-4 p-4">
-            <h3 class="fw-bold mb-4 d-flex align-items-center gap-2">
-                <span>🗺️</span> Lịch Trình Chi Tiết
-            </h3>
+        <div class="card border bg-white shadow-sm rounded-4 p-4 mb-4">
+            <h4 class="fw-bold mb-4 d-flex align-items-center gap-2">
+                <span>🗺️</span> Lịch Trình Chi Tiết Các Ngày
+            </h4>
 
             {% if schedule %}
                 <div class="timeline">
                     {% for item in schedule %}
-                    <div class="card border-0 bg-light rounded-3 mb-3 p-3">
+                    <div class="card border-0 bg-light rounded-3 mb-3 p-3 position-relative">
                         <div class="d-flex align-items-center gap-2 mb-2">
                             <span class="badge bg-primary text-white rounded-pill px-3 py-1">Ngày {{ item.day_number }}</span>
-                            <h5 class="fw-bold mb-0 text-primary">{{ item.location }}</h5>
+                            <h6 class="fw-bold mb-0 text-dark">{{ item.location }}</h6>
                         </div>
                         <div class="ms-1">
-                            <p class="mb-1"><strong><i class="bi bi-activity me-1"></i>Hoạt động:</strong> {{ item.activity }}</p>
+                            <p class="mb-1 text-primary fw-medium small">
+                                <i class="bi bi-check2-circle me-1"></i>Hoạt động: {{ item.activity }}
+                            </p>
                             {% if item.description %}
                             <p class="text-muted small mb-0">{{ item.description }}</p>
                             {% endif %}
@@ -63,20 +84,116 @@
                     {% endfor %}
                 </div>
             {% else %}
-                <div class="alert alert-info d-flex align-items-center gap-2">
-                    <i class="bi bi-info-circle fs-4"></i>
-                    <div>Lịch trình chi tiết cho tour này đang được cập nhật. Bạn có thể hỏi trực tiếp Chatbot để biết thêm thông tin!</div>
+                <div class="alert alert-info d-flex align-items-center gap-2 mb-0">
+                    <i class="bi bi-info-circle fs-5"></i>
+                    <div class="small">Lịch trình chi tiết cho tour này đang được cập nhật. Bạn có thể hỏi trực tiếp Chatbot để biết thêm thông tin!</div>
                 </div>
             {% endif %}
+        </div>
+
+        <!-- PHẦN ĐÁNH GIÁ VÀ NHẬN XÉT -->
+        <div class="card border bg-white shadow-sm rounded-4 p-4" id="reviews-section">
+            <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+                <h4 class="fw-bold mb-0 d-flex align-items-center gap-2">
+                    <span>⭐</span> Đánh Giá & Nhận Xét
+                </h4>
+                <div class="text-end">
+                    <span class="fs-4 fw-bold text-warning">{{ rating_stats.avg_rating }}</span>
+                    <span class="text-muted fs-6">/5</span>
+                    <div class="small text-muted">{{ rating_stats.total_reviews }} nhận xét</div>
+                </div>
+            </div>
+
+            <!-- FORM GỬI ĐÁNH GIÁ -->
+            {% if session.get('user_id') %}
+            <div class="card bg-light border-0 rounded-3 p-3 mb-4">
+                <h6 class="fw-bold mb-2"><i class="bi bi-pencil-square me-1 text-primary"></i>Chia sẻ trải nghiệm của bạn</h6>
+                <form action="/tours/{{ tour.id }}/review" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label small fw-medium mb-1">Mức độ hài lòng của bạn:</label>
+                        <div class="rating-stars-input d-flex gap-2">
+                            {% for star in [5, 4, 3, 2, 1] %}
+                            <div class="form-check form-check-inline m-0">
+                                <input class="form-check-input visually-hidden rating-radio" type="radio" name="rating" id="star{{ star }}" value="{{ star }}" {% if star == 5 %}checked{% endif %}>
+                                <label class="form-check-label rating-star-label" for="star{{ star }}" title="{{ star }} sao">
+                                    <i class="bi bi-star-fill text-warning fs-5"></i>
+                                    <span class="small fw-semibold ms-1">{{ star }} sao</span>
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <textarea name="comment" class="form-control form-control-sm" rows="3" placeholder="Tour này như thế nào? Cảnh quan, dịch vụ, hướng dẫn viên ra sao?..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-primary rounded-pill px-4">
+                        <i class="bi bi-send me-1"></i>Gửi đánh giá
+                    </button>
+                </form>
+            </div>
+            {% else %}
+            <div class="alert alert-light border rounded-3 p-3 mb-4 text-center">
+                <p class="small text-muted mb-2">Bạn đã từng trải nghiệm tour này? Hãy đăng nhập để chia sẻ đánh giá của bạn nhé!</p>
+                <a href="/login?next=/tours/{{ tour.id }}" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                    Đăng nhập để đánh giá
+                </a>
+            </div>
+            {% endif %}
+
+            <!-- DANH SÁCH CÁC NHẬN XÉT -->
+            <div class="reviews-list">
+                {% if reviews %}
+                    {% for rev in reviews %}
+                    <div class="border-bottom py-3 {% if loop.last %}border-0 pb-0{% endif %}">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 32px; height: 32px; font-size: 0.85rem;">
+                                    {{ rev.full_name[:1] if rev.full_name else 'U' }}
+                                </div>
+                                <div>
+                                    <span class="fw-semibold text-dark small">{{ rev.full_name or rev.username }}</span>
+                                    <div class="text-warning" style="font-size: 0.8rem;">
+                                        {% for s in range(rev.rating) %}
+                                        <i class="bi bi-star-fill"></i>
+                                        {% endfor %}
+                                        {% for s in range(5 - rev.rating) %}
+                                        <i class="bi bi-star text-muted opacity-50"></i>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="text-muted" style="font-size: 0.75rem;">
+                                {{ rev.created_at.strftime('%d/%m/%Y %H:%M') if rev.created_at else '' }}
+                            </span>
+                        </div>
+                        <p class="text-secondary small mb-0 mt-2 ps-5">
+                            {{ rev.comment }}
+                        </p>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="text-center py-4 text-muted small">
+                        <i class="bi bi-chat-heart fs-3 d-block mb-1 text-secondary opacity-50"></i>
+                        Chưa có nhận xét nào cho tour này. Hãy là người đầu tiên đánh giá!
+                    </div>
+                {% endif %}
+            </div>
         </div>
     </div>
 
     <!-- CỘT SIDEBAR ĐẶT TOUR & TƯ VẤN -->
     <div class="col-lg-4">
-        <div class="card border-0 shadow-sm rounded-4 p-4 sticky-top" style="top: 80px;">
+        <div class="card border bg-white shadow-sm rounded-4 p-4 sticky-top" style="top: 80px;">
             <div class="small text-muted mb-1">Giá trọn gói mỗi khách:</div>
             <div class="text-danger fw-bold display-6 mb-3">
                 {{ "{:,.0f}".format(tour.price) }} <span class="fs-5">VNĐ</span>
+            </div>
+
+            <!-- Nút Đặt Tour mở Modal -->
+            <div class="d-grid gap-2 mb-3">
+                <button type="button" class="btn btn-danger btn-lg rounded-pill shadow-sm fw-bold py-3" data-bs-toggle="modal" data-bs-target="#bookingModal">
+                    <i class="bi bi-calendar-check me-2"></i>Đặt Tour Ngay
+                </button>
             </div>
 
             <hr class="my-3">
@@ -89,19 +206,164 @@
             </ul>
 
             <div class="d-grid gap-2">
-                <a href="/chatbot" class="btn btn-primary btn-lg shadow-sm">
+                <a href="/chatbot" class="btn btn-outline-primary rounded-pill">
                     <i class="bi bi-robot me-2"></i>Hỏi AI về Tour này
                 </a>
-                <a href="/tours" class="btn btn-outline-secondary">
+                <a href="/tours" class="btn btn-light border rounded-pill text-muted">
                     <i class="bi bi-arrow-left me-1"></i>Quay lại danh sách
                 </a>
             </div>
 
             <div class="mt-4 p-3 bg-light rounded-3 text-center small text-muted">
                 <i class="bi bi-shield-check text-primary fs-5 d-block mb-1"></i>
-                Hỗ trợ tư vấn trực tuyến 24/7 với Chatbot AI
+                Cam kết giá tốt &bull; Hỗ trợ tư vấn 24/7 với Chatbot AI
             </div>
         </div>
     </div>
 </div>
+
+<!-- MODAL ĐẶT TOUR DU LỊCH TRỰC TUYẾN -->
+<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow">
+            <div class="modal-header border-0 pb-0">
+                <div>
+                    <h5 class="modal-title fw-bold" id="bookingModalLabel">Đặt Tour: {{ tour.name }}</h5>
+                    <p class="text-muted small mb-0">Điền thông tin bên dưới để hoàn tất việc giữ chỗ tour</p>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/tours/{{ tour.id }}/book" method="POST" id="bookingForm">
+                <div class="modal-body py-3">
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Họ và tên khách hàng <span class="text-danger">*</span></label>
+                        <input type="text" name="full_name" class="form-control form-control-sm" required 
+                               value="{{ current_user.full_name if current_user else '' }}" placeholder="Ví dụ: Nguyễn Văn An">
+                    </div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Số điện thoại <span class="text-danger">*</span></label>
+                            <input type="tel" name="phone" class="form-control form-control-sm" required 
+                                   value="{{ current_user.phone if current_user and current_user.phone else '' }}" placeholder="09xxxxxxxx">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Email liên hệ <span class="text-danger">*</span></label>
+                            <input type="email" name="email" class="form-control form-control-sm" required 
+                                   value="{{ current_user.email if current_user and current_user.email else '' }}" placeholder="name@example.com">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Ngày dự kiến khởi hành <span class="text-danger">*</span></label>
+                        <input type="date" name="start_date" id="bookingStartDate" class="form-control form-control-sm" required>
+                    </div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <label class="form-label small fw-semibold">Người lớn (100% giá)</label>
+                            <input type="number" name="adults" id="inputAdults" class="form-control form-control-sm" value="1" min="1" max="50" required>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small fw-semibold">Trẻ em 5-9 tuổi (75%)</label>
+                            <input type="number" name="children" id="inputChildren" class="form-control form-control-sm" value="0" min="0" max="50">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Ghi chú hoặc yêu cầu đặc biệt</label>
+                        <textarea name="note" class="form-control form-control-sm" rows="2" placeholder="Ví dụ: Ăn chay, phòng đơn, có người lớn tuổi..."></textarea>
+                    </div>
+
+                    <!-- KHỐI TÍNH TỔNG TIỀN DỰ KIẾN TỰ ĐỘNG -->
+                    <div class="p-3 bg-light rounded-3 border d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="small fw-semibold text-dark">Tổng chi phí dự kiến:</div>
+                            <div class="text-muted" style="font-size: 0.72rem;">Đã bao gồm thuế & phí trọn gói</div>
+                        </div>
+                        <div class="text-end">
+                            <span class="fs-5 fw-bold text-danger" id="calculatedTotalPrice">0 đ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-sm btn-light border rounded-pill px-3" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-sm btn-danger rounded-pill px-4 fw-bold">
+                        <i class="bi bi-check-circle me-1"></i>Xác Nhận Đặt Tour
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // 1. Tính toán giá tiền động cho Modal Đặt Tour
+    const basePrice = {{ tour.price }};
+    const inputAdults = document.getElementById("inputAdults");
+    const inputChildren = document.getElementById("inputChildren");
+    const totalDisplay = document.getElementById("calculatedTotalPrice");
+    const dateInput = document.getElementById("bookingStartDate");
+
+    // Đặt ngày tối thiểu là ngày hôm nay
+    if (dateInput) {
+        const today = new Date().toISOString().split("T")[0];
+        dateInput.min = today;
+        dateInput.value = today;
+    }
+
+    function calculateTotal() {
+        const adults = parseInt(inputAdults.value) || 1;
+        const children = parseInt(inputChildren.value) || 0;
+        const total = (adults * basePrice) + (children * basePrice * 0.75);
+        totalDisplay.textContent = new Intl.NumberFormat("vi-VN").format(total) + " đ";
+    }
+
+    if (inputAdults && inputChildren) {
+        inputAdults.addEventListener("input", calculateTotal);
+        inputChildren.addEventListener("input", calculateTotal);
+        calculateTotal();
+    }
+
+    // 2. Nút Toggle Yêu Thích ở trang chi tiết tour
+    const detailFavBtn = document.getElementById("tourDetailFavBtn");
+    if (detailFavBtn) {
+        detailFavBtn.addEventListener("click", function () {
+            const tourId = this.getAttribute("data-tour-id");
+            const icon = this.querySelector("i");
+
+            fetch("/api/favorites/toggle", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ tour_id: tourId })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.need_login) {
+                    if (confirm("Vui lòng đăng nhập để lưu tour yêu thích. Bạn có muốn chuyển sang đăng nhập không?")) {
+                        window.location.href = "/login?next=" + encodeURIComponent(window.location.pathname);
+                    }
+                    return;
+                }
+                if (data.success) {
+                    if (data.is_favorited) {
+                        icon.classList.remove("bi-heart", "text-secondary");
+                        icon.classList.add("bi-heart-fill", "text-danger");
+                    } else {
+                        icon.classList.remove("bi-heart-fill", "text-danger");
+                        icon.classList.add("bi-heart", "text-secondary");
+                    }
+                } else {
+                    alert(data.message || "Đã xảy ra lỗi.");
+                }
+            })
+            .catch(err => console.error("Lỗi favorite:", err));
+        });
+    }
+});
+</script>
 {% endblock %}

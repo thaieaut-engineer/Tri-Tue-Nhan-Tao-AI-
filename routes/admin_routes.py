@@ -17,7 +17,14 @@ from models.qa_data import (
 )
 from models.chat_history import get_all_chat_logs, count_chat_messages
 from models.chat_session import count_sessions
+from models.booking import (
+    get_all_bookings, update_booking_status, delete_booking, count_bookings, get_total_revenue
+)
+from models.review import (
+    get_all_reviews, delete_review
+)
 from routes.chat_routes import chatbot
+from ai.self_learning import self_learning_engine
 
 admin_bp = Blueprint("admin", __name__, url_prefix="/admin")
 
@@ -35,15 +42,20 @@ def dashboard():
         "categories": count_categories(),
         "qa": count_qa(),
         "messages": count_chat_messages(),
-        "sessions": count_sessions()
+        "sessions": count_sessions(),
+        "bookings": count_bookings(),
+        "pending_bookings": count_bookings("pending"),
+        "revenue": get_total_revenue()
     }
     recent_tours = get_all_tours()[:5]
+    recent_bookings = get_all_bookings()[:5]
     recent_logs = get_all_chat_logs(limit=5)
 
     return render_template(
         "admin/dashboard.html",
         stats=stats,
         recent_tours=recent_tours,
+        recent_bookings=recent_bookings,
         recent_logs=recent_logs
     )
 
@@ -332,3 +344,105 @@ def user_delete_route(user_id):
 def history_logs():
     logs = get_all_chat_logs(limit=200)
     return render_template("admin/history.html", logs=logs)
+
+
+# =======================================================
+# 7. QUẢN LÝ ĐƠN ĐẶT TOUR (BOOKINGS)
+# =======================================================
+@admin_bp.route("/bookings")
+@admin_required
+def bookings_management():
+    status = request.args.get("status", "").strip() or None
+    search = request.args.get("search", "").strip() or None
+
+    bookings_list = get_all_bookings(status=status, search=search)
+    stats = {
+        "total": count_bookings(),
+        "pending": count_bookings("pending"),
+        "confirmed": count_bookings("confirmed"),
+        "completed": count_bookings("completed"),
+        "cancelled": count_bookings("cancelled"),
+        "revenue": get_total_revenue()
+    }
+
+    return render_template(
+        "admin/bookings.html",
+        bookings=bookings_list,
+        stats=stats,
+        current_status=status,
+        search=search
+    )
+
+
+@admin_bp.route("/bookings/status/<int:booking_id>", methods=["POST"])
+@admin_required
+def booking_status_update(booking_id):
+    status = request.form.get("status", "").strip()
+    if update_booking_status(booking_id, status):
+        status_labels = {
+            "pending": "Chờ duyệt",
+            "confirmed": "Đã xác nhận",
+            "completed": "Hoàn thành",
+            "cancelled": "Đã hủy"
+        }
+        flash(f"Đã cập nhật trạng thái đơn #{booking_id} thành '{status_labels.get(status, status)}'!", "success")
+    else:
+        flash("Cập nhật trạng thái đơn đặt tour thất bại.", "danger")
+    return redirect(url_for("admin.bookings_management"))
+
+
+@admin_bp.route("/bookings/delete/<int:booking_id>", methods=["POST"])
+@admin_required
+def booking_delete(booking_id):
+    if delete_booking(booking_id):
+        flash(f"Đã xóa đơn đặt tour #{booking_id} thành công!", "success")
+    else:
+        flash("Xóa đơn đặt tour thất bại.", "danger")
+    return redirect(url_for("admin.bookings_management"))
+
+
+# =======================================================
+# 8. QUẢN LÝ ĐÁNH GIÁ (REVIEWS)
+# =======================================================
+@admin_bp.route("/reviews")
+@admin_required
+def reviews_management():
+    reviews_list = get_all_reviews(limit=100)
+    return render_template("admin/reviews.html", reviews=reviews_list)
+
+
+@admin_bp.route("/reviews/delete/<int:review_id>", methods=["POST"])
+@admin_required
+def review_delete(review_id):
+    if delete_review(review_id):
+        flash("Đã xóa đánh giá thành công!", "success")
+    else:
+        flash("Xóa đánh giá thất bại.", "danger")
+    return redirect(url_for("admin.reviews_management"))
+
+
+# =======================================================
+# 9. DEEP LEARNING CONTINUAL LEARNING (TỰ HỌC TỪ LỊCH SỬ CHAT)
+# =======================================================
+@admin_bp.route("/self-learning")
+@admin_required
+def self_learning_view():
+    stats = self_learning_engine.get_learning_stats()
+    scan_results = self_learning_engine.scan_candidates(min_confidence=0.80, limit=200)
+    return render_template(
+        "admin/self_learning.html",
+        stats=stats,
+        scan_results=scan_results
+    )
+
+
+@admin_bp.route("/self-learning/run", methods=["POST"])
+@admin_required
+def self_learning_run():
+    min_confidence = request.form.get("min_confidence", type=float) or 0.80
+    result = self_learning_engine.execute_learning(min_confidence=min_confidence)
+    if result.get("success"):
+        flash(result.get("message", "Đã kích hoạt AI tự học thành công!"), "success")
+    else:
+        flash(result.get("message", "Không thể thực hiện tự học."), "danger")
+    return redirect(url_for("admin.self_learning_view"))

@@ -5,142 +5,163 @@
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <h1 class="fw-bold mb-1">⚙️ Bảng Điều Khiển Quản Trị (Admin)</h1>
-        <p class="text-muted mb-0">Quản lý toàn bộ hệ thống tour, dữ liệu huấn luyện AI và người dùng</p>
+        <h3 class="fw-bold mb-1">⚙️ Bảng Điều Khiển Quản Trị (Admin)</h3>
+        <p class="text-muted small mb-0">Giám sát hoạt động đặt tour, quản lý dữ liệu huấn luyện AI và tài khoản</p>
     </div>
     <div class="d-flex gap-2">
+        <a href="/admin/self-learning" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+            <i class="bi bi-mortarboard me-1"></i>AI Tự học
+        </a>
+        <a href="/admin/bookings" class="btn btn-sm btn-primary rounded-pill px-3">
+            <i class="bi bi-card-checklist me-1"></i>Xem đơn đặt tour
+        </a>
         <form method="POST" action="/admin/qa/retrain">
-            <button type="submit" class="btn btn-success">
+            <button type="submit" class="btn btn-sm btn-success rounded-pill px-3">
                 <i class="bi bi-arrow-repeat me-1"></i>Huấn luyện lại AI
             </button>
         </form>
     </div>
 </div>
 
-<!-- THẺ THỐNG KÊ TỔNG QUAN -->
+<!-- THẺ DOANH THU & ĐƠN HÀNG NỔI BẬT -->
 <div class="row g-3 mb-4">
-    <div class="col-6 col-md-4 col-lg-2">
-        <div class="card border-0 shadow-sm p-3 text-center rounded-3 bg-white">
-            <div class="text-primary fs-3"><i class="bi bi-compass"></i></div>
-            <h3 class="fw-bold my-1">{{ stats.tours }}</h3>
-            <span class="text-muted small">Tour du lịch</span>
+    <div class="col-md-6 col-lg-3">
+        <div class="card border bg-white shadow-sm p-3 rounded-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="text-muted small fw-semibold">Tổng doanh thu</span>
+                <span class="badge bg-success-subtle text-success p-2 rounded-circle"><i class="bi bi-currency-dollar fs-6"></i></span>
+            </div>
+            <h4 class="fw-bold text-success mb-1">{{ "{:,.0f}".format(stats.revenue) }} đ</h4>
+            <div class="text-muted small" style="font-size: 0.75rem;">Từ các đơn đã xác nhận/hoàn thành</div>
         </div>
     </div>
-    <div class="col-6 col-md-4 col-lg-2">
-        <div class="card border-0 shadow-sm p-3 text-center rounded-3 bg-white">
-            <div class="text-info fs-3"><i class="bi bi-tags"></i></div>
-            <h3 class="fw-bold my-1">{{ stats.categories }}</h3>
-            <span class="text-muted small">Danh mục</span>
+    <div class="col-md-6 col-lg-3">
+        <div class="card border bg-white shadow-sm p-3 rounded-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="text-muted small fw-semibold">Tổng đơn đặt tour</span>
+                <span class="badge bg-primary-subtle text-primary p-2 rounded-circle"><i class="bi bi-receipt fs-6"></i></span>
+            </div>
+            <h4 class="fw-bold text-primary mb-1">{{ stats.bookings }} đơn</h4>
+            <div class="small">
+                {% if stats.pending_bookings > 0 %}
+                <span class="badge bg-warning-subtle text-warning-emphasis border border-warning px-2 py-0" style="font-size: 0.72rem;">
+                    {{ stats.pending_bookings }} đơn chờ duyệt
+                </span>
+                {% else %}
+                <span class="text-muted" style="font-size: 0.75rem;">Không có đơn chờ duyệt</span>
+                {% endif %}
+            </div>
         </div>
     </div>
-    <div class="col-6 col-md-4 col-lg-2">
-        <div class="card border-0 shadow-sm p-3 text-center rounded-3 bg-white">
-            <div class="text-success fs-3"><i class="bi bi-question-diamond"></i></div>
-            <h3 class="fw-bold my-1">{{ stats.qa }}</h3>
-            <span class="text-muted small">Câu hỏi mẫu AI</span>
+    <div class="col-md-6 col-lg-3">
+        <div class="card border bg-white shadow-sm p-3 rounded-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="text-muted small fw-semibold">Khách hàng & Thành viên</span>
+                <span class="badge bg-info-subtle text-info p-2 rounded-circle"><i class="bi bi-people fs-6"></i></span>
+            </div>
+            <h4 class="fw-bold text-info mb-1">{{ stats.users }}</h4>
+            <div class="text-muted small" style="font-size: 0.75rem;">Tài khoản đăng ký trên hệ thống</div>
         </div>
     </div>
-    <div class="col-6 col-md-4 col-lg-2">
-        <div class="card border-0 shadow-sm p-3 text-center rounded-3 bg-white">
-            <div class="text-warning fs-3"><i class="bi bi-people"></i></div>
-            <h3 class="fw-bold my-1">{{ stats.users }}</h3>
-            <span class="text-muted small">Người dùng</span>
-        </div>
-    </div>
-    <div class="col-6 col-md-4 col-lg-2">
-        <div class="card border-0 shadow-sm p-3 text-center rounded-3 bg-white">
-            <div class="text-danger fs-3"><i class="bi bi-chat-dots"></i></div>
-            <h3 class="fw-bold my-1">{{ stats.sessions }}</h3>
-            <span class="text-muted small">Phiên hội thoại</span>
-        </div>
-    </div>
-    <div class="col-6 col-md-4 col-lg-2">
-        <div class="card border-0 shadow-sm p-3 text-center rounded-3 bg-white">
-            <div class="text-secondary fs-3"><i class="bi bi-chat-text"></i></div>
-            <h3 class="fw-bold my-1">{{ stats.messages }}</h3>
-            <span class="text-muted small">Lượt hỏi đáp</span>
+    <div class="col-md-6 col-lg-3">
+        <div class="card border bg-white shadow-sm p-3 rounded-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="text-muted small fw-semibold">Dữ liệu AI Q&A</span>
+                <span class="badge bg-warning-subtle text-warning p-2 rounded-circle"><i class="bi bi-robot fs-6"></i></span>
+            </div>
+            <h4 class="fw-bold text-dark mb-1">{{ stats.qa }}</h4>
+            <div class="text-muted small" style="font-size: 0.75rem;">Mẫu câu hỏi/ý định huấn luyện</div>
         </div>
     </div>
 </div>
 
 <!-- LỐI TẮT QUẢN LÝ -->
 <div class="row g-3 mb-4">
-    <div class="col-md-3">
-        <a href="/admin/tours" class="card border-0 shadow-sm p-3 text-decoration-none text-dark hover-card">
-            <div class="d-flex align-items-center gap-3">
-                <div class="bg-primary-subtle text-primary p-3 rounded-circle"><i class="bi bi-compass-fill fs-4"></i></div>
-                <div>
-                    <h6 class="fw-bold mb-0">Quản lý Tour</h6>
-                    <small class="text-muted">Thêm, sửa, xóa tour & lịch trình</small>
-                </div>
-            </div>
+    <div class="col-6 col-md-4 col-lg-2">
+        <a href="/admin/bookings" class="card border bg-white shadow-sm p-3 text-decoration-none text-dark hover-card rounded-3 text-center">
+            <div class="text-danger fs-3 mb-1"><i class="bi bi-card-checklist"></i></div>
+            <div class="fw-bold small">Đơn Đặt Tour</div>
+            <div class="text-muted" style="font-size: 0.72rem;">Duyệt & xử lý</div>
         </a>
     </div>
-    <div class="col-md-3">
-        <a href="/admin/categories" class="card border-0 shadow-sm p-3 text-decoration-none text-dark hover-card">
-            <div class="d-flex align-items-center gap-3">
-                <div class="bg-info-subtle text-info p-3 rounded-circle"><i class="bi bi-tags-fill fs-4"></i></div>
-                <div>
-                    <h6 class="fw-bold mb-0">Danh Mục Tour</h6>
-                    <small class="text-muted">Phân loại khu vực, chủ đề</small>
-                </div>
-            </div>
+    <div class="col-6 col-md-4 col-lg-2">
+        <a href="/admin/tours" class="card border bg-white shadow-sm p-3 text-decoration-none text-dark hover-card rounded-3 text-center">
+            <div class="text-primary fs-3 mb-1"><i class="bi bi-compass"></i></div>
+            <div class="fw-bold small">Tour Du Lịch</div>
+            <div class="text-muted" style="font-size: 0.72rem;">{{ stats.tours }} tour hiện có</div>
         </a>
     </div>
-    <div class="col-md-3">
-        <a href="/admin/qa" class="card border-0 shadow-sm p-3 text-decoration-none text-dark hover-card">
-            <div class="d-flex align-items-center gap-3">
-                <div class="bg-success-subtle text-success p-3 rounded-circle"><i class="bi bi-robot fs-4"></i></div>
-                <div>
-                    <h6 class="fw-bold mb-0">Dữ Liệu AI (Q&A)</h6>
-                    <small class="text-muted">Câu hỏi mẫu, intent, huấn luyện</small>
-                </div>
-            </div>
+    <div class="col-6 col-md-4 col-lg-2">
+        <a href="/admin/categories" class="card border bg-white shadow-sm p-3 text-decoration-none text-dark hover-card rounded-3 text-center">
+            <div class="text-info fs-3 mb-1"><i class="bi bi-tags"></i></div>
+            <div class="fw-bold small">Danh Mục</div>
+            <div class="text-muted" style="font-size: 0.72rem;">{{ stats.categories }} danh mục</div>
         </a>
     </div>
-    <div class="col-md-3">
-        <a href="/admin/users" class="card border-0 shadow-sm p-3 text-decoration-none text-dark hover-card">
-            <div class="d-flex align-items-center gap-3">
-                <div class="bg-warning-subtle text-warning p-3 rounded-circle"><i class="bi bi-person-gear fs-4"></i></div>
-                <div>
-                    <h6 class="fw-bold mb-0">Quản Lý Người Dùng</h6>
-                    <small class="text-muted">Tài khoản & phân quyền</small>
-                </div>
-            </div>
+    <div class="col-6 col-md-4 col-lg-2">
+        <a href="/admin/qa" class="card border bg-white shadow-sm p-3 text-decoration-none text-dark hover-card rounded-3 text-center">
+            <div class="text-success fs-3 mb-1"><i class="bi bi-robot"></i></div>
+            <div class="fw-bold small">Dữ Liệu AI</div>
+            <div class="text-muted" style="font-size: 0.72rem;">{{ stats.qa }} mẫu câu</div>
+        </a>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+        <a href="/admin/reviews" class="card border bg-white shadow-sm p-3 text-decoration-none text-dark hover-card rounded-3 text-center">
+            <div class="text-warning fs-3 mb-1"><i class="bi bi-star"></i></div>
+            <div class="fw-bold small">Đánh Giá</div>
+            <div class="text-muted" style="font-size: 0.72rem;">Kiểm duyệt nhận xét</div>
+        </a>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+        <a href="/admin/users" class="card border bg-white shadow-sm p-3 text-decoration-none text-dark hover-card rounded-3 text-center">
+            <div class="text-secondary fs-3 mb-1"><i class="bi bi-person-gear"></i></div>
+            <div class="fw-bold small">Người Dùng</div>
+            <div class="text-muted" style="font-size: 0.72rem;">{{ stats.users }} tài khoản</div>
         </a>
     </div>
 </div>
 
 <div class="row g-4">
-    <!-- TOUR MỚI NHẤT -->
+    <!-- ĐƠN ĐẶT TOUR GẦN ĐÂY -->
     <div class="col-lg-6">
-        <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+        <div class="card border bg-white shadow-sm rounded-4 p-4 h-100">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="fw-bold mb-0">Tour Du Lịch Gần Đây</h5>
-                <a href="/admin/tours" class="small text-primary text-decoration-none">Xem tất cả</a>
+                <h5 class="fw-bold mb-0">Đơn Đặt Tour Mới Nhất</h5>
+                <a href="/admin/bookings" class="small text-primary text-decoration-none fw-semibold">Xem tất cả</a>
             </div>
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
                     <thead class="table-light small">
                         <tr>
-                            <th>Tên tour</th>
-                            <th>Điểm đến</th>
-                            <th>Giá</th>
-                            <th>Thao tác</th>
+                            <th>Mã/Khách hàng</th>
+                            <th>Tour</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for tour in recent_tours %}
+                        {% for b in recent_bookings %}
                         <tr>
-                            <td class="fw-semibold">{{ tour.name }}</td>
-                            <td>{{ tour.destination }}</td>
-                            <td class="text-danger fw-bold">{{ "{:,.0f}".format(tour.price) }} đ</td>
                             <td>
-                                <a href="/admin/tours/{{ tour.id }}/schedule" class="btn btn-sm btn-outline-info" title="Lịch trình"><i class="bi bi-calendar3"></i></a>
+                                <div class="fw-semibold small">#{{ b.id }} - {{ b.full_name }}</div>
+                                <div class="text-muted" style="font-size: 0.72rem;">{{ b.phone }}</div>
+                            </td>
+                            <td class="small text-truncate" style="max-width: 140px;">{{ b.tour_name }}</td>
+                            <td class="text-danger fw-bold small">{{ "{:,.0f}".format(b.total_price) }} đ</td>
+                            <td>
+                                {% if b.status == 'pending' %}
+                                    <span class="badge bg-warning-subtle text-warning-emphasis border border-warning" style="font-size: 0.7rem;">Chờ duyệt</span>
+                                {% elif b.status == 'confirmed' %}
+                                    <span class="badge bg-info-subtle text-info-emphasis border border-info" style="font-size: 0.7rem;">Đã xác nhận</span>
+                                {% elif b.status == 'completed' %}
+                                    <span class="badge bg-success-subtle text-success-emphasis border border-success" style="font-size: 0.7rem;">Hoàn thành</span>
+                                {% elif b.status == 'cancelled' %}
+                                    <span class="badge bg-secondary-subtle text-secondary" style="font-size: 0.7rem;">Đã hủy</span>
+                                {% endif %}
                             </td>
                         </tr>
                         {% else %}
-                        <tr><td colspan="4" class="text-center text-muted py-3">Chưa có tour nào</td></tr>
+                        <tr><td colspan="4" class="text-center text-muted py-3 small">Chưa có đơn đặt tour nào</td></tr>
                         {% endfor %}
                     </tbody>
                 </table>
@@ -150,10 +171,10 @@
 
     <!-- HỎI ĐÁP NGƯỜI DÙNG GẦN NHẤT -->
     <div class="col-lg-6">
-        <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+        <div class="card border bg-white shadow-sm rounded-4 p-4 h-100">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h5 class="fw-bold mb-0">Nhật Ký Hỏi Đáp Gần Nhất</h5>
-                <a href="/admin/history" class="small text-primary text-decoration-none">Xem toàn bộ</a>
+                <a href="/admin/history" class="small text-primary text-decoration-none fw-semibold">Xem toàn bộ</a>
             </div>
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
@@ -168,11 +189,11 @@
                         {% for log in recent_logs %}
                         <tr>
                             <td class="fw-semibold small">{{ log.full_name or log.username }}</td>
-                            <td class="small text-truncate" style="max-width: 240px;">{{ log.question }}</td>
-                            <td class="small text-muted">{{ log.created_at.strftime('%H:%M %d/%m') if log.created_at else '' }}</td>
+                            <td class="small text-truncate" style="max-width: 220px;">{{ log.question }}</td>
+                            <td class="small text-muted" style="font-size: 0.75rem;">{{ log.created_at.strftime('%H:%M %d/%m') if log.created_at else '' }}</td>
                         </tr>
                         {% else %}
-                        <tr><td colspan="3" class="text-center text-muted py-3">Chưa có nhật ký hỏi đáp nào</td></tr>
+                        <tr><td colspan="3" class="text-center text-muted py-3 small">Chưa có nhật ký hỏi đáp nào</td></tr>
                         {% endfor %}
                     </tbody>
                 </table>

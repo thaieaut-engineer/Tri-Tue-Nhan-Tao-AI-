@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}Hồ Sơ Cá Nhân - TourAI{% endblock %}
+
+{% block content %}
+<div class="row g-4 justify-content-center">
+    <!-- CỘT BÊN TRÁI: THẺ THÔNG TIN TÀI KHOẢN & THỐNG KÊ -->
+    <div class="col-lg-4">
+        <div class="card border bg-white rounded-4 shadow-sm p-4 text-center mb-4">
+            <div class="mx-auto bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold fs-2 mb-3" style="width: 80px; height: 80px;">
+                {{ user.full_name[:1] if user.full_name else user.username[:1].upper() }}
+            </div>
+            <h5 class="fw-bold mb-1">{{ user.full_name or user.username }}</h5>
+            <div class="text-muted small mb-2">@{{ user.username }}</div>
+
+            <div>
+                {% if user.role == 'admin' %}
+                    <span class="badge bg-danger rounded-pill px-3 py-1">Quản Trị Viên</span>
+                {% else %}
+                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-1">Thành Viên</span>
+                {% endif %}
+            </div>
+
+            <hr class="my-3">
+
+            <div class="row text-center g-2">
+                <div class="col-6">
+                    <a href="/my-bookings" class="text-decoration-none text-dark">
+                        <div class="p-2 rounded-3 bg-light hover-bg">
+                            <div class="fs-4 fw-bold text-primary">{{ booking_count }}</div>
+                            <div class="text-muted" style="font-size: 0.75rem;">Đơn đặt tour</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6">
+                    <a href="/favorites" class="text-decoration-none text-dark">
+                        <div class="p-2 rounded-3 bg-light hover-bg">
+                            <div class="fs-4 fw-bold text-danger">{{ favorite_count }}</div>
+                            <div class="text-muted" style="font-size: 0.75rem;">Tour đã lưu</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="text-muted small mt-3" style="font-size: 0.78rem;">
+                <i class="bi bi-clock-history me-1"></i>Tham gia từ: {{ user.created_at.strftime('%d/%m/%Y') if user.created_at else '' }}
+            </div>
+        </div>
+
+        <!-- MENU PHÍM TẮT -->
+        <div class="list-group rounded-4 shadow-sm border overflow-hidden">
+            <a href="/my-bookings" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3">
+                <span><i class="bi bi-receipt text-primary me-2"></i>Đơn đặt tour của tôi</span>
+                <span class="badge bg-light text-dark rounded-pill">{{ booking_count }}</span>
+            </a>
+            <a href="/favorites" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3">
+                <span><i class="bi bi-heart text-danger me-2"></i>Danh sách yêu thích</span>
+                <span class="badge bg-light text-dark rounded-pill">{{ favorite_count }}</span>
+            </a>
+            <a href="/history" class="list-group-item list-group-item-action py-3">
+                <i class="bi bi-chat-text text-success me-2"></i>Lịch sử tư vấn AI
+            </a>
+            {% if session.get('role') == 'admin' %}
+            <a href="/admin" class="list-group-item list-group-item-action py-3 text-danger fw-semibold">
+                <i class="bi bi-speedometer2 me-2"></i>Bảng điều khiển Quản trị
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- CỘT BÊN PHẢI: FORM CHỈNH SỬA THÔNG TIN & ĐỔI MẬT KHẨU -->
+    <div class="col-lg-8">
+        <!-- FORM 1: CẬP NHẬT HỒ SƠ -->
+        <div class="card border bg-white rounded-4 shadow-sm p-4 mb-4">
+            <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
+                <i class="bi bi-person-lines-fill text-primary"></i>
+                Cập Nhật Thông Tin Cá Nhân
+            </h5>
+            <form action="/profile" method="POST">
+                <input type="hidden" name="action" value="update_profile">
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold">Tên đăng nhập</label>
+                        <input type="text" class="form-control form-control-sm bg-light" value="{{ user.username }}" disabled readonly>
+                        <div class="form-text" style="font-size: 0.75rem;">Tên đăng nhập không thể thay đổi.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold">Họ và tên <span class="text-danger">*</span></label>
+                        <input type="text" name="full_name" class="form-control form-control-sm" value="{{ user.full_name or '' }}" required>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold">Địa chỉ Email</label>
+                        <input type="email" name="email" class="form-control form-control-sm" value="{{ user.email or '' }}" placeholder="example@email.com">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold">Số điện thoại</label>
+                        <input type="tel" name="phone" class="form-control form-control-sm" value="{{ user.phone or '' }}" placeholder="09xxxxxxxx">
+                    </div>
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-sm btn-primary rounded-pill px-4">
+                        <i class="bi bi-check2 me-1"></i>Lưu thông tin cá nhân
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- FORM 2: ĐỔI MẬT KHẨU -->
+        <div class="card border bg-white rounded-4 shadow-sm p-4">
+            <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
+                <i class="bi bi-shield-lock text-danger"></i>
+                Thay Đổi Mật Khẩu
+            </h5>
+            <form action="/profile" method="POST">
+                <input type="hidden" name="action" value="change_password">
+
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">Mật khẩu hiện tại <span class="text-danger">*</span></label>
+                    <input type="password" name="old_password" class="form-control form-control-sm" required placeholder="Nhập mật khẩu đang dùng">
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold">Mật khẩu mới <span class="text-danger">*</span></label>
+                        <input type="password" name="new_password" class="form-control form-control-sm" minlength="6" required placeholder="Tối thiểu 6 ký tự">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold">Xác nhận mật khẩu mới <span class="text-danger">*</span></label>
+                        <input type="password" name="confirm_password" class="form-control form-control-sm" minlength="6" required placeholder="Nhập lại mật khẩu mới">
+                    </div>
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-4">
+                        <i class="bi bi-key me-1"></i>Cập nhật mật khẩu
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

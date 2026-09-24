@@ -82,7 +82,13 @@ def chat():
                 active_session_id = create_chat_session(user_id, title=short_title)
 
             if active_session_id:
-                save_chat_message(active_session_id, question, answer)
+                save_chat_message(
+                    active_session_id,
+                    question,
+                    answer,
+                    intent=chatbot.last_predicted_intent,
+                    confidence=chatbot.last_confidence
+                )
         except Exception as e:
             print("Lỗi lưu lịch sử chat vào DB:", e)
 

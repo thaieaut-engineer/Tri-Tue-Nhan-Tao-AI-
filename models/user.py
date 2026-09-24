@@ -12,7 +12,7 @@ def get_user_by_id(user_id):
 
     try:
         cursor = connection.cursor(dictionary=True)
-        sql = "SELECT id, username, full_name, role, created_at FROM users WHERE id = %s"
+        sql = "SELECT id, username, full_name, email, phone, role, created_at FROM users WHERE id = %s"
         cursor.execute(sql, (user_id,))
         return cursor.fetchone()
     except Exception as e:
@@ -124,6 +124,74 @@ def update_user_password(user_id, new_password):
     except Exception as e:
         print("Lỗi đổi mật khẩu:", e)
         return False
+    finally:
+        cursor.close()
+        connection.close()
+
+
+def update_user_profile(user_id, full_name, email, phone):
+    """
+    Cập nhật thông tin cá nhân của người dùng (họ tên, email, số điện thoại).
+    """
+    connection = get_connection()
+    if not connection:
+        return False, "Không thể kết nối cơ sở dữ liệu."
+
+    try:
+        cursor = connection.cursor()
+        sql = "UPDATE users SET full_name = %s, email = %s, phone = %s WHERE id = %s"
+        cursor.execute(sql, (
+            full_name.strip() if full_name else "",
+            email.strip() if email else None,
+            phone.strip() if phone else None,
+            user_id
+        ))
+        connection.commit()
+        return True, "Cập nhật thông tin cá nhân thành công."
+    except Exception as e:
+        print("Lỗi cập nhật hồ sơ người dùng:", e)
+        return False, f"Đã xảy ra lỗi: {e}"
+    finally:
+        cursor.close()
+        connection.close()
+
+
+def change_user_password(user_id, old_password, new_password):
+    """
+    Thay đổi mật khẩu với bước xác minh mật khẩu hiện tại.
+    """
+    if not new_password or len(new_password) < 6:
+        return False, "Mật khẩu mới phải có ít nhất 6 ký tự."
+
+    connection = get_connection()
+    if not connection:
+        return False, "Không thể kết nối cơ sở dữ liệu."
+
+    try:
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute("SELECT password FROM users WHERE id = %s", (user_id,))
+        row = cursor.fetchone()
+        if not row:
+            return False, "Không tìm thấy người dùng."
+
+        stored_password = row["password"]
+        is_valid = False
+        try:
+            is_valid = check_password_hash(stored_password, old_password)
+        except Exception:
+            if stored_password == old_password:
+                is_valid = True
+
+        if not is_valid:
+            return False, "Mật khẩu hiện tại không chính xác."
+
+        hashed = generate_password_hash(new_password)
+        cursor.execute("UPDATE users SET password = %s WHERE id = %s", (hashed, user_id))
+        connection.commit()
+        return True, "Đổi mật khẩu thành công."
+    except Exception as e:
+        print("Lỗi thay đổi mật khẩu:", e)
+        return False, f"Đã xảy ra lỗi: {e}"
     finally:
         cursor.close()
         connection.close()

@@ -6,11 +6,18 @@
 <div class="d-flex justify-content-between align-items-end mb-4">
     <div>
         <h3 class="fw-bold mb-1">Khám Phá Các Tour Du Lịch</h3>
-        <p class="text-muted small mb-0">Hành trình trải nghiệm trọn gói được thiết kế đa dạng</p>
+        <p class="text-muted small mb-0">Hành trình trải nghiệm trọn gói được thiết kế đa dạng khắp Việt Nam</p>
     </div>
-    <a href="/chatbot" class="btn btn-sm btn-outline-primary rounded-pill px-3">
-        <i class="bi bi-robot me-1"></i>Hỏi tư vấn AI
-    </a>
+    <div class="d-flex gap-2">
+        {% if session.get('user_id') %}
+        <a href="/favorites" class="btn btn-sm btn-outline-danger rounded-pill px-3">
+            <i class="bi bi-heart-fill me-1"></i>Tour đã lưu
+        </a>
+        {% endif %}
+        <a href="/chatbot" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+            <i class="bi bi-robot me-1"></i>Hỏi tư vấn AI
+        </a>
+    </div>
 </div>
 
 <!-- BỘ LỌC TỐI GIẢN -->
@@ -56,7 +63,16 @@
 <div class="row g-4">
     {% for tour in tours %}
     <div class="col-md-6 col-lg-4">
-        <div class="card h-100 tour-card border bg-white">
+        <div class="card h-100 tour-card border bg-white position-relative shadow-sm rounded-3 overflow-hidden">
+            <!-- Nút yêu thích dạng trái tim -->
+            <button type="button" 
+                    class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 rounded-circle shadow-sm favorite-btn p-0 d-flex align-items-center justify-content-center"
+                    style="width: 36px; height: 36px; z-index: 5;"
+                    data-tour-id="{{ tour.id }}"
+                    title="Lưu vào yêu thích">
+                <i class="bi {% if tour.id in favorite_ids %}bi-heart-fill text-danger{% else %}bi-heart text-secondary{% endif %} fs-6"></i>
+            </button>
+
             {% if tour.image %}
                 <img src="{{ tour.image }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ tour.name }}">
             {% else %}
@@ -78,14 +94,24 @@
                     </span>
                 </div>
 
-                <h6 class="card-title fw-bold mb-2">
+                <h6 class="card-title fw-bold mb-1">
                     <a href="/tours/{{ tour.id }}" class="text-dark text-decoration-none hover-primary">
                         {{ tour.name }}
                     </a>
                 </h6>
 
+                <!-- Điểm đánh giá sao -->
+                <div class="d-flex align-items-center gap-1 text-warning small mb-2">
+                    <i class="bi bi-star-fill"></i>
+                    <span class="text-dark fw-bold">{{ tour.avg_rating }}</span>
+                    <span class="text-muted" style="font-size: 0.75rem;">({{ tour.total_reviews }} nhận xét)</span>
+                    <span class="text-muted ms-auto" style="font-size: 0.78rem;">
+                        <i class="bi bi-geo-alt me-1 text-danger"></i>{{ tour.destination }}
+                    </span>
+                </div>
+
                 <p class="card-text text-muted small flex-grow-1">
-                    {{ tour.description[:95] if tour.description else '' }}...
+                    {{ tour.description[:90] if tour.description else '' }}...
                 </p>
 
                 <div class="pt-2 border-top mt-2 d-flex justify-content-between align-items-center">
@@ -112,4 +138,50 @@
     </div>
     {% endfor %}
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const favButtons = document.querySelectorAll(".favorite-btn");
+    favButtons.forEach(btn => {
+        btn.addEventListener("click", function (e) {
+            e.preventDefault();
+            const tourId = this.getAttribute("data-tour-id");
+            const icon = this.querySelector("i");
+
+            fetch("/api/favorites/toggle", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ tour_id: tourId })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.need_login) {
+                    if (confirm("Bạn cần đăng nhập để lưu tour yêu thích. Bạn có muốn chuyển đến trang đăng nhập ngay không?")) {
+                        window.location.href = "/login?next=" + encodeURIComponent(window.location.pathname);
+                    }
+                    return;
+                }
+                if (data.success) {
+                    if (data.is_favorited) {
+                        icon.classList.remove("bi-heart", "text-secondary");
+                        icon.classList.add("bi-heart-fill", "text-danger");
+                    } else {
+                        icon.classList.remove("bi-heart-fill", "text-danger");
+                        icon.classList.add("bi-heart", "text-secondary");
+                    }
+                } else {
+                    alert(data.message || "Đã xảy ra lỗi.");
+                }
+            })
+            .catch(err => {
+                console.error("Lỗi toggle favorite:", err);
+            });
+        });
+    });
+});
+</script>
 {% endblock %}

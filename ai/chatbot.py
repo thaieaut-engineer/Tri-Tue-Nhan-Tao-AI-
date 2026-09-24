@@ -35,14 +35,23 @@ OUTSIDE_DESTINATIONS = [
     "nước ngoài", "quốc tế", "ngoại quốc", "thái lan", "nhật bản", "hàn quốc", "trung quốc",
     "châu âu", "châu á", "mỹ", "hoa kỳ", "singapore", "malaysia", "đài loan", "bali", "úc",
     "pháp", "anh", "đức", "ý", "nga", "campuchia", "lào", "dubai", "hồng kông", "ấn độ",
-    # Các điểm du lịch Việt Nam khác ngoài 8 tour hệ thống
-    "hải phòng", "hà nội", "sài gòn", "hồ chí minh", "tphcm", "huế", "hội an",
-    "côn đảo", "vũng tàu", "hà giang", "mộc châu", "ninh bình", "cát bà", "tam đảo",
-    "mai châu", "ba bể", "quảng bình", "phong nha", "kẻ bàng", "bến tre", "an giang",
-    "mũi né", "phan thiết", "tây bắc", "đông bắc", "đồng tháp", "bạc liêu", "cà mau",
-    "bình định", "buôn ma thuột", "đắk lắk", "quảng ninh", "đồ sơn", "bạch long vĩ",
+    # Các điểm du lịch Việt Nam khác ngoài 20 tour hệ thống
+    "hải phòng", "hà nội", "sài gòn", "hồ chí minh", "tphcm", "tam đảo",
+    "mai châu", "ba bể", "quảng bình", "phong nha", "kẻ bàng", "bến tre",
+    "bạc liêu", "cà mau", "bình định", "quảng ninh", "đồ sơn", "bạch long vĩ",
     "lý sơn", "bình ba", "nam du", "phú thọ"
 ]
+
+AMBIGUOUS_SHORT_COUNTRIES = {
+    "ý": r'\b(?:nước|du lịch|tour|đi|vé|đến)\s+ý\b|\bitalia\b|\bitaly\b',
+    "anh": r'\b(?:nước|du lịch|tour|đi|vé|đến)\s+anh\b|\bvương quốc anh\b|\bengland\b|\buk\b',
+    "mỹ": r'(?<!biển\s)(?<!bãi\s)\b(?:nước|du lịch|tour|đi|vé|đến)\s+mỹ\b|\bhoa kỳ\b|\busa\b',
+    "úc": r'\b(?:nước|du lịch|tour|đi|vé|đến)\s+úc\b|\baustralia\b',
+    "pháp": r'(?<!làng\s)\b(?:nước|du lịch|tour|đi|vé|đến)\s+pháp\b|\bfrance\b',
+    "đức": r'\b(?:nước|du lịch|tour|đi|vé|đến)\s+đức\b|\bgermany\b',
+    "lào": r'\b(?:nước|du lịch|tour|đi|vé|đến)\s+lào\b|\blaopdr\b',
+    "nga": r'\b(?:nước|du lịch|tour|đi|vé|đến)\s+nga\b|\brussia\b',
+}
 
 TRAVEL_TOPIC_KEYWORDS = [
     "thời tiết", "nhiệt độ", "có mưa không", "mùa nào đẹp", "tháng mấy nên đi", "mùa bão",
@@ -150,8 +159,9 @@ class Chatbot:
         self.intents = []
         self.tour_ids = []
         self.local_tours = []
-
         self.memory = ChatSessionMemory()
+        self.last_predicted_intent = None
+        self.last_confidence = None
         self.reload()
 
     def reload(self):
@@ -198,7 +208,19 @@ class Chatbot:
                 {"id": 5, "name": "Tour Đà Lạt 3 ngày 2 đêm", "destination": "Đà Lạt", "price": 3800000, "duration": "3 ngày 2 đêm", "description": "Thành phố ngàn hoa Đà Lạt, chinh phục Đỉnh Langbiang, Thung Lũng Tình Yêu, Đồi chè Cầu Đất."},
                 {"id": 6, "name": "Tour Sa Pa 3 ngày 2 đêm", "destination": "Sa Pa", "price": 4100000, "duration": "3 ngày 2 đêm", "description": "Chinh phục đỉnh Fansipan nóc nhà Đông Dương, tìm hiểu văn hóa bản Cát Cát và ngắm đèo Ô Quy Hồ."},
                 {"id": 7, "name": "Tour Quy Nhơn - Phú Yên 4 ngày 3 đêm", "destination": "Quy Nhơn", "price": 4900000, "duration": "4 ngày 3 đêm", "description": "Khám phá Kỳ Co, Eo Gió, Ghềnh Đá Đĩa và xứ sở hoa vàng trên cỏ xanh Phú Yên."},
-                {"id": 8, "name": "Tour Cần Thơ - Miền Tây 2 ngày 1 đêm", "destination": "Cần Thơ", "price": 2800000, "duration": "2 ngày 1 đêm", "description": "Trải nghiệm văn hóa chợ nổi Cái Răng, thưởng thức trái cây miệt vườn Nam Bộ và Bến Ninh Kiều."}
+                {"id": 8, "name": "Tour Cần Thơ - Miền Tây 2 ngày 1 đêm", "destination": "Cần Thơ", "price": 2800000, "duration": "2 ngày 1 đêm", "description": "Trải nghiệm văn hóa chợ nổi Cái Răng, thưởng thức trái cây miệt vườn Nam Bộ và Bến Ninh Kiều."},
+                {"id": 9, "name": "Tour Hà Giang 3 ngày 2 đêm", "destination": "Hà Giang", "price": 3200000, "duration": "3 ngày 2 đêm", "description": "Chinh phục Cột cờ Lũng Cú cực Bắc Tổ quốc, Đèo Mã Pí Lèng hiểm trở, đi thuyền ngắm Hẻm Tu Sản và dòng sông Nho Quế xanh ngọc bích."},
+                {"id": 10, "name": "Tour Ninh Bình 2 ngày 1 đêm", "destination": "Ninh Bình", "price": 1900000, "duration": "2 ngày 1 đêm", "description": "Khám phá Quần thể danh thắng Tràng An di sản thế giới, viếng Chùa Bái Đính lớn nhất Đông Nam Á, chinh phục đỉnh Hang Múa ngắm Tam Cốc."},
+                {"id": 11, "name": "Tour Mộc Châu 2 ngày 1 đêm", "destination": "Mộc Châu", "price": 1650000, "duration": "2 ngày 1 đêm", "description": "Cao nguyên Mộc Châu xanh mướt với Đồi chè trái tim, Rừng thông Bản Áng, Thác Dải Yếm hùng vĩ và mùa hoa mận hoa mơ trắng rừng."},
+                {"id": 12, "name": "Tour Cát Bà - Vịnh Lan Hạ 2 ngày 1 đêm", "destination": "Cát Bà", "price": 2400000, "duration": "2 ngày 1 đêm", "description": "Khám phá đảo ngọc Cát Bà, du thuyền ngoạn cảnh Vịnh Lan Hạ hoang sơ, chèo kayak Hang Sáng Hang Tối và tắm biển tại Đảo Khỉ."},
+                {"id": 13, "name": "Tour Huế - Cố Đô Di Sản 2 ngày 1 đêm", "destination": "Huế", "price": 2600000, "duration": "2 ngày 1 đêm", "description": "Tham quan Quần thể Di tích Cố đô Huế: Đại Nội Hoàng Thành, Lăng Khải Định, Chùa Thiên Mụ cổ kính và đi thuyền nghe ca Huế trên sông Hương."},
+                {"id": 14, "name": "Tour Hội An - Cù Lao Chàm 2 ngày 1 đêm", "destination": "Hội An", "price": 2950000, "duration": "2 ngày 1 đêm", "description": "Dạo bước trong lòng Phố cổ Hội An lung linh đèn lồng, đi cano siêu tốc ra đảo Cù Lao Chàm lặn ngắm san hô và trải nghiệm Rừng dừa Bảy Mẫu."},
+                {"id": 15, "name": "Tour Buôn Ma Thuột - Khám Phá Tây Nguyên 3 ngày 2 đêm", "destination": "Buôn Ma Thuột", "price": 3300000, "duration": "3 ngày 2 đêm", "description": "Chinh phục Thác Dray Nur cuồn cuộn, cưỡi voi Buôn Đôn, chèo thuyền độc mộc trên Hồ Lắk và check-in Bảo tàng Cà phê Thế Giới độc đáo."},
+                {"id": 16, "name": "Tour Phan Thiết - Mũi Né 2 ngày 1 đêm", "destination": "Phan Thiết", "price": 2500000, "duration": "2 ngày 1 đêm", "description": "Trải nghiệm xe jeep vượt Đồi Cát Trắng Bàu Trắng, lội Suối Tiên kỳ vĩ, khám phá Làng chài Mũi Né và thưởng thức hải sản biển tươi ngon."},
+                {"id": 17, "name": "Tour Vũng Tàu Biển Xanh 2 ngày 1 đêm", "destination": "Vũng Tàu", "price": 1850000, "duration": "2 ngày 1 đêm", "description": "Tắm biển Bãi Sau, chinh phục Tượng Chúa Kito Vua ngắm trọn thành phố biển, check-in Ngọn Hải Đăng cổ và Bến thuyền buồm Marina."},
+                {"id": 18, "name": "Tour Rừng Tràm Trà Sư - An Giang 2 ngày 1 đêm", "destination": "An Giang", "price": 2200000, "duration": "2 ngày 1 đêm", "description": "Tắc ráng lướt trên thảm bèo xanh mướt Rừng Tràm Trà Sư, viếng Miếu Bà Chúa Xứ Núi Sam linh thiêng và ghé thăm Làng hoa Sa Đéc rực rỡ."},
+                {"id": 19, "name": "Tour Côn Đảo Tâm Linh & Nghỉ Dưỡng 3 ngày 2 đêm", "destination": "Côn Đảo", "price": 6200000, "duration": "3 ngày 2 đêm", "description": "Hành trình linh thiêng viếng Mộ Cô Sáu tại Nghĩa trang Hàng Dương, tham quan Trại giam Chuồng Cọp, nghỉ dưỡng tại bãi biển Đầm Trầu hoang sơ tuyệt đẹp."},
+                {"id": 20, "name": "Tour Phú Quốc Nghỉ Dưỡng 5 Sao 4 ngày 3 đêm", "destination": "Phú Quốc", "price": 7500000, "duration": "4 ngày 3 đêm", "description": "Trải nghiệm đẳng cấp tại resort 5 sao bờ biển, vé vui chơi VinWonders và vườn thú bán hoang dã Safari, cáp treo Hòn Thơm và cano 4 đảo VIP."}
             ]
 
     def load_data(self):
@@ -251,7 +273,18 @@ class Chatbot:
             "đà lạt": ["đà lạt", "da lat", "langbiang", "thung lũng tình yêu", "đồi chè cầu đất", "hồ xuân hương"],
             "sa pa": ["sa pa", "sapa", "fansipan", "cát cát", "ô quy hồ", "hàm rồng"],
             "quy nhơn": ["quy nhơn", "quy nhon", "kỳ co", "eo gió", "ghềnh đá đĩa", "phú yên"],
-            "cần thơ": ["cần thơ", "can tho", "cái răng", "chợ nổi", "bến ninh kiều", "miền tây"]
+            "cần thơ": ["cần thơ", "can tho", "cái răng", "chợ nổi", "bến ninh kiều", "miền tây"],
+            "hà giang": ["hà giang", "ha giang", "mã pí lèng", "ma pi leng", "lũng cú", "lung cu", "sông nho quế", "nho que", "tu sản", "đồng văn"],
+            "ninh bình": ["ninh bình", "ninh binh", "tràng an", "trang an", "bái đính", "bai dinh", "hang múa", "hang mua", "tam cốc", "tam coc"],
+            "mộc châu": ["mộc châu", "moc chau", "bản áng", "ban ang", "thác dải yếm", "dải yếm", "đồi chè trái tim", "thung khe"],
+            "cát bà": ["cát bà", "cat ba", "vịnh lan hạ", "lan ha", "đảo khỉ", "dao khi", "cái bèo"],
+            "huế": ["huế", "cố đô huế", "đại nội", "lăng khải định", "thiên mụ", "sông hương", "ca huế", "chợ đông ba"],
+            "hội an": ["hội an", "hoi an", "phố cổ hội an", "cù lao chàm", "cu lao cham", "rừng dừa bảy mẫu", "chùa cầu"],
+            "buôn ma thuột": ["buôn ma thuột", "buon ma thuot", "đắk lắk", "dak lak", "dray nur", "hồ lắk", "ho lak", "buôn đôn", "buon don", "tây nguyên"],
+            "phan thiết": ["phan thiết", "phan thiet", "mũi né", "mui ne", "bàu trắng", "bau trang", "suối tiên", "đồi cát bay"],
+            "vũng tàu": ["vũng tàu", "vung tau", "bãi sau", "bai sau", "tượng chúa kito", "hải đăng vũng tàu", "bến thuyền marina"],
+            "an giang": ["an giang", "rừng tràm trà sư", "trà sư", "tra su", "núi sam", "nui sam", "bà chúa xứ", "châu đốc", "sa đéc"],
+            "côn đảo": ["côn đảo", "con dao", "mộ cô sáu", "cô sáu", "hàng dương", "hang duong", "chuồng cọp", "đầm trầu", "cỏ ống"]
         }
 
         matched_local = []
@@ -263,9 +296,23 @@ class Chatbot:
 
         matched_outside = []
         q_unaccent = remove_accents(q_low)
-        for out_dest in OUTSIDE_DESTINATIONS:
-            if out_dest in q_low or remove_accents(out_dest) in q_unaccent:
+
+        # 1. Kiểm tra các quốc gia tên ngắn dễ trùng từ vựng tiếng Việt (ý, úc, nga, anh, mỹ, pháp, đức, lào)
+        for out_dest, pat in AMBIGUOUS_SHORT_COUNTRIES.items():
+            if re.search(pat, q_low):
                 matched_outside.append(out_dest)
+
+        # 2. Kiểm tra các địa danh khác ngoài hệ thống với biên từ (\b)
+        for out_dest in OUTSIDE_DESTINATIONS:
+            if out_dest in AMBIGUOUS_SHORT_COUNTRIES:
+                continue
+            esc = re.escape(out_dest)
+            if re.search(rf'(?:\b|^){esc}(?:\b|$)', q_low):
+                matched_outside.append(out_dest)
+            else:
+                esc_unaccent = re.escape(remove_accents(out_dest))
+                if len(esc_unaccent) > 2 and re.search(rf'(?:\b|^){esc_unaccent}(?:\b|$)', q_unaccent):
+                    matched_outside.append(out_dest)
 
         return matched_local, matched_outside
 
@@ -329,40 +376,46 @@ class Chatbot:
     def recommend_tours_by_criteria(self, text):
         """
         ĐỘNG CƠ TƯ VẤN THÔNG MINH (SMART RECOMMENDATION ENGINE):
-        Tự động bóc tách ngân sách, thời gian, sở thích để đề xuất danh sách tour tối ưu.
+        Tự động bóc tách ngân sách, thời gian, sở thích và vùng miền để đề xuất danh sách tour tối ưu.
         """
         t_low = text.lower()
         budget = extract_budget(text)
         duration_days = extract_duration_days(text)
 
-        is_cheap_query = any(w in t_low for w in ["rẻ nhất", "re nhat", "tiết kiệm", "tiet kiem", "thấp nhất"])
-        is_beach = any(w in t_low for w in ["biển", "bien", "đảo", "dao", "tắm biển"])
-        is_mountain = any(w in t_low for w in ["núi", "nui", "vùng cao", "săn mây", "san may", "tuyết"])
+        is_cheap_query = any(w in t_low for w in ["rẻ nhất", "re nhat", "tiết kiệm", "tiet kiem", "thấp nhất", "gia re", "giá rẻ"])
+        is_beach = any(w in t_low for w in ["biển", "bien", "đảo", "dao", "tắm biển", "tam bien", "lan bien", "lặn biển"])
+        is_mountain = any(w in t_low for w in ["núi", "nui", "vùng cao", "vung cao", "săn mây", "san may", "tuyết", "tây bắc", "tay bac", "đèo", "deo"])
+        is_central = any(w in t_low for w in ["miền trung", "mien trung", "di sản", "cố đô", "co do"])
+        is_south = any(w in t_low for w in ["miền tây", "mien tay", "sông nước", "song nuoc", "miệt vườn", "chợ nổi"])
+        is_north = any(w in t_low for w in ["miền bắc", "mien bac", "gần hà nội", "gan ha noi"])
 
         candidates = list(self.local_tours)
 
-        # Lọc theo sở thích
+        # Lọc theo sở thích vùng miền
         if is_beach:
-            beach_dests = ["Đà Nẵng", "Nha Trang", "Hạ Long", "Phú Quốc", "Quy Nhơn"]
-            candidates = [t for t in candidates if t["destination"] in beach_dests]
+            beach_dests = ["Đà Nẵng", "Nha Trang", "Hạ Long", "Phú Quốc", "Quy Nhơn", "Cát Bà", "Phan Thiết", "Vũng Tàu", "Côn Đảo"]
+            candidates = [t for t in candidates if t["destination"] in beach_dests] or candidates
         elif is_mountain:
-            mountain_dests = ["Sa Pa", "Đà Lạt"]
-            candidates = [t for t in candidates if t["destination"] in mountain_dests]
+            mountain_dests = ["Sa Pa", "Đà Lạt", "Hà Giang", "Mộc Châu", "Buôn Ma Thuột"]
+            candidates = [t for t in candidates if t["destination"] in mountain_dests] or candidates
+        elif is_south:
+            south_dests = ["Cần Thơ", "An Giang"]
+            candidates = [t for t in candidates if t["destination"] in south_dests] or candidates
+        elif is_central:
+            central_dests = ["Huế", "Hội An", "Đà Nẵng", "Quy Nhơn"]
+            candidates = [t for t in candidates if t["destination"] in central_dests] or candidates
+        elif is_north:
+            north_dests = ["Hạ Long", "Sa Pa", "Hà Giang", "Ninh Bình", "Mộc Châu", "Cát Bà"]
+            candidates = [t for t in candidates if t["destination"] in north_dests] or candidates
 
         # Lọc theo thời lượng
         if duration_days:
-            candidates = [t for t in candidates if f"{duration_days} ngày" in t["duration"]] or candidates
-
-        # Lọc theo ngân sách (với dung sai 10%)
-        if budget:
-            affordable = [t for t in candidates if t["price"] <= budget * 1.15]
-            if affordable:
-                candidates = affordable
-
-        # Sắp xếp theo giá
-        candidates.sort(key=lambda x: x["price"])
+            matched_dur = [t for t in candidates if f"{duration_days} ngày" in t["duration"]]
+            if matched_dur:
+                candidates = matched_dur
 
         if is_cheap_query and candidates:
+            candidates.sort(key=lambda x: x["price"])
             cheapest = candidates[0]
             return (
                 f"🏷️ **Tour có chi phí tiết kiệm nhất hiện nay** là:\n"
@@ -374,10 +427,39 @@ class Chatbot:
             )
 
         if budget and candidates:
-            lines = [f"💡 Với mức chi phí dự kiến khoảng **{budget:,.0f} VNĐ**, TourAI xin gợi ý các tour rất phù hợp dành cho bạn:\n"]
-            for idx, t in enumerate(candidates[:3], 1):
-                lines.append(f"{idx}. **{t['name']}** ({t['destination']})\n   • Thời gian: {t['duration']}\n   • Giá: **{t['price']:,.0f} VNĐ**\n   • Link: /tours/{t['id']}\n")
-            lines.append("Bạn muốn xem lịch trình chi tiết của tour nào trong danh sách trên?")
+            # Phân loại theo ngân sách
+            within_budget = [t for t in candidates if t["price"] <= budget]
+            # Sắp xếp các tour trong ngân sách ưu tiên tour giá sát ngân sách nhất
+            within_budget.sort(key=lambda x: abs(x["price"] - budget))
+
+            # Tour chênh lệch nhẹ không quá 15%
+            slightly_above = [t for t in candidates if budget < t["price"] <= budget * 1.15]
+            slightly_above.sort(key=lambda x: x["price"])
+
+            selected = within_budget[:3]
+            if len(selected) < 3 and slightly_above:
+                selected.extend(slightly_above[:(3 - len(selected))])
+
+            if not selected:
+                candidates.sort(key=lambda x: abs(x["price"] - budget))
+                selected = candidates[:3]
+
+            lines = [f"💡 Với mức ngân sách dự kiến khoảng **{budget:,.0f} VNĐ**, TourAI gợi ý các lựa chọn tour du lịch tối ưu nhất dành cho bạn:\n"]
+            for idx, t in enumerate(selected, 1):
+                price_diff = t["price"] - budget
+                if price_diff <= 0:
+                    status = f"✅ *(Tiết kiệm {abs(price_diff):,.0f} VNĐ)*" if price_diff < 0 else "🎯 *(Vừa vặn ngân sách)*"
+                else:
+                    status = f"⭐ *(Chênh lệch nhẹ +{price_diff:,.0f} VNĐ)*"
+
+                lines.append(
+                    f"{idx}. **{t['name']}** ({t['destination']})\n"
+                    f"   • ⏱ Thời gian: {t['duration']}\n"
+                    f"   • 💰 Giá trọn gói: **{t['price']:,.0f} VNĐ/khách** {status}\n"
+                    f"   • 📝 {t['description'][:95]}...\n"
+                    f"   • 👉 Xem chi tiết tại: /tours/{t['id']}\n"
+                )
+            lines.append("Bạn muốn tham khảo lịch trình chi tiết của tour nào trong danh sách trên?")
             return "\n".join(lines)
 
         return None
@@ -453,10 +535,21 @@ class Chatbot:
         # -------------------------------------------------------------
         # XỬ LÝ 3: ĐỘNG CƠ TƯ VẤN THEO NGÂN SÁCH & SỞ THÍCH (RECOMMENDATION)
         # -------------------------------------------------------------
-        is_recommend_query = any(w in q_low for w in [
-            "tôi có", "toi co", "nên đi đâu", "nen di dau", "tư vấn tour", "tu van tour",
-            "gợi ý tour", "goi y tour", "rẻ nhất", "re nhat", "khoảng", "tầm", "dưới"
-        ]) and any(w in q_low for w in ["triệu", "trieu", "tr", "k", "tiền", "tour", "hợp"])
+        budget = extract_budget(q_clean)
+        recommend_triggers = [
+            "tôi có", "toi co", "nên đi đâu", "nen di dau", "đi đâu", "di dau",
+            "tư vấn tour", "tu van tour", "gợi ý tour", "goi y tour", "gợi ý", "goi y",
+            "rẻ nhất", "re nhat", "khoảng", "tầm", "dưới", "thì đi", "thi di",
+            "đi tour nào", "di tour nao", "được tour nào", "duoc tour nao",
+            "chọn tour nào", "chon tour nao", "tour nào hợp", "tour nao hop",
+            "có tour nào", "co tour nao", "đủ tiền", "du tien", "kinh phí", "chi phí",
+            "gói tour nào", "goi tour nao", "thì đi đâu", "thi di dau", "đi đâu được", "di dau duoc"
+        ]
+
+        is_recommend_query = (
+            (budget is not None and any(w in q_low for w in ["đi", "di", "tour", "đâu", "dau", "tư vấn", "tu van", "gợi ý", "goi y", "chọn", "thì", "tầm", "khoảng", "dưới", "đủ"]))
+            or (any(w in q_low for w in recommend_triggers) and any(w in q_low for w in ["triệu", "trieu", "tr", "k", "tiền", "tour", "hợp", "re", "rẻ"]))
+        )
 
         if is_recommend_query:
             rec_result = self.recommend_tours_by_criteria(q_clean)
@@ -479,6 +572,9 @@ class Chatbot:
             predicted_intent = self.model.predict(question_vector)[0]
             intent_probs = {predicted_intent: 1.0}
             intent_confidence = 1.0
+
+        self.last_predicted_intent = predicted_intent
+        self.last_confidence = intent_confidence
 
         # -------------------------------------------------------------
         # XỬ LÝ 5: HYBRID INTENT-WEIGHTED COSINE SIMILARITY

@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+
+{% block title %}Deep Learning Continual Learning - TourAI Admin{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bold mb-1">🧠 Deep Learning Tự Học Từ Lịch Sử Chat</h3>
+        <p class="text-muted small mb-0">Hệ thống Continual Learning & Pseudo-Labeling tự động hấp thu câu hỏi mới của khách hàng</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a href="/admin" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
+            <i class="bi bi-arrow-left me-1"></i>Về Dashboard
+        </a>
+        <form action="/admin/self-learning/run" method="POST">
+            <button type="submit" class="btn btn-sm btn-primary rounded-pill px-4 shadow-sm" {% if not scan_results.auto_learn %}disabled{% endif %}>
+                <i class="bi bi-lightning-charge-fill me-1 text-warning"></i>Kích hoạt AI Tự Học ({{ scan_results.auto_learn|length }})
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- THẺ THỐNG KÊ CONTINUAL LEARNING -->
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card border bg-white p-3 rounded-4 shadow-sm text-center">
+            <div class="text-primary fs-3 mb-1"><i class="bi bi-cpu"></i></div>
+            <div class="small text-muted">Mô hình phân loại ý định</div>
+            <h6 class="fw-bold text-success mb-0 mt-1">
+                <i class="bi bi-check-circle-fill me-1"></i>PyTorch Deep MLP + CNB
+            </h6>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border bg-white p-3 rounded-4 shadow-sm text-center">
+            <div class="text-success fs-3 mb-1"><i class="bi bi-mortarboard"></i></div>
+            <div class="small text-muted">Đã tự học thành công</div>
+            <h4 class="fw-bold text-success mb-0 mt-1">{{ stats.learned_messages }} <span class="fs-6 text-muted">mẫu câu</span></h4>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border bg-white p-3 rounded-4 shadow-sm text-center">
+            <div class="text-warning fs-3 mb-1"><i class="bi bi-hourglass-split"></i></div>
+            <div class="small text-muted">Chờ tự gán nhãn (&ge;80%)</div>
+            <h4 class="fw-bold text-warning mb-0 mt-1">{{ stats.ready_to_learn }} <span class="fs-6 text-muted">mẫu câu</span></h4>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border bg-white p-3 rounded-4 shadow-sm text-center">
+            <div class="text-danger fs-3 mb-1"><i class="bi bi-question-circle"></i></div>
+            <div class="small text-muted">Chủ đề mới / Cần xem xét</div>
+            <h4 class="fw-bold text-danger mb-0 mt-1">{{ stats.novel_topics + stats.needs_review }} <span class="fs-6 text-muted">mẫu câu</span></h4>
+        </div>
+    </div>
+</div>
+
+<!-- NGUYÊN LÝ HOẠT ĐỘNG BANNER -->
+<div class="alert alert-primary-subtle border border-primary-subtle rounded-4 p-3 mb-4 d-flex align-items-center gap-3">
+    <div class="fs-2 text-primary"><i class="bi bi-robot"></i></div>
+    <div class="small">
+        <strong>Cơ chế tự gán nhãn bán giám sát (Confidence Pseudo-Labeling):</strong>
+        Mô hình Deep Learning quét các câu chat thực tế của người dùng. Với những câu hỏi có phân phối xác suất Softmax $\ge 80\%$, hệ thống tự động nhận diện đó là biến thể tự nhiên mới của ý định tương ứng, kết nạp vào tập huấn luyện của AI và tái tối ưu hóa trọng số mạng nơ-ron mà không làm mất đi các tri thức gốc.
+    </div>
+</div>
+
+<!-- TABS DANH SÁCH MẪU CÂU HỎI -->
+<div class="card border bg-white rounded-4 shadow-sm overflow-hidden mb-4">
+    <div class="card-header bg-white border-bottom p-3">
+        <ul class="nav nav-pills card-header-pills" id="learningTab" role="tablist">
+            <li class="nav-item">
+                <button class="nav-link active small py-2 px-3 fw-semibold" id="auto-tab" data-bs-toggle="pill" data-bs-target="#autoContent">
+                    <i class="bi bi-check2-circle me-1 text-success"></i>Sẵn sàng kết nạp (&ge;80%) 
+                    <span class="badge bg-success ms-1">{{ scan_results.auto_learn|length }}</span>
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link small py-2 px-3 fw-semibold" id="review-tab" data-bs-toggle="pill" data-bs-target="#reviewContent">
+                    <i class="bi bi-exclamation-circle me-1 text-warning"></i>Cần xem xét (50% - 80%) 
+                    <span class="badge bg-warning text-dark ms-1">{{ scan_results.needs_review|length }}</span>
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link small py-2 px-3 fw-semibold" id="novel-tab" data-bs-toggle="pill" data-bs-target="#novelContent">
+                    <i class="bi bi-lightbulb me-1 text-danger"></i>Câu hỏi mới lạ (&lt;50%) 
+                    <span class="badge bg-danger ms-1">{{ scan_results.novel_topics|length }}</span>
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="card-body p-0">
+        <div class="tab-content" id="learningTabContent">
+            <!-- TAB 1: SẴN SÀNG TỰ HỌC -->
+            <div class="tab-pane fade show active" id="autoContent">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light small">
+                            <tr>
+                                <th>Câu hỏi thực tế từ khách</th>
+                                <th>Ý định dự đoán (Intent)</th>
+                                <th>Độ tin cậy (Confidence)</th>
+                                <th>Câu trả lời tự động ghép</th>
+                                <th>Thời gian</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for c in scan_results.auto_learn %}
+                            <tr>
+                                <td class="fw-semibold small text-dark" style="max-width: 250px;">
+                                    "{{ c.question }}"
+                                </td>
+                                <td>
+                                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle small font-monospace">
+                                        {{ c.predicted_intent }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="progress flex-grow-1" style="height: 6px; width: 70px;">
+                                            <div class="progress-bar bg-success" style="width: {{ c.confidence_percent }}%"></div>
+                                        </div>
+                                        <span class="text-success fw-bold small">{{ c.confidence_percent }}%</span>
+                                    </div>
+                                </td>
+                                <td class="small text-muted text-truncate" style="max-width: 280px;" title="{{ c.suggested_answer }}">
+                                    {{ c.suggested_answer }}
+                                </td>
+                                <td class="text-muted small" style="font-size: 0.75rem;">
+                                    {{ c.created_at }}
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center py-5 text-muted small">
+                                    <i class="bi bi-check-all fs-2 d-block mb-1 text-success opacity-75"></i>
+                                    Tất cả câu hỏi đạt chuẩn đều đã được mô hình AI học hoặc chưa có tin nhắn mới nào.
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 2: CẦN XEM XÉT -->
+            <div class="tab-pane fade" id="reviewContent">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light small">
+                            <tr>
+                                <th>Câu hỏi thực tế</th>
+                                <th>Ý định dự đoán</th>
+                                <th>Độ tin cậy</th>
+                                <th>Ghi chú</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for c in scan_results.needs_review %}
+                            <tr>
+                                <td class="fw-semibold small" style="max-width: 280px;">"{{ c.question }}"</td>
+                                <td>
+                                    <span class="badge bg-warning-subtle text-warning-emphasis border border-warning small font-monospace">
+                                        {{ c.predicted_intent }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="progress flex-grow-1" style="height: 6px; width: 70px;">
+                                            <div class="progress-bar bg-warning" style="width: {{ c.confidence_percent }}%"></div>
+                                        </div>
+                                        <span class="text-warning-emphasis fw-bold small">{{ c.confidence_percent }}%</span>
+                                    </div>
+                                </td>
+                                <td class="small text-muted">
+                                    Độ tin cậy chưa đạt ngưỡng tự động (&ge;80%). Có thể thêm thủ công tại mục Quản lý Q&A.
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="4" class="text-center py-5 text-muted small">
+                                    Không có câu hỏi nào trong nhóm cần xem xét.
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 3: CHỦ ĐỀ MỚI / CHƯA BIẾT -->
+            <div class="tab-pane fade" id="novelContent">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light small">
+                            <tr>
+                                <th>Câu hỏi của khách</th>
+                                <th>Độ tin cậy</th>
+                                <th>Phân tích của hệ thống</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for c in scan_results.novel_topics %}
+                            <tr>
+                                <td class="fw-semibold small text-danger" style="max-width: 300px;">
+                                    "{{ c.question }}"
+                                </td>
+                                <td>
+                                    <span class="badge bg-danger-subtle text-danger border border-danger small">
+                                        {{ c.confidence_percent }}% (Quá thấp)
+                                    </span>
+                                </td>
+                                <td class="small text-muted">
+                                    <i class="bi bi-lightbulb text-warning me-1"></i>
+                                    Khách hàng có thể đang hỏi về địa danh hoặc câu hỏi ngoài tập huấn luyện. Đề xuất thêm câu trả lời mới tại <a href="/admin/qa" class="text-decoration-none">Dữ liệu AI Q&A</a>.
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="3" class="text-center py-5 text-muted small">
+                                    Không có câu hỏi nào bị nhận diện sai hoặc ngoài tầm hiểu biết.
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

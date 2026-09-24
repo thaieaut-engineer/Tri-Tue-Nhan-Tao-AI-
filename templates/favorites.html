@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}Tour Yêu Thích Của Tôi - TourAI{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bold mb-1">Tour Du Lịch Đã Lưu</h3>
+        <p class="text-muted small mb-0">Danh sách các tour bạn quan tâm để dễ dàng xem lại và đặt chỗ</p>
+    </div>
+    <a href="/tours" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+        <i class="bi bi-compass me-1"></i>Xem tất cả tour
+    </a>
+</div>
+
+{% if tours %}
+<div class="row g-4" id="favoritesGrid">
+    {% for tour in tours %}
+    <div class="col-md-6 col-lg-4 fav-card-wrapper" id="favCard-{{ tour.id }}">
+        <div class="card h-100 tour-card border bg-white position-relative shadow-sm rounded-3 overflow-hidden">
+            <!-- Nút bỏ yêu thích -->
+            <button type="button" 
+                    class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 rounded-circle shadow-sm fav-toggle-btn p-0 d-flex align-items-center justify-content-center"
+                    style="width: 36px; height: 36px; z-index: 5;"
+                    data-tour-id="{{ tour.id }}"
+                    title="Bỏ lưu khỏi yêu thích">
+                <i class="bi bi-heart-fill text-danger fs-6"></i>
+            </button>
+
+            {% if tour.image %}
+                <img src="{{ tour.image }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ tour.name }}">
+            {% else %}
+                <div class="bg-light text-muted d-flex align-items-center justify-content-center" style="height: 200px;">
+                    <div class="text-center">
+                        <i class="bi bi-geo-alt fs-2 text-secondary opacity-50"></i>
+                        <div class="small fw-medium mt-1 text-muted">{{ tour.destination }}</div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="card-body d-flex flex-column p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge bg-light text-primary border" style="font-size: 0.72rem;">
+                        {{ tour.category_name or 'Du lịch' }}
+                    </span>
+                    <span class="text-muted small">
+                        <i class="bi bi-clock me-1"></i>{{ tour.duration }}
+                    </span>
+                </div>
+
+                <h6 class="card-title fw-bold mb-1">
+                    <a href="/tours/{{ tour.id }}" class="text-dark text-decoration-none hover-primary">
+                        {{ tour.name }}
+                    </a>
+                </h6>
+
+                <!-- Điểm đánh giá -->
+                <div class="d-flex align-items-center gap-1 text-warning small mb-2">
+                    <i class="bi bi-star-fill"></i>
+                    <span class="text-dark fw-bold">{{ tour.avg_rating }}</span>
+                    <span class="text-muted" style="font-size: 0.75rem;">({{ tour.total_reviews }} nhận xét)</span>
+                    <span class="text-muted ms-auto" style="font-size: 0.78rem;">
+                        <i class="bi bi-geo-alt me-1 text-danger"></i>{{ tour.destination }}
+                    </span>
+                </div>
+
+                <p class="card-text text-muted small flex-grow-1">
+                    {{ tour.description[:90] if tour.description else '' }}...
+                </p>
+
+                <div class="pt-2 border-top mt-2 d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="text-danger fw-bold fs-6">{{ "{:,.0f}".format(tour.price) }} đ</span>
+                    </div>
+                    <a href="/tours/{{ tour.id }}" class="btn btn-sm btn-primary rounded-pill px-3">
+                        Xem chi tiết
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="card text-center py-5 border bg-white rounded-4 shadow-sm">
+    <div class="card-body">
+        <i class="bi bi-heart fs-1 text-muted opacity-50 mb-3 d-block"></i>
+        <h5 class="fw-bold">Bạn chưa lưu tour nào</h5>
+        <p class="text-muted small mb-4">Hãy bấm vào biểu tượng trái tim ở các tour du lịch để lưu lại đây nhé!</p>
+        <a href="/tours" class="btn btn-primary rounded-pill px-4">
+            Khám phá các Tour ngay
+        </a>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const favButtons = document.querySelectorAll(".fav-toggle-btn");
+    favButtons.forEach(btn => {
+        btn.addEventListener("click", function (e) {
+            e.preventDefault();
+            const tourId = this.getAttribute("data-tour-id");
+            const wrapper = document.getElementById("favCard-" + tourId);
+
+            fetch("/api/favorites/toggle", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ tour_id: tourId })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success && !data.is_favorited) {
+                    // Biến mất khỏi màn hình favorites
+                    if (wrapper) {
+                        wrapper.style.transition = "opacity 0.3s, transform 0.3s";
+                        wrapper.style.opacity = "0";
+                        wrapper.style.transform = "scale(0.9)";
+                        setTimeout(() => {
+                            wrapper.remove();
+                            if (document.querySelectorAll(".fav-card-wrapper").length === 0) {
+                                window.location.reload();
+                            }
+                        }, 300);
+                    }
+                }
+            })
+            .catch(err => console.error("Lỗi xóa tour yêu thích:", err));
+        });
+    });
+});
+</script>
+{% endblock %}

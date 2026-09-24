@@ -8,3 +8,8 @@ ENV/
 !.env.example
 .DS_Store
 *.log
+
+# Thư mục báo cáo & tài liệu Word bài thi
+bao_cao/
+.~lock.*
+*.tmp

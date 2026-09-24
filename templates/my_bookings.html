@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}Đơn Đặt Tour Của Tôi - TourAI{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bold mb-1">Đơn Đặt Tour Của Tôi</h3>
+        <p class="text-muted small mb-0">Theo dõi trạng thái và lịch sử các chuyến du lịch bạn đã đăng ký</p>
+    </div>
+    <a href="/tours" class="btn btn-sm btn-primary rounded-pill px-3">
+        <i class="bi bi-compass me-1"></i>Khám phá thêm tour
+    </a>
+</div>
+
+{% if bookings %}
+<div class="row g-3">
+    {% for b in bookings %}
+    <div class="col-12">
+        <div class="card border bg-white rounded-3 shadow-sm overflow-hidden">
+            <div class="card-body p-4">
+                <div class="row align-items-center g-3">
+                    <!-- Ảnh đại diện tour -->
+                    <div class="col-md-2 col-4">
+                        {% if b.tour_image %}
+                            <img src="{{ b.tour_image }}" class="rounded-3 w-100" style="height: 100px; object-fit: cover;" alt="{{ b.tour_name }}">
+                        {% else %}
+                            <div class="bg-light rounded-3 d-flex align-items-center justify-content-center text-muted" style="height: 100px;">
+                                <i class="bi bi-geo-alt fs-2"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Chi tiết tour & thông tin đặt -->
+                    <div class="col-md-6 col-8">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <span class="badge bg-light text-secondary border small">Mã đơn #{{ b.id }}</span>
+                            <span class="text-muted" style="font-size: 0.75rem;">
+                                Ngày đặt: {{ b.created_at.strftime('%d/%m/%Y %H:%M') if b.created_at else '' }}
+                            </span>
+                        </div>
+
+                        <h5 class="fw-bold mb-2">
+                            <a href="/tours/{{ b.tour_id }}" class="text-dark text-decoration-none hover-primary">
+                                {{ b.tour_name }}
+                            </a>
+                        </h5>
+
+                        <div class="d-flex flex-wrap gap-3 text-muted small">
+                            <span><i class="bi bi-geo-alt text-danger me-1"></i>{{ b.destination }}</span>
+                            <span><i class="bi bi-clock me-1"></i>{{ b.duration }}</span>
+                            <span><i class="bi bi-calendar-event text-primary me-1"></i>Khởi hành: <strong>{{ b.start_date.strftime('%d/%m/%Y') if b.start_date else '' }}</strong></span>
+                            <span><i class="bi bi-people me-1"></i>{{ b.adults }} người lớn{% if b.children %}, {{ b.children }} trẻ em{% endif %}</span>
+                        </div>
+
+                        {% if b.note %}
+                        <div class="mt-2 text-muted small fst-italic">
+                            <i class="bi bi-chat-left-dots me-1"></i>Ghi chú: "{{ b.note }}"
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Giá tiền & Trạng thái -->
+                    <div class="col-md-4 col-12 d-flex flex-column align-items-md-end justify-content-between border-start-md ps-md-4 pt-3 pt-md-0 border-top border-top-md-0">
+                        <div class="text-md-end mb-2">
+                            <div class="text-muted small">Tổng tiền thanh toán:</div>
+                            <div class="text-danger fw-bold fs-5">
+                                {{ "{:,.0f}".format(b.total_price) }} đ
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            {% if b.status == 'pending' %}
+                                <span class="badge bg-warning-subtle text-warning-emphasis border border-warning px-3 py-2 rounded-pill small">
+                                    <i class="bi bi-hourglass-split me-1"></i>Chờ xác nhận
+                                </span>
+                            {% elif b.status == 'confirmed' %}
+                                <span class="badge bg-info-subtle text-info-emphasis border border-info px-3 py-2 rounded-pill small">
+                                    <i class="bi bi-check-circle me-1"></i>Đã xác nhận
+                                </span>
+                            {% elif b.status == 'completed' %}
+                                <span class="badge bg-success-subtle text-success-emphasis border border-success px-3 py-2 rounded-pill small">
+                                    <i class="bi bi-award me-1"></i>Hoàn thành
+                                </span>
+                            {% elif b.status == 'cancelled' %}
+                                <span class="badge bg-secondary-subtle text-secondary border px-3 py-2 rounded-pill small">
+                                    <i class="bi bi-x-circle me-1"></i>Đã hủy
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <a href="/tours/{{ b.tour_id }}" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                                Chi tiết tour
+                            </a>
+
+                            {% if b.status == 'pending' %}
+                            <form action="/my-bookings/cancel/{{ b.id }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn hủy đơn đặt tour #{{ b.id }} này không?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3">
+                                    Hủy đơn
+                                </button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="card text-center py-5 border bg-white rounded-4 shadow-sm">
+    <div class="card-body">
+        <i class="bi bi-ticket-perforated fs-1 text-muted opacity-50 mb-3 d-block"></i>
+        <h5 class="fw-bold">Bạn chưa có đơn đặt tour nào</h5>
+        <p class="text-muted small mb-4">Hãy khám phá các danh lam thắng cảnh và đặt cho mình một kỳ nghỉ tuyệt vời!</p>
+        <a href="/tours" class="btn btn-primary rounded-pill px-4">
+            Khám phá danh sách Tour
+        </a>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

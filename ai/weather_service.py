@@ -473,7 +473,7 @@ def is_weather_query(question):
     weather_keywords = [
         "thời tiết", "dự báo thời tiết", "nhiệt độ", "bao nhiêu độ", "mấy độ",
         "có mưa không", "có mưa ko", "mưa không", "mưa ko", "trời mưa", "mưa to",
-        "mưa rào", "mưa dông", "mưa hay nắng", "nắng hay mưa", "trời có mưa",
+        "mưa rào", "mưa dông", "mưa giông", "sấm sét", "mưa hay nắng", "nắng hay mưa", "trời có mưa",
         "có lạnh không", "lạnh không", "lạnh ko", "trời lạnh", "có rét không", "rét không",
         "có nóng không", "nóng không", "nóng ko", "trời nóng", "oi bức",
         "có nắng không", "nắng không", "trời nắng", "nắng gắt",
@@ -483,11 +483,15 @@ def is_weather_query(question):
     if any(kw in q_low for kw in weather_keywords):
         return True
 
+    # Loại trừ trường hợp hỏi kinh nghiệm mùa đông ("mùa đông") bị nhận nhầm thành mưa dông
+    if "mùa đông" in q_low and not any(k in q_low for k in ["thời tiết", "nhiệt độ", "bao nhiêu độ", "lạnh không", "có tuyết"]):
+        return False
+
     # Các từ khóa thời tiết trực tiếp không dấu
     weather_keywords_unaccent = [
         "thoi tiet", "du bao thoi tiet", "nhiet do", "bao nhieu do", "may do",
         "co mua khong", "co mua ko", "mua khong", "mua ko", "troi mua", "mua to",
-        "mua rao", "mua dong", "mua hay nang", "nang hay mua", "troi co mua",
+        "mua rao", "mua giong", "troi mua dong", "sam set", "mua hay nang", "nang hay mua", "troi co mua",
         "co lanh khong", "lanh khong", "lanh ko", "troi lanh", "co ret khong", "ret khong",
         "co nong khong", "nong khong", "nong ko", "troi nong", "oi buc",
         "co nang khong", "nang khong", "troi nang", "nang gat",
