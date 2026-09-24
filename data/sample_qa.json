@@ -727,7 +727,7 @@
   },
   {
     "question": "Có các tour du lịch nào?",
-    "answer": "Hiện tại hệ thống có 8 tour: Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Quy Nhơn và Cần Thơ. Mời bạn vào mục 'Tour du lịch' để xem chi tiết.",
+    "answer": "Hiện tại hệ thống TourAI có 20 tour du lịch trải rộng khắp 3 miền: Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Quy Nhơn, Cần Thơ, Hà Giang, Ninh Bình, Mộc Châu, Cát Bà, Huế, Hội An, Buôn Ma Thuột, Phan Thiết, Vũng Tàu, An Giang, Côn Đảo. Mời bạn vào mục 'Tour du lịch' để xem chi tiết.",
     "intent": "tim_tour",
     "tour_id": null
   },
@@ -2851,15 +2851,15 @@
   },
   {
     "question": "Có tour đi Côn Đảo không",
-    "answer": "Hiện tại hệ thống TourAI tập trung vào 8 tour trọng điểm nội địa (Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Sa Pa, Đà Lạt, Quy Nhơn, Cần Thơ). Tour Côn Đảo dự kiến sẽ mở thêm vào quý tới bạn nhé!",
+    "answer": "TourAI có Tour Côn Đảo Tâm Linh & Nghỉ Dưỡng 3 ngày 2 đêm trọn gói 6.200.000 VNĐ, đưa bạn viếng Mộ Cô Sáu tại Nghĩa trang Hàng Dương, tham quan Nhà tù Côn Đảo và bãi biển Đầm Trầu.",
     "intent": "tim_tour",
-    "tour_id": null
+    "tour_id": 19
   },
   {
     "question": "Có tour đi Hà Giang không",
-    "answer": "Tour Hà Giang ngắm hoa tam giác mạch đang được TourAI hoàn thiện lịch trình. Hiện tại ở miền Bắc bạn có thể chọn Tour Sa Pa 3N2Đ săn mây tuyệt đẹp nhé!",
+    "answer": "TourAI có Tour Hà Giang 3 ngày 2 đêm trọn gói 3.200.000 VNĐ, đưa bạn chinh phục Đèo Mã Pí Lèng hiểm trở, đi thuyền ngắm Hẻm Tu Sản sông Nho Quế, Cột cờ Lũng Cú và Dinh Vua Mèo.",
     "intent": "tim_tour",
-    "tour_id": null
+    "tour_id": 9
   },
   {
     "question": "Tìm tour đi đảo Nam Du",

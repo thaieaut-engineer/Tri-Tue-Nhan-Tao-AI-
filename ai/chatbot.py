@@ -64,6 +64,206 @@ TRAVEL_TOPIC_KEYWORDS = [
 
 
 # ====================================================================
+# CƠ SỞ TRI THỨC ĐIỂM ĐẾN & ẨM THỰC BẢN ĐỊA (LOCAL DESTINATION TIPS)
+# ====================================================================
+LOCAL_DESTINATION_TIPS = {
+    "đà nẵng": {
+        "food": "Mì Quảng ếch Bếp Trang, Bánh tráng cuốn thịt heo hai đầu da Trần, Hải sản tươi sống Bé Mặn, Bánh xèo tôm nhảy Năm Hiền, Chè sầu Liên.",
+        "best_time": "Từ tháng 3 đến tháng 8: trời trong xanh, nắng rực rỡ, biển Mỹ Khê êm đềm thích hợp tắm biển và vui chơi Bà Nà Hills.",
+        "pack_tips": "Nên mang trang phục bơi, kem chống nắng, mũ rộng vành khi đi biển và áo khoác nhẹ vì Bà Nà Hills trên núi cao có tiết trời se lạnh."
+    },
+    "nha trang": {
+        "food": "Bún chả cá sứa Loan, Nem nướng Ninh Hòa Đặng Văn Quyên, Bò nướng Lạc Cảnh, Hải sản tươi sống làng chài, Bánh căn mực.",
+        "best_time": "Từ tháng 1 đến tháng 8: vịnh Nha Trang nước trong vắt êm đềm, thời tiết nắng vàng rực rỡ lý tưởng để du ngoạn đảo và tắm bùn.",
+        "pack_tips": "Trang phục biển thoải mái, kính bơi, túi chống nước bảo vệ điện thoại khi tham gia lặn ngắm san hô tại Hòn Mun."
+    },
+    "hạ long": {
+        "food": "Chả mực giã tay Hạ Long, Bún cù kỳ bến Đoan, Sá sùng xào tỏi, Bánh gật gù Tiên Yên, Sam biển xào chua ngọt.",
+        "best_time": "Tháng 4 - tháng 6 và tháng 9 - tháng 11: khí hậu mát mẻ, nắng nhẹ, rất thuận lợi cho hành trình du thuyền ngủ đêm trên vịnh.",
+        "pack_tips": "Chuẩn bị trang phục năng động để chèo kayak, giày thể thao đế mềm chống trơn khi leo hang Sửng Sốt và kính râm."
+    },
+    "phú quốc": {
+        "food": "Gỏi cá trích Mai Hương, Bún quậy Kiến Xây trứ danh, Nhum biển nướng mỡ hành, Ghẹ Hàm Ninh hấp bia, Rượu sim rừng Bảy Gáo.",
+        "best_time": "Từ cuối tháng 10 đến tháng 4 năm sau (mùa khô biển lặng, sóng êm, nước biển màu ngọc bích tuyệt đẹp để đi cano 4 đảo).",
+        "pack_tips": "Mang trang phục rực rỡ chụp ảnh check-in Sunset Town / Grand World, kính râm, kem chống nắng thân thiện môi trường biển."
+    },
+    "đà lạt": {
+        "food": "Lẩu gà lá é Tao Ngộ, Bánh tráng nướng Dì Đinh, Lẩu bò Quán Gỗ Ba Toa, Bánh ướt lòng gà Long, Sữa đậu nành Tăng Bạt Hổ, Kem bơ Thanh Thảo.",
+        "best_time": "Từ tháng 11 đến tháng 4 năm sau (mùa khô se lạnh, ngàn hoa đua nở, mùa cỏ hồng và mùa săn mây đồi chè Cầu Đất đỉnh cao).",
+        "pack_tips": "Thời tiết se lạnh 14-18°C về đêm, bạn nên chuẩn bị áo ấm, khăn quàng cổ nhẹ, ô gấp gọn và giày thể thao êm chân."
+    },
+    "sa pa": {
+        "food": "Thắng cố ngựa A Quỳnh, Lẩu cá hồi cá tầm Fansipan, Lợn cắp nách nướng than hoa, Cơm lam gà đồi nướng mắc khén, Rau mầm đá chấm trứng dầm.",
+        "best_time": "Tháng 9 - 10 (mùa lúa chín vàng óng ả Mường Hoa) hoặc tháng 12 - 2 (mùa đông mây băng tuyết và mùa hoa mận hoa đào trắng rừng).",
+        "pack_tips": "Nhiệt độ trên đỉnh Fansipan (3.143m) rất thấp và nhiều gió, hãy chuẩn bị áo phao ấm dày, găng tay, mũ len và giày leo núi chống trơn."
+    },
+    "quy nhơn": {
+        "food": "Bánh hỏi cháo lòng Diên Hồng, Bánh xèo tôm nhảy Gia Vỹ, Chả ram tôm đất, Cua huỳnh đế hấp nước dừa, Bún chả cá Ngọc Liên.",
+        "best_time": "Từ tháng 3 đến tháng 8: biển Kỳ Co trong vắt màu ngọc bích, trời nắng đẹp rạng rỡ, thích hợp tắm biển và lặn ngắm san hô.",
+        "pack_tips": "Kỳ Co và Eo Gió đón gió biển lộng, bạn nên mang kính râm, kem chống nắng SPF cao, mũ có quai buộc và giày sandals chống nước."
+    },
+    "cần thơ": {
+        "food": "Lẩu mắm Dạ Lý, Bánh cống cô Út, Cá lóc nướng trui cuốn lá sen non, Bánh xèo củ hủ dừa Mười Xiềm, Trái cây tươi ngọt hái tại vườn.",
+        "best_time": "Từ tháng 9 đến tháng 11 (mùa nước nổi đặc trưng Nam Bộ) hoặc từ tháng 5 đến tháng 8 (mùa các loại trái cây miệt vườn chín rộ).",
+        "pack_tips": "Trang phục gọn nhẹ thoáng mát; nên dậy sớm từ 5h00 sáng để xuống bến thuyền đón trọn khoảnh khắc nhộn nhịp nhất của Chợ nổi Cái Răng."
+    },
+    "hà giang": {
+        "food": "Bánh tam giác mạch nướng than, Thắng dền phố cổ Đồng Văn, Cháo ấu tẩu ấm bụng, Thịt trâu gác bếp, Rượu ngô men lá Quản Bạ.",
+        "best_time": "Tháng 9 - 10 (mùa lúa chín vàng Hoàng Su Phì) và tháng 10 - 12 (mùa hoa tam giác mạch phủ hồng khắp các sườn núi đá vôi).",
+        "pack_tips": "Cung đường đèo dốc uốn lượn hùng vĩ (Mã Pí Lèng, Dốc Thẩm Mã), bạn nên chuẩn bị thuốc chống say xe, áo khoác gió ấm và máy ảnh."
+    },
+    "ninh bình": {
+        "food": "Thịt dê núi Ninh Bình nướng tảng chao dầu, Cơm cháy chấm sốt dê thơm lừng, Gỏi cá nhệch Kim Sơn, Ốc núi luộc sả, Miến lươn Bà Phấn.",
+        "best_time": "Mùa xuân (tháng 1 - 3) trẩy hội Chùa Bái Đính và du xuân Tràng An; hoặc cuối tháng 5 - đầu tháng 6 ngắm lúa chín vàng Tam Cốc.",
+        "pack_tips": "Chuẩn bị giày thể thao để leo 500 bậc đá Hang Múa ngắm toàn cảnh Tam Cốc và trang phục kín đáo lịch sự khi viếng Chùa Bái Đính."
+    },
+    "mộc châu": {
+        "food": "Bê chao Mộc Châu thơm mềm, Cá suối chiên giòn, Cải ngồng luộc chấm trứng dầm, Ốc đá Suối Bàng, Sữa tươi và dâu tây Chimi Farm.",
+        "best_time": "Tháng 1 - 2 (mùa hoa mận, hoa mơ nở trắng rừng cao nguyên) và tháng 10 - 12 (mùa hoa cải trắng, hoa dã quỳ vàng rực rỡ).",
+        "pack_tips": "Khí hậu cao nguyên trong lành se lạnh; bạn nên chuẩn bị áo khoác nhẹ, giày bệt hoặc giày thể thao để dạo bước giữa các đồi chè."
+    },
+    "cát bà": {
+        "food": "Tu hài nướng mỡ hành béo ngậy, Bề bề rang muối, Sam 7 món Cát Bà, Mực một nắng xào cần tỏi, Cá song hấp gừng xì dầu.",
+        "best_time": "Từ tháng 4 đến tháng 9: thời điểm lý tưởng nhất để tắm biển Đảo Khỉ, chèo kayak Vịnh Lan Hạ và tận hưởng làn gió biển mát rượi.",
+        "pack_tips": "Mang đồ bơi, túi chống nước cho điện thoại khi chèo kayak hang Sáng Tối trên Vịnh Lan Hạ và thuốc say sóng nếu đi tàu cao tốc."
+    },
+    "huế": {
+        "food": "Bún bò Huế Mụ Rơi / bà Búp, Cơm hến Đập Đá, Bánh bèo - nậm - lọc bà Đỏ, Nem lụi Hoàng Triều, Chè bột lọc bọc heo quay.",
+        "best_time": "Từ tháng 1 đến tháng 4: thời tiết Cố đô dịu mát, nắng nhẹ, cảnh sắc trăm hoa khoe sắc rất đẹp để tham quan các lăng tẩm.",
+        "pack_tips": "Mặc trang phục nhã nhặn, kín đáo (áo dài truyền thống rất đẹp khi check-in) khi tham quan Đại Nội Hoàng Thành và Lăng Khải Định."
+    },
+    "hội an": {
+        "food": "Cao lầu Thanh, Cơm gà Bà Buội, Bánh mì Phượng / Madam Khánh, Hoành thánh chiên Vạn Lộc, Nước thảo mộc Mót Hội An thanh mát.",
+        "best_time": "Từ tháng 2 đến tháng 7: mùa khô ráo nắng đẹp, đặc biệt vào đêm rằm 14-15 âm lịch phố cổ tắt đèn điện thả hoa đăng lung linh.",
+        "pack_tips": "Phố cổ cấm xe máy ban đêm nên bạn hãy chuẩn bị giày êm để tản bộ, trang phục vintage chụp ảnh tuyệt đẹp dưới ánh đèn lồng."
+    },
+    "buôn ma thuột": {
+        "food": "Bún đỏ phố cổ Phan Đình Giót, Gà nướng Bản Đôn - Cơm lam muối ớt, Gỏi cà đắng cá cơm, Cà phê Robusta Tây Nguyên nguyên chất.",
+        "best_time": "Từ tháng 12 đến tháng 4 (mùa khô Tây Nguyên thời tiết mát mẻ, mùa hoa cà phê nở trắng muốt bạt ngàn các sườn đồi).",
+        "pack_tips": "Mang giày thể thao chống trơn khi trekking ngắm Thác Dray Nur, trang phục gọn gàng thoải mái khi chèo thuyền độc mộc Hồ Lắk."
+    },
+    "phan thiết": {
+        "food": "Lẩu thả Mũi Né, Bánh canh chả cá cô Xí, Răng mực nướng Loan, Dông cát nướng muối ớt, Hải sản tươi ngon bờ kè Mũi Né.",
+        "best_time": "Từ tháng 11 đến tháng 4 năm sau: mùa trời trong xanh, ít mưa, sóng biển êm và đồi cát Bàu Trắng rực rỡ dưới nắng vàng.",
+        "pack_tips": "Khu vực đồi cát Bàu Trắng nhiều nắng và gió cát, hãy mang kính mát, kem chống nắng, khăn choàng và trang phục nổi bật đi xe jeep."
+    },
+    "vũng tàu": {
+        "food": "Bánh khọt Gốc Vú Sữa / Cô Ba Vũng Tàu, Lẩu cá đuối Trương Công Định, Bông lan trứng muối Gột Cột Cờ, Gỏi cá mai Ba Hưng, Hải sản Gành Hào.",
+        "best_time": "Quanh năm (chỉ cách TP.HCM 2 giờ di chuyển), đặc biệt đẹp nhất từ tháng 11 đến tháng 4 (biển êm, sóng nhẹ, nắng ráo).",
+        "pack_tips": "Chuẩn bị giày thể thao leo gần 800 bậc đá lên Tượng Chúa Kito Vua và trang phục tắm biển Bãi Sau năng động."
+    },
+    "an giang": {
+        "food": "Bún cá lóc Châu Đốc, Bò bảy món Núi Sam Tư Thiêng, Lẩu cá linh bông điên điển (mùa nước nổi), Bánh bò thốt nốt, Tung lò mò bò Chăm.",
+        "best_time": "Từ tháng 9 đến tháng 11 (mùa nước nổi rừng tràm Trà Sư bạt ngàn bèo xanh) hoặc dịp Lễ hội Vía Bà Chúa Xứ (tháng 4 âm lịch).",
+        "pack_tips": "Chuẩn bị nón lá hoặc mũ che nắng khi ngồi xuồng ba lá lướt thảm bèo Rừng tràm Trà Sư, trang phục trang nghiêm khi viếng Miếu Bà."
+    },
+    "côn đảo": {
+        "food": "Cháo hàu Côn Đảo, Cua mặt trăng hấp bia, Ốc vú nàng luộc xả, Mực một nắng nướng sa tế, Mứt hạt bàng rang muối đường đặc sản.",
+        "best_time": "Từ tháng 3 đến tháng 9: thời điểm biển êm sóng lặng nhất trong năm dù có mưa rào ngắn, thích hợp tham quan và lặn biển san hô.",
+        "pack_tips": "Chuẩn bị trang phục lịch sự, kín đáo (áo dài tay, quần sẫm màu) khi làm lễ viếng Mộ Cô Sáu tại Nghĩa trang Hàng Dương lúc nửa đêm."
+    }
+}
+
+# ====================================================================
+# LỊCH TRÌNH TOUR FALLBACK ĐẦY ĐỦ 52 NGÀY CHO 20 TOUR NỘI BỘ
+# ====================================================================
+FALLBACK_TOUR_SCHEDULES = {
+    1: [
+        {"day_number": 1, "location": "Đà Nẵng", "activity": "Đón khách, nhận phòng và tham quan trung tâm", "description": "Đón khách tại sân bay/ga, viếng Bán đảo Sơn Trà, Chùa Linh Ứng và tắm biển Mỹ Khê."},
+        {"day_number": 2, "location": "Bà Nà Hills", "activity": "Khám phá Bà Nà Hills và Cầu Vàng", "description": "Đi cáp treo lên Bà Nà Hills, check-in Cầu Vàng Bàn Tay Phật, vui chơi tại Fantasy Park."},
+        {"day_number": 3, "location": "Hội An - Tiễn khách", "activity": "Dạo phố cổ Hội An và mua sắm đặc sản", "description": "Tham quan Chùa Cầu Hội An, thả đèn hoa đăng và tiễn khách tại sân bay Đà Nẵng."}
+    ],
+    2: [
+        {"day_number": 1, "location": "Nha Trang", "activity": "Đón khách, tham quan Tháp Bà Ponagar và tắm bùn", "description": "Đón khách, tham quan Tháp Bà Ponagar linh thiêng và trải nghiệm tắm bùn khoáng nóng thư giãn."},
+        {"day_number": 2, "location": "VinWonders Nha Trang", "activity": "Vui chơi giải trí trọn ngày tại VinWonders", "description": "Đi cáp treo vượt biển đến đảo Hòn Tre, trải nghiệm vòng đu quay khổng lồ và công viên nước."},
+        {"day_number": 3, "location": "Vịnh Nha Trang", "activity": "Du ngoạn 4 đảo, lặn ngắm san hô Hòn Mun", "description": "Đi cano khám phá Hòn Mun, Hòn Tằm ngắm rạn san hô rực rỡ và tiễn khách ra sân bay Cam Ranh."}
+    ],
+    3: [
+        {"day_number": 1, "location": "Hạ Long - Du thuyền", "activity": "Check-in du thuyền 5 sao, tham quan Hang Sửng Sốt", "description": "Lên du thuyền 5 sao vịnh Hạ Long, ăn trưa buffet hải sản, khám phá Hang Sửng Sốt và chèo kayak."},
+        {"day_number": 2, "location": "Đảo Ti Tốp - Hà Nội", "activity": "Leo đỉnh Ti Tốp ngắm toàn cảnh vịnh, trở về Hà Nội", "description": "Tập thái cực quyền đón bình minh trên boong tàu, tắm biển Ti Tốp rồi xe đưa đoàn về Hà Nội."}
+    ],
+    4: [
+        {"day_number": 1, "location": "Bắc Đảo Phú Quốc", "activity": "Grand World - Thành phố không ngủ", "description": "Check-in dòng sông Venice lãng mạn, tham quan Bảo tàng Gấu Teddy và xem nhạc nước Tinh Hoa Việt Nam."},
+        {"day_number": 2, "location": "Nam Đảo Phú Quốc", "activity": "Cáp treo Hòn Thơm và cano 4 đảo", "description": "Trải nghiệm cáp treo 3 dây vượt biển, cano lặn ngắm san hô tại Hòn Mây Rút và Hòn Gầm Ghì."},
+        {"day_number": 3, "location": "Thị trấn Dương Đông", "activity": "Dinh Cậu, vườn tiêu và nhà thùng nước mắm", "description": "Tìm hiểu nghề làm nước mắm truyền thống, mua sắm ngọc trai và hải sản tươi sống."}
+    ],
+    5: [
+        {"day_number": 1, "location": "Đà Lạt", "activity": "Đón khách, check-in Quảng trường Lâm Viên và Ga Đà Lạt", "description": "Đón khách, chụp ảnh nụ hoa Atiso biểu tượng, tham quan Ga xe lửa cổ kính và ngắm Hồ Xuân Hương."},
+        {"day_number": 2, "location": "Langbiang - Thung Lũng Tình Yêu", "activity": "Chinh phục Đỉnh Langbiang và ngắm ngàn hoa", "description": "Đi xe jeep lên đỉnh Langbiang ngắm trọn thung lũng, dạo Thung Lũng Tình Yêu rực rỡ sắc hoa."},
+        {"day_number": 3, "location": "Đồi chè Cầu Đất - Tiễn khách", "activity": "Săn mây Đồi chè Cầu Đất, Chùa Linh Phước", "description": "Đón bình minh săn biển mây bồng bềnh tại Cầu Đất, viếng Chùa Ve Chai độc đáo trước khi ra sân bay."}
+    ],
+    6: [
+        {"day_number": 1, "location": "Sa Pa", "activity": "Nhà thờ đá và Bản Cát Cát", "description": "Xe limousine đưa đón từ Hà Nội lên Sa Pa, tham quan bản Cát Cát tìm hiểu văn hóa H'Mông."},
+        {"day_number": 2, "location": "Fansipan", "activity": "Chinh phục Đỉnh Fansipan nóc nhà Đông Dương", "description": "Đi cáp treo 3 dây hiện đại lên đỉnh Fansipan 3.143m, chiêm bái quần thể tâm linh trên mây."},
+        {"day_number": 3, "location": "Đèo Ô Quy Hồ", "activity": "Cổng trời Ô Quy Hồ và Thác Bạc", "description": "Ngắm hoàng hôn trên tứ đại đỉnh đèo Ô Quy Hồ, thưởng thức cá hồi Sa Pa và mua quà đặc sản."}
+    ],
+    7: [
+        {"day_number": 1, "location": "Quy Nhơn", "activity": "Đón khách, KDL Ghềnh Ráng Tiên Sa, Mộ Hàn Mặc Tử", "description": "Đón khách tại sân bay Phù Cát, tham quan bãi tắm Hoàng Hậu đá trứng và viếng thi sĩ Hàn Mặc Tử."},
+        {"day_number": 2, "location": "Kỳ Co - Eo Gió", "activity": "Cano cao tốc đi Kỳ Co, ngắm hoàng hôn Eo Gió", "description": "Tắm biển làn nước trong vắt tại bãi Kỳ Co, lặn ngắm san hô Bãi Dứa và check-in cung đường Eo Gió."},
+        {"day_number": 3, "location": "Phú Yên", "activity": "Khám phá Ghềnh Đá Đĩa, Nhà thờ Mằng Lăng, Bãi Xép", "description": "Chiêm ngưỡng kỳ quan núi đá bazan hình lục giác Ghềnh Đá Đĩa, phim trường 'Tôi thấy hoa vàng trên cỏ xanh'."},
+        {"day_number": 4, "location": "Tháp Đôi - Tiễn khách", "activity": "Tháp Đôi Chăm Pa và mua sắm đặc sản", "description": "Tìm hiểu di tích tháp Chăm Tháp Đôi cổ kính, mua chả ram tôm đất, bánh ít lá gai trước khi ra sân bay."}
+    ],
+    8: [
+        {"day_number": 1, "location": "Cần Thơ", "activity": "Nhà cổ Bình Thủy, Vườn cò Bằng Lăng, Bến Ninh Kiều", "description": "Khám phá nhà cổ kiến trúc Pháp 150 năm tuổi, ngắm hàng vạn cánh cò bay về tổ và du thuyền Bến Ninh Kiều."},
+        {"day_number": 2, "location": "Chợ nổi Cái Răng", "activity": "Thuyền xuôi Chợ nổi Cái Răng, Miệt vườn cây trái", "description": "Trải nghiệm văn hóa buôn bán ghe xuồng trên sông từ sáng sớm, thưởng thức hủ tiếu nổi và trái cây miệt vườn."}
+    ],
+    9: [
+        {"day_number": 1, "location": "Hà Nội - Quản Bạ - Yên Minh", "activity": "Ngắm Núi Đôi Quản Bạ, Rừng thông Yên Minh, check-in Dốc Thẩm Mã.", "description": "Vượt Dốc Bắc Sum, chiêm ngưỡng Núi Đôi Quản Bạ và rừng thông Yên Minh ngút ngàn xanh mát."},
+        {"day_number": 2, "location": "Đồng Văn - Mã Pí Lèng - Nho Quế", "activity": "Chinh phục Đèo Mã Pí Lèng, đi thuyền ngắm Hẻm Tu Sản trên sông Nho Quế, dạo Phố cổ Đồng Văn.", "description": "Chinh phục một trong tứ đại đỉnh đèo hiểm trở nhất VN, đi thuyền dưới hẻm vực Tu Sản sâu nhất Đông Nam Á."},
+        {"day_number": 3, "location": "Lũng Cú - Dinh Vua Mèo - Hà Nội", "activity": "Chào cờ tại Cột cờ Quốc gia Lũng Cú, thăm Dinh Thự Họ Vương (Vua Mèo) và trở về Hà Nội.", "description": "Chạm tay vào cột mốc cực Bắc thiêng liêng của Tổ Quốc, tìm hiểu kiến trúc Dinh Thự Vua Mèo rồi về Hà Nội."}
+    ],
+    10: [
+        {"day_number": 1, "location": "Hà Nội - Tràng An - Hang Múa", "activity": "Đi thuyền nan khám phá Hang Sáng Hang Tối Quần thể Tràng An, leo đỉnh Hang Múa.", "description": "Thuyền nan lướt nhẹ qua các hang động kỳ ảo Tràng An di sản thế giới, leo 500 bậc đá Hang Múa ngắm Tam Cốc."},
+        {"day_number": 2, "location": "Chùa Bái Đính - Hà Nội", "activity": "Viếng Chùa Bái Đính chiêm bái đại tượng Phật bằng đồng lớn nhất Đông Nam Á.", "description": "Hành hương quần thể chùa Bái Đính nguy nga, thưởng thức đặc sản thịt dê cơm cháy Ninh Bình rồi về Hà Nội."}
+    ],
+    11: [
+        {"day_number": 1, "location": "Hà Nội - Mộc Châu - Đồi Chè Trái Tim", "activity": "Vượt Đèo Thung Khe mây phủ, check-in Đồi chè trái tim xanh mướt, Rừng thông Bản Áng.", "description": "Dạo bước trên những luống chè xanh bát ngát, chèo thuyền ngắm cảnh hồ rừng thông Bản Áng mộng mơ."},
+        {"day_number": 2, "location": "Thác Dải Yếm - Cầu Kính Bạch Long - Hà Nội", "activity": "Tham quan Thác Dải Yếm hùng vĩ, thử thách Cầu kính Bạch Long dài nhất thế giới.", "description": "Ngắm thác nước đổ bọt trắng xóa, trải nghiệm cầu kính đi bộ lập kỷ lục Guinness rồi khởi hành về Hà Nội."}
+    ],
+    12: [
+        {"day_number": 1, "location": "Hải Phòng - Đảo Cát Bà - Vịnh Lan Hạ", "activity": "Du thuyền khám phá Vịnh Lan Hạ hoang sơ, chèo kayak Hang Sáng Hang Tối, tắm biển Đảo Khỉ.", "description": "Lên du thuyền ngắm hàng trăm đảo đá vôi kỳ vĩ, tự do chèo thuyền kayak luồn lách qua các vòm hang nước ngập."},
+        {"day_number": 2, "location": "Vườn Quốc Gia Cát Bà - Hà Nội / Hải Phòng", "activity": "Trekking đỉnh Ngự Lâm ngắm trọn rừng kim giao, tham quan Làng chài cổ Cái Bèo nghìn năm.", "description": "Khám phá thảm thực vật Vườn quốc gia Cát Bà, tìm hiểu làng chài nổi cổ nhất Việt Nam trước khi tiễn khách."}
+    ],
+    13: [
+        {"day_number": 1, "location": "Đại Nội Huế - Chùa Thiên Mụ", "activity": "Tham quan Ngọ Môn, Điện Thái Hòa, Tử Cấm Thành, viếng Chùa Thiên Mụ cổ kính bên bờ sông Hương.", "description": "Lắng nghe câu chuyện lịch sử 13 đời vua triều Nguyễn, chiêm bái tháp Phước Duyên 7 tầng soi bóng dòng sông Hương."},
+        {"day_number": 2, "location": "Lăng Khải Định - Nghe Ca Huế Sông Hương", "activity": "Khám phá Lăng Khải Định đỉnh cao kiến trúc sành sứ, tối đi thuyền rồng nghe ca Huế.", "description": "Chiêm ngưỡng bức tranh phù điêu sành sứ và bức bích họa 'Cửu Long Ẩn Vân', đêm nghe nhã nhạc ca Huế thả hoa đăng."}
+    ],
+    14: [
+        {"day_number": 1, "location": "Rừng dừa Bảy Mẫu - Phố cổ Hội An", "activity": "Ngồi thuyền thúng lắc lư Rừng dừa Bảy Mẫu Cẩm Thanh, chiều tối bách bộ phố cổ thả hoa đăng sông Hoài.", "description": "Thử cảm giác múa thúng xoay tròn điêu luyện, tối thả hoa đăng lung linh trên sông Hoài ngắm phố đèn lồng."},
+        {"day_number": 2, "location": "Cù Lao Chàm - Lặn ngắm san hô", "activity": "Cano cao tốc đưa khách ra Cù Lao Chàm, lặn ngắm rạn san hô Bãi Chồng và thưởng thức hải sản đảo.", "description": "Cano lướt sóng ra khu dự trữ sinh quyển thế giới Cù Lao Chàm, lặn ngắm san hô và thưởng thức cua đá đảo."}
+    ],
+    15: [
+        {"day_number": 1, "location": "Buôn Ma Thuột - Bảo tàng Thế Giới Cà Phê", "activity": "Đón khách, check-in Bảo tàng Cà phê Thế Giới mang kiến trúc nhà dài Tây Nguyên, thưởng thức cafe nguyên chất.", "description": "Khám phá không gian văn hóa cà phê độc đáo, ngắm hiện vật của đồng bào Ê Đê và uống cà phê Robusta thượng hạng."},
+        {"day_number": 2, "location": "Thác Dray Nur - Buôn Đôn", "activity": "Chiêm ngưỡng dòng thác Dray Nur hùng vĩ bọt tung trắng xóa, ghé Buôn Đôn tìm hiểu văn hóa săn bắt voi rừng.", "description": "Tận mắt ngắm thác Dray Nur huyền thoại với dải nước khổng lồ gầm vang, giao lưu văn hóa tại Buôn Đôn bên sông Sêrêpôk."},
+        {"day_number": 3, "location": "Hồ Lắk - Buôn Jun - Tiễn khách", "activity": "Chèo thuyền độc mộc lướt trên mặt Hồ Lắk thơ mộng, khám phá buôn làng người M'Nông trước khi ra sân bay.", "description": "Lướt thuyền độc mộc giữa mặt nước mênh mông phẳng lặng của hồ nước ngọt tự nhiên lớn nhất Tây Nguyên rồi tiễn khách."}
+    ],
+    16: [
+        {"day_number": 1, "location": "TP.HCM - Phan Thiết - Suối Tiên - Làng Chài", "activity": "Di chuyển cao tốc đến Mũi Né, lội dòng suối cát đỏ Suối Tiên, ngắm cảnh thuyền nan tấp nập tại Làng chài Mũi Né.", "description": "Lội dòng Suối Tiên tuyệt mỹ hai bên vách đất sét đỏ rực, ngắm ghe thuyền cập bến tấp nập tại làng chài truyền thống."},
+        {"day_number": 2, "location": "Bàu Trắng - Đồi Cát Bay - TP.HCM", "activity": "Đón bình minh tại Bàu Trắng bằng xe địa hình mạo hiểm, trượt cát Đồi Cát Bay và mua nước mắm cá cơm.", "description": "Trải nghiệm xe jeep vượt đồi cát trắng Bàu Trắng ngắm hồ sen mát mắt, trượt ván cát tại Đồi Cát Đỏ trước khi về Sài Gòn."}
+    ],
+    17: [
+        {"day_number": 1, "location": "TP.HCM - Bãi Sau Vũng Tàu - Tượng Chúa Kito", "activity": "Đón khách từ Sài Gòn, tắm biển Bãi Sau sóng êm, chiều leo núi nhỏ chinh phục cánh tay Tượng Chúa Kito.", "description": "Đoàn tắm biển thỏa thích tại Bãi Sau bãi cát vàng mịn màng, leo 800 bậc đá lên cánh tay Chúa Kito ngắm toàn cảnh Vũng Tàu."},
+        {"day_number": 2, "location": "Ngọn Hải Đăng - Bến Thuyền Marina - TP.HCM", "activity": "Chụp ảnh tại Ngọn Hải Đăng cổ kính Pháp, ghé bến thuyền buồm Marina sang trọng và ăn bánh khọt Gốc Vú Sữa.", "description": "Ngắm thành phố từ ngọn hải đăng lâu đời nhất Đông Nam Á, check-in bến thuyền buồm rực rỡ và thưởng thức bánh khọt nóng giòn."}
+    ],
+    18: [
+        {"day_number": 1, "location": "TP.HCM - Sa Đéc - Châu Đốc - Núi Sam", "activity": "Ghé Làng hoa Sa Đéc ngàn hoa khoe sắc, chiều đến Châu Đốc viếng Miếu Bà Chúa Xứ Núi Sam cầu tài lộc.", "description": "Dạo bước giữa muôn sắc hoa Làng hoa Sa Đéc, viếng trung tâm hành hương tâm linh Miếu Bà Chúa Xứ Núi Sam nức tiếng linh thiêng."},
+        {"day_number": 2, "location": "Rừng Tràm Trà Sư - TP.HCM", "activity": "Đi xuồng ba lá len lỏi trong rừng tràm Trà Sư ngắm đàn chim trời bay lượn trên thảm bèo xanh mướt mát mắt.", "description": "Ngồi xuồng ba lá lướt trên tấm thảm bèo cám xanh rì rực rỡ dưới ánh nắng rọi qua kẽ lá tràm, chụp ảnh cầu tre vạn bước."}
+    ],
+    19: [
+        {"day_number": 1, "location": "Đón sân bay Cỏ Ống - Bãi Nhát - Mũi Cá Mập", "activity": "Đón khách tại sân bay Côn Đảo, ngắm đỉnh Tình Yêu, Bãi Nhát, tối 23h00 viếng Mộ Cô Sáu Nghĩa trang Hàng Dương.", "description": "Xe đón đoàn, chiêm ngưỡng thiên nhiên hoang sơ Bãi Nhát, đêm 23h00 làm lễ dâng hoa viếng mộ liệt nữ Võ Thị Sáu linh thiêng."},
+        {"day_number": 2, "location": "Nhà tù Côn Đảo - Bãi Đầm Trầu", "activity": "Tham quan Trại giam Phú Hải, Chuồng Cọp Pháp - Mỹ lịch sử, chiều thư giãn tắm biển Bãi Đầm Trầu ngắm máy bay hạ cánh.", "description": "Nghe thuyết minh xúc động về ý chí kiên cường của các chiến sĩ cách mạng, chiều tắm biển Bãi Đầm Trầu cát trắng mịn màng."},
+        {"day_number": 3, "location": "Miếu Bà Phi Yến - Chợ Côn Đảo - Tiễn sân bay", "activity": "Viếng Miếu Bà Phi Yến, ghé chợ mua mứt hạt bàng đặc sản và xe tiễn ra sân bay Cỏ Ống.", "description": "Viếng An Sơn Miếu tưởng nhớ thứ phi Hoàng Phi Yến, mua sắm hạt bàng rang muối gừng rồi lên chuyến bay trở về."}
+    ],
+    20: [
+        {"day_number": 1, "location": "Check-in Resort 5 Sao - Grand World", "activity": "Xe đón sân bay về resort 5 sao nhận phòng view biển, chiều tối tham quan Grand World và xem show Tinh Hoa Việt Nam.", "description": "Nghỉ dưỡng thượng lưu tại resort 5 sao bờ biển, thưởng thức ẩm thực cao cấp, dạo chơi Grand World xem nhạc nước Venice."},
+        {"day_number": 2, "location": "Vinpearl Safari - Công viên VinWonders", "activity": "Khám phá Vườn thú bán hoang dã Safari lớn nhất Việt Nam, vui chơi thỏa thích công viên chủ đề VinWonders.", "description": "Ngồi xe bus chuyên dụng ngắm hổ Bengal, tê giác tại Safari và thỏa sức phiêu lưu tàu lượn siêu tốc tại VinWonders."},
+        {"day_number": 3, "location": "Cáp Treo Hòn Thơm - Cano 4 Đảo VIP", "activity": "Đi cáp treo vượt biển Hòn Thơm, cano đưa đoàn lặn biển san hô Hòn Gầm Ghì, flycam quay chụp kỷ niệm.", "description": "Trải nghiệm cáp treo 3 dây lập kỷ lục Guinness, cano cao tốc lặn biển seawalker ngắm rạn san hô nguyên sơ đầy màu sắc."},
+        {"day_number": 4, "location": "Thị Trấn Hoàng Hôn - Mua sắm ngọc trai - Tiễn khách", "activity": "Check-in Cầu Hôn (Kiss Bridge), mua ngọc trai Phú Quốc và xe đưa đoàn ra sân bay trở về.", "description": "Chiêm ngưỡng kiệt tác Cầu Hôn bên bờ biển Địa Trung Hải Sunset Town, mua ngọc trai chất lượng cao trước khi bay về."}
+    ]
+}
+
+
+# ====================================================================
 # BỘ NHỚ NGỮ CẢNH HỘI THOẠI ĐA LƯỢT (MULTI-TURN CONVERSATION MEMORY)
 # ====================================================================
 class ChatSessionMemory:
@@ -159,6 +359,7 @@ class Chatbot:
         self.intents = []
         self.tour_ids = []
         self.local_tours = []
+        self.tour_schedules = {}
         self.memory = ChatSessionMemory()
         self.last_predicted_intent = None
         self.last_confidence = None
@@ -173,10 +374,12 @@ class Chatbot:
         self.intents = []
         self.tour_ids = []
         self.local_tours = []
+        self.tour_schedules = {}
 
         # 1. Nạp dữ liệu câu hỏi đáp và danh sách tour
         self.load_data()
         self.load_local_tours()
+        self.load_tour_schedules()
 
         # 2. Huấn luyện TF-IDF Vectorizer và Naive Bayes Classifier
         self.vectorizer, self.model = train_model()
@@ -377,6 +580,107 @@ class Chatbot:
                 cursor.close()
                 connection.close()
         return None
+
+    def load_tour_schedules(self):
+        """Nạp danh sách lịch trình tour chi tiết từng ngày từ tour_schedule hoặc fallback."""
+        connection = get_connection()
+        if connection:
+            try:
+                cursor = connection.cursor(dictionary=True)
+                cursor.execute("SELECT tour_id, day_number, location, activity, description FROM tour_schedule ORDER BY tour_id, day_number")
+                rows = cursor.fetchall()
+                self.tour_schedules = {}
+                for r in rows:
+                    self.tour_schedules.setdefault(r["tour_id"], []).append(r)
+            except Exception as e:
+                print("Lỗi nạp tour_schedule:", e)
+            finally:
+                cursor.close()
+                connection.close()
+
+        if not self.tour_schedules:
+            self.tour_schedules = dict(FALLBACK_TOUR_SCHEDULES)
+
+    def get_tour_schedule(self, tour_id):
+        """Lấy danh sách lịch trình theo ngày của một tour."""
+        if not self.tour_schedules:
+            self.load_tour_schedules()
+        return self.tour_schedules.get(tour_id, [])
+
+    def format_rich_tour_briefing(self, tour, focus="overview"):
+        """
+        ĐỘNG CƠ BIÊN SOẠN BÁO CÁO TƯ VẤN TOUR CHUYÊN SÂU (EXPERT TOUR CONSULTATION BRIEFING)
+        Xây dựng phản hồi tư vấn viên du lịch đầy đủ, có chiều sâu, trải nghiệm chân thực.
+        - focus="schedule": Ưu tiên chi tiết lịch trình từng ngày, hoạt động và ẩm thực
+        - focus="price": Ưu tiên bảng giá, dịch vụ đã bao gồm trong giá và tóm tắt ngày
+        - focus="overview": Tư vấn tổng quan toàn diện (hành trình + lịch trình + ẩm thực + dịch vụ + cẩm nang)
+        """
+        schedules = self.get_tour_schedule(tour["id"])
+        dest_key = tour.get("destination", "").lower().strip()
+        tips = LOCAL_DESTINATION_TIPS.get(dest_key, {})
+
+        lines = []
+
+        if focus == "price":
+            lines.append(f"💰 **BÁO GIÁ & DỊCH VỤ TRỌN GÓI: {tour['name']}**")
+            lines.append(f"📍 Điểm đến: **{tour['destination']}** | ⏱ Thời gian: **{tour['duration']}**")
+            lines.append(f"💵 **Giá trọn gói niêm yết: {tour['price']:,.0f} VNĐ/khách**\n")
+            lines.append("✨ **Giá tour đã bao gồm trọn gói tất cả các dịch vụ:**")
+            lines.append("  • 🏨 Nghỉ dưỡng tại khách sạn/resort tiêu chuẩn sạch sẽ, tiện nghi")
+            lines.append("  • 🚗 Xe du lịch máy lạnh đời mới chất lượng cao đưa đón trọn hành trình")
+            lines.append("  • 🍽️ Đầy đủ các bữa ăn chính mang hương vị đặc sản địa phương + buffet sáng")
+            lines.append("  • 🎫 Toàn bộ vé tham quan danh thắng, vé thuyền/cano/cáp treo theo chương trình")
+            lines.append("  • 👨‍💼 Hướng dẫn viên chuyên nghiệp, nhiệt tình, am hiểu văn hóa bản địa")
+            lines.append("  • 🛡️ Bảo hiểm du lịch với hạn mức tối đa 50.000.000 VNĐ/vụ & nước suối đóng chai\n")
+
+            if schedules:
+                lines.append("🗓️ **Tóm tắt hành trình khám phá:**")
+                for s in schedules:
+                    lines.append(f"  • **Ngày {s['day_number']} ({s['location']})**: {s['activity']}")
+                lines.append("")
+
+            if tips.get("pack_tips"):
+                lines.append(f"🎒 **Lưu ý & Chuẩn bị:** {tips['pack_tips']}\n")
+
+            lines.append(f"👉 Bạn có thể xem hình ảnh và thông tin chi tiết của tour tại: [{tour['name']}](/tours/{tour['id']})")
+            return "\n".join(lines)
+
+        # Mặc định (focus="schedule" hoặc focus="overview")
+        icon = "🗓️" if focus == "schedule" else "🌟"
+        lines.append(f"{icon} **TƯ VẤN HÀNH TRÌNH: {tour['name']}**")
+        lines.append(f"📍 Điểm đến: **{tour['destination']}** | ⏱ Thời lượng: **{tour['duration']}** | 💰 Giá trọn gói: **{tour['price']:,.0f} VNĐ/khách**\n")
+        lines.append(f"📝 *{tour['description']}*\n")
+
+        if schedules:
+            lines.append("🗓️ **Lịch trình trải nghiệm chi tiết từng ngày:**")
+            for s in schedules:
+                lines.append(f"  • **Ngày {s['day_number']} ({s['location']})**: {s['activity']}")
+                desc = s.get("description", "").strip()
+                if desc and desc != s["activity"]:
+                    lines.append(f"    - *Chi tiết*: {desc}")
+            lines.append("")
+        else:
+            lines.append(f"🗓️ Tour được thiết kế tối ưu trong {tour['duration']} giúp bạn khám phá trọn vẹn danh thắng {tour['destination']}.\n")
+
+        if tips.get("food"):
+            lines.append(f"🍜 **Ẩm thực đặc sản không thể bỏ lỡ tại {tour['destination']}:**\n  {tips['food']}\n")
+
+        if tips.get("best_time"):
+            lines.append(f"🌤️ **Thời điểm du lịch lý tưởng nhất:** {tips['best_time']}\n")
+
+        if tips.get("pack_tips"):
+            lines.append(f"🎒 **Gợi ý chuẩn bị & trang phục:**\n  {tips['pack_tips']}\n")
+
+        lines.append("✨ **Dịch vụ & tiện ích trọn gói bao gồm:**")
+        lines.append("  • 🏨 Khách sạn/resort tiêu chuẩn đầy đủ tiện nghi")
+        lines.append("  • 🚗 Xe du lịch đưa đón máy lạnh đời mới")
+        lines.append("  • 🍽️ Các bữa ăn đặc sản theo chương trình")
+        lines.append("  • 🎫 Vé tham quan các điểm đến theo lịch trình")
+        lines.append("  • 👨‍💼 Hướng dẫn viên bản địa chu đáo suốt tuyến")
+        lines.append("  • 🛡️ Bảo hiểm du lịch tối đa 50.000.000 VNĐ & nước suối đóng chai\n")
+
+        lines.append(f"👉 Bạn có thể xem hình ảnh và chi tiết tour tại: [{tour['name']}](/tours/{tour['id']})")
+        return "\n".join(lines)
 
     def recommend_tours_by_criteria(self, text):
         """
@@ -604,6 +908,7 @@ class Chatbot:
 
         if matched_outside and not matched_local:
             out_name = matched_outside[0].title()
+            out_dest_key = matched_outside[0].lower().strip()
             search_query = q_clean
             if predicted_intent in ("hoi_gia", "tour_price"):
                 search_query = f"giá tour du lịch {out_name}"
@@ -614,18 +919,79 @@ class Chatbot:
 
             prefix = ""
             if any(w in q_low for w in ["tour", "giá", "chi phí", "điểm du lịch", "tham quan", "có gì", "đâu"]):
-                if "nước ngoài" in q_low or "quốc tế" in q_low:
-                    prefix = "Hiện tại hệ thống TourAI tập trung chuyên sâu vào 20 tour du lịch trải rộng khắp 3 miền Việt Nam (Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Quy Nhơn, Cần Thơ, Hà Giang, Ninh Bình, Cát Bà, Huế, Hội An, Buôn Ma Thuột, Mộc Châu, Phan Thiết, Vũng Tàu, An Giang, Côn Đảo).\n\n"
+                is_abroad = any(w in q_low for w in ["nước ngoài", "quốc tế", "ngoại quốc"]) or out_dest_key in [
+                    "thái lan", "nhật bản", "hàn quốc", "trung quốc", "châu âu", "châu á", "mỹ", "hoa kỳ",
+                    "singapore", "malaysia", "đài loan", "bali", "úc", "pháp", "anh", "đức", "ý", "nga", "campuchia", "lào", "dubai", "hồng kông", "ấn độ"
+                ]
+                if is_abroad:
+                    prefix = f"ℹ️ *TourAI hiện tập trung chuyên sâu 20 tuyến tour trọn gói trong nước. Dưới đây là cẩm nang du lịch và thông tin hữu ích về {out_name}:*\n\n"
                 else:
-                    prefix = f"Hiện tại hệ thống TourAI chưa có tour khởi hành đến {out_name} (chúng tôi hiện có 20 tour du lịch khám phá các danh thắng nổi tiếng: Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Hà Giang, Ninh Bình, Cát Bà, Huế, Hội An...).\n\n"
+                    prefix = f"ℹ️ *Hệ thống TourAI hiện chưa mở tuyến tour trọn gói tới {out_name}. Dưới đây là cẩm nang du lịch gợi ý dành cho bạn:*\n\n"
 
-            if web_results:
-                return prefix + format_web_response(q_raw, web_results)
-            else:
-                return (
-                    f"{prefix}Tôi đã tìm kiếm trên mạng về '{q_raw}' nhưng chưa có kết quả chi tiết. "
-                    f"Bạn có thể tham khảo 20 tour du lịch hiện có trong hệ thống (Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Hà Giang, Ninh Bình, Huế, Hội An...) nhé!"
+            resp = format_web_response(q_raw, web_results, destination_name=out_name)
+            return prefix + resp
+
+        # -------------------------------------------------------------
+        # XỬ LÝ 6.5: TƯ VẤN CHUYÊN SÂU TOUR NỘI BỘ (RICH TOUR CONSULTATION)
+        # -------------------------------------------------------------
+        if matched_local:
+            tour = matched_local[0]
+            price_pat = r'\b(?:giá|gia|chi phí|chi phi|bao nhiêu tiền|bao tien|hết bao nhiêu|het bao nhieu|bao tiền)\b'
+            schedule_pat = r'\b(?:lịch trình|lich trinh|lộ trình|lo trinh|đi đâu|di dau|tham quan gì|tham quan|kế hoạch|chương trình|chuong trinh)\b'
+            duration_pat = r'\b(?:mấy ngày|may ngay|bao lâu|bao lau|thời gian|thoi gian)\b'
+            faq_pat = r'\b(?:khởi hành|khoi hanh|đón ở đâu|don o dau|đón tại|don tai|trẻ em|tre em|hủy tour|huy tour|thanh toán|thanh toan|đặt cọc|dat coc|mấy giờ|may gio|được hủy|duoc huy|phương tiện|phuong tien)\b'
+
+            has_price_word = bool(re.search(price_pat, q_low))
+            has_schedule_word = bool(re.search(schedule_pat, q_low))
+            has_duration_word = bool(re.search(duration_pat, q_low))
+            has_faq_word = bool(re.search(faq_pat, q_low))
+
+            is_schedule_query = has_schedule_word or (predicted_intent in ("hoi_lich_trinh", "tour_schedule") and not has_price_word and not has_faq_word)
+            is_price_query = has_price_word or (predicted_intent in ("hoi_gia", "tour_price") and not has_schedule_word and not has_faq_word)
+            is_general_tour_query = (
+                predicted_intent in ("tour_info", "thong_tin_tour", "tim_tour", "tour_search")
+                or any(k in q_low for k in ["tư vấn", "tu van", "chi tiết", "thông tin", "giới thiệu", "tour", "điểm đến"])
+                or (not has_duration_word and not has_faq_word and len(q_clean.split()) <= 6)
+            )
+
+            if is_schedule_query:
+                self.memory.update_context(
+                    session_id,
+                    active_tour_id=tour["id"],
+                    active_destination=tour["destination"],
+                    last_intent="hoi_lich_trinh"
                 )
+                return self.format_rich_tour_briefing(tour, focus="schedule")
+
+            if is_price_query:
+                self.memory.update_context(
+                    session_id,
+                    active_tour_id=tour["id"],
+                    active_destination=tour["destination"],
+                    last_intent="hoi_gia"
+                )
+                return self.format_rich_tour_briefing(tour, focus="price")
+
+            if is_general_tour_query:
+                self.memory.update_context(
+                    session_id,
+                    active_tour_id=tour["id"],
+                    active_destination=tour["destination"],
+                    last_intent="tour_info"
+                )
+                if len(matched_local) > 1 and not any(w in q_low for w in ["5 sao", "4n3đ", "3n2đ", "3 ngày", "4 ngày"]):
+                    lines = [f"🏝️ Tại **{tour['destination']}**, TourAI đang có {len(matched_local)} chương trình tour trọn gói đa dạng:\n"]
+                    for idx, t in enumerate(matched_local, 1):
+                        lines.append(
+                            f"{idx}. **{t['name']}**\n"
+                            f"   • ⏱ Thời gian: {t['duration']} | 💰 Giá trọn gói: **{t['price']:,.0f} VNĐ/khách**\n"
+                            f"   • 📝 {t['description']}\n"
+                            f"   • 👉 Chi tiết: [{t['name']}](/tours/{t['id']})\n"
+                        )
+                    lines.append("Bạn muốn tham khảo lịch trình chi tiết của tour nào trong số này?")
+                    return "\n".join(lines)
+                else:
+                    return self.format_rich_tour_briefing(tour, focus="overview")
 
         # -------------------------------------------------------------
         # XỬ LÝ 7: KHỚP ĐỘ TƯƠNG ĐỒNG CAO TỪ CƠ SỞ TRI THỨC NỘI BỘ (>= 0.45)
@@ -663,31 +1029,7 @@ class Chatbot:
                 active_destination=tour["destination"],
                 last_intent=predicted_intent
             )
-
-            if predicted_intent in ("tour_price", "hoi_gia") or any(k in q_low for k in ["giá", "chi phí", "bao nhiêu tiền", "bao tiền", "hết bao nhiêu"]):
-                return f"💰 **{tour['name']}** hiện có giá trọn gói niêm yết là **{tour['price']:,.0f} VNĐ/khách**."
-
-            elif predicted_intent in ("tour_duration", "hoi_thoi_gian") or any(k in q_low for k in ["mấy ngày", "bao lâu", "thời gian"]):
-                return f"⏱ **{tour['name']}** có lịch trình gói gọn trong **{tour['duration']}**."
-
-            elif predicted_intent in ("tour_search", "tim_tour"):
-                return (
-                    f"🌏 Chúng tôi có **{tour['name']}** tại **{tour['destination']}**.\n"
-                    f"• Thời gian: {tour['duration']}\n"
-                    f"• Giá trọn gói: **{tour['price']:,.0f} VNĐ**\n\n"
-                    f"👉 Xem chi tiết tại: /tours/{tour['id']}"
-                )
-
-            elif predicted_intent in ("tour_info", "hoi_lich_trinh", "thong_tin_tour"):
-                desc = tour.get("description") or "Tour trải nghiệm trọn vẹn với các điểm đến nổi tiếng, dịch vụ chất lượng."
-                return (
-                    f"🌏 **{tour['name']}**\n\n"
-                    f"📍 Điểm đến: {tour['destination']}\n"
-                    f"⏱ Thời gian: {tour['duration']}\n"
-                    f"💰 Giá: **{tour['price']:,.0f} VNĐ**\n\n"
-                    f"📝 {desc}\n\n"
-                    f"👉 Xem chi tiết tại: /tours/{tour['id']}"
-                )
+            return self.format_rich_tour_briefing(tour, focus="overview")
 
         if best_index >= 0 and cosine_score >= 0.32:
             return self.answers[best_index]
