@@ -49,10 +49,12 @@ ABBREVIATION_MAP = {
 
 # CÁC LỖI CHÍNH TẢ VIẾT LIỀN HOẶC GÕ SAI PHỔ BIẾN
 COMMON_TYPO_MAP = {
+    # 20 điểm đến du lịch
     r"\bdanang\b": "da nang",
     r"\bda nagn\b": "da nang",
     r"\bnhatrang\b": "nha trang",
     r"\bnha trnag\b": "nha trang",
+    r"\bnhatrag\b": "nha trang",
     r"\bhalong\b": "ha long",
     r"\bha logn\b": "ha long",
     r"\bphuquoc\b": "phu quoc",
@@ -61,20 +63,46 @@ COMMON_TYPO_MAP = {
     r"\bda lta\b": "da lat",
     r"\bsapa\b": "sa pa",
     r"\bquynhon\b": "quy nhon",
+    r"\bquy nhong\b": "quy nhon",
     r"\bcantho\b": "can tho",
     r"\bhochiminh\b": "ho chi minh",
     r"\bhanoi\b": "ha noi",
+    r"\bhagiang\b": "ha giang",
+    r"\bha giagn\b": "ha giang",
+    r"\bninhbinh\b": "ninh binh",
+    r"\bninh bihn\b": "ninh binh",
+    r"\bmocchau\b": "moc chau",
+    r"\bcatba\b": "cat ba",
+    r"\bhoian\b": "hoi an",
+    r"\bbuonmathuot\b": "buon ma thuot",
+    r"\bbuon me thuot\b": "buon ma thuot",
+    r"\bbmt\b": "buon ma thuot",
+    r"\bphanthiet\b": "phan thiet",
+    r"\bvungtau\b": "vung tau",
+    r"\bangiang\b": "an giang",
+    r"\bcondao\b": "con dao",
+    # Từ khóa dịch vụ du lịch & đặt phòng
     r"\bkhach sn\b": "khach san",
     r"\bkhasch san\b": "khach san",
+    r"\bkhash san\b": "khach san",
     r"\blich trnh\b": "lich trinh",
-    r"\bthoi tet\b": "thoi tiet"
+    r"\blcih trinh\b": "lich trinh",
+    r"\bthoi tet\b": "thoi tiet",
+    r"\bthoitiet\b": "thoi tiet",
+    r"\bdat tour\b": "dat tour",
+    r"\bhuy tour\b": "huy tour",
+    r"\bnhan phong\b": "nhan phong",
+    r"\btra phong\b": "tra phong",
+    r"\bcheck in\b": "nhan phong",
+    r"\bcheck out\b": "tra phong",
+    r"\bcheckin\b": "nhan phong",
+    r"\bcheckout\b": "tra phong"
 }
 
-# TỪ ĐIỂN CÁC TỪ KHÓA CHUYÊN NGÀNH PHỤC VỤ FUZZY SPELL CHECK
-DOMAIN_KEYWORDS = [
-    "khach", "san", "phu", "quoc", "da", "lat", "ha", "long",
-    "nha", "trang", "nang", "sa", "pa", "quy", "nhon", "can", "tho",
-    "lich", "trinh", "thoi", "tiet", "fansipan", "vinpearl", "vinwonders"
+# TỪ ĐIỂN TÊN RIÊNG / ĐỊA DANH DÀI CHO PHÉP FUZZY MATCH AN TOÀN
+LONG_FUZZY_TARGETS = [
+    "fansipan", "vinpearl", "vinwonders", "homestay", "sunworld",
+    "bana hills", "langbiang", "trang an"
 ]
 
 
@@ -101,7 +129,9 @@ def correct_travel_typos(text):
     XỬ LÝ LỖI CHÍNH TẢ & TỪ LÓNG (SPELLING CORRECTION & NORMALIZATION):
     - Khắc phục từ viết liền (danang -> da nang, phuquoc -> phu quoc).
     - Khắc phục từ đảo ký tự khi gõ phím nhanh (phu qouc, da lta, nha trnag, ha logn).
-    - Áp dụng thuật toán Levenshtein Distance / Fuzzy matching nếu độ tương đồng >= 0.82.
+    - Thay thế từ viết tắt / teencode thông dụng.
+    - Áp dụng Fuzzy matching AN TOÀN chỉ cho các tên riêng dài (>= 7 ký tự).
+      Tuyệt đối KHÔNG fuzzy các âm tiết ngắn (nha, sa, da, thoi, san, tinh...) tránh biến dạng từ vựng tiếng Việt.
     """
     if not text:
         return ""
@@ -116,13 +146,13 @@ def correct_travel_typos(text):
     for pattern, repl in ABBREVIATION_MAP.items():
         t_low = re.sub(pattern, repl, t_low)
 
-    # 3. Fuzzy matching cho từng từ đơn (nếu từ không chuẩn và có độ tương đồng cao với từ điển)
+    # 3. Fuzzy matching AN TOÀN cho tên riêng dài (>= 7 ký tự)
     words = t_low.split()
     corrected_words = []
     for w in words:
         clean_w = remove_accents(w)
-        if len(clean_w) >= 3 and clean_w not in DOMAIN_KEYWORDS and not clean_w.isdigit():
-            matches = difflib.get_close_matches(clean_w, DOMAIN_KEYWORDS, n=1, cutoff=0.82)
+        if len(clean_w) >= 7 and not clean_w.isdigit():
+            matches = difflib.get_close_matches(clean_w, LONG_FUZZY_TARGETS, n=1, cutoff=0.85)
             if matches:
                 corrected_words.append(matches[0])
             else:

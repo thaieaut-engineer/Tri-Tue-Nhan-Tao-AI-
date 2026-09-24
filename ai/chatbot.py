@@ -291,7 +291,12 @@ class Chatbot:
         for tour in self.local_tours:
             dest = tour["destination"].lower()
             kws = local_keywords_map.get(dest, [dest])
-            if any(kw in q_low for kw in kws):
+            found = False
+            for kw in kws:
+                if re.search(rf'(?:\b|^){re.escape(kw)}(?:\b|$)', q_low):
+                    found = True
+                    break
+            if found:
                 matched_local.append(tour)
 
         matched_outside = []
@@ -610,16 +615,16 @@ class Chatbot:
             prefix = ""
             if any(w in q_low for w in ["tour", "giá", "chi phí", "điểm du lịch", "tham quan", "có gì", "đâu"]):
                 if "nước ngoài" in q_low or "quốc tế" in q_low:
-                    prefix = "Hiện tại hệ thống TourAI chủ yếu cung cấp các tour nội địa (Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Quy Nhơn, Cần Thơ).\n\n"
+                    prefix = "Hiện tại hệ thống TourAI tập trung chuyên sâu vào 20 tour du lịch trải rộng khắp 3 miền Việt Nam (Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Quy Nhơn, Cần Thơ, Hà Giang, Ninh Bình, Cát Bà, Huế, Hội An, Buôn Ma Thuột, Mộc Châu, Phan Thiết, Vũng Tàu, An Giang, Côn Đảo).\n\n"
                 else:
-                    prefix = f"Hiện tại hệ thống TourAI chưa có tour khởi hành đến {out_name} (chúng tôi hiện có tour Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Quy Nhơn, Cần Thơ).\n\n"
+                    prefix = f"Hiện tại hệ thống TourAI chưa có tour khởi hành đến {out_name} (chúng tôi hiện có 20 tour du lịch khám phá các danh thắng nổi tiếng: Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Hà Giang, Ninh Bình, Cát Bà, Huế, Hội An...).\n\n"
 
             if web_results:
                 return prefix + format_web_response(q_raw, web_results)
             else:
                 return (
                     f"{prefix}Tôi đã tìm kiếm trên mạng về '{q_raw}' nhưng chưa có kết quả chi tiết. "
-                    f"Bạn có thể tham khảo các tour hiện có (Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Quy Nhơn, Cần Thơ) nhé!"
+                    f"Bạn có thể tham khảo 20 tour du lịch hiện có trong hệ thống (Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Hà Giang, Ninh Bình, Huế, Hội An...) nhé!"
                 )
 
         # -------------------------------------------------------------
@@ -703,5 +708,5 @@ class Chatbot:
 
         return (
             "Xin lỗi, tôi chưa tìm thấy thông tin phù hợp trong cơ sở dữ liệu cũng như trên mạng. "
-            "Bạn có thể hỏi về các tour hiện có (Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Quy Nhơn, Cần Thơ), giá vé, lịch trình nhé!"
+            "Bạn có thể hỏi về 20 tour du lịch hiện có của TourAI (Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Quy Nhơn, Cần Thơ, Hà Giang, Ninh Bình, Huế, Hội An...), giá vé, lịch trình, thời tiết hoặc kinh nghiệm du lịch nhé!"
         )

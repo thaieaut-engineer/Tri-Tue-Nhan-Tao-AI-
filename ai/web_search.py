@@ -214,6 +214,6 @@ def format_web_response(query, results):
             response_lines.append(f"🔗 Xem thêm: {url}")
         response_lines.append("")
 
-    response_lines.append("💡 Nếu bạn muốn tham khảo các tour du lịch trọn gói trong hệ thống (Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Quy Nhơn, Cần Thơ), hãy hỏi tôi nhé!")
+    response_lines.append("💡 Nếu bạn muốn tham khảo 20 tour du lịch trọn gói trong hệ thống (Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Hà Giang, Ninh Bình, Huế, Hội An...), hãy hỏi tôi nhé!")
 
     return "\n".join(response_lines).strip()

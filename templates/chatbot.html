@@ -404,6 +404,23 @@
         to { opacity: 1; transform: translateY(0); }
     }
 
+    .session-item-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        transition: all 0.15s ease;
+    }
+    .session-item-card:hover {
+        background: #f8fafc;
+        border-color: #cbd5e1;
+    }
+    .session-item-card.active-session {
+        background: #eff6ff;
+        border-color: #93c5fd;
+    }
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
     @media (max-width: 768px) {
         .chat-wrapper {
             height: calc(100vh - 130px);
@@ -441,14 +458,17 @@
                 <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3" onclick="exportChatTranscript()" title="Tải xuống nội dung trò chuyện (.txt)">
                     <i class="bi bi-download me-1"></i>Xuất hội thoại
                 </button>
-                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3" onclick="newChatSession()" title="Bắt đầu phiên hỏi đáp mới">
+                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3" onclick="newChatSession()" title="Bắt đầu phiên hỏi đáp mới">
                     <i class="bi bi-plus-circle me-1"></i>Hội thoại mới
                 </button>
-                {% if session.get('user_id') %}
-                <a href="/history" class="btn btn-sm btn-light border rounded-pill px-3 text-muted" title="Xem lịch sử trò chuyện đã lưu">
-                    <i class="bi bi-clock-history me-1"></i>Lịch sử
-                </a>
-                {% endif %}
+                <button type="button" class="btn btn-sm btn-light border rounded-pill px-3 text-muted position-relative" data-bs-toggle="offcanvas" data-bs-target="#chatHistoryDrawer" title="Xem danh sách các cuộc trò chuyện">
+                    <i class="bi bi-clock-history me-1 text-primary"></i>Lịch sử
+                    {% if sessions and sessions|length > 0 %}
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" style="font-size: 0.65rem;" id="sessionBadgeCount">
+                        {{ sessions|length }}
+                    </span>
+                    {% endif %}
+                </button>
             </div>
         </div>
 
@@ -477,13 +497,13 @@
                         <span class="fs-6">🏨</span>
                         <span>Khách sạn trong tour mấy sao?</span>
                     </div>
-                    <div class="prompt-card" onclick="askQuick('Giá tour đã bao gồm vé máy bay chưa?')">
-                        <span class="fs-6">✈️</span>
-                        <span>Giá tour đã có vé máy bay chưa?</span>
+                    <div class="prompt-card" onclick="askQuick('Tôi muốn hủy tour thì làm thế nào?')">
+                        <span class="fs-6">🛡️</span>
+                        <span>Chính sách hủy tour & hoàn tiền?</span>
                     </div>
-                    <div class="prompt-card" onclick="askQuick('Đi Sa Pa có cần mang áo ấm không?')">
-                        <span class="fs-6">🧥</span>
-                        <span>Đi Sa Pa cần mang áo ấm không?</span>
+                    <div class="prompt-card" onclick="askQuick('Thời gian nhận phòng và trả phòng khách sạn là mấy giờ?')">
+                        <span class="fs-6">⏰</span>
+                        <span>Mấy giờ nhận và trả phòng khách sạn?</span>
                     </div>
                 </div>
             </div>
@@ -517,9 +537,15 @@
             <span class="chip-item" onclick="askQuick('Tour Phú Quốc 3N2Đ')"><i class="bi bi-geo-alt text-primary"></i> Phú Quốc</span>
             <span class="chip-item" onclick="askQuick('Tour Đà Lạt 3N2Đ')"><i class="bi bi-geo-alt text-primary"></i> Đà Lạt</span>
             <span class="chip-item" onclick="askQuick('Tour Sa Pa 3N2Đ')"><i class="bi bi-geo-alt text-primary"></i> Sa Pa</span>
+            <span class="chip-item" onclick="askQuick('Tour Hà Giang 3N2Đ')"><i class="bi bi-geo-alt text-primary"></i> Hà Giang</span>
+            <span class="chip-item" onclick="askQuick('Tour Ninh Bình 2N1Đ')"><i class="bi bi-geo-alt text-primary"></i> Ninh Bình</span>
             <span class="chip-item" onclick="askQuick('Tour Quy Nhơn - Phú Yên')"><i class="bi bi-geo-alt text-primary"></i> Quy Nhơn</span>
             <span class="chip-item" onclick="askQuick('Tour Cần Thơ Miền Tây')"><i class="bi bi-geo-alt text-primary"></i> Cần Thơ</span>
-            <span class="chip-item" onclick="askQuick('Chính sách hủy tour và hoàn tiền')"><i class="bi bi-shield-check text-success"></i> Hoàn hủy tour</span>
+            <span class="chip-item" onclick="askQuick('Tour nào rẻ nhất?')"><i class="bi bi-tag text-danger"></i> Tour rẻ nhất</span>
+            <span class="chip-item" onclick="askQuick('Tôi muốn hủy tour thì làm thế nào?')"><i class="bi bi-shield-check text-success"></i> Hoàn hủy tour</span>
+            <span class="chip-item" onclick="askQuick('Thời gian nhận phòng và trả phòng khách sạn là mấy giờ?')"><i class="bi bi-door-open text-warning"></i> Giờ nhận phòng</span>
+            <span class="chip-item" onclick="askQuick('Khách sạn trong tour là tiêu chuẩn mấy sao?')"><i class="bi bi-star-fill text-warning"></i> Sao khách sạn</span>
+            <span class="chip-item" onclick="askQuick('Ăn gì buổi sáng trong tour?')"><i class="bi bi-cup-hot text-info"></i> Bữa sáng buffet</span>
             <span class="chip-item" onclick="askQuick('Tour có xuất hóa đơn đỏ VAT không?')"><i class="bi bi-receipt text-warning"></i> Hóa đơn VAT</span>
             <span class="chip-item" onclick="askQuick('Người ăn chay có đi tour được không?')"><i class="bi bi-egg-fried text-info"></i> Ăn chay</span>
         </div>
@@ -542,6 +568,63 @@
                 Nhấn <kbd class="bg-light text-dark border px-1 rounded">Enter</kbd> hoặc biểu tượng <i class="bi bi-mic text-primary"></i> để hỏi bằng giọng nói &bull; AI trực 24/7
             </div>
         </div>
+    </div>
+</div>
+
+<!-- OFFCANVAS QUẢN LÝ LỊCH SỬ HỘI THOẠI TRỰC TIẾP -->
+<div class="offcanvas offcanvas-start rounded-end-4 shadow border-0" tabindex="-1" id="chatHistoryDrawer" aria-labelledby="chatHistoryDrawerLabel" style="width: 360px;">
+    <div class="offcanvas-header border-bottom py-3">
+        <div class="d-flex align-items-center gap-2">
+            <div class="msg-icon msg-icon-bot" style="width: 32px; height: 32px; font-size: 14px;">
+                <i class="bi bi-clock-history"></i>
+            </div>
+            <div>
+                <h6 class="offcanvas-title fw-bold mb-0" id="chatHistoryDrawerLabel">Lịch sử trò chuyện</h6>
+                <span class="text-muted" style="font-size: 0.75rem;">Các phiên tư vấn trước đây</span>
+            </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Đóng"></button>
+    </div>
+    <div class="offcanvas-body p-3 d-flex flex-column">
+        <button type="button" class="btn btn-primary w-100 rounded-pill mb-3 py-2 shadow-sm" onclick="newChatSession(); bootstrap.Offcanvas.getInstance(document.getElementById('chatHistoryDrawer'))?.hide();">
+            <i class="bi bi-plus-lg me-1"></i> Bắt đầu đoạn chat mới
+        </button>
+
+        <div id="drawerSessionList" class="flex-grow-1 overflow-y-auto d-flex flex-column gap-2 pe-1">
+            {% if session.get('user_id') %}
+                {% for s in sessions %}
+                <div class="session-item-card p-2 rounded-3 border d-flex justify-content-between align-items-center {% if current_session_id == s.id %}active-session{% endif %}" id="session-card-{{ s.id }}">
+                    <div class="flex-grow-1 me-2 text-truncate cursor-pointer" onclick="loadChatSession({{ s.id }})">
+                        <div class="fw-semibold text-truncate small text-dark mb-0">{{ s.title }}</div>
+                        <span class="text-muted" style="font-size: 0.72rem;"><i class="bi bi-calendar3 me-1"></i>{{ s.created_at.strftime('%d/%m/%Y %H:%M') if s.created_at else '' }}</span>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-link text-danger p-1 text-decoration-none" onclick="deleteSessionFromDrawer({{ s.id }}, event)" title="Xóa đoạn chat này">
+                        <i class="bi bi-trash3"></i>
+                    </button>
+                </div>
+                {% else %}
+                <div class="text-center py-5 text-muted" id="noSessionsNotice">
+                    <i class="bi bi-chat-left-dots fs-2 text-secondary mb-2 d-block"></i>
+                    <p class="small mb-0">Bạn chưa có phiên trò chuyện nào.</p>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="text-center py-5 px-3 bg-light rounded-4 border">
+                    <i class="bi bi-shield-lock fs-1 text-primary mb-2 d-block"></i>
+                    <h6 class="fw-bold mb-1">Lưu trữ lịch sử chat</h6>
+                    <p class="text-muted small mb-3">Đăng nhập tài khoản để tự động lưu lại toàn bộ các phiên tư vấn và tiếp tục trò chuyện bất cứ lúc nào!</p>
+                    <a href="/login" class="btn btn-sm btn-primary rounded-pill px-4">Đăng nhập ngay</a>
+                </div>
+            {% endif %}
+        </div>
+
+        {% if session.get('user_id') %}
+        <div class="pt-3 border-top mt-2 text-center">
+            <a href="/history" class="btn btn-sm btn-outline-secondary rounded-pill w-100">
+                <i class="bi bi-box-arrow-up-right me-1"></i> Xem trang lịch sử chi tiết
+            </a>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
@@ -586,19 +669,29 @@ function formatMarkdown(raw) {
     // 2. Chuyển đổi in nghiêng *text* -> <em>text</em>
     text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
 
-    // 3. Định dạng link chi tiết tour nội bộ /tours/X thành nút bấm đẹp
+    // 3. Chuyển đổi link Markdown dạng [Tiêu đề](/tours/X) hoặc [Tiêu đề](https://...)
     text = text.replace(
-        /(?:\/tours\/(\d+))/g,
+        /\[([^\]]+)\]\(\/tours\/(\d+)\)/g,
+        '<a href="/tours/$2" class="tour-action-badge"><i class="bi bi-compass"></i> $1</a>'
+    );
+    text = text.replace(
+        /\[([^\]]+)\]\((https?:\/\/[^\s\)]+)\)/g,
+        '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-primary text-decoration-none fw-semibold"><i class="bi bi-box-arrow-up-right me-1 small"></i>$1</a>'
+    );
+
+    // 4. Định dạng đường dẫn /tours/X đứng lẻ thành nút xem tour đẹp
+    text = text.replace(
+        /(?<!["'=])(?:\/tours\/(\d+))/g,
         '<a href="/tours/$1" class="tour-action-badge"><i class="bi bi-compass"></i> Xem chi tiết tour</a>'
     );
 
-    // 4. Chuyển đổi link web bên ngoài thành link mở tab mới
+    // 5. Chuyển đổi URL web trần thành link mở tab mới
     text = text.replace(
-        /(https?:\/\/[^\s]+)/g,
+        /(?<!href=")(https?:\/\/[^\s<]+)/g,
         '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-primary text-decoration-none fw-semibold"><i class="bi bi-box-arrow-up-right me-1 small"></i>$1</a>'
     );
 
-    // 5. Chuyển đổi các dòng gạch đầu dòng hoặc ký hiệu thành ngắt dòng sạch
+    // 6. Chuyển đổi xuống dòng thành <br>
     text = text.replace(/\n/g, '<br>');
 
     return text;
@@ -628,14 +721,15 @@ async function copyMessage(btn) {
 
 function newChatSession() {
     currentSessionId = null;
-    const chatBox = document.getElementById("chatBox");
+    window.history.pushState({}, '', '/chatbot');
+    document.querySelectorAll('#drawerSessionList .session-item-card').forEach(card => card.classList.remove('active-session'));
 
-    // Giữ lại khung chào mừng sạch sẽ
+    const chatBox = document.getElementById("chatBox");
     chatBox.innerHTML = `
         <div class="welcome-container" id="welcomeBox">
-            <div class="welcome-emoji">✨</div>
+            <div class="welcome-emoji">🏖️</div>
             <h6 class="fw-bold mb-1 text-dark">Cuộc trò chuyện mới đã sẵn sàng!</h6>
-            <p class="text-muted small mb-0">Bạn có thể hỏi bất kỳ thông tin nào về các tour, lịch trình hoặc giá vé:</p>
+            <p class="text-muted small mb-0">Hỏi nhanh về giá vé, lịch trình, thời tiết và kinh nghiệm du lịch tại các điểm đến nổi tiếng:</p>
 
             <div class="prompt-grid">
                 <div class="prompt-card" onclick="askQuick('Tour Phú Quốc 3 ngày 2 đêm giá bao nhiêu?')">
@@ -654,12 +748,147 @@ function newChatSession() {
                     <span class="fs-6">🏨</span>
                     <span>Khách sạn trong tour mấy sao?</span>
                 </div>
+                <div class="prompt-card" onclick="askQuick('Tôi muốn hủy tour thì làm thế nào?')">
+                    <span class="fs-6">🛡️</span>
+                    <span>Chính sách hủy tour & hoàn tiền?</span>
+                </div>
+                <div class="prompt-card" onclick="askQuick('Thời gian nhận phòng và trả phòng khách sạn là mấy giờ?')">
+                    <span class="fs-6">⏰</span>
+                    <span>Mấy giờ nhận và trả phòng khách sạn?</span>
+                </div>
             </div>
         </div>
     `;
     const input = document.getElementById("questionInput");
     input.value = "";
     input.focus();
+}
+
+async function loadChatSession(sessionId) {
+    if (!sessionId) return;
+    try {
+        const resp = await fetch(`/api/chat/sessions/${sessionId}/messages`);
+        if (!resp.ok) {
+            console.error("Không thể tải tin nhắn phiên", sessionId);
+            return;
+        }
+        const data = await resp.json();
+        currentSessionId = sessionId;
+        window.history.pushState({}, '', `/chatbot?session_id=${sessionId}`);
+
+        // Highlight active session card in drawer
+        document.querySelectorAll('#drawerSessionList .session-item-card').forEach(card => card.classList.remove('active-session'));
+        const activeCard = document.getElementById(`session-card-${sessionId}`);
+        if (activeCard) activeCard.classList.add('active-session');
+
+        // Render messages
+        const chatBox = document.getElementById("chatBox");
+        chatBox.innerHTML = "";
+        if (!data.messages || data.messages.length === 0) {
+            chatBox.innerHTML = `
+                <div class="alert alert-info text-center my-4">
+                    Phiên trò chuyện "${escapeHtml(data.title)}" chưa có tin nhắn nào. Hãy đặt câu hỏi để bắt đầu!
+                </div>
+            `;
+        } else {
+            data.messages.forEach(msg => {
+                const userTime = msg.time || "";
+                chatBox.innerHTML += `
+                    <div class="msg-group msg-group-user">
+                        <div class="msg-icon msg-icon-user"><i class="bi bi-person"></i></div>
+                        <div class="msg-content-wrap">
+                            <div class="msg-bubble-main">${escapeHtml(msg.question)}</div>
+                            ${userTime ? `<div class="msg-meta"><span>${userTime}</span></div>` : ''}
+                        </div>
+                    </div>
+                    <div class="msg-group msg-group-bot">
+                        <div class="msg-icon msg-icon-bot"><i class="bi bi-robot"></i></div>
+                        <div class="msg-content-wrap">
+                            <div class="msg-bubble-main">${formatMarkdown(msg.answer)}</div>
+                            <div class="msg-meta">
+                                ${userTime ? `<span>${userTime}</span><span>&bull;</span>` : ''}
+                                <button class="copy-btn" onclick="copyMessage(this)" title="Sao chép nội dung">
+                                    <i class="bi bi-clipboard"></i> Sao chép
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+        scrollToBottom();
+
+        // Đóng Offcanvas drawer
+        const drawerElem = document.getElementById('chatHistoryDrawer');
+        if (drawerElem) {
+            const bsOffcanvas = bootstrap.Offcanvas.getInstance(drawerElem);
+            if (bsOffcanvas) bsOffcanvas.hide();
+        }
+    } catch (err) {
+        console.error("Lỗi nạp phiên trò chuyện:", err);
+    }
+}
+
+async function deleteSessionFromDrawer(sessionId, event) {
+    if (event) event.stopPropagation();
+    if (!confirm("Bạn có chắc chắn muốn xóa phiên trò chuyện này?")) return;
+
+    try {
+        const resp = await fetch(`/api/chat/sessions/${sessionId}`, { method: 'DELETE' });
+        const resData = await resp.json();
+        if (resData.success) {
+            const card = document.getElementById(`session-card-${sessionId}`);
+            if (card) card.remove();
+
+            if (currentSessionId === sessionId) {
+                newChatSession();
+            }
+            refreshSessionDrawer();
+        }
+    } catch (err) {
+        console.error("Lỗi xóa phiên:", err);
+    }
+}
+
+async function refreshSessionDrawer() {
+    try {
+        const resp = await fetch('/api/chat/sessions');
+        const data = await resp.json();
+        if (!data.logged_in) return;
+
+        const listContainer = document.getElementById('drawerSessionList');
+        if (!listContainer) return;
+
+        const badge = document.getElementById('sessionBadgeCount');
+        if (badge) {
+            badge.innerText = data.sessions.length;
+            badge.style.display = data.sessions.length > 0 ? 'inline-block' : 'none';
+        }
+
+        if (data.sessions.length === 0) {
+            listContainer.innerHTML = `
+                <div class="text-center py-5 text-muted" id="noSessionsNotice">
+                    <i class="bi bi-chat-left-dots fs-2 text-secondary mb-2 d-block"></i>
+                    <p class="small mb-0">Bạn chưa có phiên trò chuyện nào.</p>
+                </div>
+            `;
+            return;
+        }
+
+        listContainer.innerHTML = data.sessions.map(s => `
+            <div class="session-item-card p-2 rounded-3 border d-flex justify-content-between align-items-center ${currentSessionId == s.id ? 'active-session' : ''}" id="session-card-${s.id}">
+                <div class="flex-grow-1 me-2 text-truncate cursor-pointer" onclick="loadChatSession(${s.id})">
+                    <div class="fw-semibold text-truncate small text-dark mb-0">${escapeHtml(s.title)}</div>
+                    <span class="text-muted" style="font-size: 0.72rem;"><i class="bi bi-calendar3 me-1"></i>${s.created_at}</span>
+                </div>
+                <button type="button" class="btn btn-sm btn-link text-danger p-1 text-decoration-none" onclick="deleteSessionFromDrawer(${s.id}, event)" title="Xóa đoạn chat này">
+                    <i class="bi bi-trash3"></i>
+                </button>
+            </div>
+        `).join('');
+    } catch (err) {
+        console.error("Lỗi làm mới danh sách phiên:", err);
+    }
 }
 
 async function sendChatMessage() {
@@ -670,6 +899,7 @@ async function sendChatMessage() {
 
     const chatBox = document.getElementById("chatBox");
     const timeStr = getTimeString();
+    const wasNewSession = !currentSessionId;
 
     // 1. Thêm tin nhắn của người dùng
     chatBox.innerHTML += `
@@ -722,6 +952,10 @@ async function sendChatMessage() {
 
         if (data.session_id) {
             currentSessionId = data.session_id;
+            if (wasNewSession && typeof currentSessionId === 'number') {
+                window.history.pushState({}, '', `/chatbot?session_id=${currentSessionId}`);
+                refreshSessionDrawer();
+            }
         }
 
         const answerText = data.answer || data.response || "Tôi đã nhận được câu hỏi của bạn.";

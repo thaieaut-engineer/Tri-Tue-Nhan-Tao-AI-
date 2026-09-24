@@ -4792,5 +4792,107 @@
     "answer": "Tour Phú Quốc 5 Sao 4N3Đ giá 7.500.000 VNĐ mang lại kỳ nghỉ đẳng cấp với phòng resort view biển, buffet hải sản, tham quan Safari và Grand World cực kỳ sang trọng.",
     "intent": "tim_tour",
     "tour_id": 20
+  },
+  {
+    "question": "Tôi muốn hủy tour thì làm thế nào?",
+    "answer": "Để hủy tour, bạn vui lòng liên hệ hotline 1900 1834 hoặc gửi email hỗ trợ kèm mã đơn hàng đã đặt. Chính sách hoàn hủy của TourAI: Hủy trước 7 ngày (hoặc trước 15 ngày dịp lễ Tết) được hoàn 100% tiền cọc; hủy trước 3 đến 6 ngày hoàn 50%; hủy dưới 3 ngày tính phí theo hợp đồng. Tiền hoàn sẽ chuyển khoản về tài khoản của bạn trong vòng 24-48 giờ.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Làm thế nào để hủy tour đã đặt?",
+    "answer": "Để hủy tour đã đặt, bạn chỉ cần liên hệ hotline hoặc gửi email thông báo mã đơn hàng cho TourAI. Bộ phận chăm sóc khách hàng sẽ xác nhận và tiến hành thủ tục hoàn tiền theo đúng chính sách hoàn hủy trong vòng 24 đến 48 giờ.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Cách hủy tour như thế nào?",
+    "answer": "Thủ tục hủy tour tại TourAI rất nhanh gọn: Quý khách gọi đến tổng đài hoặc nhắn tin qua fanpage/zalo kèm mã đơn hàng. Nhân viên tư vấn sẽ hỗ trợ đối soát ngày hủy và thực hiện hoàn tiền theo quy định hoàn hủy của công ty.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Muốn hủy tour thì làm sao?",
+    "answer": "Nếu có việc bận muốn hủy tour, bạn hãy báo ngay cho tổng đài TourAI. Bạn được hoàn 100% tiền nếu báo trước ngày khởi hành từ 7 ngày trở lên (trước 15 ngày với dịp cao điểm/Lễ Tết).",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Quy trình hủy tour và hoàn tiền như thế nào?",
+    "answer": "Quy trình hủy tour gồm 3 bước: 1. Thông báo hủy qua hotline/email kèm mã vé; 2. Nhân viên xác nhận điều kiện hoàn hủy theo thời gian báo; 3. Kế toán chuyển khoản hoàn tiền lại cho quý khách trong 24-48 giờ làm việc.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Tôi bận việc đột xuất muốn hủy tour thì liên hệ ai?",
+    "answer": "Bạn vui lòng liên hệ trực tiếp số hotline chăm sóc khách hàng 1900 1834 hoặc nhân viên tư vấn đã hỗ trợ bạn đặt tour để được giải quyết hoàn hủy hoặc dời ngày khởi hành nhanh nhất.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Thời gian nhận phòng và trả phòng khách sạn là mấy giờ?",
+    "answer": "Quy định giờ nhận phòng (Check-in) tại tất cả khách sạn trong tour là từ 14h00 chiều, và giờ trả phòng (Check-out) là trước 12h00 trưa hôm sau. Nếu đoàn đến sớm hoặc cần trả phòng muộn, TourAI sẽ hỗ trợ làm việc với lễ tân tùy vào tình trạng phòng trống thực tế.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Nhận phòng khách sạn mấy giờ?",
+    "answer": "Giờ nhận phòng tiêu chuẩn tại khách sạn là 14h00 chiều và trả phòng trước 12h00 trưa. Bạn có thể gửi hành lý tại quầy lễ tân miễn phí nếu đến sớm trước giờ nhận phòng để đi tham quan.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Khách sạn nhận phòng lúc mấy giờ?",
+    "answer": "Khách sạn nhận phòng lúc 14h00 chiều và trả phòng trước 12h00 trưa. TourAI luôn ưu tiên sắp xếp nhận phòng sớm cho khách hàng nếu khách sạn có phòng trống sẵn sàng.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Mấy giờ nhận phòng và trả phòng?",
+    "answer": "Khung giờ nhận phòng là từ 14h00 chiều và trả phòng trước 12h00 trưa theo quy định chung của ngành khách sạn.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Thời gian check in và check out khách sạn là khi nào?",
+    "answer": "Thời gian check-in là từ 14h00 và check-out trước 12h00 trưa. Trong thời gian chờ nhận phòng, quý khách có thể gửi hành lý tại quầy lễ tân hoàn toàn miễn phí.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Ăn gì buổi sáng trong tour?",
+    "answer": "Tất cả các tour lưu trú đêm của TourAI đều bao gồm bữa ăn sáng miễn phí hàng ngày (buffet tự chọn tại khách sạn hoặc đặc sản sáng địa phương tại nhà hàng đối tác). Thực đơn phong phú từ bún, phở, bánh mì, trứng ốp la, xúc xích, cháo, trái cây tráng miệng và trà/cà phê.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Bữa sáng trong tour ăn gì?",
+    "answer": "Bữa sáng được phục vụ theo hình thức buffet tự chọn tại khách sạn (với tour 3-5 sao) hoặc thưởng thức món ngon đặc sản địa phương (bún bò, bánh canh, phở) đảm bảo vệ sinh và tràn đầy năng lượng.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Bữa ăn sáng trong tour có buffet không?",
+    "answer": "Dạ có! Các khách sạn từ 3 đến 5 sao đối tác của TourAI đều phục vụ buffet sáng với hàng chục món ăn Á - Âu đa dạng, tươi ngon miễn phí cho du khách.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Tiêu chuẩn phòng khách sạn trong tour như thế nào?",
+    "answer": "Tiêu chuẩn phòng khách sạn của TourAI cam kết sạch sẽ, đầy đủ tiện nghi (tủ lạnh, điều hòa, máy sấy tóc, bình siêu tốc, wifi), tiêu chuẩn từ 3 đến 5 sao và được xếp phòng 2 khách/phòng (hoặc 3 khách/phòng nếu đi lẻ).",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Cách đặt tour như thế nào?",
+    "answer": "Cách đặt tour rất đơn giản: 1. Bạn chọn tour yêu thích trên website TourAI; 2. Bấm nút 'Đặt tour' và điền họ tên, số điện thoại; 3. Chuyên viên tư vấn sẽ liên hệ xác nhận và hướng dẫn thanh toán giữ chỗ trong 15 phút!",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Quy trình đặt tour như thế nào?",
+    "answer": "Quy trình đặt tour gồm: Chọn tour -> Bấm Đặt tour -> Nhận điện thoại xác nhận từ tư vấn viên -> Đặt cọc 30-50% -> Nhận phiếu xác nhận đặt tour điện tử qua email/Zalo.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
   }
 ]

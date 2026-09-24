@@ -55,7 +55,9 @@ def chat():
     - Tra cứu thời tiết thời gian thực (OpenWeatherMap / Open-Meteo)
     - Tự động tìm kiếm trên mạng Internet nếu câu hỏi không có trong DB hoặc người dùng yêu cầu
     - Lưu lịch sử hội thoại nếu đã đăng nhập
+    - Đảm bảo ngữ cảnh multi-turn cho cả khách vãng lai (qua UUID session)
     """
+    import uuid
     data = request.get_json() or {}
     question = (data.get("question") or data.get("message") or "").strip()
     session_id = data.get("session_id")
@@ -64,39 +66,121 @@ def chat():
     if not question:
         return jsonify({"answer": "Bạn hãy nhập câu hỏi để tôi có thể tư vấn nhé.", "response": "Bạn hãy nhập câu hỏi để tôi có thể tư vấn nhé."}), 400
 
-    # AI sinh câu trả lời kết hợp DB nội bộ, Memory đa lượt và Tìm kiếm Internet
-    answer = chatbot.generate_response(
-        question,
-        session_id=session_id,
-        force_web_search=force_web_search
-    )
-
     user_id = session.get("user_id")
     active_session_id = session_id
 
-    # Nếu người dùng đã đăng nhập, tự động lưu lịch sử
-    if user_id:
-        try:
-            if not active_session_id:
-                short_title = question if len(question) <= 30 else question[:27] + "..."
+    # 1. Quản lý phiên hội thoại:
+    # Nếu chưa có session_id:
+    # - Nếu người dùng đã đăng nhập: tạo phiên mới trong MySQL DB
+    # - Nếu là khách vãng lai: tạo UUID session tạm thời để duy trì multi-turn context trong RAM
+    if not active_session_id:
+        if user_id:
+            try:
+                short_title = question if len(question) <= 32 else question[:29] + "..."
                 active_session_id = create_chat_session(user_id, title=short_title)
+            except Exception as e:
+                print("Lỗi tạo chat_session:", e)
+        if not active_session_id:
+            active_session_id = f"guest_{uuid.uuid4().hex[:12]}"
 
-            if active_session_id:
+    # 2. AI sinh câu trả lời kết hợp DB nội bộ, Memory đa lượt và Tìm kiếm Internet
+    answer = chatbot.generate_response(
+        question,
+        session_id=active_session_id,
+        force_web_search=force_web_search
+    )
+
+    # 3. Nếu người dùng đã đăng nhập và session hợp lệ trong DB, lưu tin nhắn vào chat_history
+    if user_id:
+        db_sid = None
+        if isinstance(active_session_id, int):
+            db_sid = active_session_id
+        elif isinstance(active_session_id, str) and active_session_id.isdigit():
+            db_sid = int(active_session_id)
+
+        if db_sid:
+            try:
                 save_chat_message(
-                    active_session_id,
+                    db_sid,
                     question,
                     answer,
                     intent=chatbot.last_predicted_intent,
                     confidence=chatbot.last_confidence
                 )
-        except Exception as e:
-            print("Lỗi lưu lịch sử chat vào DB:", e)
+            except Exception as e:
+                print("Lỗi lưu lịch sử chat vào DB:", e)
 
     return jsonify({
         "answer": answer,
         "response": answer,
-        "session_id": active_session_id
+        "session_id": active_session_id,
+        "intent": chatbot.last_predicted_intent,
+        "confidence": chatbot.last_confidence
     })
+
+
+@chat_bp.route("/api/chat/sessions", methods=["GET"])
+def api_get_sessions():
+    """Lấy danh sách các phiên trò chuyện của người dùng hiện tại qua JSON."""
+    user_id = session.get("user_id")
+    if not user_id:
+        return jsonify({"logged_in": False, "sessions": []})
+
+    sessions = get_user_sessions(user_id)
+    formatted = []
+    for s in sessions:
+        created_str = s["created_at"].strftime('%d/%m/%Y %H:%M') if s.get("created_at") else ""
+        formatted.append({
+            "id": s["id"],
+            "title": s["title"],
+            "created_at": created_str
+        })
+
+    return jsonify({"logged_in": True, "sessions": formatted})
+
+
+@chat_bp.route("/api/chat/sessions/<int:session_id>/messages", methods=["GET"])
+def api_get_session_messages(session_id):
+    """Lấy nội dung tin nhắn của một phiên trò chuyện cụ thể qua JSON."""
+    user_id = session.get("user_id")
+    if not user_id:
+        return jsonify({"error": "Vui lòng đăng nhập"}), 401
+
+    target = get_session_by_id(session_id)
+    if not target or target["user_id"] != user_id:
+        return jsonify({"error": "Phiên trò chuyện không tồn tại"}), 404
+
+    messages = get_chat_history_by_session(session_id)
+    formatted = []
+    for m in messages:
+        t_str = m["created_at"].strftime('%H:%M') if m.get("created_at") else ""
+        formatted.append({
+            "id": m["id"],
+            "question": m["question"],
+            "answer": m["answer"],
+            "time": t_str
+        })
+
+    return jsonify({
+        "session_id": session_id,
+        "title": target["title"],
+        "messages": formatted
+    })
+
+
+@chat_bp.route("/api/chat/sessions/<int:session_id>", methods=["DELETE"])
+def api_delete_session(session_id):
+    """Xóa một phiên trò chuyện qua AJAX."""
+    user_id = session.get("user_id")
+    if not user_id:
+        return jsonify({"error": "Vui lòng đăng nhập"}), 401
+
+    target = get_session_by_id(session_id)
+    if not target or target["user_id"] != user_id:
+        return jsonify({"error": "Phiên không hợp lệ"}), 404
+
+    delete_session(session_id)
+    return jsonify({"success": True, "message": "Đã xóa phiên trò chuyện"})
 
 
 @chat_bp.route("/history")
