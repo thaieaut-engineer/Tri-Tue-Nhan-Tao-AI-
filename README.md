@@ -10,215 +10,243 @@
 ---
 
 ### A. Giới thiệu tổng quan
-**TourAI** là hệ thống tư vấn và quản lý tour du lịch thông minh, ứng dụng kết hợp giữa **Xử lý Ngôn ngữ Tự nhiên (NLP)**, **Kiến trúc Học sâu (Deep Learning Ensemble)** và **Dịch vụ Thời tiết Real-time & Web Search định hướng**. Hệ thống hỗ trợ người dùng trò chuyện tự nhiên, tra cứu lịch trình, gợi ý tour theo ngân sách/sở thích, tự động sửa lỗi chính tả và tìm kiếm thông tin du lịch cập nhật nhất.
+**TourAI** là hệ thống tư vấn và quản lý tour du lịch thông minh toàn diện, tích hợp kết hợp giữa:
+* **Xử lý Ngôn ngữ Tự nhiên (NLP) & Học sâu (Deep Learning Ensemble)**: Mạng nơ-ron sâu PyTorch đa tầng kết hợp Complement Naive Bayes và TF-IDF 1-3 n-grams.
+* **Cơ chế Tự học từ Lịch sử Chat (Continual Learning & Pseudo-Labeling)**: Tự động khai phá, gán nhãn và tái huấn luyện mô hình dựa trên câu hỏi thực tế của khách hàng.
+* **Động cơ tư vấn ngân sách & sở thích (Smart Recommendation Engine)**: Nhận diện thực thể giá tiền, thời lượng để đề xuất tour tối ưu.
+* **Hệ sinh thái du lịch đầy đủ**: Đặt tour trực tuyến (Online Booking), Đánh giá 5 sao (Reviews), Danh sách yêu thích (Wishlist), Hồ sơ cá nhân (Profile) và Quản trị viên (Admin Dashboard).
+* **Tiện ích hiện đại**: Nhận diện giọng nói Tiếng Việt (Web Speech API), Xuất nhật ký hội thoại (.txt), Tra cứu thời tiết Real-time & Tìm kiếm Internet có định hướng.
 
 ---
 
 ### B. Các chức năng chính của hệ thống
 
-#### 1. Chức năng người dùng (User Features)
-- [x] **Đăng ký & Đăng nhập bảo mật**: Xác thực người dùng an toàn với mã hóa mật khẩu băm (Werkzeug Security), tự động phân quyền (User / Admin).
-- [x] **Trợ lý Chatbot AI thông minh**:
-  - **Học sâu & Phân loại ý định (Deep Intent Classification)**: Ứng dụng Mạng nơ-ron sâu đa tầng MLP kết hợp Complement Naive Bayes và phân tích vector TF-IDF (1-3 ngrams).
-  - **Bộ nhớ ngữ cảnh đa lượt (Multi-turn Conversational Memory)**: Ghi nhớ tour đang tư vấn giúp trả lời các câu hỏi nối tiếp (*"tour này mấy ngày?", "giá bao nhiêu?", "khách sạn thế nào?"*) mà không cần người dùng nhắc lại địa danh.
-  - **Tư vấn theo ngân sách & sở thích (Smart Recommendation Engine)**: Nhận diện thực thể số tiền (*"3tr5", "4 triệu", "500k"*...) và số ngày để đề xuất các tour phù hợp nhất.
-  - **Khắc phục lỗi chính tả & Teencode (Fuzzy Spell Correction)**: Tự động sửa lỗi gõ dính, đảo chữ (*"phu qouc", "da lta", "ha logn", "nha trnag", "khasch sn"*), từ viết tắt (*"ks", "bn", "k", "vmb"*), hỗ trợ cả tiếng Việt có dấu và không dấu.
-  - **Danh sách khách sạn & resort chi tiết**: Cung cấp gợi ý nơi lưu trú 3-5 sao cụ thể cho tất cả các điểm đến (Vinpearl, Victoria, Mường Thanh, Azerai...).
-- [x] **Tra cứu thời tiết thời gian thực (Live Weather API)**:
-  - Tích hợp **OpenWeatherMap API** và dự phòng tự động sang **Open-Meteo Global API** (miễn phí, không cần key, không lo lộ bí mật khi commit GitHub).
-  - Cung cấp nhiệt độ thực tế, nhiệt độ cảm nhận, độ ẩm, sức gió, tình trạng mưa nắng và lời khuyên trang phục/phụ kiện du lịch.
-- [x] **Tìm kiếm Internet thông minh (Directed Web Search)**:
-  - Tự động tra cứu trực tuyến (DuckDuckGo & Wikipedia tiếng Việt) cho các điểm đến ngoài hệ thống hoặc kiến thức cẩm nang, ẩm thực.
-  - Tích hợp **Khử nhập nhằng thực thể (Entity Disambiguation)** và **Bộ lọc loại trừ bài viết tiểu sử nhân vật** (tránh nhầm lẫn địa danh như *"TP Hồ Chí Minh"* với tiểu sử lịch sử).
-- [x] **Khám phá & Tìm kiếm tour**: Tìm kiếm tour theo từ khóa, lọc theo danh mục, khoảng giá và sắp xếp linh hoạt.
-- [x] **Chi tiết tour & Lịch trình**: Xem chi tiết từng ngày tham quan, hoạt động nổi bật, giá vé trọn gói.
-- [x] **Quản lý lịch sử trò chuyện**: Lưu trữ phiên trò chuyện, tải lại lịch sử tin nhắn và tiếp tục trao đổi với AI.
+#### 1. Trợ lý Chatbot AI Thông Minh & Học Sâu
+- [x] **Mạng nơ-ron sâu PyTorch (PyTorchDeepIntentNet)**:
+  - 3 tầng ẩn với Batch Normalization, LeakyReLU, Dropout chống Overfitting và tối ưu hóa AdamW + Cosine Annealing.
+  - Phân loại ý định (Intent Classification) chính xác cao trên bộ dữ liệu mở rộng **799 mẫu câu hỏi đáp**.
+- [x] **Cơ chế Tự học liên tục (Continual Learning & Active Pseudo-Labeling)**:
+  - Tự động quét `chat_history`, tính toán xác suất Softmax Confidence $P(\text{Intent} \mid \text{Question})$.
+  - Tự động gán nhãn các biến thể câu hỏi đạt độ tin cậy $\ge 80\%$, bổ sung vào tập tri thức và tái huấn luyện mô hình ngay lập tức.
+  - Phát hiện các câu hỏi mới lạ ($< 50\%$) để đưa vào hàng đợi kiểm duyệt cho Admin.
+- [x] **Bộ nhớ ngữ cảnh đa lượt (Multi-turn Conversational Memory)**:
+  - Ghi nhớ tour và điểm đến đang trao đổi, hỗ trợ hỏi nối tiếp (*"tour này mấy ngày?", "giá bao nhiêu?", "khách sạn thế nào?"*...).
+- [x] **Tư vấn theo ngân sách (Smart Recommendation Engine)**:
+  - Tự động bóc tách thực thể số tiền (*"3 triệu 4 thì đi đâu", "tôi có 4tr", "500k"*...) để gợi ý các tour phù hợp nhất trong 20 tour hệ thống.
+- [x] **Sửa lỗi chính tả & Teencode tiếng Việt (Fuzzy Typo Correction)**:
+  - Khắc phục lỗi gõ nhanh (*"phu qouc"*, *"da lta"*, *"ha logn"*), từ viết tắt (*"ks"*, *"bn"*, *"vmb"*), hỗ trợ cả có dấu và không dấu.
+- [x] **Nhận diện giọng nói Tiếng Việt (Web Speech API)**:
+  - Nút micro tương tác hỗ trợ hỏi bằng giọng nói tiếng Việt chuẩn `vi-VN` với hiệu ứng sóng âm pulse.
+- [x] **Xuất nhật ký trò chuyện**: Tải xuống toàn bộ cuộc đối thoại thành file văn bản `.txt` có định dạng đẹp mắt và mốc thời gian.
+- [x] **Tra cứu thời tiết thời gian thực (Live Weather API)**: OpenWeatherMap kết hợp dự phòng tự động Open-Meteo Global API.
+- [x] **Tìm kiếm Internet khử nhập nhằng (Directed Web Search)**: DuckDuckGo + Wikipedia tiếng Việt có bộ lọc chống lệch chủ đề.
 
-#### 2. Chức năng quản trị viên (Admin Features)
-- [x] **Trang tổng quan (Dashboard)**: Thống kê số lượng tour, người dùng, danh mục, câu hỏi mẫu, phiên trò chuyện và tin nhắn.
-- [x] **Quản lý tour & Lịch trình**: Thêm, sửa, xóa tour du lịch và cấu hình chi tiết lịch trình từng ngày (`tour_schedule`).
-- [x] **Quản lý danh mục**: Phân loại tour theo vùng miền (miền Bắc, Trung, Nam, Tây Nguyên, Biển đảo...).
-- [x] **Quản lý tri thức AI (QA Data)**: Quản lý ngân hàng 273+ câu hỏi đáp mẫu, gán nhãn Intent và liên kết tour.
-- [x] **Huấn luyện lại AI (Retrain Model)**: Tái huấn luyện Mạng nơ-ron sâu và cập nhật mô hình ngay lập tức chỉ với 1 click từ trang Admin mà không cần khởi động lại máy chủ.
-- [x] **Quản lý người dùng & Phân quyền**: Xem danh sách thành viên, nâng/hạ quyền Admin hoặc xóa tài khoản.
-- [x] **Nhật ký hội thoại (Chat Logs)**: Giám sát toàn bộ các câu hỏi thực tế của khách hàng để tối ưu hóa tri thức AI.
+#### 2. Tính năng Khách hàng & Người dùng (User Features)
+- [x] **Đặt Tour Trực Tuyến (Online Tour Booking)**:
+  - Modal đặt tour ngay trên trang chi tiết tour ([`tour_detail.html`](templates/tour_detail.html)).
+  - Tính tổng chi phí tự động theo thời gian thực (Real-time Dynamic Pricing: người lớn 100%, trẻ em 5-9 tuổi 75% giá tour).
+  - Tự động điền trước thông tin cá nhân của người dùng đã đăng nhập.
+- [x] **Lịch sử & Quản lý đơn đặt tour ([`my_bookings.html`](templates/my_bookings.html))**:
+  - Theo dõi mã đơn, trạng thái đơn (*Chờ duyệt, Đã xác nhận, Hoàn thành, Đã hủy*).
+  - Cho phép người dùng tự hủy đơn đang ở trạng thái chờ duyệt (*pending*).
+- [x] **Đánh giá & Xếp hạng 5 sao (Tour Reviews & Ratings)**:
+  - Form gửi đánh giá và nhận xét trải nghiệm trên trang chi tiết tour.
+  - Hiển thị điểm số sao trung bình và số lượng nhận xét trên từng tour card.
+- [x] **Danh sách tour yêu thích (Wishlist / Favorites)**:
+  - Nút thả tim lưu/bỏ lưu tour bằng AJAX tức thì trên từng card và banner tour.
+  - Trang quản lý các tour đã lưu ([`favorites.html`](templates/favorites.html)).
+- [x] **Hồ sơ cá nhân & Bảo mật ([`profile.html`](templates/profile.html))**:
+  - Thống kê cá nhân (số đơn tour, số tour đã lưu).
+  - Cập nhật thông tin: Họ tên, Email, Số điện thoại.
+  - Đổi mật khẩu an toàn với bước xác thực mật khẩu cũ trước khi băm hash.
+
+#### 3. Chức năng Quản trị viên (Admin Features)
+- [x] **Bảng điều khiển tổng quan ([`admin/dashboard.html`](templates/admin/dashboard.html))**:
+  - Thống kê doanh thu ước tính, tổng số đơn đặt tour, đơn chờ duyệt, tour, danh mục, câu hỏi AI và người dùng.
+- [x] **Trung tâm Tự học Deep Learning ([`admin/self_learning.html`](templates/admin/self_learning.html))**:
+  - Quản lý quá trình Continual Learning từ lịch sử chat.
+  - Phân loại 3 tab: Mẫu sẵn sàng kết nạp ($\ge 80\%$), Cần xem xét ($50\% - 80\%$), Chủ đề mới lạ ($< 50\%$).
+  - Nút 1-click kích hoạt AI tự học và tái huấn luyện mạng nơ-ron PyTorch.
+- [x] **Quản lý đơn đặt tour ([`admin/bookings.html`](templates/admin/bookings.html))**:
+  - Lọc theo trạng thái, tìm kiếm theo tên khách hàng/SĐT/email/tên tour.
+  - Cập nhật trạng thái đơn (Chờ duyệt -> Đã xác nhận -> Hoàn thành) và xóa đơn.
+- [x] **Kiểm duyệt đánh giá ([`admin/reviews.html`](templates/admin/reviews.html))**: Xem và xóa các nhận xét không phù hợp.
+- [x] **Quản lý 20 Tour & 52 Lịch trình ngày**: Thêm, sửa, xóa tour và lịch trình từng ngày.
+- [x] **Quản lý tri thức AI (QA Data)**: Quản lý ngân hàng 799+ câu hỏi đáp, gán intent và liên kết tour.
+- [x] **Quản lý tài khoản & Phân quyền**: Xem danh sách thành viên, cấp/hạ quyền Admin hoặc xóa tài khoản.
+- [x] **Lịch sử hội thoại toàn hệ thống**: Theo dõi các câu hỏi thực tế của khách hàng.
 
 ---
 
-### C. Kiến trúc Trí Tuệ Nhân Tạo & Xử Lý Ngôn Ngữ Tự Nhiên
+### C. Kiến trúc Hệ Thống & Trí Tuệ Nhân Tạo
 
 ```mermaid
 flowchart TD
-    A["Câu hỏi người dùng (Gõ nhanh, teencode, thiếu dấu)"] --> B["Tiền xử lý & Sửa lỗi chính tả (ai/preprocess.py)"]
-    B --> C["Nhận diện thực thể Điểm đến / Ngân sách / Thời lượng"]
+    User["Khách hàng (Web / Giọng nói Tiếng Việt)"] --> Pre["Tiền xử lý & Sửa lỗi chính tả (ai/preprocess.py)"]
+    Pre --> Recog["Nhận diện thực thể Ngân sách / Điểm đến / Thời lượng"]
     
-    B --> D["Trích xuất đặc trưng TF-IDF Vectorizer (1-3 n-grams, Sublinear TF)"]
-    D --> E["Mô hình Học sâu DeepHybridModel (ai/train_model.py)"]
+    Pre --> Feat["TF-IDF Vectorizer (1-3 ngrams, Sublinear TF)"]
+    Feat --> Deep["DeepHybridModel Ensemble (ai/train_model.py)"]
     
-    subgraph E ["DeepHybridModel Architecture"]
-        E1["Mạng nơ-ron sâu đa tầng MLP (128, 64 nơ-ron, ReLU, Adam)"]
-        E2["Complement Naive Bayes (Xử lý mất cân bằng dữ liệu)"]
-        E3["Softmax Probability Fusion (60% Deep MLP + 40% CNB)"]
-        E1 --> E3
-        E2 --> E3
+    subgraph Deep ["Kiến Trúc Học Sâu & Phân Loại"]
+        M1["PyTorchDeepIntentNet (256-128-64 MLP, BatchNorm, LeakyReLU, Dropout)"]
+        M2["Complement Naive Bayes (Bù trừ dữ liệu mất cân bằng)"]
+        M3["Softmax Probability Fusion (65% PyTorch + 35% CNB)"]
+        M1 --> M3
+        M2 --> M3
     end
     
-    E3 --> F["Hybrid Intent-Weighted Cosine Similarity (ai/chatbot.py)"]
+    M3 --> Sim["Hybrid Intent-Weighted Cosine Similarity (ai/chatbot.py)"]
     
-    F -->|Độ tương đồng cao >= 0.45| G["Trả lời từ Ngân hàng Tri thức / Thuộc tính Tour DB"]
-    F -->|Hỏi thời tiết| H["Dịch vụ Thời tiết Live (OpenWeatherMap / Open-Meteo)"]
-    F -->|Điểm ngoài hệ thống / Không khớp DB| I["Directed Web Search (Khử nhập nhằng + Bộ lọc tiểu sử)"]
+    Sim -->|Khớp tri thức nội bộ| Ans["Phản hồi từ Ngân hàng Tri thức & Thuộc tính 20 Tour DB"]
+    Sim -->|Tra cứu thời tiết| Wea["Live Weather Service (OpenWeatherMap / Open-Meteo)"]
+    Sim -->|Điểm ngoài hệ thống| Web["Directed Web Search (Khử nhập nhằng + Lọc bài viết)"]
+    
+    Ans --> Log["Lưu lịch sử kèm Intent & Confidence vào chat_history"]
+    
+    subgraph SelfLearn ["Cơ Chế Tự Học Deep Learning (ai/self_learning.py)"]
+        Log --> Filter["Lọc sạch nhiễu & Loại bỏ trùng lặp"]
+        Filter --> Pseudo["Tự gán nhãn giả (Softmax Confidence >= 80%)"]
+        Pseudo --> Retrain["Huấn luyện thích ứng PyTorch (chatbot.reload())"]
+    end
 ```
 
-1. **Tiền xử lý đa tầng (Preprocessing & Typo Correction)**:
-   - Chuẩn hóa từ viết tắt (`ks` -> `khách sạn`, `bn` -> `bao nhiêu`, `k` -> `không`...).
-   - Khắc phục lỗi đảo chữ/gõ phím nhanh (`phu qouc` -> `phú quốc`, `da lta` -> `đà lạt`, `ha logn` -> `hạ long`).
-   - Fuzzy Matching (Levenshtein Distance) với ngưỡng tương đồng $\ge 0.82$ trên từ điển chuyên ngành du lịch.
-   - Hỗ trợ đồng thời cả câu hỏi có dấu và không dấu Unicode chuẩn.
-2. **Kiến trúc Học sâu Mạng Nơ-ron Sâu (Deep MLP + ComplementNB)**:
-   - Mạng nơ-ron sâu đa tầng (Multi-Layer Perceptron) với 2 tầng ẩn (128 và 64 nơ-ron), hàm kích hoạt phi tuyến tính ReLU, tối ưu hóa lan truyền ngược Adam và suy giảm trọng số $L_2$ Regularization ($\alpha=0.001$).
-   - Kết hợp mô hình xác suất Complement Naive Bayes để bổ trợ cho các lớp dữ liệu thiểu số.
-   - Cơ chế Softmax Probability Fusion kết hợp xác suất dự đoán: $P = 0.6 \times P_{MLP} + 0.4 \times P_{CNB}$.
-3. **So khớp tương đồng lai ghép (Hybrid Intent-Weighted Cosine Similarity)**:
-   - Đo khoảng cách Cosine trên không gian vector TF-IDF kết hợp tăng cường trọng số (+25%) cho các câu hỏi trùng intent dự đoán từ mô hình Deep Learning.
-4. **Tìm kiếm Internet khử nhập nhằng (Entity Disambiguation Web Search)**:
-   - Tự động bổ sung ngữ cảnh du lịch cho từ khóa (`địa điểm du lịch tham quan`, `khách sạn tốt nhất`, `món ngon ẩm thực`).
-   - Tích hợp bộ lọc loại trừ bài viết tiểu sử nhân vật chính trị/lịch sử (tránh nhầm lẫn địa danh thành phố với nhân vật).
-
 ---
 
-### D. Công nghệ sử dụng
-* **Ngôn ngữ & Nền tảng**: Python 3.10+ / 3.12 / 3.14.
-* **Web Framework**: Flask 3.x, Jinja2 Templates.
-* **Cơ sở dữ liệu**: MySQL 8.x / MariaDB, MySQL Connector Python.
-* **Khoa học dữ liệu & Machine Learning**: Scikit-Learn, NumPy, Underthesea.
-* **Web Search**: DuckDuckGo API (DDGS), Wikipedia REST API.
-* **Dịch vụ Thời tiết**: OpenWeatherMap API, Open-Meteo Global Forecast API.
-* **Frontend**: Bootstrap 5, Bootstrap Icons, Modern Minimalist Custom CSS, JavaScript (ES6).
-
----
-
-### E. Cấu trúc thư mục dự án
+### D. Cấu trúc thư mục dự án
 
 ```text
-├── ai/                         # Module Trí tuệ nhân tạo và Xử lý ngôn ngữ tự nhiên
-│   ├── chatbot.py              # Chatbot AI: Điều phối hội thoại, Memory, Recommendation & Hybrid Matching
-│   ├── preprocess.py           # Tiền xử lý, chuẩn hóa từ lóng, Fuzzy Typo Correction
-│   ├── train_model.py          # Huấn luyện mô hình Học sâu DeepHybridModel (Deep MLP + CNB)
-│   ├── weather_service.py      # Dịch vụ thời tiết đa nguồn (OpenWeatherMap + Open-Meteo)
-│   └── web_search.py           # Tìm kiếm Internet có khử nhập nhằng và lọc chống lệch chủ đề
+├── ai/                         # Module Trí tuệ Nhân tạo & Học sâu
+│   ├── chatbot.py              # Bộ điều phối hội thoại, Memory, Recommendation & Hybrid Matching
+│   ├── preprocess.py           # Tiền xử lý văn bản, chuẩn hóa từ lóng, Fuzzy Typo Correction
+│   ├── self_learning.py        # Engine Continual Learning & Pseudo-Labeling từ lịch sử chat
+│   ├── train_model.py          # Huấn luyện Mạng nơ-ron sâu PyTorch & Complement Naive Bayes
+│   ├── weather_service.py      # Dịch vụ tra cứu thời tiết đa nguồn
+│   └── web_search.py           # Tìm kiếm Internet có định hướng và khử nhập nhằng
 ├── data/
-│   └── sample_qa.json          # Ngân hàng 273 câu hỏi đáp mẫu chuẩn hóa
+│   └── sample_qa.json          # Ngân hàng 799 câu hỏi đáp mẫu chuẩn hóa
 ├── database/
 │   ├── db.py                   # Kết nối cơ sở dữ liệu MySQL (hỗ trợ .env)
-│   └── schema.sql              # Kịch bản khởi tạo database, bảng và dữ liệu 8 tour mẫu
+│   └── schema.sql              # Kịch bản khởi tạo database 10 bảng và dữ liệu mẫu
 ├── models/                     # Các lớp thao tác dữ liệu (Data Access Objects)
+│   ├── booking.py              # Quản lý đơn đặt tour và doanh thu
 │   ├── category.py             # Quản lý danh mục tour
-│   ├── chat_history.py         # Quản lý tin nhắn hội thoại
+│   ├── chat_history.py         # Quản lý tin nhắn hội thoại và cờ Continual Learning
 │   ├── chat_session.py         # Quản lý phiên hội thoại
-│   ├── qa_data.py              # Quản lý dữ liệu hỏi đáp AI
-│   ├── tour.py                 # Quản lý thông tin tour và tìm kiếm
-│   ├── tour_schedule.py        # Quản lý lịch trình từng ngày
-│   └── user.py                 # Quản lý người dùng, mã hóa mật khẩu
+│   ├── favorite.py             # Quản lý danh sách tour yêu thích (Wishlist)
+│   ├── qa_data.py              # Quản lý tri thức hỏi đáp AI
+│   ├── review.py               # Quản lý đánh giá và xếp hạng sao
+│   ├── tour.py                 # Quản lý thông tin 20 tour du lịch
+│   ├── tour_schedule.py        # Quản lý 52 mục lịch trình chi tiết
+│   └── user.py                 # Quản lý tài khoản, hồ sơ cá nhân và đổi mật khẩu
 ├── routes/                     # Các bộ điều hướng (Controllers)
-│   ├── admin_routes.py         # Các endpoint quản trị (/admin)
-│   ├── auth_routes.py          # Đăng ký, đăng nhập, đăng xuất
+│   ├── admin_routes.py         # Quản trị hệ thống, đơn đặt tour, đánh giá, AI tự học (/admin)
+│   ├── auth_routes.py          # Đăng ký, đăng nhập, hồ sơ cá nhân (/profile)
 │   ├── chat_routes.py          # Giao diện chat và API chatbot (/chatbot, /api/chat)
-│   └── tour_routes.py          # Danh sách và chi tiết tour (/tours)
+│   └── tour_routes.py          # Danh sách tour, đặt tour, đánh giá, yêu thích, đơn cá nhân
 ├── static/
-│   ├── css/style.css           # Hệ thống giao diện Modern Minimalist Design
+│   ├── css/style.css           # Giao diện phong cách Modern Minimalist
 │   └── js/script.js            # Tiện ích JavaScript
 ├── templates/                  # Giao diện HTML Jinja2
-│   ├── admin/                  # Các màn hình quản trị (Dashboard, Tours, QA, Users...)
-│   ├── base.html               # Layout khung (Navbar, Footer)
-│   ├── chatbot.html            # Giao diện Chatbot AI trực quan
+│   ├── admin/                  # Giao diện Quản trị viên
+│   │   ├── bookings.html       # Quản lý đơn đặt tour & cập nhật trạng thái
+│   │   ├── categories.html     # Quản lý danh mục
+│   │   ├── dashboard.html      # Bảng điều khiển KPI & doanh thu
+│   │   ├── history.html        # Nhật ký hỏi đáp toàn hệ thống
+│   │   ├── qa_data.html        # Quản lý câu hỏi mẫu AI
+│   │   ├── reviews.html        # Kiểm duyệt nhận xét & đánh giá
+│   │   ├── self_learning.html  # Trung tâm giám sát và kích hoạt AI Tự học
+│   │   ├── tour_schedule.html  # Quản lý lịch trình tour
+│   │   ├── tours.html          # Quản lý danh sách tour
+│   │   └── users.html          # Quản lý người dùng
+│   ├── base.html               # Layout khung (Navbar đa năng, Footer)
+│   ├── chatbot.html            # Giao diện Chatbot AI (Micro giọng nói, Xuất .txt)
+│   ├── favorites.html          # Danh sách tour yêu thích của khách hàng
 │   ├── history.html            # Màn hình xem lại lịch sử phiên chat
 │   ├── index.html              # Trang chủ hiện đại
 │   ├── login.html              # Đăng nhập
+│   ├── my_bookings.html        # Đơn đặt tour của tôi
+│   ├── profile.html            # Hồ sơ cá nhân và đổi mật khẩu
 │   ├── register.html           # Đăng ký
-│   ├── tour_detail.html        # Chi tiết tour và lịch trình
-│   ├── tours.html              # Danh sách tour du lịch
-│   ├── 404.html                # Trang thông báo lỗi 404
-│   └── 500.html                # Trang thông báo lỗi 500
+│   ├── tour_detail.html        # Chi tiết tour, Modal đặt tour, Đánh giá 5 sao
+│   ├── tours.html              # Danh sách tour, Nút thả tim yêu thích, Điểm sao
+│   ├── 404.html                # Báo lỗi 404
+│   └── 500.html                # Báo lỗi 500
+├── bao_cao/                    # Thư mục chứa tài liệu báo cáo kỹ thuật (được gitignore bảo vệ)
 ├── .env                        # File cấu hình môi trường kết nối MySQL
-├── .env.example                # File mẫu cấu hình môi trường
-├── .gitignore                  # Cấu hình bỏ qua các file tạm, môi trường ảo và bí mật
+├── .gitignore                  # Cấu hình bỏ qua file tạm, môi trường ảo và báo cáo
 ├── app.py                      # Điểm khởi chạy ứng dụng Flask chính
-├── check_and_init_db.py        # Script tự động kiểm tra và khởi tạo MySQL toàn diện
 ├── requirements.txt            # Danh mục thư viện Python phụ thuộc
-├── test_connection.py          # Script kiểm tra nhanh kết nối MySQL
-└── weatherapi.py               # File cấu hình API Key thời tiết (an toàn, có fallback khi rỗng)
+└── weatherapi.py               # Cấu hình API Key thời tiết
 ```
 
 ---
 
-### F. Hướng dẫn cài đặt và vận hành
+### E. Hướng dẫn cài đặt và vận hành
 
 #### 1. Yêu cầu môi trường
 * Python 3.10 trở lên.
-* MySQL Server hoặc Docker MySQL đang chạy ở cổng `3306`.
+* MySQL 8.x hoặc Docker MySQL đang chạy cổng `3306`.
 
-#### 2. Cài đặt các thư viện Python
+#### 2. Cài đặt thư viện Python
 ```bash
 pip install -r requirements.txt
 ```
 
-#### 3. Tự động kiểm tra và khởi tạo cơ sở dữ liệu
-Hệ thống cung cấp script thông minh tự động dò tìm MySQL (Docker, Native Service, XAMPP, Laragon...), tự động cập nhật `.env`, tạo database `chatbot_tour` và nạp toàn bộ 273 dữ liệu hỏi đáp AI:
+#### 3. Khởi tạo cơ sở dữ liệu
+Đảm bảo MySQL đang chạy với thông tin trong `.env`:
+```env
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=kenny
+DB_PASSWORD=123456
+DB_NAME=chatbot_tour
+```
+Chạy script tự động kiểm tra và khởi tạo bảng:
 ```bash
 python check_and_init_db.py
 ```
 
-#### 4. Cấu hình API Thời tiết (Tùy chọn)
-Hệ thống hỗ trợ 2 cách cấu hình thời tiết an toàn:
-* **Cách 1**: Điền API key của [OpenWeatherMap](https://openweathermap.org/) vào file `weatherapi.py` ở thư mục gốc:
-  ```python
-  OPENWEATHER_API_KEY = "your_api_key_here"
-  ```
-* **Cách 2**: Để file `weatherapi.py` trống (`OPENWEATHER_API_KEY = ""`). Hệ thống sẽ tự động chuyển hướng dự phòng sang **Open-Meteo Global API** miễn phí hoàn toàn, không cần key, không sợ lộ bí mật khi đẩy code lên GitHub.
-
-#### 5. Khởi chạy ứng dụng
+#### 4. Khởi chạy ứng dụng
 ```bash
 python app.py
 ```
-Truy cập ứng dụng tại trình duyệt: `http://localhost:5000`
+Truy cập hệ thống tại: `http://localhost:5000`
 
 ---
 
-### G. Tài khoản thử nghiệm mặc định
+### F. Tài khoản thử nghiệm mặc định
 
 | Vai trò | Tên đăng nhập | Mật khẩu | Quyền hạn |
 | :--- | :--- | :--- | :--- |
-| **Quản trị viên (Admin)** | `admin` | `admin123` | Toàn quyền Dashboard, Quản lý Tour, QA Data, Retrain AI, Users |
-| **Người dùng (User)** | `user` | `user123` | Đặt câu hỏi Chatbot, Lưu lịch sử, Xem tour du lịch |
+| **Quản trị viên (Admin)** | `kenny` / `admin` | `123456` / `admin123` | Toàn quyền Dashboard, Quản lý đơn tour, Doanh thu, AI Tự học, QA, Tour, Users |
+| **Người dùng (User)** | `user` | `user123` | Chatbot AI (Giọng nói/Văn bản), Đặt tour trực tuyến, Đánh giá tour, Lưu yêu thích |
 
 ---
 
-### H. Một số câu hỏi mẫu thử nghiệm Chatbot AI
+### G. Một số câu hỏi mẫu thử nghiệm Chatbot AI
 
-1. **Hỏi tour & giá cả**:
-   - `Tour Phú Quốc 3 ngày 2 đêm giá bao nhiêu?`
-   - `phu qouc 3n2d gia bn` *(thử nghiệm sửa lỗi chính tả & từ viết tắt)*
-   - `Tôi có 4 triệu nên đi đâu?` *(thử nghiệm động cơ tư vấn theo ngân sách)*
+1. **Tư vấn theo ngân sách (Smart Recommendation)**:
+   - `Tôi có 4 triệu nên đi đâu?`
+   - `3 triệu 4 thì đi tour nào`
    - `Tour nào rẻ nhất hiện nay?`
-2. **Hỏi lịch trình & khách sạn**:
-   - `1 vài khách sạn ở Cần Thơ` *(trả về danh sách khách sạn 4-5 sao cụ thể)*
-   - `Lịch trình tour Sa Pa`
-   - `Đi Sa Pa cần chuẩn bị gì?`
-3. **Tra cứu thời tiết thời gian thực**:
+2. **Hỏi tour & giá cả**:
+   - `Tour Phú Quốc 3 ngày 2 đêm giá bao nhiêu?`
+   - `phu qouc 3n2d gia bn` *(Thử nghiệm sửa lỗi chính tả & từ viết tắt)*
+3. **Hỏi lịch trình & khách sạn**:
+   - `Lịch trình tour Sa Pa đi những đâu?`
+   - `1 vài khách sạn ở Cần Thơ` *(Danh sách khách sạn 4-5 sao cụ thể)*
+4. **Tra cứu thời tiết thời gian thực**:
    - `Thời tiết Đà Lạt hôm nay thế nào?`
-   - `da lta co lanh k` *(thử nghiệm không dấu, lỗi chính tả gõ phím nhanh)*
    - `Hôm nay ở Hà Nội có mưa không?`
-4. **Tìm kiếm địa điểm mở rộng qua Internet**:
-    - `vài điểm tham quan ở hồ chí minh` *(khử nhập nhằng, lọc loại trừ tiểu sử nhân vật)*
-    - `Điểm du lịch đẹp ở Huế`
+5. **Thử nghiệm AI Tự học (Continual Learning)**:
+   - Đặt các câu hỏi mới vào ô chat, sau đó vào `Admin -> AI Tự học` để xem mô hình Deep Learning phân loại và kích hoạt tự gán nhãn.
 
 ---
 
-### I. Thư mục Báo cáo bài tập lớn (`bao_cao/`)
+### H. Thư mục Báo cáo bài tập lớn (`bao_cao/`)
 
-Toàn bộ tài liệu báo cáo kỹ thuật và sơ đồ minh chứng của đề tài được lưu trữ tập trung trong thư mục [`bao_cao/`](bao_cao/):
-* **Báo cáo hoàn chỉnh (Word)**: [`bao_cao/Đề số 34_Nhóm 13_Báo cáo hoàn chỉnh.docx`](bao_cao/Đề%20số%2034_Nhóm%2013_Báo%20cáo%20hoàn%20chỉnh.docx)
-* **Bản nháp báo cáo kỹ thuật (Markdown)**: [`bao_cao/BAO_CAO_NHOM_13_DE_34.md`](bao_cao/BAO_CAO_NHOM_13_DE_34.md)
-* **Thư mục sơ đồ & hình ảnh báo cáo**: [`bao_cao/report_images/`](bao_cao/report_images/) (Sơ đồ ERD 7 bảng, Kiến trúc 3 tầng, Sơ đồ khối ra quyết định AI, Giao diện thực nghiệm).
-* **Mã nguồn sinh báo cáo & sơ đồ**: [`bao_cao/build_complete_report.py`](bao_cao/build_complete_report.py), [`bao_cao/generate_extra_diagrams.py`](bao_cao/generate_extra_diagrams.py).
+Toàn bộ tài liệu báo cáo kỹ thuật và sơ đồ của đề tài được lưu trữ tập trung trong thư mục [`bao_cao/`](bao_cao/) và được bảo vệ an toàn trong `.gitignore`:
+* **Báo cáo hoàn chỉnh (Word)**: `bao_cao/Đề số 34_Nhóm 13_Báo cáo hoàn chỉnh.docx`
+* **Bản nháp báo cáo kỹ thuật (Markdown)**: `bao_cao/BAO_CAO_NHOM_13_DE_34.md`
+* **Thư mục sơ đồ & hình ảnh báo cáo**: `bao_cao/report_images/`
