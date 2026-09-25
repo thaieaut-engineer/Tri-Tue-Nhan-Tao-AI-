@@ -1,0 +1,878 @@
+{
+  "metadata": {
+    "tool_name": "TourAI Automation Test & Data Extraction Suite",
+    "timestamp": "2026-09-25 21:54:23",
+    "python_version": "3.14.7",
+    "base_dir": "/home/kennysk/Tri-Tue-Nhan-Tao-AI-"
+  },
+  "summary": {
+    "total_tests": 20,
+    "passed_tests": 20,
+    "failed_tests": 0,
+    "total_duration_ms": 10075.448036193848,
+    "average_latency_ms": 503.77,
+    "pass_rate": 100.0
+  },
+  "suites": {
+    "Database Data Retrieval": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "tests": [
+        {
+          "test_name": "Retrieve & Validate 20 Local Tours",
+          "status": "PASS",
+          "latency_ms": 0.0,
+          "details": {
+            "total_tours": 20,
+            "sample_tour": "Tour Đà Nẵng 3 ngày 2 đêm"
+          }
+        },
+        {
+          "test_name": "Retrieve Detailed Day-by-Day Tour Schedules",
+          "status": "PASS",
+          "latency_ms": 0.0,
+          "details": {
+            "total_scheduled_tours": 20,
+            "danang_days_count": 3
+          }
+        }
+      ]
+    },
+    "Hotel & Resort Directory Retrieval": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "tests": [
+        {
+          "test_name": "Validate Multi-Tier Hotel Partners Across Destinations",
+          "status": "PASS",
+          "latency_ms": 0.0,
+          "details": {
+            "destinations_count": 19,
+            "danang_4star_count": 3,
+            "danang_5star_count": 3
+          }
+        },
+        {
+          "test_name": "Hotel Inquiry Handler (Stars & Names Accuracy)",
+          "status": "PASS",
+          "latency_ms": 0.19,
+          "details": {
+            "star_query_passed": true,
+            "name_query_passed": true
+          }
+        }
+      ]
+    },
+    "Live Weather API Retrieval": {
+      "total": 3,
+      "passed": 3,
+      "failed": 0,
+      "tests": [
+        {
+          "test_name": "Fetch Live Weather for Đà Nẵng",
+          "status": "PASS",
+          "latency_ms": 2117.6,
+          "details": {
+            "temperature": 26.5,
+            "description": "⛅ Mây rải rác",
+            "humidity": 94
+          }
+        },
+        {
+          "test_name": "Fetch Live Weather for Hà Nội",
+          "status": "PASS",
+          "latency_ms": 2325.83,
+          "details": {
+            "temperature": 26.1,
+            "description": "☀️ Trời quang đãng, nắng đẹp",
+            "humidity": 93
+          }
+        },
+        {
+          "test_name": "Fetch Live Weather for TP Hồ Chí Minh",
+          "status": "PASS",
+          "latency_ms": 2263.6,
+          "details": {
+            "temperature": 24.7,
+            "description": "🌦️ Mưa phùn nhẹ",
+            "humidity": 97
+          }
+        }
+      ]
+    },
+    "Web Search & Travel Guide Synthesis": {
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "tests": [
+        {
+          "test_name": "Curated Synthesis Guide for Thái Lan",
+          "status": "PASS",
+          "latency_ms": 0.0,
+          "details": {
+            "title": "Cẩm Nang Du Lịch Thái Lan (Xứ Sở Chùa Vàng)",
+            "highlights_count": 4
+          }
+        },
+        {
+          "test_name": "Curated Synthesis Guide for Nhật Bản",
+          "status": "PASS",
+          "latency_ms": 0.0,
+          "details": {
+            "title": "Cẩm Nang Du Lịch Nhật Bản (Xứ Sở Mặt Trời Mọc)",
+            "highlights_count": 4
+          }
+        },
+        {
+          "test_name": "Curated Synthesis Guide for Singapore",
+          "status": "PASS",
+          "latency_ms": 0.0,
+          "details": {
+            "title": "Cẩm Nang Du Lịch Singapore & Malaysia",
+            "highlights_count": 2
+          }
+        },
+        {
+          "test_name": "Live Web Crawl & Search (kinh nghiệm du lịch Bali ...)",
+          "status": "PASS",
+          "latency_ms": 3071.1,
+          "details": {
+            "results_count": 3,
+            "top_source": "DuckDuckGo"
+          }
+        }
+      ]
+    },
+    "Recommendation & Math Calculations": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "tests": [
+        {
+          "test_name": "Group Calculation (10 pax x 4.5M = 45M VNĐ + Private Bus)",
+          "status": "PASS",
+          "latency_ms": 12.34,
+          "details": {
+            "matched_destination": "Đà Nẵng",
+            "calculation_accurate": true,
+            "private_vehicle_assigned": true
+          }
+        },
+        {
+          "test_name": "NER Entity Parsing (Budget, Duration, Group Size)",
+          "status": "PASS",
+          "latency_ms": 0.05,
+          "details": {
+            "budget_3m5": 3500000,
+            "budget_500k": 500000,
+            "duration_3days": 3,
+            "group_8pax": 8
+          }
+        }
+      ]
+    },
+    "E2E API Chat Multi-Turn Simulation": {
+      "total": 7,
+      "passed": 7,
+      "failed": 0,
+      "tests": [
+        {
+          "test_name": "E2E Chat: Lượt 1 - Yêu cầu tour đoàn",
+          "status": "PASS",
+          "latency_ms": 24.95,
+          "details": {
+            "http_status": 200,
+            "keywords_checked": [
+              "Đà Nẵng",
+              "45,000,000"
+            ],
+            "matched": true
+          }
+        },
+        {
+          "test_name": "E2E Chat: Lượt 2 - Hỏi tiêu chuẩn sao",
+          "status": "PASS",
+          "latency_ms": 12.04,
+          "details": {
+            "http_status": 200,
+            "keywords_checked": [
+              "TIÊU CHUẨN KHÁCH SẠN",
+              "3 - 4 sao",
+              "5 sao"
+            ],
+            "matched": true
+          }
+        },
+        {
+          "test_name": "E2E Chat: Lượt 3 - Nhận phòng",
+          "status": "PASS",
+          "latency_ms": 23.65,
+          "details": {
+            "http_status": 200,
+            "keywords_checked": [
+              "14h00",
+              "12h00"
+            ],
+            "matched": true
+          }
+        },
+        {
+          "test_name": "E2E Chat: Lượt 4 - Hóa đơn đỏ",
+          "status": "PASS",
+          "latency_ms": 19.42,
+          "details": {
+            "http_status": 200,
+            "keywords_checked": [
+              "hóa đơn"
+            ],
+            "matched": true
+          }
+        },
+        {
+          "test_name": "E2E Chat: Lượt 5 - Ăn chay",
+          "status": "PASS",
+          "latency_ms": 164.79,
+          "details": {
+            "http_status": 200,
+            "keywords_checked": [
+              "ăn chay"
+            ],
+            "matched": true
+          }
+        },
+        {
+          "test_name": "E2E Chat: Lượt 6 - Tên khách sạn",
+          "status": "PASS",
+          "latency_ms": 17.08,
+          "details": {
+            "http_status": 200,
+            "keywords_checked": [
+              "DANH SÁCH KHÁCH SẠN",
+              "Sala Danang Beach Hotel"
+            ],
+            "matched": true
+          }
+        },
+        {
+          "test_name": "E2E Chat: Lượt 7 - Gặng hỏi tên",
+          "status": "PASS",
+          "latency_ms": 22.8,
+          "details": {
+            "http_status": 200,
+            "keywords_checked": [
+              "DANH SÁCH KHÁCH SẠN",
+              "Novotel"
+            ],
+            "matched": true
+          }
+        }
+      ]
+    }
+  },
+  "harvested_data": {
+    "tours": [
+      {
+        "id": 1,
+        "name": "Tour Đà Nẵng 3 ngày 2 đêm",
+        "destination": "Đà Nẵng",
+        "price": 4500000.0,
+        "duration": "3 ngày 2 đêm"
+      },
+      {
+        "id": 2,
+        "name": "Tour Nha Trang 3 ngày 2 đêm",
+        "destination": "Nha Trang",
+        "price": 4200000.0,
+        "duration": "3 ngày 2 đêm"
+      },
+      {
+        "id": 3,
+        "name": "Tour Hạ Long 2 ngày 1 đêm",
+        "destination": "Hạ Long",
+        "price": 3500000.0,
+        "duration": "2 ngày 1 đêm"
+      },
+      {
+        "id": 4,
+        "name": "Tour Phú Quốc 3 ngày 2 đêm",
+        "destination": "Phú Quốc",
+        "price": 5200000.0,
+        "duration": "3 ngày 2 đêm"
+      },
+      {
+        "id": 5,
+        "name": "Tour Đà Lạt 3 ngày 2 đêm",
+        "destination": "Đà Lạt",
+        "price": 3800000.0,
+        "duration": "3 ngày 2 đêm"
+      },
+      {
+        "id": 6,
+        "name": "Tour Sa Pa 3 ngày 2 đêm",
+        "destination": "Sa Pa",
+        "price": 4100000.0,
+        "duration": "3 ngày 2 đêm"
+      },
+      {
+        "id": 7,
+        "name": "Tour Quy Nhơn - Phú Yên 4 ngày 3 đêm",
+        "destination": "Quy Nhơn",
+        "price": 4900000.0,
+        "duration": "4 ngày 3 đêm"
+      },
+      {
+        "id": 8,
+        "name": "Tour Cần Thơ - Miền Tây 2 ngày 1 đêm",
+        "destination": "Cần Thơ",
+        "price": 2800000.0,
+        "duration": "2 ngày 1 đêm"
+      },
+      {
+        "id": 9,
+        "name": "Tour Hà Giang 3 ngày 2 đêm",
+        "destination": "Hà Giang",
+        "price": 3200000.0,
+        "duration": "3 ngày 2 đêm"
+      },
+      {
+        "id": 10,
+        "name": "Tour Ninh Bình 2 ngày 1 đêm",
+        "destination": "Ninh Bình",
+        "price": 1900000.0,
+        "duration": "2 ngày 1 đêm"
+      },
+      {
+        "id": 11,
+        "name": "Tour Mộc Châu 2 ngày 1 đêm",
+        "destination": "Mộc Châu",
+        "price": 1650000.0,
+        "duration": "2 ngày 1 đêm"
+      },
+      {
+        "id": 12,
+        "name": "Tour Cát Bà - Vịnh Lan Hạ 2 ngày 1 đêm",
+        "destination": "Cát Bà",
+        "price": 2400000.0,
+        "duration": "2 ngày 1 đêm"
+      },
+      {
+        "id": 13,
+        "name": "Tour Huế - Cố Đô Di Sản 2 ngày 1 đêm",
+        "destination": "Huế",
+        "price": 2600000.0,
+        "duration": "2 ngày 1 đêm"
+      },
+      {
+        "id": 14,
+        "name": "Tour Hội An - Cù Lao Chàm 2 ngày 1 đêm",
+        "destination": "Hội An",
+        "price": 2950000.0,
+        "duration": "2 ngày 1 đêm"
+      },
+      {
+        "id": 15,
+        "name": "Tour Buôn Ma Thuột - Khám Phá Tây Nguyên 3 ngày 2 đêm",
+        "destination": "Buôn Ma Thuột",
+        "price": 3300000.0,
+        "duration": "3 ngày 2 đêm"
+      },
+      {
+        "id": 16,
+        "name": "Tour Phan Thiết - Mũi Né 2 ngày 1 đêm",
+        "destination": "Phan Thiết",
+        "price": 2500000.0,
+        "duration": "2 ngày 1 đêm"
+      },
+      {
+        "id": 17,
+        "name": "Tour Vũng Tàu Biển Xanh 2 ngày 1 đêm",
+        "destination": "Vũng Tàu",
+        "price": 1850000.0,
+        "duration": "2 ngày 1 đêm"
+      },
+      {
+        "id": 18,
+        "name": "Tour Rừng Tràm Trà Sư - An Giang 2 ngày 1 đêm",
+        "destination": "An Giang",
+        "price": 2200000.0,
+        "duration": "2 ngày 1 đêm"
+      },
+      {
+        "id": 19,
+        "name": "Tour Côn Đảo Tâm Linh & Nghỉ Dưỡng 3 ngày 2 đêm",
+        "destination": "Côn Đảo",
+        "price": 6200000.0,
+        "duration": "3 ngày 2 đêm"
+      },
+      {
+        "id": 20,
+        "name": "Tour Phú Quốc Nghỉ Dưỡng 5 Sao 4 ngày 3 đêm",
+        "destination": "Phú Quốc",
+        "price": 7500000.0,
+        "duration": "4 ngày 3 đêm"
+      }
+    ],
+    "hotels": {
+      "Đà Nẵng": {
+        "standard_stars": "3 - 4 sao (Có thể nâng cấp 5 sao theo yêu cầu)",
+        "description": "Nằm gần bãi biển Mỹ Khê xinh đẹp hoặc trung tâm sông Hàn sầm uất, thuận tiện tắm biển và ngắm cầu Rồng.",
+        "partners_4star": [
+          "Sala Danang Beach Hotel (4 sao - đối diện bãi biển Mỹ Khê, hồ bơi vô cực trên tầng thượng view toàn cảnh biển)",
+          "Belle Maison Parosand Danang (4 sao - sát bãi biển Mỹ Khê, phòng ban công view đại dương, buffet sáng quốc tế)",
+          "Mường Thanh Grand Danang (4 sao - trung tâm thành phố, dịch vụ chu đáo, phòng ốc hiện đại)"
+        ],
+        "partners_5star": [
+          "Mường Thanh Luxury Danang (5 sao - mặt đường Võ Nguyên Giáp trực diện biển Mỹ Khê, đẳng cấp sang trọng)",
+          "Novotel Danang Premier Han River (5 sao - tọa lạc bờ tây sông Hàn, ngắm trọn vẹn cầu Rồng và thành phố về đêm)",
+          "Furama Resort Danang (5 sao - khu nghỉ dưỡng biển di sản danh tiếng bậc nhất với bãi biển riêng)"
+        ],
+        "partners_3star": [
+          "Gemma Hotel & Apartment Danang (3 sao - tiện nghi hiện đại, cách bãi biển Mỹ Khê 300m)",
+          "Dana Marina Hotel (3 sao - gần biển Mỹ Khê, có hồ bơi tầng thượng thoáng mát)"
+        ]
+      },
+      "Nha Trang": {
+        "standard_stars": "3 - 4 sao (Có thể nâng cấp 5 sao theo yêu cầu)",
+        "description": "Nằm dọc cung đường biển Trần Phú đẹp nhất Nha Trang hoặc trung tâm phố Tây, chỉ vài bước chân là ra đến bãi cát vàng.",
+        "partners_4star": [
+          "Novotel Nha Trang (4 sao - mặt đường Trần Phú, tất cả các phòng đều có ban công hướng biển)",
+          "Liberty Central Nha Trang Hotel (4 sao - trung tâm phố Tây, tiện ích cao cấp và hồ bơi tầng thượng)",
+          "Green World Hotel Nha Trang (4 sao - dịch vụ chuyên nghiệp, hồ bơi trong nhà và spa thư giãn)"
+        ],
+        "partners_5star": [
+          "Vinpearl Resort Nha Trang (5 sao - trên đảo Hòn Tre biệt lập, bãi biển riêng và công viên nước VinWonders)",
+          "Sheraton Nha Trang Hotel & Spa (5 sao - thương hiệu quốc tế cao cấp mặt biển Trần Phú)",
+          "Havana Nha Trang Hotel (5 sao - khách sạn quy mô lớn với đường hầm riêng thông thẳng ra bãi biển)"
+        ],
+        "partners_3star": [
+          "Elegance Nha Trang Hotel (3 sao - tiện nghi, sạch sẽ gần biển)",
+          "Regalia Nha Trang Hotel (3 sao - vị trí trung tâm Trần Phú, thuận tiện dạo bộ)"
+        ]
+      },
+      "Phú Quốc": {
+        "standard_stars": "4 - 5 sao (Tour 3N2Đ chuẩn 4 sao; Tour 4N3Đ nghỉ dưỡng chuẩn 5 sao)",
+        "description": "Hệ thống resort ven biển Bãi Dài, Bãi Trường hoặc gần tổ hợp giải trí Grand World Phú Quốc United Center.",
+        "partners_4star": [
+          "Novotel Phu Quoc Resort (4-5 sao - tọa lạc Bãi Trường, bãi tắm riêng cát trắng, hồ bơi sát biển)",
+          "Sol by Meliá Phu Quoc (4 sao - phong cách Địa Trung Hải trẻ trung, bãi biển riêng lãng mạn)",
+          "Sunset Sanato Resort & Villas (4 sao - điểm check-in ngắm hoàng hôn đẹp nhất đảo ngọc)"
+        ],
+        "partners_5star": [
+          "Vinpearl Resort & Spa Phú Quốc (5 sao - phong cách tân cổ điển, bãi biển riêng Bãi Dài, sát Safari)",
+          "InterContinental Phu Quoc Long Beach Resort (5 sao - kiến trúc tháp Sao Biển đẳng cấp quốc tế)",
+          "JW Marriott Phu Quoc Emerald Bay (5 sao - kiệt tác nghỉ dưỡng Bãi Khem danh tiếng)"
+        ],
+        "partners_3star": [
+          "Amarin Resort Phú Quốc (3-4 sao - hồ bơi ngoài trời, dịch vụ chu đáo)",
+          "Orange Resort Phú Quốc (3 sao - bungalow vườn nhiệt đới sát biển)"
+        ]
+      },
+      "Hạ Long": {
+        "standard_stars": "4 sao trên bờ hoặc Du thuyền 4-5 sao ngủ đêm trên Vịnh",
+        "description": "Nằm tại trung tâm Bãi Cháy view trọn vịnh hoặc trải nghiệm ngủ đêm sang trọng trên du thuyền giữa lòng kỳ quan.",
+        "partners_4star": [
+          "Mường Thanh Grand Hạ Long Hotel (4 sao - trung tâm khu du lịch Bãi Cháy)",
+          "Novotel Hạ Long (4 sao - ngay cạnh công viên Sun World Hạ Long, view vịnh tuyệt đẹp)",
+          "Heritage Halong Hotel (4 sao - phong cách thanh lịch truyền thống)"
+        ],
+        "partners_5star": [
+          "FLC Grand Hotel Hạ Long (5 sao - trên đỉnh đồi cao ngắm toàn cảnh kỳ quan Vịnh Hạ Long)",
+          "Vinpearl Resort & Spa Hạ Long (5 sao - tọa lạc biệt lập hoàn toàn trên đảo Rều)",
+          "Du thuyền Ambassador Cruise / Paradise Elegance Cruise (5 sao - du thuyền ngủ đêm 5 sao cao cấp)"
+        ],
+        "partners_3star": [
+          "Halong Pearl Hotel (3 sao - vị trí Bãi Cháy thuận tiện, tiện nghi đầy đủ)",
+          "New Star Halong Hotel (3 sao - sạch sẽ, phòng ốc ấm cúng)"
+        ]
+      },
+      "Sa Pa": {
+        "standard_stars": "3 - 4 sao (Có thể nâng cấp 5 sao theo yêu cầu)",
+        "description": "Nằm tại trung tâm thị xã Sa Pa gần Nhà thờ Đá hoặc view trực diện thung lũng Mường Hoa săn biển mây kỳ vĩ.",
+        "partners_4star": [
+          "Pao's Sapa Leisure Hotel (4 sao - sườn đồi view trọn thung lũng Mường Hoa thơ mộng)",
+          "Bamboo Sapa Hotel (4 sao - hồ bơi vô cực nước ấm ngắm dãy Hoàng Liên Sơn)",
+          "Charming Sapa Hotel (4 sao - phong cách boutique ấm cúng ngay trung tâm thị xã)"
+        ],
+        "partners_5star": [
+          "Hotel de la Coupole - MGallery (5 sao - kiệt tác kiến trúc của Bill Bensley giữa lòng Sa Pa)",
+          "Silk Path Grand Resort & Spa Sapa (5 sao - tọa lạc trên ngọn đồi riêng với vườn hoa hồng rực rỡ)",
+          "Topas Ecolodge (5 sao - resort sinh thái trên đỉnh đồi độc đáo bậc nhất thế giới)"
+        ],
+        "partners_3star": [
+          "Sapa Vista Hotel (3 sao - view thung lũng Mường Hoa đẹp, sạch sẽ)",
+          "Chapa Romance Hotel (3 sao - gần Nhà thờ Đá, phục vụ chu đáo)"
+        ]
+      },
+      "Đà Lạt": {
+        "standard_stars": "3 - 4 sao (Có thể nâng cấp 5 sao theo yêu cầu)",
+        "description": "Nằm gần Hồ Xuân Hương hoặc trung tâm chợ đêm Đà Lạt, không gian lãng mạn giữa rừng thông.",
+        "partners_4star": [
+          "TTC Hotel Premium Đà Lạt (4 sao - ngay sát chợ Đà Lạt, thuận tiện đi dạo chợ đêm)",
+          "Sam Tuyền Lâm Resort (4 sao - ven hồ Tuyền Lâm thanh bình, phong cách châu Âu)",
+          "Colline Dalat Hotel (4 sao - khách sạn kiến trúc hiện đại tại trung tâm Đà Lạt)"
+        ],
+        "partners_5star": [
+          "Dalat Palace Heritage Hotel (5 sao - khách sạn di sản cổ kính phong cách hoàng gia Pháp)",
+          "Ana Mandara Villas Dalat Resort & Spa (5 sao - quần thể biệt thự cổ kiến trúc Pháp giữa rừng thông)",
+          "Dalat Edensee Lake Resort & Spa (5 sao - bán đảo hồ Tuyền Lâm thơ mộng)"
+        ],
+        "partners_3star": [
+          "Mai Vàng Hotel Đà Lạt (3 sao - gần trung tâm, ấm cúng)",
+          "Roy Dalat Hotel (3 sao - vị trí thuận tiện, phòng sạch đẹp)"
+        ]
+      },
+      "Quy Nhơn": {
+        "standard_stars": "3 - 4 sao (Có thể nâng cấp 5 sao theo yêu cầu)",
+        "description": "Nằm sát bờ biển Quy Nhơn thơ mộng hoặc khu vực trung tâm thành phố biển thanh bình.",
+        "partners_4star": [
+          "Anya Hotel Quy Nhon (4 sao - phong cách sang trọng, tiện nghi chuẩn quốc tế)",
+          "Saigon Quy Nhon Hotel (4 sao - mặt đường biển An Dương Vương)",
+          "Hai Au Hotel Quy Nhon (4 sao - sát biển, ban công lộng gió)"
+        ],
+        "partners_5star": [
+          "FLC Luxury Resort Quy Nhon (5 sao - quần thể nghỉ dưỡng biển Nhơn Lý)",
+          "Anantara Quy Nhon Villas (5 sao - khu nghỉ dưỡng biệt thự biển cao cấp bậc nhất)"
+        ],
+        "partners_3star": [
+          "Thành Thảo Hotel Quy Nhơn (3 sao - tiện nghi, trung tâm)",
+          "Mento Hotel Quy Nhơn (3 sao - sạch sẽ, gần biển)"
+        ]
+      },
+      "Cần Thơ": {
+        "standard_stars": "3 - 4 sao",
+        "description": "Nằm gần Bến Ninh Kiều hoặc trung tâm TP Cần Thơ, view ngắm trọn dòng sông Hậu hiền hòa.",
+        "partners_4star": [
+          "Ninh Kiều Riverside Hotel (4 sao - ngay Bến Ninh Kiều, view cầu đi bộ Cần Thơ)",
+          "Victoria Can Tho Resort (4 sao - resort phong cách Đông Dương cổ điển ven sông Hậu)",
+          "TTC Hotel Cần Thơ (4 sao - trung tâm Bến Ninh Kiều)"
+        ],
+        "partners_5star": [
+          "Vinpearl Hotel Cần Thơ / Sheraton Can Tho (5 sao - tòa tháp khách sạn cao nhất ĐBSCL)",
+          "Azerai Can Tho (5 sao - resort biệt lập trên cồn Ấu đẳng cấp quốc tế)"
+        ],
+        "partners_3star": [
+          "Hậu Giang Hotel Cần Thơ (3 sao - trung tâm, dịch vụ chu đáo)",
+          "Khách sạn Tây Đô (3 sao - gần Bến Ninh Kiều)"
+        ]
+      },
+      "Hà Giang": {
+        "standard_stars": "3 sao / Khách sạn & Homestay cao cấp",
+        "description": "Hệ thống khách sạn tiện nghi tại TP Hà Giang và Đồng Văn, cùng các homestay sinh thái cộng đồng chuẩn mực.",
+        "partners_4star": [
+          "H'Mong Village Resort (4 sao - Quản Bạ, kiến trúc quẩy tấu độc đáo view thung lũng sông Miện)",
+          "P'apiu Resort (Khu nghỉ dưỡng cao cấp phong cách Bắc Bộ trên vùng cao)"
+        ],
+        "partners_5star": [
+          "H'Mong Village Resort (Hạng Bungalow cao cấp trên sườn núi)"
+        ],
+        "partners_3star": [
+          "Khách sạn Hoa Cương Đồng Văn (3 sao - trung tâm phố cổ Đồng Văn)",
+          "Khách sạn Phoenix Hà Giang (3 sao - trung tâm TP Hà Giang, tiện nghi hiện đại)",
+          "Khách sạn Trường Xuân Resort (3 sao - sinh thái bên bờ sông Miện)"
+        ]
+      },
+      "Ninh Bình": {
+        "standard_stars": "3 - 4 sao / Resort sinh thái",
+        "description": "Nằm gần quần thể danh thắng Tràng An - Bái Đính hoặc giữa thung lũng non nước hữu tình.",
+        "partners_4star": [
+          "Ninh Binh Legend Hotel (4 sao - trung tâm TP Ninh Bình, tiện nghi chuẩn quốc tế)",
+          "Hidden Charm Hotel & Resort (4 sao - ngay lối vào Tam Cốc Bích Động)",
+          "Tràng An Retreat (Resort sinh thái giữa lòng thung lũng di sản Tràng An)"
+        ],
+        "partners_5star": [
+          "Emeralda Resort Ninh Binh (5 sao - phong cách làng quê Bắc Bộ cổ kính bên đầm Vân Long)"
+        ],
+        "partners_3star": [
+          "Khải Hoàn Hotel Ninh Bình (3 sao - sạch sẽ, tiện nghi)",
+          "Tam Coc Boutique Garden (3 sao - bungalow ven sông yên tĩnh)"
+        ]
+      },
+      "Mộc Châu": {
+        "standard_stars": "3 sao / Khách sạn & Resort cao nguyên",
+        "description": "Nằm giữa đồi chè hoặc cao nguyên Mộc Châu xanh ngát, khí hậu mát mẻ quanh năm.",
+        "partners_4star": [
+          "Mường Thanh Luxury Mộc Châu (4 sao - khách sạn quy mô lớn nhất cao nguyên Mộc Châu)",
+          "Thảo Nguyên Resort Mộc Châu (4 sao - khu nghỉ dưỡng sinh thái cao cấp)",
+          "Rừng Thông Bản Áng Glamping & Resort"
+        ],
+        "partners_5star": [
+          "Mộc Châu Island - Cầu Kính Bạch Long Resort (Tổ hợp nghỉ dưỡng & giải trí đẳng cấp)"
+        ],
+        "partners_3star": [
+          "Khách sạn Sao Xanh Mộc Châu (3 sao - trung tâm thị trấn Mộc Châu)",
+          "Mộc Châu Arena Village (3 sao - bungalow container độc đáo giữa đồi chè)"
+        ]
+      },
+      "Cát Bà": {
+        "standard_stars": "3 - 4 sao (Có thể nâng cấp 5 sao theo yêu cầu)",
+        "description": "Nằm tại trung tâm thị trấn Cát Bà hoặc tọa lạc bãi biển Cát Cò view vịnh Lan Hạ.",
+        "partners_4star": [
+          "Flamingo Cat Ba Beach Resort (4-5 sao - bãi biển Cát Cò 1 và 2, view vịnh Lan Hạ tuyệt mỹ)",
+          "Cat Ba Island Resort & Spa (4 sao - bãi Cát Cò 1, bãi tắm riêng)"
+        ],
+        "partners_5star": [
+          "Hôtel Perle d'Orient Cat Ba - MGallery (5 sao - kiệt tác phong cách Đông Dương Bãi Cát Cò 3)",
+          "Flamingo Cat Ba Resorts (5 sao - quần thể nghỉ dưỡng xanh đẳng cấp)"
+        ],
+        "partners_3star": [
+          "Khách sạn Giếng Ngọc Cát Bà (3 sao - trung tâm cảng Cát Bà)",
+          "Hung Long Harbour Hotel (3 sao - view biển Cát Bà)"
+        ]
+      },
+      "Huế": {
+        "standard_stars": "3 - 4 sao",
+        "description": "Nằm bên bờ sông Hương thơ mộng hoặc trung tâm Cố đô, gần Đại Nội Hoàng Thành.",
+        "partners_4star": [
+          "Hương Giang Hotel Resort & Spa (4 sao - bên bờ sông Hương êm đềm)",
+          "Eldora Hotel Huế (4 sao - kiến trúc hoàng gia Pháp cổ kính)",
+          "Century Riverside Hue Hotel (4 sao - view sông Hương thoáng mát)"
+        ],
+        "partners_5star": [
+          "Azerai La Residence Hue (5 sao - biệt thự cổ Art Deco bên bờ sông Hương)",
+          "Silk Path Grand Hue Hotel (5 sao - phong cách quý tộc cung đình pha nét hiện đại)",
+          "Melia Vinpearl Hue (5 sao - tòa tháp cao nhất trung tâm Cố đô)"
+        ],
+        "partners_3star": [
+          "Rosaleen Boutique Hotel (3 sao - trung tâm phố đi bộ Huế)",
+          "Park View Hotel Huế (3 sao - tiện nghi, chu đáo)"
+        ]
+      },
+      "Hội An": {
+        "standard_stars": "3 - 4 sao",
+        "description": "Nằm gần khu Phố cổ Hội An hoặc ven dòng sông Hoài, bãi biển An Bàng/Cửa Đại.",
+        "partners_4star": [
+          "Hoi An Historic Hotel (4 sao - ngay sát phố cổ, không gian vườn xanh mát)",
+          "Silkotel Hoi An (4 sao - phong cách lồng đèn đặc trưng Hội An)",
+          "Vinh Hung Riverside Resort & Spa (4 sao - bên bờ sông Hoài thơ mộng)"
+        ],
+        "partners_5star": [
+          "Four Seasons Resort The Nam Hai (5 sao - resort sang trọng bậc nhất bãi biển Hà My)",
+          "Anantara Hoi An Resort (5 sao - ven sông Thu Bồn thanh bình)",
+          "Allegro Hoi An - A Little Luxury Hotel & Spa (5 sao - đậm chất di sản)"
+        ],
+        "partners_3star": [
+          "Hội An Rosemary Boutique Hotel (3 sao - tiện nghi, thân thiện)",
+          "Phú Thịnh Boutique Resort (3 sao - sân vườn hồ bơi thanh bình)"
+        ]
+      },
+      "Buôn Ma Thuột": {
+        "standard_stars": "3 - 4 sao",
+        "description": "Nằm tại trung tâm thủ phủ cà phê Buôn Ma Thuột hoặc khu nghỉ dưỡng sinh thái Tây Nguyên.",
+        "partners_4star": [
+          "Mường Thanh Luxury Buôn Ma Thuột (4 sao - trung tâm TP, tiện nghi hiện đại)",
+          "Elephants Hotel Buôn Ma Thuột (4 sao - phong cách Tây Nguyên ấn tượng)",
+          "Hai Ba Trung Hotel & Spa (4 sao - trung tâm sầm uất)"
+        ],
+        "partners_5star": [
+          "Coffee Tour Resort & Villas (Khu nghỉ dưỡng văn hóa cà phê độc đáo)",
+          "Lắk Tented Camp (Resort lều nghỉ dưỡng sinh thái ven Hồ Lắk)"
+        ],
+        "partners_3star": [
+          "Khách sạn Bạch Mã Buôn Ma Thuột (3 sao - tiện nghi, chu đáo)",
+          "Dakruco Hotel (3 sao - không gian xanh mát)"
+        ]
+      },
+      "Phan Thiết": {
+        "standard_stars": "3 - 4 sao",
+        "description": "Nằm dọc cung đường resort Nguyễn Đình Chiểu (Mũi Né) sát biển hoặc trung tâm TP Phan Thiết.",
+        "partners_4star": [
+          "Pandanus Resort Mũi Né (4 sao - gần Đồi Cát Bay, bãi biển riêng thơ mộng)",
+          "The Cliff Resort & Residences (4 sao - ngắm trọn vịnh Mũi Né)",
+          "Muine Bay Resort (4 sao - phong cách tháp Chăm pa độc đáo)"
+        ],
+        "partners_5star": [
+          "Anantara Mui Ne Resort (5 sao - khu nghỉ dưỡng 5 sao sang trọng bậc nhất Mũi Né)",
+          "Centara Mirage Resort Mui Ne (5 sao - công viên nước giải trí theo chủ đề Địa Trung Hải)",
+          "Radisson Resort Phan Thiet (5 sao - thương hiệu quốc tế cao cấp)"
+        ],
+        "partners_3star": [
+          "Tien Dat Resort Mũi Né (3 sao - ven biển, hồ bơi ngoài trời)",
+          "Canary Beach Resort (3 sao - bãi biển riêng yên tĩnh)"
+        ]
+      },
+      "Vũng Tàu": {
+        "standard_stars": "3 - 4 sao",
+        "description": "Nằm tại Bãi Sau hoặc Bãi Trước TP Vũng Tàu, view biển thoáng mát.",
+        "partners_4star": [
+          "Malibu Hotel Vũng Tàu (4 sao - Bãi Sau, hồ bơi vô cực chân mây)",
+          "Vias Hotel Vũng Tàu (4 sao - đối diện Bãi Sau, phong cách hiện đại)",
+          "Riva Hotel Vũng Tàu (4 sao - mặt đường Thùy Vân Bãi Sau)"
+        ],
+        "partners_5star": [
+          "The Imperial Hotel Vung Tau (5 sao - phong cách cổ điển hoàng gia châu Âu duy nhất tại Vũng Tàu)",
+          "Marina Bay Vung Tau Resort & Spa (5 sao - Sao Mai, view hoàng hôn biển tuyệt đẹp)",
+          "Pullman Vung Tau (5 sao - trung tâm hội nghị và nghỉ dưỡng quốc tế)"
+        ],
+        "partners_3star": [
+          "Romeliess Hotel Vũng Tàu (3 sao - Bãi Sau)",
+          "Khách sạn Corvin Vũng Tàu (3 sao - mặt biển Thùy Vân)"
+        ]
+      },
+      "An Giang": {
+        "standard_stars": "3 sao / Khách sạn & Lodge sinh thái",
+        "description": "Nằm tại TP Châu Đốc hoặc sườn Núi Sam ngắm trọn cánh đồng biên giới.",
+        "partners_4star": [
+          "Victoria Chau Doc Hotel (4 sao - ngã ba sông Hậu thơ mộng)",
+          "Victoria Nui Sam Lodge (4 sao - trên sườn Núi Sam, hồ bơi vô cực view cánh đồng)"
+        ],
+        "partners_5star": [
+          "Victoria Nui Sam Lodge (Hạng biệt thự cao cấp view hoàng hôn)"
+        ],
+        "partners_3star": [
+          "Khách sạn Hùng Cường Châu Đốc (3 sao - trung tâm Châu Đốc)",
+          "Khách sạn Đông Nam (3 sao - gần Miếu Bà Chúa Xứ Núi Sam)"
+        ]
+      },
+      "Côn Đảo": {
+        "standard_stars": "3 - 4 sao / Resort 5 sao",
+        "description": "Nằm ven biển Côn Đảo hoặc trung tâm thị trấn gần nghĩa trang Hàng Dương.",
+        "partners_4star": [
+          "The Secret Côn Đảo (4 sao - trung tâm thị trấn, kiến trúc di sản tinh tế)",
+          "Poulo Condor Boutique Resort & Spa (4 sao - Bãi Vông, phong cách Pháp hoài niệm)",
+          "Marina Bay Côn Đảo Hotel (4 sao - view biển Côn Đảo)"
+        ],
+        "partners_5star": [
+          "Six Senses Côn Đảo (5 sao - khu nghỉ dưỡng biển sang trọng hàng đầu thế giới, Bãi Đất Dốc)"
+        ],
+        "partners_3star": [
+          "Côn Đảo Resort (3 sao - mặt biển An Hải)",
+          "Khách sạn Sài Gòn Côn Đảo (3 sao - trung tâm thị trấn)"
+        ]
+      }
+    },
+    "weather": {
+      "Đà Nẵng": {
+        "source": "Open-Meteo",
+        "city": "Đà Nẵng",
+        "temp": 26.5,
+        "feels_like": 32.8,
+        "humidity": 94,
+        "description": "⛅ Mây rải rác",
+        "raw_desc": "Mây rải rác",
+        "wind_speed": 4.7,
+        "precipitation": 0.0,
+        "is_raining": false
+      },
+      "Hà Nội": {
+        "source": "Open-Meteo",
+        "city": "Hà Nội",
+        "temp": 26.1,
+        "feels_like": 31.8,
+        "humidity": 93,
+        "description": "☀️ Trời quang đãng, nắng đẹp",
+        "raw_desc": "Trời quang đãng, nắng đẹp",
+        "wind_speed": 6.3,
+        "precipitation": 0.0,
+        "is_raining": false
+      },
+      "TP Hồ Chí Minh": {
+        "source": "Open-Meteo",
+        "city": "TP Hồ Chí Minh",
+        "temp": 24.7,
+        "feels_like": 30.0,
+        "humidity": 97,
+        "description": "🌦️ Mưa phùn nhẹ",
+        "raw_desc": "Mưa phùn nhẹ",
+        "wind_speed": 6.6,
+        "precipitation": 0.1,
+        "is_raining": true
+      }
+    },
+    "web_destinations": {
+      "thái lan": {
+        "title": "Cẩm Nang Du Lịch Thái Lan (Xứ Sở Chùa Vàng)",
+        "highlights": [
+          "Thủ đô Bangkok: Chiêm bái Chùa Vàng Wat Phra Kaew, Cung điện Hoàng Gia Grand Palace, Chùa Wat Arun bên sông Chao Phraya, mua sắm thả ga tại chợ đêm Jodd Fairs và IconSiam.",
+          "Thành phố biển Pattaya: Vui chơi tại Đảo san hô Koh Larn nước trong vắt, tham quan Chợ nổi 4 miền và show diễn nghệ thuật Alcazar rực rỡ.",
+          "Chiang Mai & Chiang Rai: Không gian cổ kính yên bình, check-in Chùa Trắng Wat Rong Khun độc nhất vô nhị và trải nghiệm chăm sóc voi thân thiện."
+        ],
+        "food": "Tom",
+        "best_time": "Từ tháng 11 đến tháng 4 năm sau (thời tiết khô ráo, nắng ấm mát mẻ). Đặc biệt vào giữa tháng 4 có Lễ hội té nước truyền thống Songkran vô cùng náo nhiệt."
+      },
+      "nhật bản": {
+        "title": "Cẩm Nang Du Lịch Nhật Bản (Xứ Sở Mặt Trời Mọc)",
+        "highlights": [
+          "Thủ đô Tokyo hiện đại: Ngã tư Shibuya nhộn nhịp nhất hành tinh, Đền cổ Senso-ji Asakusa ngàn năm tuổi, tháp truyền hình Tokyo Skytree, phố điện tử Akihabara.",
+          "Biểu tượng Núi Phú Sĩ: Ngắm đỉnh núi tuyết phủ hùng vĩ, dạo bước trong Làng cổ Oshino Hakkai dưới chân núi với nguồn nước khoáng tinh khiết.",
+          "Cố đô Kyoto trầm mặc: Chiêm bái Chùa Vàng Kinkaku-ji lấp lánh, ngắm Rừng trúc Arashiyama xanh mướt, check-in hàng ngàn cổng Torii đỏ thắm tại Đền Fushimi Inari."
+        ],
+        "food": "Bò ",
+        "best_time": "Mùa xuân (cuối tháng 3 đến giữa tháng 4) ngắm hoa anh đào Sakura nở rộ khắp các công viên; hoặc Mùa thu (tháng 10 đến tháng 11) chiêm ngưỡng mùa lá đỏ Momiji lãng mạn."
+      },
+      "singapore": {
+        "title": "Cẩm Nang Du Lịch Singapore & Malaysia",
+        "highlights": [
+          "Singapore hiện đại & xanh sạch: Quần thể siêu cây khổng lồ Gardens by the Bay, Vịnh Marina Bay Sands, Đảo giải trí Sentosa & Universal Studios, tượng Sư tử biển Merlion.",
+          "Thủ đô Kuala Lumpur (Malaysia): Chụp ảnh cùng Tháp đôi Petronas Twin Towers biểu tượng, viếng Động đá vôi Batu huyền bí, khu phức hợp giải trí Casino Cao nguyên Genting."
+        ],
+        "food": "Cua",
+        "best_time": "Khí hậu nhiệt đới quanh năm thuận tiện du lịch; thời điểm lý tưởng nhất là từ tháng 11 đến tháng 2 năm sau (thời tiết mát hơn và rực rỡ không khí lễ hội). Miễn visa cho khách Việt."
+      }
+    },
+    "conversations": [
+      {
+        "session_id": 22,
+        "turns": [
+          {
+            "step": "Lượt 1 - Yêu cầu tour đoàn",
+            "user": "lấy 1 tour rẻ nhất cho đoàn 10 người đi đà nẵng",
+            "bot": "🏷️ **Tour có chi phí tiết kiệm và tối ưu nhất tại **Đà Nẵng**** hiện nay là:\n\n👉 **Tour Đà Nẵng 3 ngày 2 đêm** - Điểm đến: **Đà Nẵng**\n⏱ Thời gian: 3 ngày 2 đêm\n💰 Giá trọn gói: **4,500,000 VNĐ/khách**\n...",
+            "status_code": 200,
+            "latency_ms": 24.95,
+            "passed": true
+          },
+          {
+            "step": "Lượt 2 - Hỏi tiêu chuẩn sao",
+            "user": "khách sạn có 5 sao ko",
+            "bot": "🏨 **TIÊU CHUẨN KHÁCH SẠN LƯU TRÚ TOUR ĐÀ NẴNG:**\n\n⭐ **Tiêu chuẩn mặc định trong gói tour:**\n  • Tour sử dụng khách sạn tiêu chuẩn **3 - 4 sao (Có thể nâng cấp 5 sao theo yêu cầu)**.\n  • **Vị trí:** Nằ...",
+            "status_code": 200,
+            "latency_ms": 12.04,
+            "passed": true
+          },
+          {
+            "step": "Lượt 3 - Nhận phòng",
+            "user": "nhận phòng mấy h",
+            "bot": "Giờ nhận phòng tiêu chuẩn tại khách sạn là 14h00 chiều và trả phòng trước 12h00 trưa. Bạn có thể gửi hành lý tại quầy lễ tân miễn phí nếu đến sớm trước giờ nhận phòng để đi tham quan.",
+            "status_code": 200,
+            "latency_ms": 23.65,
+            "passed": true
+          },
+          {
+            "step": "Lượt 4 - Hóa đơn đỏ",
+            "user": "có hóa đơn đỏ ko",
+            "bot": "Có ạ, TourAI xuất hóa đơn GTGT điện tử đầy đủ theo yêu cầu của công ty hoặc đoàn thể.",
+            "status_code": 200,
+            "latency_ms": 19.42,
+            "passed": true
+          },
+          {
+            "step": "Lượt 5 - Ăn chay",
+            "user": "có suất cho ng ăn chay ko",
+            "bot": "Dạ có! Quý khách ăn chay trường hoặc ăn kiêng chỉ cần báo trước khi đăng ký tour, TourAI sẽ liên hệ nhà hàng chuẩn bị các suất ăn chay thịnh soạn, thanh đạm riêng biệt.",
+            "status_code": 200,
+            "latency_ms": 164.79,
+            "passed": true
+          },
+          {
+            "step": "Lượt 6 - Tên khách sạn",
+            "user": "ơ thế m cho t ở ksan nào",
+            "bot": "🏨 **DANH SÁCH KHÁCH SẠN LƯU TRÚ TẠI ĐÀ NẴNG CỦA TOURAI:**\n\nTourAI hợp tác trực tiếp với các khách sạn và resort hàng đầu tại **Đà Nẵng**, phân bổ theo các phân khúc chất lượng rõ ràng như sau:\n\n1️⃣ **...",
+            "status_code": 200,
+            "latency_ms": 17.08,
+            "passed": true
+          },
+          {
+            "step": "Lượt 7 - Gặng hỏi tên",
+            "user": "đã bảo là nêu tên ra",
+            "bot": "🏨 **DANH SÁCH KHÁCH SẠN LƯU TRÚ TẠI ĐÀ NẴNG CỦA TOURAI:**\n\nTourAI hợp tác trực tiếp với các khách sạn và resort hàng đầu tại **Đà Nẵng**, phân bổ theo các phân khúc chất lượng rõ ràng như sau:\n\n1️⃣ **...",
+            "status_code": 200,
+            "latency_ms": 22.8,
+            "passed": true
+          }
+        ]
+      }
+    ]
+  }
+}
