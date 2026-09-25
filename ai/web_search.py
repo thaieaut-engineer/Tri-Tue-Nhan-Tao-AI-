@@ -22,6 +22,13 @@ except ImportError:
         DDGS_AVAILABLE = False
 
 
+try:
+    from bs4 import BeautifulSoup
+    BS4_AVAILABLE = True
+except ImportError:
+    BS4_AVAILABLE = False
+
+
 def clean_html(raw_html):
     """Loại bỏ thẻ HTML thừa nếu có."""
     clean_text = re.sub(r"<.*?>", "", raw_html)
@@ -43,16 +50,140 @@ def clean_snippet(text, max_len=280):
     return text
 
 
+def fetch_page_main_content(url, timeout=5):
+    """
+    TRUY CẬP TRỰC TIẾP TRANG WEB VÀ BÓC TÁCH NỘI DUNG CHÍNH (DEEP WEB CONTENT EXTRACTION):
+    - Sử dụng requests và BeautifulSoup để tải nội dung HTML thực tế từ các nguồn uy tín.
+    - Loại bỏ các thành phần rác (quảng cáo, script, navigation, header, footer).
+    - Trích xuất các đoạn văn bản có ý nghĩa thực tế để giải đáp trực tiếp cho du khách.
+    """
+    if not BS4_AVAILABLE or not url or not url.startswith("http"):
+        return []
+
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "vi,en;q=0.9",
+    }
+    try:
+        resp = requests.get(url, headers=headers, timeout=timeout)
+        if resp.status_code != 200 or not resp.content:
+            return []
+
+        soup = BeautifulSoup(resp.content, "html.parser")
+        for tag in soup(["script", "style", "nav", "header", "footer", "aside", "form", "figure", "noscript", "iframe"]):
+            tag.decompose()
+
+        paragraphs = []
+        for p in soup.find_all("p"):
+            txt = clean_html(p.get_text(strip=True))
+            if len(txt) >= 40:
+                is_junk = any(j in txt.lower() for j in [
+                    "chính sách bảo mật", "điều khoản sử dụng", "đăng ký nhận tin",
+                    "tất cả quyền được bảo lưu", "copyright", "chia sẻ bài viết",
+                    "theo dõi chúng tôi", "bấm vào đây để", "xem chi tiết tại",
+                    "quảng cáo", "liên hệ quảng cáo"
+                ])
+                if not is_junk and txt not in paragraphs:
+                    paragraphs.append(txt)
+                    if len(paragraphs) >= 20:
+                        break
+        return paragraphs
+    except Exception:
+        return []
+
+
+def extract_relevant_deep_facts(paragraphs, query, max_facts=3):
+    """
+    LỌC CÁC ĐOẠN VĂN SÁT TRỌNG TÂM CÂU HỎI NHẤT TỪ NỘI DUNG TRANG WEB:
+    - Chấm điểm từng đoạn văn bản dựa trên mật độ từ khóa và tính hướng dẫn/giải pháp.
+    - Ưu tiên các đoạn hướng dẫn hành động (quy trình, bước làm, lưu ý).
+    - Loại bỏ các câu chuyện cá nhân trong phần bình luận hoặc hỏi đáp độc giả.
+    """
+    if not paragraphs:
+        return []
+
+    q_words = set(re.findall(r'\w+', query.lower()))
+    scored_paragraphs = []
+
+    advisory_clues = [
+        "bước", "cách", "xử lý", "báo", "liên hệ", "khách sạn", "cảnh sát", "công an",
+        "hồ sơ", "giấy tờ", "bảo hiểm", "bình tĩnh", "kiểm tra", "trình báo", "hướng dẫn",
+        "kinh nghiệm", "lưu ý", "khuyên", "quy định", "giải quyết", "thủ tục", "lịch trình"
+    ]
+
+    personal_junk = [
+        "tôi có liên hệ", "tôi đã gọi", "mời đối tượng", "tục tỉu", "kỷ càng",
+        "nữ diễn viên", "ông park", "kiều oanh", "xin hỏi luật sư"
+    ]
+
+    for p in paragraphs:
+        p_low = p.lower()
+        if any(j in p_low for j in personal_junk):
+            continue
+
+        score = sum(1.5 for w in q_words if len(w) > 2 and w in p_low)
+        score += sum(1.2 for clue in advisory_clues if clue in p_low)
+
+        # Ưu tiên các câu mang tính chỉ dẫn, có đánh số thứ tự hoặc gạch đầu dòng
+        if re.match(r'^\s*(?:bước\s*\d+|thứ\s*(?:nhất|hai|ba)|\d+[\.\)]|[•\-*])', p_low):
+            score += 2.5
+        elif any(lead in p_low for lead in ["cần làm", "hãy", "nên", "trước tiên", "quy trình", "ngay lập tức"]):
+            score += 1.5
+
+        if 50 <= len(p) <= 350:
+            score += 1.0
+        scored_paragraphs.append((score, p))
+
+    scored_paragraphs.sort(key=lambda x: x[0], reverse=True)
+
+    results = []
+    for sc, p in scored_paragraphs:
+        if sc > 0:
+            results.append(p)
+            if len(results) >= max_facts:
+                break
+
+    if not results and paragraphs:
+        for p in paragraphs:
+            if not any(j in p.lower() for j in personal_junk):
+                results.append(p)
+                if len(results) >= max_facts:
+                    break
+
+    return results
+
+
 def reformulate_travel_query(query):
     """
-    ĐỊNH HƯỚNG TỪ KHÓA TÌM KIẾM DU LỊCH (QUERY REFORMULATION):
+    ĐỊNH HƯỚNG TỪ KHÓA TÌM KIẾM DU LỊCH THÔNG MINH (AI TRAVEL QUERY REFORMULATION):
+    - Nhận diện tình huống sự cố, an toàn, pháp lý du lịch để tránh tìm sai lệch sang y khoa tâm thần.
     - Khử nhập nhằng địa danh (ví dụ 'Hồ Chí Minh' -> 'TP Hồ Chí Minh Sài Gòn').
-    - Bổ sung ngữ cảnh du lịch để máy tìm kiếm trả về danh thắng, khách sạn, ẩm thực.
+    - Bổ sung ngữ cảnh du lịch để máy tìm kiếm trả về danh thắng, khách sạn, ẩm thực, an toàn.
     """
     q = query.strip()
     q_low = q.lower()
 
-    # 1. Khử nhập nhằng địa danh Hồ Chí Minh
+    # 1. Nhận diện tình huống sự cố, rủi ro và an toàn du lịch
+    theft_keywords = ["ăn cắp", "an cap", "trộm cắp", "trom cap", "mất cắp", "mat cap", "móc túi", "moc tui", "bị cướp", "bi cuop", "mất đồ", "mat do", "mất ví", "mat vi", "mất tài sản", "mất vali", "thất lạc hành lý"]
+    if any(k in q_low for k in theft_keywords):
+        if any(h in q_low for h in ["khách sạn", "ks", "phòng"]):
+            return "kinh nghiệm quy trình xử lý khi bị mất cắp mất đồ ở khách sạn khi đi du lịch"
+        return "kinh nghiệm hướng dẫn các bước xử lý khi bị mất cắp tài sản khi đi du lịch"
+
+    if any(k in q_low for k in ["mất hộ chiếu", "mat ho chieu", "mất cccd", "mat cccd", "mất chứng minh", "mất giấy tờ"]):
+        return "thủ tục xử lý khi bị mất hộ chiếu căn cước công dân khi đi du lịch"
+
+    if any(k in q_low for k in ["ngộ độc", "ngo doc", "đau bụng", "dị ứng hải sản", "say xe", "say sóng"]):
+        return "cách xử lý sơ cứu khi bị ngộ độc thực phẩm say sóng khi đi du lịch"
+
+    if any(k in q_low for k in ["chặt chém", "chat chem", "ép giá", "ep gia", "lừa đảo", "lua dao", "đường dây nóng du lịch"]):
+        return "cách xử lý và số điện thoại phản ánh chặt chém lừa đảo du khách"
+
+    if any(k in q_low for k in ["hướng dẫn viên", "hdv"]) and any(k in q_low for k in ["tiếng", "ngôn ngữ", "ngoại ngữ", "đoàn"]):
+        return "tiêu chuẩn hướng dẫn viên du lịch ngoại ngữ tiếng anh tiếng pháp đoàn khách quốc tế"
+
+    # 2. Khử nhập nhằng địa danh Hồ Chí Minh
     if any(k in q_low for k in ["hồ chí minh", "ho chi minh", "hcm", "tphcm"]):
         q = re.sub(r"\bhồ chí minh\b", "TP Hồ Chí Minh", q, flags=re.IGNORECASE)
         q = re.sub(r"\bho chi minh\b", "TP Hồ Chí Minh", q, flags=re.IGNORECASE)
@@ -61,7 +192,7 @@ def reformulate_travel_query(query):
         if "sài gòn" not in q_low and "sai gon" not in q_low:
             q += " Sài Gòn"
 
-    # 2. Bổ sung từ khóa du lịch theo ý định
+    # 3. Bổ sung từ khóa du lịch theo ý định
     if any(w in q_low for w in ["điểm tham quan", "chơi gì", "có gì đẹp", "đi đâu", "tham quan", "check in"]):
         if "du lịch" not in q_low:
             q = f"địa điểm du lịch tham quan {q}"
@@ -168,12 +299,13 @@ def search_with_wikipedia(query):
     return results
 
 
-def search_web_for_travel(query, max_results=3):
+def search_web_for_travel(query, max_results=3, deep_fetch=True):
     """
-    Hàm tổng hợp tìm kiếm trên mạng:
-    1. Định hướng từ khóa du lịch (Reformulation).
-    2. Ưu tiên DuckDuckGo Search.
-    3. Dự phòng Wikipedia tiếng Việt có bộ lọc chống lệch chủ đề.
+    Hàm tổng hợp tìm kiếm và bóc tách nội dung chuyên sâu trên mạng (Deep Web Content Extraction):
+    1. Định hướng từ khóa du lịch & an toàn (Query Reformulation).
+    2. Tìm kiếm DuckDuckGo / Wikipedia tiếng Việt.
+    3. Truy cập trực tiếp trang web đích bằng BeautifulSoup để bóc tách nội dung thật,
+       không dừng lại ở việc chỉ lấy liên kết đơn thuần.
     """
     reformulated = reformulate_travel_query(query)
     results = search_with_ddgs(reformulated, max_results=max_results)
@@ -185,6 +317,15 @@ def search_web_for_travel(query, max_results=3):
     # Dự phòng Wikipedia nếu DuckDuckGo bị chặn kết nối
     if not results:
         results = search_with_wikipedia(reformulated)
+
+    # BÓC TÁCH NỘI DUNG SÂU (DEEP SCRAPING) TỪ TRANG WEB THẬT
+    if deep_fetch and results and BS4_AVAILABLE:
+        for r in results[:2]:
+            url = r.get("url", "")
+            if url and url.startswith("http") and not url.endswith((".pdf", ".doc", ".docx")):
+                deep_paragraphs = fetch_page_main_content(url, timeout=5)
+                if deep_paragraphs:
+                    r["deep_content"] = extract_relevant_deep_facts(deep_paragraphs, query, max_facts=3)
 
     return results
 
@@ -463,12 +604,12 @@ def synthesize_travel_search_response(query, results, destination_name=None):
                     lines.append(f"  • [{title}]({url})")
             lines.append("")
 
-        lines.append("💡 *Lưu ý: TourAI hiện tập trung chuyên sâu phục vụ 20 tuyến tour trọn gói khắp Việt Nam (Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Sa Pa, Đà Lạt, Hà Giang...). Bạn có thể tham khảo thêm các tour hấp dẫn này nhé!*")
+        lines.append("💡 *Lời khuyên tư vấn: Để có chuyến du lịch an toàn và trọn vẹn, bạn hãy lưu ý theo dõi sát điều kiện thời tiết, bảo quản kỹ tư trang và tìm hiểu trước các quy định văn hóa của điểm đến nhé!*")
         return "\n".join(lines)
 
-    # TRƯỜNG HỢP 2: Tổng hợp từ kết quả máy tìm kiếm (DuckDuckGo / Wikipedia)
+    # TRƯỜNG HỢP 2: Tổng hợp từ kết quả bóc tách trang web & máy tìm kiếm
     if results:
-        # Gom các đoạn văn bản sạch, loại bỏ quảng cáo và ký tự rác
+        deep_facts = []
         extracted_facts = []
         source_links = []
 
@@ -480,11 +621,15 @@ def synthesize_travel_search_response(query, results, destination_name=None):
             if url and title:
                 source_links.append(f"[{title}]({url})")
 
-            # Phân tách thành từng câu hoàn chỉnh
+            # Thu thập các sự kiện chuyên sâu được cào bóc trực tiếp từ trang web
+            for df in r.get("deep_content", []):
+                if df not in deep_facts:
+                    deep_facts.append(df)
+
+            # Phân tách thành từng câu hoàn chỉnh từ snippet
             sentences = re.split(r'(?<=[.!?])\s+', snippet)
             for s in sentences:
                 s_clean = s.strip()
-                # Lọc các câu quá ngắn, câu hỏi tu từ (?) hoặc mang tính dạo đầu, quảng cáo của bài viết blog
                 is_rhetorical_question = s_clean.endswith('?')
                 is_intro_junk = any(junk in s_clean.lower() for junk in [
                     "xem thêm", "xem chi tiết", "xem full", "bấm vào đây", "đăng ký ngay",
@@ -494,29 +639,29 @@ def synthesize_travel_search_response(query, results, destination_name=None):
                 if len(s_clean) > 25 and not is_rhetorical_question and not is_intro_junk:
                     extracted_facts.append(s_clean)
 
-        lines.append(f"🌐 **Thông Tin Du Lịch Tổng Hợp Về: \"{query}\"**\n")
+        lines.append(f"🌐 **Tư Vấn Thông Tin Du Lịch: \"{query}\"**\n")
 
-        if extracted_facts:
-            lines.append("📖 **Tóm tắt thông tin nổi bật:**")
-            # Lấy 3 - 4 câu chắt lọc hay nhất
-            selected_facts = extracted_facts[:4]
-            for fact in selected_facts:
+        # Ưu tiên hiển thị nội dung chuyên sâu được trích xuất trực tiếp từ trang web
+        facts_to_display = deep_facts[:4] if deep_facts else extracted_facts[:4]
+        if facts_to_display:
+            lines.append("📋 **Nội dung hướng dẫn & giải đáp trọng tâm:**")
+            for fact in facts_to_display:
                 lines.append(f"• {fact}")
             lines.append("")
 
         if source_links:
-            lines.append("📚 **Nguồn tham khảo tin cậy:**")
+            lines.append("📚 **Nguồn trang web đã tra cứu & trích xuất:**")
             for sl in source_links[:3]:
                 lines.append(f"• {sl}")
             lines.append("")
 
-        lines.append("💡 *Nếu bạn muốn tìm hiểu các tour du lịch trọn gói trong hệ thống TourAI (Đà Nẵng, Phú Quốc, Nha Trang, Sa Pa, Đà Lạt, Hà Giang, Ninh Bình...), hãy hỏi tôi nhé!*")
+        lines.append("💡 *Lời khuyên tư vấn: Trong mọi tình huống sự cố hoặc du lịch thực tế, bạn hãy luôn giữ bình tĩnh, bảo quản cẩn thận giấy tờ tùy thân và liên hệ ngay với người phụ trách hoặc cơ quan chức năng để được hỗ trợ kịp thời nhé!*")
         return "\n".join(lines)
 
     # TRƯỜNG HỢP 3: Không có kết quả
     return (
-        f"🔍 Rất tiếc, TourAI chưa tìm thấy cẩm nang chi tiết về '{query}'. "
-        f"Bạn có thể thử hỏi chi tiết hơn hoặc tham khảo 20 tour du lịch trải dài khắp Việt Nam của chúng tôi nhé!"
+        f"🔍 Rất tiếc, tôi chưa tìm thấy thông tin phù hợp cho thắc mắc '{query}'. "
+        f"Bạn có thể miêu tả chi tiết hơn câu hỏi hoặc hỏi về kinh nghiệm chuẩn bị hành lý, an toàn du lịch, thời tiết và các điểm đến nhé!"
     )
 
 

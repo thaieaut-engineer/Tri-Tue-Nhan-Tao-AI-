@@ -6262,5 +6262,131 @@
     "answer": "Tour Rừng Tràm Trà Sư - An Giang 2 ngày 1 đêm có giá 2.200.000 VNĐ/khách, bao gồm xe du lịch máy lạnh, khách sạn tại Châu Đốc, thuyền tắc ráng Trà Sư và viếng Miếu Bà Chúa Xứ Núi Sam.",
     "intent": "hoi_gia",
     "tour_id": 18
+  },
+  {
+    "question": "địa điểm du lịch ngoại địa tháng 10",
+    "answer": "🍂 **CẨM NANG TƯ VẤN DU LỊCH THÁNG 10: MÙA HOA TAM GIÁC MẠCH, NƯỚC NỔI & DÃ QUỲ VÀNG**\n\nTháng 10 là 'thời điểm vàng' của du lịch Việt Nam với tiết trời thu mát mẻ, dễ chịu trên cả 3 miền cùng hàng loạt mùa hoa và hiện tượng thiên nhiên độc đáo.\n\n🌟 **Top điểm đến không thể bỏ lỡ trong tháng 10:**\n1. **Hà Giang**: Khởi đầu mùa Lễ hội Hoa Tam Giác Mạch phủ sắc hồng tím khắp các triền đá Đồng Văn, Mèo Vạc; đi thuyền trên sông Nho Quế lộng gió.\n   👉 Gợi ý: [Tour Hà Giang 3 ngày 2 đêm](/tours/9) (3.200.000đ)\n2. **An Giang & Cần Thơ**: Đỉnh cao mùa nước nổi miền Tây Nam Bộ! Len lỏi xuồng ba lá trong Rừng Tràm Trà Sư giữa bạt ngàn bèo xanh, trải nghiệm chợ nổi Cái Răng tấp nập buổi sớm.\n   👉 Gợi ý: [Tour Rừng Tràm Trà Sư - An Giang](/tours/18) (2.200.000đ) & [Tour Cần Thơ - Miền Tây](/tours/8) (2.800.000đ)\n3. **Sa Pa**: Khí hậu se lạnh đón mùa thu đông, biển mây bồng bềnh bao phủ đỉnh Fansipan 3.143m và đèo Ô Quy Hồ ngắm hoàng hôn lộng lẫy.\n   👉 Gợi ý: [Tour Sa Pa 3 ngày 2 đêm](/tours/6) (4.100.000đ)\n4. **Đà Lạt**: Mùa hoa dã quỳ bắt đầu khoe sắc vàng rực trên khắp các cung đường đèo, sáng sớm săn mây đồi chè Cầu Đất tuyệt đẹp.\n   👉 Gợi ý: [Tour Đà Lạt 3 ngày 2 đêm](/tours/5) (3.800.000đ)\n5. **Phú Quốc**: Cuối tháng 10 bước sang mùa khô, biển lặng sóng êm, nước biển chuyển màu ngọc bích hoàn hảo để lặn ngắm san hô.\n   👉 Gợi ý: [Tour Phú Quốc 3 ngày 2 đêm](/tours/4) (5.200.000đ)\n\n🎒 **Gợi ý trang phục:** Miền Bắc và Đà Lạt se lạnh 16-20°C cần áo khoác gió ấm; miền Tây và Phú Quốc thời tiết ấm áp, trang phục năng động thoáng mát.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "đang hỏi trong trường hợp nếu t bị ăn cắp mất đồ ở khách sạn thì giải quyết như nào?",
+    "answer": "Khi phát hiện mất đồ hoặc nghi ngờ bị mất cắp tại phòng khách sạn, bạn hãy bình tĩnh thực hiện theo quy trình 5 bước: 1. Giữ nguyên hiện trường trong phòng, không tự xáo trộn đồ đạc. 2. Báo ngay cho Lễ tân và Quản lý khách sạn (Duty Manager). 3. Yêu cầu lập Biên bản sự việc (Incident Report) có chữ ký của đại diện khách sạn. 4. Đề nghị khách sạn trích xuất lịch sử mở khóa thẻ từ (Audit Trail) và camera an ninh hành lang (CCTV). 5. Trình báo Công an phường/xã sở tại để lấy biên bản xác nhận mất mát làm căn cứ nhận bồi thường Bảo hiểm du lịch (lên đến 50.000.000 VNĐ).",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Tôi bị mất đồ ở khách sạn thì phải làm sao?",
+    "answer": "Khi bị mất đồ ở khách sạn: Hãy giữ nguyên hiện trường, báo ngay cho Lễ tân và Quản lý khách sạn, yêu cầu lập biên bản sự việc, trích xuất dữ liệu khóa thẻ từ cùng camera hành lang, và trình báo công an địa phương để làm hồ sơ bồi thường bảo hiểm du lịch.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Mất cắp trong phòng khách sạn xử lý thế nào?",
+    "answer": "Quy trình xử lý mất cắp tại khách sạn: Giữ nguyên hiện trường -> Báo Quản lý khách sạn & Hướng dẫn viên -> Lập biên bản ghi nhận chi tiết tài sản bị mất -> Trích xuất camera CCTV & Keycard Log -> Trình báo Công an sở tại lấy giấy xác nhận để làm thủ tục bảo hiểm.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "nếu tôi bị ăn cắp thì sao",
+    "answer": "Nếu bạn bị mất cắp hoặc móc túi khi đi du lịch: 1. Khóa khẩn cấp thẻ ngân hàng trên app hoặc gọi tổng đài. 2. Định vị và khóa điện thoại từ xa (Find My iPhone / Google Find My Device). 3. Đến đồn Công an gần nhất trình báo lấy biên bản xác nhận. 4. Báo Hướng dẫn viên / Trưởng đoàn để hỗ trợ chi phí dự phòng và thủ tục nhận bồi thường Bảo hiểm du lịch.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Bị móc túi khi đi du lịch thì giải quyết sao?",
+    "answer": "Khi bị móc túi: Hãy khóa ngay thẻ ngân hàng và tài khoản điện tử, đến cơ quan công an nơi xảy ra vụ việc để khai báo lấy biên bản xác nhận mất tài sản, thông báo cho HDV hoặc đơn vị tổ chức tour để được hỗ trợ phương án di chuyển và thủ tục bảo hiểm.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Bị trộm tiền và ví khi đi tham quan thì làm gì?",
+    "answer": "Khi bị trộm ví tiền: Ngay lập tức khóa thẻ ATM/Visa/Mastercard, báo cáo công an địa phương lấy xác nhận sự việc và thông báo cho Hướng dẫn viên để được hỗ trợ tạm ứng chi phí cần thiết.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Làm thế nào khi bị mất hộ chiếu khi đi du lịch?",
+    "answer": "Khi mất hộ chiếu ở nước ngoài: 1. Đến ngay đồn cảnh sát sở tại khai báo lấy Biên bản mất hộ chiếu. 2. Chuẩn bị ảnh thẻ 4x6 và bản sao giấy tờ tùy thân. 3. Liên hệ Đại sứ quán hoặc Lãnh sự quán Việt Nam tại nước sở tại để xin cấp Giấy thông hành khẩn cấp về nước.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Mất căn cước công dân CCCD khi đi máy bay giải quyết như nào?",
+    "answer": "Nếu mất CCCD khi đi máy bay trong nước: Bạn có thể sử dụng ứng dụng VNeID định danh điện tử mức 2 trên điện thoại để làm thủ tục bay và an ninh hàng không. Nếu không có VNeID, bạn cần đến Công an phường/xã xin cấp Giấy xác nhận nhân thân có dán ảnh và dấu giáp lai.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Bị ngộ độc thực phẩm khi đi du lịch thì phải làm gì?",
+    "answer": "Khi có triệu chứng ngộ độc: Hãy ngừng ăn món nghi ngờ, uống nhiều nước ấm hoặc oresol, thông báo ngay cho Hướng dẫn viên hoặc Lễ tân để được đưa đến cơ sở y tế gần nhất. Giữ lại hóa đơn viện phí và đơn thuốc để thanh toán quyền lợi Bảo hiểm du lịch.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Bị chặt chém ép giá khi đi du lịch thì gọi số nào?",
+    "answer": "Khi bị chặt chém ép giá: Giữ lại hóa đơn, chụp ảnh bảng giá/biển số xe và gọi ngay đến đường dây nóng hỗ trợ du khách địa phương: Đà Nẵng (0236.3550.111 / 1022), Nha Trang (0947.528.000), Hạ Long (0913.265.009), Hà Nội (1800.556.896), TP.HCM (1022 nhánh 8).",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Bị lừa đảo hoặc ép mua hàng khi đi tour thì giải quyết sao?",
+    "answer": "Bạn hoàn toàn có quyền từ chối mua sắm. Nếu bị ép buộc hoặc lừa đảo, hãy phản ánh ngay với Hướng dẫn viên, Trưởng đoàn hoặc gọi đến đường dây nóng hỗ trợ du khách để cơ quan chức năng can thiệp xử lý.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Bảo hiểm du lịch có đền khi mất cắp hành lý không?",
+    "answer": "Có! Gói bảo hiểm du lịch đi kèm các tour trọn gói của TourAI có hạn mức bồi thường lên đến 50.000.000 VNĐ cho các sự cố mất mát hành lý, tư trang cá nhân khi có Biên bản xác nhận sự việc từ cơ quan Công an sở tại.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "hướng dẫn viên nói được tiếng anh ko, đoàn tôi là đoàn nước pháp",
+    "answer": "100% Hướng dẫn viên tuyến quốc tế của TourAI sử dụng tiếng Anh lưu loát, đạt chuẩn thẻ HDV Quốc tế. Với đoàn khách nước Pháp, TourAI hoàn toàn có thể sắp xếp Hướng dẫn viên chuyên biệt tiếng Pháp (hoặc song ngữ Anh - Pháp) đồng hành suốt chuyến đi, hỗ trợ thuyết minh văn hóa và phiên dịch ẩm thực chu đáo.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Hướng dẫn viên du lịch có nói được tiếng Anh không?",
+    "answer": "Có, 100% Hướng dẫn viên phụ trách tuyến quốc tế của TourAI đều thông thạo tiếng Anh giao tiếp và thuyết minh chuyên ngành, có thẻ Hướng dẫn viên Quốc tế do Cục Du lịch Quốc gia cấp.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Đoàn khách nước ngoài có hướng dẫn viên tiếng Anh không?",
+    "answer": "Có, TourAI luôn bố trí Hướng dẫn viên tiếng Anh lưu loát cho các đoàn khách nước ngoài, hỗ trợ từ đón tiễn sân bay, thuyết minh danh thắng đến hỗ trợ phiên dịch ẩm thực địa phương.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Đoàn của tôi là người Pháp thì có hướng dẫn viên tiếng Pháp không?",
+    "answer": "Hoàn toàn có! TourAI có đội ngũ Hướng dẫn viên tiếng Pháp chuyên nghiệp. Quý khách chỉ cần thông báo trước khi đặt tour để hệ thống bố trí HDV tiếng Pháp đồng hành suốt lịch trình.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Tour có hỗ trợ hướng dẫn viên tiếng Trung Quốc không?",
+    "answer": "Có, TourAI có đội ngũ Hướng dẫn viên thẻ quốc tế nói tiếng Trung (tiếng Quan Thoại và Quảng Đông) phục vụ chu đáo các đoàn khách Trung Quốc, Đài Loan.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Hướng dẫn viên có nói được tiếng Hàn không?",
+    "answer": "Có, TourAI cung cấp Hướng dẫn viên chuyên tuyến tiếng Hàn tại các điểm du lịch nổi tiếng như Đà Nẵng, Nha Trang, Phú Quốc, Hạ Long, am hiểu văn hóa và khẩu vị ẩm thực Hàn Quốc.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "TourAI có hướng dẫn viên nói tiếng Nhật không?",
+    "answer": "Có, TourAI sẵn sàng bố trí Hướng dẫn viên tiếng Nhật tác phong chuẩn mực, chu đáo và am hiểu phong tục du khách Nhật Bản khi đoàn có yêu cầu.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Tiêu chuẩn hướng dẫn viên du lịch của TourAI như thế nào?",
+    "answer": "Toàn bộ Hướng dẫn viên của TourAI đều có thẻ hành nghề do Cục Du lịch Quốc gia cấp (Thẻ HDV Quốc tế hoặc Nội địa), có nghiệp vụ sư phạm du lịch, sơ cấp cứu y tế, am hiểu sâu sắc văn hóa lịch sử và tận tâm chăm sóc du khách.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
   }
 ]

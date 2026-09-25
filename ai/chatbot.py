@@ -43,14 +43,14 @@ OUTSIDE_DESTINATIONS = [
 ]
 
 AMBIGUOUS_SHORT_COUNTRIES = {
-    "ý": r'\b(?:nước|du lịch|tour|đi|vé|đến)\s+ý\b|\bitalia\b|\bitaly\b',
-    "anh": r'\b(?:nước|du lịch|tour|đi|vé|đến)\s+anh\b|\bvương quốc anh\b|\bengland\b|\buk\b',
-    "mỹ": r'(?<!biển\s)(?<!bãi\s)\b(?:nước|du lịch|tour|đi|vé|đến)\s+mỹ\b|\bhoa kỳ\b|\busa\b',
-    "úc": r'\b(?:nước|du lịch|tour|đi|vé|đến)\s+úc\b|\baustralia\b',
-    "pháp": r'(?<!làng\s)\b(?:nước|du lịch|tour|đi|vé|đến)\s+pháp\b|\bfrance\b',
-    "đức": r'\b(?:nước|du lịch|tour|đi|vé|đến)\s+đức\b|\bgermany\b',
-    "lào": r'\b(?:nước|du lịch|tour|đi|vé|đến)\s+lào\b|\blaopdr\b',
-    "nga": r'\b(?:nước|du lịch|tour|đi|vé|đến)\s+nga\b|\brussia\b',
+    "ý": r'(?<!tiếng\s)(?<!khách\s)(?<!đoàn\s)(?<!người\s)\b(?:du lịch|tour|đi|vé|đến)\s+ý\b|\bitalia\b|\bitaly\b',
+    "anh": r'(?<!tiếng\s)(?<!khách\s)(?<!đoàn\s)(?<!người\s)\b(?:du lịch|tour|đi|vé|đến)\s+anh\b|\bvương quốc anh\b|\bengland\b|\buk\b',
+    "mỹ": r'(?<!biển\s)(?<!bãi\s)(?<!tiếng\s)(?<!khách\s)(?<!đoàn\s)(?<!người\s)\b(?:nước|du lịch|tour|đi|vé|đến)\s+mỹ\b|\bhoa kỳ\b|\busa\b',
+    "úc": r'(?<!tiếng\s)(?<!khách\s)(?<!đoàn\s)(?<!người\s)\b(?:nước|du lịch|tour|đi|vé|đến)\s+úc\b|\baustralia\b',
+    "pháp": r'(?<!làng\s)(?<!tiếng\s)(?<!khách\s)(?<!đoàn\s)(?<!người\s)\b(?:du lịch|tour|đi|vé|đến)\s+pháp\b|\bfrance\b',
+    "đức": r'(?<!tiếng\s)(?<!khách\s)(?<!đoàn\s)(?<!người\s)\b(?:nước|du lịch|tour|đi|vé|đến)\s+đức\b|\bgermany\b',
+    "lào": r'(?<!tiếng\s)(?<!khách\s)(?<!đoàn\s)(?<!người\s)\b(?:nước|du lịch|tour|đi|vé|đến)\s+lào\b|\blaopdr\b',
+    "nga": r'(?<!tiếng\s)(?<!khách\s)(?<!đoàn\s)(?<!người\s)\b(?:nước|du lịch|tour|đi|vé|đến)\s+nga\b|\brussia\b',
 }
 
 TRAVEL_TOPIC_KEYWORDS = [
@@ -846,6 +846,15 @@ class Chatbot:
         matched_outside = []
         q_unaccent = remove_accents(q_low)
 
+        # Kiểm tra nếu câu hỏi nói về nghiệp vụ Hướng dẫn viên, ngoại ngữ hoặc đoàn khách quốc tế:
+        # Không bóc tách tên ngôn ngữ/quốc tịch (Pháp, Anh, Trung, Hàn, Nhật, Mỹ...) thành điểm đến du lịch!
+        is_guide_query = bool(re.search(
+            r'\b(?:hướng dẫn viên|hdv|phiên dịch|thuyết minh|nói được tiếng|nói tiếng|biết tiếng|ngoại ngữ|ngôn ngữ|tiếng anh|tiếng pháp|tiếng trung|tiếng hàn|tiếng nhật|tiếng nga|tiếng đức|đoàn khách|đoàn nước ngoài|khách nước ngoài|khách pháp|khách tây|đoàn nước pháp)\b',
+            q_low
+        ))
+        if is_guide_query:
+            return matched_local, []
+
         # 1. Kiểm tra các quốc gia tên ngắn dễ trùng từ vựng tiếng Việt (ý, úc, nga, anh, mỹ, pháp, đức, lào)
         for out_dest, pat in AMBIGUOUS_SHORT_COUNTRIES.items():
             if re.search(pat, q_low):
@@ -1219,6 +1228,200 @@ class Chatbot:
 
         return None
 
+    def handle_tour_guide_language(self, q_clean, q_low):
+        """
+        ĐỘNG CƠ TƯ VẤN NGHIỆP VỤ HƯỚNG DẪN VIÊN & HỖ TRỢ ĐOÀN KHÁCH QUỐC TẾ:
+        Tư vấn chuyên sâu về năng lực ngoại ngữ (tiếng Anh, Pháp, Trung, Hàn, Nhật...)
+        và nghiệp vụ hỗ trợ các đoàn khách ngoại quốc.
+        """
+        has_guide_term = any(w in q_low for w in [
+            "hướng dẫn viên", "hdv", "huong dan vien", "phiên dịch", "thuyết minh", "người dẫn đoàn"
+        ])
+        has_language_or_group = any(w in q_low for w in [
+            "tiếng anh", "tiếng pháp", "tiếng trung", "tiếng hàn", "tiếng nhật", "tiếng nga", "tiếng đức",
+            "ngoại ngữ", "ngôn ngữ", "nói được tiếng", "nói tiếng", "biết tiếng",
+            "đoàn nước pháp", "đoàn pháp", "khách pháp", "đoàn nước ngoài", "khách nước ngoài",
+            "khách tây", "đoàn tây", "đoàn trung quốc", "đoàn hàn quốc"
+        ])
+
+        if not (has_guide_term and has_language_or_group) and not (
+            any(w in q_low for w in ["đoàn nước pháp", "đoàn pháp", "khách pháp"]) and any(w in q_low for w in ["tiếng", "nói được", "hdv", "hướng dẫn"])
+        ):
+            return None
+
+        # Phát hiện ngôn ngữ cụ thể được hỏi
+        wants_french = any(w in q_low for w in ["pháp", "tiếng pháp", "đoàn nước pháp", "đoàn pháp", "khách pháp"])
+        wants_chinese = any(w in q_low for w in ["trung", "trung quốc", "tiếng trung", "tiếng hoa"])
+        wants_korean = any(w in q_low for w in ["hàn", "hàn quốc", "tiếng hàn"])
+        wants_japanese = any(w in q_low for w in ["nhật", "nhật bản", "tiếng nhật"])
+
+        lines = [
+            "🎙️ **TƯ VẤN NGHIỆP VỤ HƯỚNG DẪN VIÊN & HỖ TRỢ ĐOÀN KHÁCH QUỐC TẾ**\n",
+            "1️⃣ **Năng lực Tiếng Anh của Hướng dẫn viên:**",
+            "  • **100% Hướng dẫn viên tuyến quốc tế sử dụng tiếng Anh lưu loát**, đạt chuẩn Thẻ Hướng dẫn viên Quốc tế do Cục Du lịch Quốc gia Việt Nam cấp.",
+            "  • HDV có khả năng thuyết minh chuyên sâu về văn hóa, lịch sử, ẩm thực, phong tục tập quán và xử lý linh hoạt mọi tình huống giao tiếp với du khách quốc tế.",
+            ""
+        ]
+
+        if wants_french:
+            lines.extend([
+                "2️⃣ **Hỗ trợ đặc biệt cho Đoàn khách Pháp (Tiếng Pháp):**",
+                "  • **Bố trí HDV tiếng Pháp chuyên biệt:** Hoàn toàn có thể sắp xếp Hướng dẫn viên thông thạo **tiếng Pháp** (hoặc HDV song ngữ Anh - Pháp) đồng hành suốt chuyến đi theo yêu cầu riêng của đoàn.",
+                "  • **Dịch vụ hỗ trợ đoàn Pháp:**",
+                "    - Thuyết minh và phiên dịch trực tiếp tại tất cả các điểm di tích, danh thắng.",
+                "    - Hỗ trợ lưu ý chế độ ăn uống theo thói quen ẩm thực phương Tây (dị ứng bơ sữa, ăn chay, ít gia vị...).",
+                "    - Hỗ trợ các thủ tục hành chính, quy đổi ngoại tệ, mua sim 4G du lịch và bảo hiểm đầy đủ.",
+                ""
+            ])
+        elif wants_chinese:
+            lines.extend([
+                "2️⃣ **Hỗ trợ cho Đoàn khách nói Tiếng Trung:**",
+                "  • Có sẵn đội ngũ Hướng dẫn viên thẻ quốc tế thông thạo tiếng Quan Thoại (tiếng Trung phổ thông) và tiếng Quảng Đông phục vụ tận tình suốt hành trình.",
+                ""
+            ])
+        elif wants_korean:
+            lines.extend([
+                "2️⃣ **Hỗ trợ cho Đoàn khách nói Tiếng Hàn:**",
+                "  • Có Hướng dẫn viên chuyên tuyến tiếng Hàn tại các điểm du lịch lớn (Đà Nẵng, Nha Trang, Phú Quốc, Hạ Long) am hiểu văn hóa và khẩu vị Hàn Quốc.",
+                ""
+            ])
+        elif wants_japanese:
+            lines.extend([
+                "2️⃣ **Hỗ trợ cho Đoàn khách nói Tiếng Nhật:**",
+                "  • Có Hướng dẫn viên tiếng Nhật chu đáo, tác phong chuẩn mực, phục vụ chuyên nghiệp các đoàn khách Nhật Bản.",
+                ""
+            ])
+        else:
+            lines.extend([
+                "2️⃣ **Khả năng phục vụ đa ngôn ngữ:**",
+                "  • Ngoài tiếng Anh là ngôn ngữ tiêu chuẩn, luôn sẵn sàng bố trí Hướng dẫn viên chuyên biệt các thứ tiếng: **Pháp, Trung, Hàn, Nhật, Đức, Nga** khi đoàn thông báo trước yêu cầu.",
+                ""
+            ])
+
+        lines.extend([
+            "💡 **Lời khuyên tư vấn:** Để sự chuẩn bị được chu đáo nhất cho đoàn khách nước ngoài, bạn chỉ cần lưu ý thông báo trước số lượng khách, quốc tịch và ngôn ngữ ưu tiên khi lên kế hoạch lịch trình nhé!"
+        ])
+
+        return "\n".join(lines)
+
+    def handle_travel_incident(self, q_clean, q_low):
+        """
+        ĐỘNG CƠ TƯ VẤN XỬ LÝ SỰ CỐ & TÌNH HUỐNG KHẨN CẤP DU LỊCH (INCIDENT & CRISIS ADVISORY):
+        Tư vấn xử lý mất cắp/mất đồ ở khách sạn, móc túi, mất giấy tờ (hộ chiếu/CCCD),
+        ngộ độc thực phẩm, bị chặt chém lừa đảo du lịch.
+        """
+        theft_triggers = [
+            "ăn cắp", "an cap", "trộm cắp", "trom cap", "mất cắp", "mat cap",
+            "móc túi", "moc tui", "bị cướp", "bi cuop", "mất đồ", "mat do",
+            "mất ví", "mat vi", "mất tiền", "mat tien", "mất tài sản", "mat tai san",
+            "thất lạc hành lý", "that lac hanh ly", "mất vali", "mat vali"
+        ]
+        doc_triggers = [
+            "mất hộ chiếu", "mat ho chieu", "mất cccd", "mat cccd", "mất chứng minh",
+            "mất cmnd", "mất giấy tờ", "mat giay to"
+        ]
+        health_triggers = [
+            "ngộ độc thực phẩm", "ngo doc thuc pham", "ngộ độc", "ngo doc",
+            "đau bụng", "dau bung", "dị ứng hải sản", "say xe", "say sóng",
+            "bị thương", "tai nạn"
+        ]
+        scam_triggers = [
+            "chặt chém", "chat chem", "ép giá", "ep gia", "lừa đảo", "lua dao",
+            "đường dây nóng du lịch", "bị lừa"
+        ]
+
+        has_theft = any(w in q_low for w in theft_triggers)
+        has_doc = any(w in q_low for w in doc_triggers)
+        has_health = any(w in q_low for w in health_triggers)
+        has_scam = any(w in q_low for w in scam_triggers)
+
+        if not (has_theft or has_doc or has_health or has_scam):
+            return None
+
+        # TÌNH HUỐNG 1: Mất đồ / Mất cắp tại khách sạn
+        has_hotel = any(h in q_low for h in ["khách sạn", "ks", "phòng", "resort", "homestay", "chỗ ở", "nơi ở"])
+        if has_theft and has_hotel:
+            return (
+                "🏨 **HƯỚNG DẪN QUY TRÌNH XỬ LÝ KHI BỊ MẤT ĐỒ / MẤT CẮP TẠI KHÁCH SẠN**\n\n"
+                "Khi phát hiện mất đồ hoặc nghi ngờ bị trộm cắp trong phòng khách sạn, bạn hãy bình tĩnh thực hiện đúng **Quy trình 5 bước chuẩn** sau:\n\n"
+                "1️⃣ **Giữ nguyên hiện trường trong phòng:**\n"
+                "  • Tuyệt đối không tự ý xáo trộn, dọn dẹp đồ đạc hoặc chạm vào các bề mặt nghi vấn để hỗ trợ công tác kiểm tra dấu vết.\n\n"
+                "2️⃣ **Báo ngay cho Bộ phận Lễ tân & Quản lý khách sạn (Duty Manager):**\n"
+                "  • Yêu cầu Quản lý khách sạn và Hướng dẫn viên (nếu đi theo đoàn/tour) có mặt tại phòng để chứng kiến và ghi nhận hiện trạng.\n\n"
+                "3️⃣ **Yêu cầu Lập Biên Bản Ghi Nhận Sự Việc (Incident Report):**\n"
+                "  • Kê khai chi tiết danh mục tài sản bị mất (chủng loại, số lượng, đặc điểm nhận dạng, giá trị ước tính, thời điểm cuối cùng nhìn thấy).\n"
+                "  • Biên bản bắt buộc phải có chữ ký xác nhận của đại diện khách sạn, bạn và Hướng dẫn viên.\n\n"
+                "4️⃣ **Yêu cầu trích xuất Dữ liệu Khóa thẻ từ & Camera giám sát (CCTV):**\n"
+                "  • Đề nghị khách sạn trích xuất **Audit Trail (nhật ký mở cửa khóa từ)** để kiểm tra chính xác những mã thẻ nào đã mở phòng trong khoảng thời gian nghi vấn (thẻ dọn phòng, thẻ kỹ thuật hay thẻ của khách).\n"
+                "  • Trích xuất dữ liệu camera CCTV hành lang chiếu thẳng cửa phòng.\n\n"
+                "5️⃣ **Trình báo Công an phường/xã sở tại:**\n"
+                "  • Khách sạn có trách nhiệm cùng bạn đến Công an địa phương để trình báo và lấy **Biên bản xác nhận sự việc mất mát tài sản**. Đây là căn cứ pháp lý quan trọng nhất để làm việc với bên bảo hiểm.\n\n"
+                "🛡️ **Quyền lợi Bảo hiểm Du lịch & Bồi thường:**\n"
+                "  • Khi tham gia các chương trình tour trọn gói, du khách đều được bảo vệ bởi gói **Bảo hiểm Du lịch toàn diện (hạn mức trách nhiệm lên đến 50.000.000 VNĐ)** chi trả bồi thường mất mát hành lý & tư trang theo quy tắc bảo hiểm.\n"
+                "  • Hãy giữ lại Biên bản công an, Hóa đơn mua sắm chứng minh giá trị tài sản (nếu có) để nộp hồ sơ yêu cầu chi trả bồi thường nhanh chóng."
+            )
+
+        # TÌNH HUỐNG 2: Bị ăn cắp / Mất cắp tài sản nói chung (ngoài đường, điểm tham quan, móc túi)
+        if has_theft:
+            return (
+                "🚨 **HƯỚNG DẪN XỬ LÝ KHẨN CẤP KHI BỊ MẤT CẮP / MÓC TÚI KHI ĐI DU LỊCH**\n\n"
+                "Nếu bạn không may bị kẻ gian móc túi hoặc trộm mất tài sản khi đi du lịch, hãy thực hiện ngay các bước khẩn cấp sau:\n\n"
+                "1️⃣ **Khóa khẩn cấp thẻ ngân hàng & tài khoản tài chính:**\n"
+                "  • Mở ứng dụng Mobile Banking trên điện thoại hoặc gọi ngay đến tổng đài hotline ngân hàng để khóa tất cả thẻ ghi nợ, thẻ tín dụng (Visa/Mastercard) tránh bị quẹt trộm.\n\n"
+                "2️⃣ **Định vị & Khóa thiết bị từ xa (nếu mất điện thoại/laptop):**\n"
+                "  • Dùng thiết bị khác đăng nhập iCloud (*Find My iPhone*) hoặc Google (*Find My Device*) để kích hoạt chế độ Báo mất (*Lost Mode*) và xóa dữ liệu bảo mật nếu cần thiết.\n\n"
+                "3️⃣ **Đến đồn Công an / Cảnh sát gần nhất trình báo:**\n"
+                "  • Trình báo rõ thời gian, địa điểm, đặc điểm tài sản bị chiếm đoạt để lấy **Biên bản xác nhận mất cắp tài sản** có dấu mộc của cơ quan công an.\n\n"
+                "4️⃣ **Thông báo cho Hướng dẫn viên / Trưởng đoàn / Đơn vị tổ chức du lịch:**\n"
+                "  • Hướng dẫn viên sẽ hỗ trợ bạn phương tiện di chuyển, phiên dịch trình báo công an và tạm ứng tài chính dự phòng trong trường hợp bạn mất hết tiền mặt.\n\n"
+                "🛡️ **Kích hoạt bồi thường Bảo hiểm du lịch:**\n"
+                "  • Lưu giữ đầy đủ Biên bản xác nhận của Công an và liên hệ bộ phận hỗ trợ khách hàng để được hướng dẫn hoàn tất hồ sơ yêu cầu bảo hiểm chi trả bồi thường."
+            )
+
+        # TÌNH HUỐNG 3: Mất giấy tờ tùy thân (CCCD / Hộ chiếu)
+        if has_doc:
+            return (
+                "📑 **HƯỚNG DẪN XỬ LÝ KHI BỊ MẤT GIẤY TỜ TÙY THÂN (CCCD / HỘ CHIẾU)**\n\n"
+                "1️⃣ **Đối với du lịch trong nước (mất CCCD / CMND):**\n"
+                "  • **Đi máy bay:** Sử dụng tài khoản định danh điện tử **VNeID mức độ 2** trên điện thoại thông minh để làm thủ tục check-in tại quầy vé và qua cửa an ninh sân bay (đã được Cục Hàng không Việt Nam chấp thuận 100%).\n"
+                "  • Nếu không có VNeID mức 2: Đến Công an xã/phường gần nhất xin cấp **Giấy xác nhận nhân thân** có dán ảnh và đóng dấu giáp lai.\n\n"
+                "2️⃣ **Đối với du lịch nước ngoài (mất Hộ chiếu):**\n"
+                "  • Đến ngay đồn cảnh sát địa phương nơi xảy ra vụ việc để khai báo và nhận **Biên bản mất hộ chiếu** (Police Report).\n"
+                "  • Liên hệ ngay với **Đại sứ quán / Lãnh sự quán Việt Nam** tại nước sở tại để làm thủ tục cấp **Hộ chiếu rút gọn hoặc Giấy thông hành khẩn cấp (Emergency Travel Document)** để trở về nước.\n"
+                "  • Hồ sơ cần: 02 ảnh thẻ 4x6 nền trắng, Biên bản cảnh sát, bản sao hộ chiếu hoặc CCCD (nếu đã lưu sẵn trên điện thoại)."
+            )
+
+        # TÌNH HUỐNG 4: Ngộ độc thực phẩm, ốm đau, tai nạn
+        if has_health:
+            return (
+                "🏥 **HƯỚNG DẪN SƠ CỨU & XỬ LÝ SỰ CỐ SỨC KHỎE (NGỘ ĐỘC / ỐM ĐAU)**\n\n"
+                "1️⃣ **Sơ cứu ban đầu:**\n"
+                "  • Ngộ độc thực phẩm: Ngừng ăn thức ăn nghi ngờ, uống nhiều nước ấm hoặc oresol bù điện giải, tuyệt đối không tự ý dùng thuốc cầm tiêu chảy khi chưa có chỉ định của y bác sĩ.\n"
+                "  • Say xe / say sóng: Ngồi ghế đầu hoặc giữa thân tàu xe, tập trung nhìn ra xa về phía chân trời, uống trà gừng ấm hoặc ngậm kẹo gừng.\n\n"
+                "2️⃣ **Liên hệ y tế khẩn cấp:**\n"
+                "  • Báo ngay cho Hướng dẫn viên hoặc Lễ tân khách sạn để được đưa đến cơ sở y tế / bệnh viện uy tín gần nhất.\n\n"
+                "3️⃣ **Hồ sơ bồi thường Bảo hiểm Du lịch:**\n"
+                "  • Thu thập và lưu giữ đầy đủ: Sổ khám bệnh, đơn thuốc của bác sĩ, hóa đơn viện phí gốc (hóa đơn đỏ/VAT) để làm thủ tục thanh toán quyền lợi bảo hiểm du lịch."
+            )
+
+        # TÌNH HUỐNG 5: Chặt chém, ép giá, lừa đảo
+        if has_scam:
+            return (
+                "⚖️ **HƯỚNG DẪN XỬ LÝ KHI BỊ CHẶT CHÉM, ÉP GIÁ HOẶC LỪA ĐẢO DU LỊCH**\n\n"
+                "1️⃣ **Thu thập chứng cứ:**\n"
+                "  • Giữ lại toàn bộ hóa đơn thanh toán, chụp ảnh bảng niêm yết giá, biển số xe taxi hoặc ghi âm/chụp ảnh địa điểm bán hàng.\n\n"
+                "2️⃣ **Gọi ngay Đường dây nóng Hỗ trợ Du khách (Hotline Du lịch):**\n"
+                "  • **Đà Nẵng:** 0236.3550.111 / 1022\n"
+                "  • **Nha Trang - Khánh Hòa:** 0947.528.000 / *2258\n"
+                "  • **Hạ Long - Quảng Ninh:** 0913.265.009 / 1900.0243\n"
+                "  • **Hà Nội:** 1800.556.896\n"
+                "  • **TP. Hồ Chí Minh:** 1022 (nhánh 8) / 028.3823.4078\n\n"
+                "3️⃣ **Sự can thiệp của Hướng dẫn viên:**\n"
+                "  • Hướng dẫn viên và Trưởng đoàn luôn sẵn sàng đứng ra can thiệp trực tiếp với cơ sở dịch vụ để bảo vệ quyền lợi chính đáng cho du khách."
+            )
+
+        return None
+
     def generate_response(self, question, session_id=None, force_web_search=False):
         """
         QUY TRÌNH RA QUYẾT ĐỊNH TOÀN DIỆN:
@@ -1286,6 +1489,18 @@ class Chatbot:
                 ])
                 if topic_followup:
                     matched_local = [inherited_tour]
+
+        # -------------------------------------------------------------
+        # XỬ LÝ 2.5: ĐỘNG CƠ TƯ VẤN SỰ CỐ & NGHIỆP VỤ HƯỚNG DẪN VIÊN
+        # (TRAVEL INCIDENT & TOUR GUIDE ADVISORY ENGINE)
+        # -------------------------------------------------------------
+        guide_resp = self.handle_tour_guide_language(q_clean, q_low)
+        if guide_resp:
+            return guide_resp
+
+        incident_resp = self.handle_travel_incident(q_clean, q_low)
+        if incident_resp:
+            return incident_resp
 
         # -------------------------------------------------------------
         # XỬ LÝ 3: ĐỘNG CƠ TƯ VẤN THEO NGÂN SÁCH & SỞ THÍCH (RECOMMENDATION)
@@ -1400,14 +1615,7 @@ class Chatbot:
 
             prefix = ""
             if any(w in q_low for w in ["tour", "giá", "chi phí", "điểm du lịch", "tham quan", "có gì", "đâu"]):
-                is_abroad = any(w in q_low for w in ["nước ngoài", "quốc tế", "ngoại quốc"]) or out_dest_key in [
-                    "thái lan", "nhật bản", "hàn quốc", "trung quốc", "châu âu", "châu á", "mỹ", "hoa kỳ",
-                    "singapore", "malaysia", "đài loan", "bali", "úc", "pháp", "anh", "đức", "ý", "nga", "campuchia", "lào", "dubai", "hồng kông", "ấn độ"
-                ]
-                if is_abroad:
-                    prefix = f"ℹ️ *TourAI hiện tập trung chuyên sâu 20 tuyến tour trọn gói trong nước. Dưới đây là cẩm nang du lịch và thông tin hữu ích về {out_name}:*\n\n"
-                else:
-                    prefix = f"ℹ️ *Hệ thống TourAI hiện chưa mở tuyến tour trọn gói tới {out_name}. Dưới đây là cẩm nang du lịch gợi ý dành cho bạn:*\n\n"
+                prefix = f"ℹ️ *Dưới đây là cẩm nang thông tin và kinh nghiệm du lịch hữu ích dành cho bạn về {out_name}:*\n\n"
 
             resp = format_web_response(q_raw, web_results, destination_name=out_name)
             return prefix + resp
@@ -1522,10 +1730,10 @@ class Chatbot:
         # XỬ LÝ 9: GIAO TIẾP CƠ BẢN HOẶC FALLBACK TÌM KIẾM WEB
         # -------------------------------------------------------------
         if predicted_intent == "chao_hoi" or any(w in q_low for w in ["xin chào", "chào bạn", "hello", "hi", "alo", "chào"]):
-            return "👋 Xin chào! Tôi là trợ lý AI của TourAI. Tôi có thể giúp bạn tìm kiếm tour du lịch, kiểm tra giá vé, xem lịch trình chi tiết và tra cứu thời tiết thời gian thực."
+            return "👋 Xin chào! Tôi là trợ lý tư vấn du lịch thông minh TourAI. Tôi luôn sẵn sàng hỗ trợ bạn tư vấn điểm đến, lên lịch trình, dự toán ngân sách, tra cứu thời tiết thời gian thực và chia sẻ các kinh nghiệm, giải pháp an toàn du lịch."
 
         if predicted_intent == "tam_biet" or any(w in q_low for w in ["tạm biệt", "cảm ơn", "bye", "hẹn gặp", "thank"]):
-            return "Cảm ơn bạn đã sử dụng TourAI! Chúc bạn có những chuyến du lịch thật vui vẻ và trọn vẹn!"
+            return "Cảm ơn bạn đã trò chuyện cùng TourAI! Chúc bạn luôn có những hành trình khám phá thật nhiều niềm vui và an toàn trên mọi nẻo đường!"
 
         # Khi không khớp được trong tri thức nội bộ -> Tự động tìm kiếm Internet
         web_results = search_web_for_travel(q_clean)
@@ -1533,6 +1741,6 @@ class Chatbot:
             return format_web_response(q_raw, web_results)
 
         return (
-            "Xin lỗi, tôi chưa tìm thấy thông tin phù hợp trong cơ sở dữ liệu cũng như trên mạng. "
-            "Bạn có thể hỏi về 20 tour du lịch hiện có của TourAI (Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Đà Lạt, Sa Pa, Quy Nhơn, Cần Thơ, Hà Giang, Ninh Bình, Huế, Hội An...), giá vé, lịch trình, thời tiết hoặc kinh nghiệm du lịch nhé!"
+            "Xin lỗi, tôi chưa tìm thấy thông tin phù hợp cho thắc mắc của bạn. "
+            "Bạn có thể hỏi về các điểm đến (Đà Nẵng, Nha Trang, Hạ Long, Phú Quốc, Sa Pa, Đà Lạt, Hà Giang, Ninh Bình, Huế, Hội An...), tư vấn lịch trình, ẩm thực đặc sản, thời tiết, kinh nghiệm chuẩn bị hành lý hoặc xử lý tình huống du lịch nhé!"
         )

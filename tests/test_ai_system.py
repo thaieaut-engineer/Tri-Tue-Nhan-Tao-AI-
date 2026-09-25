@@ -134,7 +134,49 @@ class TestChatbotTourConsultation(unittest.TestCase):
         self.assertIn("Sa Pa", resp)
         self.assertIn("/tours/6", resp)
 
+    def test_hotel_theft_incident_consultation(self):
+        # Kiểm tra xử lý sự cố mất đồ tại khách sạn (Issue 1)
+        resp = self.bot.generate_response("đang hỏi trong trường hợp nếu t bị ăn cắp mất đồ ở khách sạn thì giải quyết như nào?")
+        self.assertIn("MẤT ĐỒ / MẤT CẮP TẠI KHÁCH SẠN", resp)
+        self.assertIn("Giữ nguyên hiện trường", resp)
+        self.assertIn("Lễ tân", resp)
+        self.assertIn("Biên Bản Ghi Nhận Sự Việc", resp)
+        self.assertIn("Công an", resp)
+        self.assertIn("50.000.000", resp)
+        # Đảm bảo không bắt nhầm sang chính sách hoàn hủy bão lũ thiên tai
+        self.assertNotIn("bão lũ", resp)
+        self.assertNotIn("hoàn lại 100% chi phí", resp)
+
+    def test_general_theft_incident_consultation(self):
+        # Kiểm tra tư vấn tình huống mất cắp khi đi du lịch (Issue 2)
+        resp = self.bot.generate_response("nếu tôi bị ăn cắp thì sao")
+        self.assertIn("MẤT CẮP", resp)
+        self.assertIn("Khóa khẩn cấp thẻ ngân hàng", resp)
+        self.assertIn("Công an", resp)
+        self.assertIn("Bảo hiểm", resp)
+        # Đảm bảo không bị web search tìm nhầm sang hội chứng tâm thần
+        self.assertNotIn("tâm thần", resp.lower())
+        self.assertNotIn("hội chứng ăn cắp", resp.lower())
+
+    def test_tour_guide_language_french_group(self):
+        # Kiểm tra tư vấn nghiệp vụ HDV ngoại ngữ & đoàn khách Pháp (Issue 3)
+        resp = self.bot.generate_response("hướng dẫn viên nói được tiếng anh ko, đoàn tôi là đoàn nước pháp")
+        self.assertIn("HƯỚNG DẪN VIÊN", resp)
+        self.assertIn("Tiếng Anh", resp)
+        self.assertIn("tiếng Pháp", resp)
+        self.assertIn("Thẻ Hướng dẫn viên Quốc tế", resp)
+        # Đảm bảo không bắt nhầm nước Pháp thành tour du lịch Châu Âu / Tháp Eiffel
+        self.assertNotIn("Tháp Eiffel", resp)
+        self.assertNotIn("Bảo tàng Louvre", resp)
+
+    def test_pure_consultative_tone_no_sales_pitch(self):
+        # Kiểm tra chatbot giữ đúng vai trò tư vấn, không chèo kéo bán tour
+        resp = self.bot.generate_response("Du lịch Thái Lan có gì hay?")
+        self.assertNotIn("TourAI hiện tập trung chuyên sâu phục vụ 20 tuyến tour trọn gói", resp)
+        self.assertIn("Cẩm Nang Du Lịch Thái Lan", resp)
+
 
 if __name__ == "__main__":
     unittest.main()
+
 
