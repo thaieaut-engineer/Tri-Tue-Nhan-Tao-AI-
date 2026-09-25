@@ -6388,5 +6388,1205 @@
     "answer": "Toàn bộ Hướng dẫn viên của TourAI đều có thẻ hành nghề do Cục Du lịch Quốc gia cấp (Thẻ HDV Quốc tế hoặc Nội địa), có nghiệp vụ sư phạm du lịch, sơ cấp cứu y tế, am hiểu sâu sắc văn hóa lịch sử và tận tâm chăm sóc du khách.",
     "intent": "huong_dan_vien",
     "tour_id": null
+  },
+  {
+    "question": "Bị mất ví tiền và thẻ ngân hàng khi đi du lịch chợ đêm xử lý thế nào?",
+    "answer": "Khi bị mất ví tiền và thẻ ngân hàng tại chợ đêm: 1. Mở ngay app ngân hàng hoặc gọi hotline khẩn cấp khóa toàn bộ thẻ ATM/Visa/Mastercard. 2. Đến ngay ban quản lý chợ đêm hoặc đồn công an gần nhất trình báo. 3. Báo Hướng dẫn viên hoặc lễ tân khách sạn để hỗ trợ phương tiện di chuyển và tạm ứng tiền mặt chi tiêu thiết yếu.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Bị trộm balo có máy ảnh và laptop ở bãi biển thì làm sao?",
+    "answer": "Khi bị mất tài sản ở bãi biển: 1. Báo ngay cho đội cứu hộ bờ biển và quản lý bãi tắm để trích xuất camera an ninh gần đó. 2. Đến Công an phường/xã sở tại lấy Biên bản xác nhận mất cắp tài sản. 3. Nếu đi tour trọn gói, liên hệ hotline TourAI để gửi biên bản công an làm thủ tục yêu cầu bồi thường Bảo hiểm du lịch.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Để quên điện thoại trên xe taxi hoặc xe công nghệ thì lấy lại bằng cách nào?",
+    "answer": "Cách tìm lại điện thoại để quên trên xe: 1. Với xe công nghệ (Grab/Gojek/Be/Xanh SM): Vào mục Hoạt động trên app từ máy khác hoặc gọi tổng đài cung cấp mã chuyến đi để liên hệ tài xế. 2. Với taxi truyền thống: Gọi tổng đài hãng taxi, cung cấp biển số xe hoặc số tài xe in trên biên lai cước, điểm đón và trả khách.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Để quên vali hành lý trên xe tour du lịch thì liên hệ ai?",
+    "answer": "Nếu để quên đồ trên xe tour: Hãy gọi ngay cho Hướng dẫn viên phụ trách đoàn hoặc Điều hành tour. Hướng dẫn viên sẽ liên hệ trực tiếp với bác tài xế kiểm tra khoang xe, niêm phong đồ đạc và hẹn điểm gửi trả lại vali nguyên vẹn cho bạn.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Mất hành lý ký gửi tại sân bay thì đến quầy nào khai báo?",
+    "answer": "Khi không thấy hành lý ký gửi tại băng chuyền: Đến ngay quầy 'Hành lý thất lạc' (Lost and Found) tại khu vực cách ly ga đến. Xuất trình thẻ hành lý (Baggage Claim Tag), vé máy bay và CCCD để nhân viên lập Biên bản bất thường về hành lý (PIR). Hãng bay có trách nhiệm định vị và giao vali tận khách sạn cho bạn.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Hành lý ký gửi bị rách hoặc vỡ nát khi nhận ở băng chuyền sân bay thì ai bồi thường?",
+    "answer": "Nếu vali bị rách vỡ hoặc hỏng hóc: Giữ nguyên hiện trạng, không mang vali ra khỏi khu vực cách ly, đến ngay quầy Lost and Found của hãng bay để lập biên bản hư hỏng. Hãng bay sẽ có trách nhiệm bồi thường chi phí sửa chữa, đổi vali mới tương đương hoặc bồi thường tiền mặt theo quy định hàng không.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Bị móc túi giật điện thoại ở phố đi bộ thì xử lý như thế nào?",
+    "answer": "Khi bị cướp giật hoặc móc túi: 1. Giữ bình tĩnh, nhờ người xung quanh hỗ trợ ghi nhớ đặc điểm nhận dạng kẻ gian và hướng tẩu thoát. 2. Dùng máy khác kích hoạt tính năng khóa máy từ xa (Find My iPhone / Google Find My Device) để bảo vệ tài khoản ngân hàng. 3. Đến đồn Công an phường gần nhất lập biên bản khai báo sự việc.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Khách sạn không chịu đền khi khách bị mất đồ trong phòng thì phải làm sao?",
+    "answer": "Khi khách sạn từ chối giải quyết mất mát: 1. Yêu cầu lập Biên bản sự việc ghi rõ quan điểm 2 bên, có chữ ký đại diện khách sạn. 2. Yêu cầu trích xuất nhật ký khóa từ (Audit Trail) và camera hành lang. 3. Trình báo Công an địa phương và liên hệ Thanh tra Sở Du lịch tỉnh/thành phố để can thiệp bảo vệ quyền lợi hợp pháp.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Trẻ em bị lạc ở khu du lịch đông người thì xử lý thế nào?",
+    "answer": "Khi trẻ bị lạc: 1. Đến ngay quầy thông tin trung tâm hoặc phòng bảo vệ khu du lịch yêu cầu phát loa thông báo khẩn cấp toàn khu. 2. Cung cấp ảnh chụp gần nhất của bé (đặc điểm trang phục, chiều cao, tên tuổi). 3. Bố mẹ nên giữ một người ở điểm hẹn cố định đề phòng bé tự quay lại.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Đi du lịch vùng cao bị say độ cao, khó thở thì sơ cứu thế nào?",
+    "answer": "Khi bị say độ cao (ở Fansipan 3.143m hoặc đèo Mã Pí Lèng): 1. Dừng ngay vận động mạnh, ngồi nghỉ ở nơi kín gió, hít thở sâu và đều. 2. Uống nước ấm hoặc trà gừng ấm, ngậm kẹo gừng. 3. Dùng bình xịt oxy y tế cá nhân (có bán tại quầy ga cáp treo) và nhanh chóng di chuyển xuống vùng có độ cao thấp hơn.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Bị ong đốt, côn trùng cắn hoặc vắt cắn khi đi trekking rừng thì xử lý sao?",
+    "answer": "Khi bị côn trùng hoặc vắt cắn trong rừng: 1. Vắt cắn: Không giật mạnh, dùng bật lửa hơ nhẹ hoặc xịt cồn/muối để vắt tự nhả, rửa sạch vết thương và băng lại. 2. Ong đốt: Nhẹ nhàng cạo ngòi ong ra bằng thẻ nhựa, chườm lạnh giảm đau sưng, nếu khó thở hoặc phát ban toàn thân cần đưa đến cơ sở y tế ngay.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Bị sứa biển cắn khi tắm biển thì sơ cứu như thế nào?",
+    "answer": "Sơ cứu khi bị sứa cắn: 1. Lên bờ ngay lập tức, dùng nước biển hoặc giấm ăn rửa sạch vết sứa cắn (tuyệt đối không dùng nước ngọt rửa vì làm phóng thêm nọc độc). 2. Dùng nhíp hoặc que gạt bỏ các xúc tu bám trên da. 3. Chườm nóng hoặc ngâm vùng da bị cắn trong nước ấm 40-45 độ C để phá hủy độc tố sứa.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Bị trượt chân ngã trầy xước khi đi suối, leo núi thác nước thì xử lý sao?",
+    "answer": "Sơ cứu vết thương trượt ngã tại suối/thác: 1. Rửa sạch vết thương bằng nước muối sinh lý hoặc dung dịch sát khuẩn Povidine (tránh rửa nước suối trực tiếp vì dễ nhiễm khuẩn). 2. Băng ép cầm máu bằng gạc y tế vô trùng. 3. Nếu nghi ngờ bong gân hoặc rạn xương, cố định chi và liên hệ cứu hộ vận chuyển xuống núi.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Bị say cano, say sóng nôn nao khi đi tour 4 đảo thì làm gì cho đỡ?",
+    "answer": "Cách chống say cano, say sóng: 1. Uống thuốc say sóng trước khi lên tàu 30 phút, ăn nhẹ (không để bụng quá no hoặc quá đói). 2. Ngồi ở hàng ghế sau hoặc giữa cano (nơi ít bị xóc nảy nhất). 3. Nhìn thẳng ra xa phía đường chân trời, không nhìn xuống mặt nước hay bấm điện thoại, bấm huyệt Nội Quan ở cổ tay.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Chuyến bay bị hoãn delay hơn 4 tiếng hoặc bị hủy thì hành khách được quyền lợi gì?",
+    "answer": "Quyền lợi hành khách khi chuyến bay delay: 1. Hoãn từ 2-4 tiếng: Được hãng phục vụ đồ uống và bữa ăn miễn phí. 2. Hoãn trên 4 tiếng: Được bồi thường ứng trước không hoàn lại bằng tiền mặt hoặc voucher (từ 200.000 - 400.000 VNĐ tùy chặng). 3. Hoãn trên 6 tiếng ban đêm: Được bố trí phòng khách sạn nghỉ ngơi và xe đưa đón.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Lỡ chuyến bay do tắc đường hoặc đến muộn thì làm sao?",
+    "answer": "Khi lỡ chuyến bay (No-show): Đến ngay quầy vé giờ chót của hãng bay tại sân bay trong vòng 48 giờ. Hầu hết các hãng (Vietnam Airlines, Vietjet, Bamboo) đều có chính sách hỗ trợ chuyển sang chuyến bay tiếp theo trong ngày với mức phí đổi giờ chót (khoảng 300.000 - 500.000 VNĐ/vé) thay vì mất trắng vé.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Bị mất vé máy bay giấy hoặc thẻ lên tàu bay thì xử lý thế nào?",
+    "answer": "Khi mất vé giấy hoặc Boarding Pass: Không cần lo lắng vì vé máy bay hiện tại 100% là vé điện tử. Bạn chỉ cần xuất trình mã đặt chỗ (PNR) trên điện thoại và giấy tờ tùy thân (CCCD/Hộ chiếu) tại quầy thủ tục sân bay để nhân viên in lại thẻ lên máy bay miễn phí.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Gặp bão biển hoặc áp thấp nhiệt đới khi đang ở trên đảo thì làm sao?",
+    "answer": "Khi kẹt trên đảo do cấm biển: 1. Giữ bình tĩnh, ở yên tại khách sạn kiên cố, không ra khu vực bờ biển. 2. Khách sạn và công ty lữ hành luôn có phương án hỗ trợ lưu trú dự phòng với giá ưu đãi. 3. TourAI sẽ phối hợp với cảng vụ và hãng tàu/hàng không sắp xếp đưa du khách về đất liền ngay khi lệnh cấm biển được dỡ bỏ.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Đường đèo bị sạt lở không di chuyển được khi đi tour Hà Giang thì xử lý thế nào?",
+    "answer": "Khi đèo sạt lở: Lái xe và HDV TourAI được đào tạo nghiệp vụ an toàn sẽ cho xe dừng tại vị trí an toàn, tránh mép vực hoặc vách ta-luy dốc. Đoàn sẽ chuyển hướng theo cung đường tránh hoặc nghỉ chân tại thị trấn gần nhất để chờ lực lượng giao thông san ủi thông tuyến an toàn.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Mất chìa khóa phòng khách sạn hoặc làm hỏng thẻ từ thì bị phạt bao nhiêu?",
+    "answer": "Làm mất thẻ từ khách sạn: Thông thường các khách sạn chỉ tính phí phôi thẻ từ khoảng 50.000 - 100.000 VNĐ/thẻ. Nếu là chìa khóa kim loại có móc khóa chuyên dụng cao cấp, mức đền bù dao động từ 150.000 - 300.000 VNĐ tùy quy định từng cơ sở lưu trú.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Làm vỡ cốc hoặc làm bẩn ga trải giường khách sạn thì xử lý thế nào?",
+    "answer": "Khi làm vỡ đồ hoặc bẩn đồ khách sạn: Báo ngay cho bộ phận buồng phòng khi check-out. Các khách sạn đều có bảng giá đền bù tài sản niêm yết công khai (cốc thủy tinh khoảng 30.000 - 50.000 VNĐ; vết bẩn ga giường khó giặt phụ thu phí giặt tẩy khoảng 100.000 - 200.000 VNĐ).",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Bị lừa mua phải ngọc trai giả hoặc yến sào giả khi đi du lịch thì báo ai?",
+    "answer": "Khi mua phải hàng giả đặc sản: 1. Giữ lại sản phẩm, bao bì niêm phong và hóa đơn bán lẻ/phiếu thu tiền. 2. Chụp ảnh vị trí cửa hàng và biển hiệu. 3. Gọi điện ngay đến Đội Quản lý thị trường địa phương hoặc Tổng đài đường dây nóng bảo vệ người tiêu dùng (1800.6838) để cơ quan chức năng kiểm tra xử phạt.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Bị tài xế taxi dù gian lận đồng hồ tính cước hoặc chở lòng vòng thì xử lý sao?",
+    "answer": "Khi gặp taxi gian lận cước: 1. Chụp ảnh biển số xe, thẻ tài xế dán trên taplo và đồng hồ tính tiền. 2. Yêu cầu in hóa đơn hoặc dừng xe tại đồn công an gần nhất nếu tài xế có hành vi đe dọa. 3. Phản ánh ngay đến Tổng đài 1022 hoặc Thanh tra Sở Giao thông vận tải địa phương.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Quán ăn tính tiền cao gấp nhiều lần thực đơn niêm yết (chặt chém) thì làm gì?",
+    "answer": "Cách xử lý khi bị quán ăn chặt chém: 1. Giữ nguyên hóa đơn tính tiền, chụp ảnh menu giá niêm yết của quán. 2. Kiên quyết thanh toán theo giá niêm yết, không thỏa hiệp với giá ép vô lý. 3. Gọi ngay đường dây nóng phản ánh du lịch địa phương: Đà Nẵng (0236.3550.111), Nha Trang (0947.528.000), Hà Nội (1800.556.896) để đội liên ngành có mặt xử lý tại chỗ.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Mất giấy khai sinh của con nhỏ khi chuẩn bị lên máy bay về thì giải quyết thế nào?",
+    "answer": "Xử lý khi mất giấy khai sinh trẻ em tại sân bay: 1. Nhờ người thân chụp ảnh bản gốc hoặc trích lục giấy khai sinh gửi qua Zalo/Email. 2. Nếu đã đăng ký tài khoản VNeID của bố mẹ có tích hợp thông tin người phụ thuộc (con), xuất trình app VNeID tại quầy vé. 3. Hoặc liên hệ Công an xã/phường gần sân bay xin cấp Giấy xác nhận nhân thân khẩn cấp.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Mất hộ chiếu khi sắp đến giờ bay quốc tế về nước thì làm sao?",
+    "answer": "Khi mất hộ chiếu trước giờ bay quốc tế: Bạn không thể qua cửa xuất cảnh với hộ chiếu đã mất. Cần đến ngay đồn cảnh sát sân bay lấy giấy xác nhận mất hộ chiếu, sau đó đến Đại sứ quán/Lãnh sự quán Việt Nam xin cấp Giấy thông hành khẩn cấp (Emergency Travel Document) rồi đổi chuyến bay sau.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Đột ngột bị sốt cao hoặc co giật trong đêm tại khách sạn thì gọi ai?",
+    "answer": "Khi có ca cấp cứu y tế ban đêm: Gọi ngay Lễ tân khách sạn (bấm phím 0 trên máy bàn phòng) hoặc gọi cấp cứu 115. Lễ tân khách sạn luôn có số trực ban của trạm y tế, bệnh viện đa khoa gần nhất và xe taxi cấp cứu túc trực hỗ trợ 24/7.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Bị đau răng cấp tính hoặc đau bụng ruột thừa khi đi du lịch thì xử lý thế nào?",
+    "answer": "Xử lý cơn đau cấp tính khi đi tour: Thông báo ngay cho Hướng dẫn viên để được xe tour đưa vào Trung tâm y tế huyện hoặc Bệnh viện đa khoa tỉnh gần nhất. Toàn bộ hồ sơ bệnh án, hóa đơn phẫu thuật hoặc điều trị nội trú đều được Bảo hiểm du lịch thanh toán bồi hoàn theo định mức quy định.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Quên thuốc đặc trị bệnh mãn tính khi đi tour thì mua ở đâu?",
+    "answer": "Nếu quên thuốc điều trị (huyết áp, tim mạch, hen suyễn): Chụp ảnh đơn thuốc cũ hoặc vỏ hộp thuốc, báo HDV hỗ trợ tìm nhà thuốc lớn đạt chuẩn GPP (như Long Châu, An Khang, Pharmacity) tại trung tâm thành phố/thị xã để mua đúng hoạt chất tương đương.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Đi du lịch một mình bị người lạ bám theo quấy rối thì làm sao?",
+    "answer": "Bảo vệ bản thân khi bị bám theo: 1. Nhanh chóng bước vào nơi đông người, cửa hàng tiện lợi, sảnh khách sạn hoặc trụ sở cơ quan công quyền. 2. Báo ngay cho bảo vệ hoặc nhân viên quán. 3. Tuyệt đối không đi vào hẻm vắng hoặc lối tối, gọi điện thông báo định vị cho người thân hoặc gọi 113.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Đổi tiền ngoại tệ ở đâu uy tín khi đi du lịch để tránh bị phạt?",
+    "answer": "Quy định đổi ngoại tệ hợp pháp: Đổi tại quầy giao dịch các ngân hàng thương mại (Vietcombank, BIDV, VietinBank) hoặc các quầy thu đổi ngoại tệ được Ngân hàng Nhà nước cấp phép tại sân bay, khách sạn 4-5 sao. Tuyệt đối không đổi tiền chui tại các tiệm vàng không phép để tránh bị tịch thu và xử phạt vi phạm hành chính.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Thẻ ATM bị nuốt tại cây rút tiền ở điểm du lịch xa lạ thì làm thế nào?",
+    "answer": "Khi thẻ ATM bị nuốt: 1. Mở app ngân hàng khóa thẻ ngay lập tức để đảm bảo an toàn số dư. 2. Ghi lại số hiệu cây ATM, địa chỉ cây rút tiền và số hotline dán trên máy ATM. 3. Dùng tính năng Rút tiền bằng mã QR trên app điện thoại để rút tiền mặt tạm thời mà không cần thẻ vật lý.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Chuyển khoản nhầm tiền khi thanh toán tiền ăn ở nhà hàng du lịch thì lấy lại sao?",
+    "answer": "Khi chuyển khoản thừa hoặc nhầm tiền: 1. Chụp lại biên lai giao dịch thành công trên app ngân hàng. 2. Yêu cầu quản lý nhà hàng đối soát sao kê tài khoản nhận. 3. Nếu là chủ tài khoản trung thực, họ sẽ chuyển hoàn lại số tiền chênh lệch ngay; nếu có tranh chấp, liên hệ ngân hàng phong tỏa lệnh giao dịch để tra soát.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Mua sim du lịch 4G nhưng không có sóng hoặc không vào được mạng thì xử lý sao?",
+    "answer": "Khắc phục sim 4G không vào được mạng: 1. Khởi động lại điện thoại. 2. Bật tính năng 'Dữ liệu di động' và 'Chuyển vùng dữ liệu' (Data Roaming). 3. Kiểm tra cài đặt Điểm truy cập APN (với Viettel là 'v-internet', Vinaphone là 'm3-world'). Nếu vẫn không được, gọi hotline hỗ trợ in trên vỏ thẻ sim.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Thuê xe máy tự lái bị hỏng giữa đường đèo hoang vắng thì gọi ai cứu hộ?",
+    "answer": "Khi xe máy thuê bị hỏng giữa đường: Gọi ngay cho chủ tiệm cho thuê xe máy theo số điện thoại ghi trên hợp đồng/giấy thuê xe. Các đơn vị cho thuê xe chuyên nghiệp đều có mạng lưới liên kết cứu hộ, đổi xe mới hoặc chi trả phí sửa chữa tại tiệm sửa xe ven đường gần nhất cho bạn.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Thuê xe máy bị CSGT kiểm tra thì cần xuất trình những giấy tờ gì?",
+    "answer": "Giấy tờ cần có khi thuê xe máy: 1. Giấy phép lái xe (bằng lái) hợp lệ của người điều khiển. 2. Bản sao hoặc bản gốc Giấy đăng ký xe (Cà-vẹt) do chủ xe cung cấp. 3. Bảo hiểm trách nhiệm dân sự bắt buộc của xe máy còn hạn. 4. Hợp đồng hoặc biên nhận thuê xe.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Xe máy thuê bị thủng lốp hoặc hết xăng giữa đường đèo thì làm sao?",
+    "answer": "Kinh nghiệm đi đèo: Luôn đổ đầy bình xăng trước khi rời trung tâm thị trấn. Nếu hết xăng hoặc thủng lốp, hãy tìm các biển hiệu 'Vá săm xe máy' hoặc các chai xăng bán lẻ ven đường của đồng bào bản địa; hoặc vẫy các đoàn phượt thủ đi cùng chiều nhờ hỗ trợ chia sẻ xăng.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Hướng dẫn viên không nhiệt tình hoặc bỏ rơi khách thì khiếu nại ở đâu?",
+    "answer": "Khi không hài lòng về thái độ HDV: Phản ánh trực tiếp với Điều hành tour hoặc gọi đến đường dây nóng hỗ trợ khách hàng của TourAI. Công ty cam kết đổi HDV hoặc có biện pháp chấn chỉnh ngay lập tức để không làm ảnh hưởng đến trải nghiệm chuyến đi của bạn.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Bị dị ứng thức ăn mẩn ngứa khắp người khi ăn đặc sản thì uống thuốc gì?",
+    "answer": "Xử lý dị ứng hải sản: Ngừng ăn ngay món gây dị ứng, uống nhiều nước ấm giúp đào thải độc tố. Có thể uống thuốc kháng histamin thông dụng (như Loratadine hoặc Cetirizine). Nếu xuất hiện triệu chứng phù nề mí mắt, môi hoặc khó thở, phải đến bệnh viện cấp cứu chống sốc phản vệ ngay lập tức.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Bảo hiểm du lịch chi trả trong những trường hợp nào và tối đa bao nhiêu tiền?",
+    "answer": "Phạm vi bảo hiểm du lịch TourAI: Chi trả tối đa lên đến 50.000.000 VNĐ/khách/vụ, bao gồm: Chi phí y tế phát sinh do tai nạn/ốm đau đột xuất trong chuyến đi; Hỗ trợ bồi thường mất mát, hư hỏng hành lý và tư trang cá nhân; Hỗ trợ bồi thường khi chuyến bay bị hoãn hủy kéo dài theo quy tắc bảo hiểm chuẩn.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Hướng dẫn viên du lịch có thẻ hành nghề gì? Phân biệt thẻ nội địa và thẻ quốc tế?",
+    "answer": "Theo Luật Du lịch Việt Nam, có 2 loại thẻ HDV chính thức: 1. Thẻ HDV Quốc tế: Đủ điều kiện hướng dẫn cho cả khách nước ngoài đến Việt Nam và khách Việt Nam đi du lịch trong nước/quốc tế (bắt buộc có chứng chỉ ngoại ngữ đại học hoặc IELTS/TOEFL/DELF). 2. Thẻ HDV Nội địa: Phục vụ khách Việt Nam đi du lịch trong phạm vi lãnh thổ quốc gia.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Tiêu chuẩn ngoại ngữ của Hướng dẫn viên quốc tế là gì?",
+    "answer": "HDV quốc tế phải có bằng tốt nghiệp đại học chuyên ngành ngoại ngữ hoặc chứng chỉ ngoại ngữ quốc tế tương đương bậc 4 trở lên (IELTS 5.5+ đối với tiếng Anh, B2 đối với tiếng Pháp/Đức, HSK 5 đối với tiếng Trung, TOPIK 4 đối với tiếng Hàn, N2 đối với tiếng Nhật) và vượt qua kỳ sát hạch nghiệp vụ của Cục Du lịch Quốc gia.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Đi tour có người lớn tuổi khó đi lại thì Hướng dẫn viên có hỗ trợ xe lăn không?",
+    "answer": "Có! Khi đoàn có người lớn tuổi hoặc người hạn chế vận động, HDV sẽ hỗ trợ đẩy xe lăn tại các điểm tham quan bằng phẳng (như Bà Nà Hills, Tràng An, Đại Nội Huế), ưu tiên lối đi riêng không bậc thang và sắp xếp vị trí ghế ngồi thuận tiện nhất trên xe tour.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Đoàn gia đình có trẻ sơ sinh cần mang xe đẩy lên xe tour được không?",
+    "answer": "Hoàn toàn được! Các dòng xe du lịch phục vụ tour (từ 16 đến 45 chỗ) đều có khoang hành lý rộng rãi để cất giữ xe đẩy gấp gọn của em bé hoàn toàn miễn phí. HDV và lái xe sẽ hỗ trợ khuân vác lên xuống xe cho gia đình.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Hướng dẫn viên có thuyết minh bằng tiếng Pháp cho đoàn khách Pháp không?",
+    "answer": "Có! TourAI có đội ngũ Hướng dẫn viên chuyên tuyến tiếng Pháp đạt chuẩn thẻ Quốc tế, thuyết minh sâu sắc về lịch sử kiến trúc Pháp tại Việt Nam (Cố Đô Huế, Nhà thờ đá Sa Pa, Ga Đà Lạt, Phố cổ Hà Nội) và phiên dịch ẩm thực phù hợp khẩu vị du khách Pháp.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Tour có thể bố trí HDV song ngữ Việt - Anh hoặc Anh - Pháp không?",
+    "answer": "Được! Đối với các đoàn khách đa quốc tịch hoặc gia đình có Việt kiều/người nước ngoài, TourAI có thể sắp xếp Hướng dẫn viên song ngữ lưu loát (Anh - Việt hoặc Pháp - Anh) để mọi thành viên trong đoàn đều hiểu rõ câu chuyện lịch sử văn hóa.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Chi phí thuê thêm Hướng dẫn viên tiếng nước ngoài riêng cho đoàn là bao nhiêu?",
+    "answer": "Mức thù lao chuẩn của HDV ngoại ngữ theo quy định thị trường: HDV tiếng Anh khoảng 800.000 - 1.200.000 VNĐ/ngày; HDV các thứ tiếng hiếm (tiếng Pháp, tiếng Đức, tiếng Hàn, tiếng Nhật, tiếng Tây Ban Nha) khoảng 1.200.000 - 1.800.000 VNĐ/ngày tùy tuyến điểm.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Khách nước ngoài có được mua bảo hiểm du lịch tại Việt Nam không?",
+    "answer": "Có! Khách du lịch quốc tế nhập cảnh Việt Nam hợp pháp hoàn toàn được công ty lữ hành mua gói bảo hiểm du lịch nội địa toàn diện với đầy đủ quyền lợi y tế, hỗ trợ cấp cứu và bồi thường tư trang như du khách Việt Nam.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Đoàn khách Hồi giáo Muslim cần ăn đồ ăn Halal thì tour có phục vụ được không?",
+    "answer": "Được! TourAI sẵn sàng liên kết đặt bàn tại các nhà hàng có chứng nhận Halal Certification tại các trung tâm du lịch lớn (Đà Nẵng, Nha Trang, Hạ Long, TP.HCM, Hà Nội), không phục vụ thịt heo và rượu bia theo đúng quy chuẩn tôn giáo của du khách Hồi giáo.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Khách ăn chay trường hoặc ăn kiêng gluten thì tour có sắp xếp bữa ăn riêng không?",
+    "answer": "Có! Bạn chỉ cần thông báo chế độ ăn chay (chay thuần vegan, chay có trứng sữa vegetarian, hay kiêng gia vị ngũ vị tân) trước chuyến đi 1-2 ngày. Nhà hàng đối tác của tour sẽ phục vụ mâm cỗ chay thanh tịnh, dinh dưỡng riêng biệt cho bạn.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Tiền tip tiền boa cho Hướng dẫn viên và tài xế tại Việt Nam thường là bao nhiêu?",
+    "answer": "Thông lệ tiền tip tại Việt Nam: Không bắt buộc đối với khách nội địa (tùy tâm khách hàng bồi dưỡng khi hài lòng về dịch vụ, thường từ 50.000 - 100.000 VNĐ/ngày/khách). Đối với tour quốc tế (Inbound/Outbound), mức tip tiêu chuẩn quốc tế thường là 3 - 5 USD/khách/ngày chia cho cả HDV và bác tài.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Tiền tip có bắt buộc trong giá tour không hay tùy tâm du khách?",
+    "answer": "Trong các chương trình tour trọn gói của TourAI, tiền tip không phải là khoản thu bắt buộc. Khách hàng hoàn toàn có quyền quyết định thưởng thêm dựa trên sự tận tụy, chu đáo và nhiệt tình của đội ngũ phục vụ.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Hướng dẫn viên có hỗ trợ chụp ảnh và quay video kỷ niệm cho du khách không?",
+    "answer": "Chắc chắn có! Hướng dẫn viên TourAI đều rất quen thuộc các góc chụp ảnh đẹp (góc check-in triệu view) tại từng danh thắng và luôn sẵn lòng làm 'phó nháy' nhiệt tình chụp ảnh đơn, ảnh gia đình, ảnh tập thể cho du khách suốt hành trình.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Khách muốn tách đoàn đi chơi riêng vào buổi tối có được không? Cần lưu ý gì?",
+    "answer": "Buổi tối sau khi xe đưa đoàn về khách sạn nhận phòng là thời gian tự do của quý khách. Bạn hoàn toàn có thể tự do khám phá phố đêm, chỉ cần lưu ý: Mang theo card visit của khách sạn, bảo quản tư trang cẩn thận và có mặt tại sảnh trước giờ hẹn khởi hành của ngày hôm sau.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Khách có được tự ý ở lại điểm đến và không về cùng đoàn không?",
+    "answer": "Khách có thể ở lại điểm đến nếu muốn tiếp tục hành trình tự túc. Tuy nhiên bạn cần làm việc với Hướng dẫn viên để ký 'Biên bản tách đoàn tự nguyện' nhằm bảo đảm quyền lợi bảo hiểm và các vấn đề pháp lý phát sinh sau khi rời đoàn.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Nếu đoàn có khách ngoại quốc cần làm thủ tục khai báo tạm trú thì ai lo?",
+    "answer": "Bộ phận lễ tân khách sạn và Hướng dẫn viên du lịch sẽ chịu trách nhiệm khai báo tạm trú cho người nước ngoài qua Cổng dịch vụ công trực tuyến của Cục Quản lý Xuất nhập cảnh ngay trong đêm đầu tiên khách nhận phòng.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Hướng dẫn viên có thể kiêm luôn lái xe không hay có tài xế riêng biệt?",
+    "answer": "Để đảm bảo an toàn tuyệt đối, TourAI luôn bố trí đội ngũ riêng biệt: Bác tài xế chuyên nghiệp tập trung 100% vào việc lái xe an toàn trên từng cung đường, còn Hướng dẫn viên tập trung hoàn toàn vào việc chăm sóc và thuyết minh cho du khách.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Tiêu chuẩn an toàn của xe đưa đón du lịch TourAI là xe đời mấy?",
+    "answer": "Xe du lịch phục vụ của TourAI cam kết là các dòng xe đời mới (từ 2020 trở lại đây như Ford Transit, Hyundai Solati, Thaco Universe), đầy đủ máy lạnh, micro thuyết minh, ghế ngả êm ái, bảo dưỡng định kỳ và đầy đủ bảo hiểm dân sự hành khách.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Lái xe tour có nhiệt tình hỗ trợ khuân vác hành lý cho khách không?",
+    "answer": "Có! Đội ngũ bác tài của TourAI luôn có thái độ niềm nở, chủ động mở cốp xe và hỗ trợ bốc xếp hành lý cẩn thận, sắp xếp gọn gàng cho từng du khách tại các điểm đón tiễn sân bay và khách sạn.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Khách nước ngoài muốn mua sim điện thoại 4G thì HDV có hỗ trợ đăng ký không?",
+    "answer": "Có! HDV sẽ hỗ trợ khách nước ngoài xuất trình hộ chiếu để đăng ký sim chính chủ tại các quầy viễn thông uy tín (Viettel, Vinaphone), kích hoạt gói cước data 4G/5G tốc độ cao và cài đặt mạng ngay tại chỗ.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "HDV có giới thiệu những quán ăn ngon chuẩn vị người bản địa không bị bẫy du lịch không?",
+    "answer": "Đó là một trong những thế mạnh lớn nhất của HDV! Với kiến thức thực địa sâu rộng, HDV luôn chia sẻ những địa chỉ ẩm thực lâu đời, quán ăn gia truyền chuẩn vị người bản địa với mức giá bình dân, tránh xa các điểm ép giá chặt chém khách du lịch.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Khách say xe muốn ngồi ghế đầu xe tour thì đăng ký thế nào?",
+    "answer": "Nếu bạn hoặc người thân bị say xe nghiêm trọng: Hãy ghi chú trong đơn đăng ký hoặc trao đổi trực tiếp với HDV trước giờ xuất phát. Đoàn luôn ưu tiên các hàng ghế đầu (ngay sau bác tài) cho người già, phụ nữ có thai và du khách say xe.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Trẻ em mấy tuổi thì được tính suất ăn và chỗ ngồi riêng trên xe tour?",
+    "answer": "Quy chuẩn tour lữ hành: Trẻ em từ 5 đến 9 tuổi (hoặc cao từ 1m đến 1m3) được tính vé trẻ em (khoảng 50-70% giá vé người lớn), có ghế ngồi riêng trên xe, suất ăn riêng và vé tham quan đầy đủ; trẻ từ 10 tuổi trở lên tính như người lớn.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Đoàn đông từ 20 đến 40 khách thì có mấy Hướng dẫn viên đi cùng?",
+    "answer": "Với các đoàn từ 25-30 khách trở lên, TourAI luôn bố trí 01 Hướng dẫn viên chính phụ trách thuyết minh và 01 Hướng dẫn viên phụ (hoặc Trợ lý tour) hỗ trợ điểm danh, dẫn đầu và chốt đoàn để đảm bảo không ai bị lạc hay bỏ rơi.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Hướng dẫn viên có được trang bị túi thuốc và dụng cụ sơ cấp cứu y tế không?",
+    "answer": "Tất cả HDV của TourAI đều mang theo hộp thuốc y tế lưu động tiêu chuẩn gồm: Băng gạc vô trùng, cồn sát khuẩn, thuốc say xe, dầu gió, thuốc hạ sốt paracetamol, men tiêu hóa, thuốc dị ứng và oresol bù nước.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Khi gặp sự cố thời tiết xấu, HDV có quyền thay đổi lịch trình không?",
+    "answer": "Trong trường hợp bất khả kháng (mưa bão, sạt lở, cấm biển), vì sự an toàn tính mạng của du khách, HDV và Trưởng đoàn có quyền linh hoạt điều chỉnh thứ tự tham quan hoặc thay thế bằng điểm tham quan trong nhà tương đương sau khi đã giải thích và thống nhất với cả đoàn.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Khách nước ngoài cần đổi tiền USD/EUR sang VNĐ thì HDV hỗ trợ thế nào?",
+    "answer": "HDV sẽ hướng dẫn đoàn đến các chi nhánh ngân hàng uy tín gần nhất trên cung đường di chuyển, hỗ trợ phiên dịch điền tờ khai đổi tiền theo tỷ giá niêm yết chính thức của Ngân hàng Nhà nước.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Hướng dẫn viên có hỗ trợ thương lượng giá cả khi khách mua đặc sản ở chợ không?",
+    "answer": "Có! HDV sẽ tư vấn cho bạn mức giá sàn hợp lý của từng mặt hàng đặc sản (như hải sản khô, ngọc trai, đồ thổ cẩm) và mẹo trả giá khéo léo để bạn mua được hàng thật với giá chuẩn nhất.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Khiếu nại chất lượng phục vụ của Hướng dẫn viên qua kênh nào nhanh nhất?",
+    "answer": "Bạn có thể khiếu nại trực tiếp qua hotline chăm sóc khách hàng 24/7 của TourAI hoặc gửi tin nhắn vào hệ thống hỗ trợ trên ứng dụng. Mọi phản hồi đều được ban điều hành ghi nhận và giải quyết thỏa đáng trong vòng 2 giờ.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Tour ghép đoàn khác gì tour riêng tour private? Nên chọn loại nào?",
+    "answer": "So sánh tour ghép và tour riêng: 1. Tour ghép đoàn: Khởi hành theo ngày cố định, chi phí tối ưu tiết kiệm nhất vì chia sẻ chi phí xe cộ, HDV. Thích hợp cho cá nhân, cặp đôi hoặc nhóm nhỏ. 2. Tour riêng (Private): Toàn quyền chủ động thời gian, phương tiện và lịch trình riêng tư. Thích hợp cho gia đình có người già, trẻ nhỏ hoặc nhóm công ty.",
+    "intent": "huong_dan_vien",
+    "tour_id": null
+  },
+  {
+    "question": "Pin sạc dự phòng power bank có được để trong hành lý ký gửi không?",
+    "answer": "TUYỆT ĐỐI KHÔNG! Theo quy định an toàn hàng không quốc tế (IATA), pin sạc dự phòng bắt buộc phải để trong HÀNH LÝ XÁCH TAY mang theo người lên máy bay. Nếu để trong hành lý ký gửi, hệ thống soi chiếu an ninh sẽ phát hiện và buộc bạn phải mở khóa vali lấy ra ngoài.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Dung lượng pin sạc dự phòng tối đa được mang lên máy bay là bao nhiêu mAh?",
+    "answer": "Quy định dung lượng sạc dự phòng: 1. Dung lượng dưới 100Wh (tương đương khoảng 20.000 mAh): Được mang theo không giới hạn số lượng (thường tối đa 2-3 cục). 2. Từ 100Wh đến 160Wh (khoảng 20.000 - 32.000 mAh): Tối đa 2 cục và cần thông báo hãng bay. 3. Trên 160Wh (trên 32.000 mAh): Bị cấm hoàn toàn trên các chuyến bay thương mại.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Chất lỏng mang lên máy bay chặng bay nội địa có bị giới hạn 100ml không?",
+    "answer": "KHÔNG GIỚI HẠN đối với các chuyến bay nội địa Việt Nam! Bạn có thể mang theo nước uống, dầu gội, sữa tắm, mỹ phẩm dạng lỏng trong hành lý xách tay với dung tích lớn hơn 100ml, miễn là không vượt quá tổng trọng lượng hành lý xách tay cho phép (thường là 7-12kg) và không phải chất lỏng nguy hiểm, dễ cháy nổ.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Chất lỏng mang lên chuyến bay quốc tế có quy định như thế nào?",
+    "answer": "Quy định bay quốc tế (Quy tắc LAGs): Mỗi chai lọ chứa chất lỏng không được vượt quá 100ml (hoặc 100g). Tất cả các chai lọ này phải được đựng gọn gàng trong một túi nhựa trong suốt có khóa zip với tổng dung tích tối đa không quá 1 lít/hành khách.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Có được mang nước hoa, mỹ phẩm dạng xịt lên máy bay không?",
+    "answer": "Được mang nước hoa và bình xịt khoáng/mỹ phẩm cá nhân, nhưng bình xịt phải có nắp bảo vệ để tránh kích hoạt van vô ý. Tổng dung tích bình xịt cá nhân không quá 500ml mỗi bình và tổng cộng không quá 2 lít/hành khách trong hành lý ký gửi.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Đem nước mắm, mắm tôm lên máy bay có được không? Cần đóng gói thế nào?",
+    "answer": "Vận chuyển nước mắm: Các hãng bay không cho phép mang nước mắm xách tay. Chỉ được ký gửi với điều kiện: Phải đóng chai nhựa nguyên niêm phong nhà sản xuất (không dùng chai thủy tinh), quấn màng bọc chống tràn nhiều lớp, đặt trong thùng xốp dán kín băng keo không bay mùi.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Đem sầu riêng tươi hoặc mít lên máy bay có được không?",
+    "answer": "Sầu riêng tươi, mít và các loại quả nặng mùi BỊ CẤM mang lên khoang hành khách máy bay. Bạn chỉ được phép vận chuyển dưới dạng hành lý ký gửi nếu đã tách múi, đóng hộp nhựa kín khí và bọc kín trong thùng xốp khử mùi hoàn toàn.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Vận chuyển hải sản tươi sống đông lạnh trên máy bay thì đóng thùng xốp thế nào?",
+    "answer": "Quy cách đóng thùng hải sản bay: Hải sản phải đóng trong thùng xốp chắc chắn, quấn băng keo kín toàn bộ nắp thùng. Bên trong chỉ dùng đá gel hoặc đá khô (tuyệt đối không dùng đá lạnh có nước tan vì chảy nước sẽ làm ướt sàn máy bay và bị từ chối vận chuyển).",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Có được mang dao gọt hoa quả, kéo, bấm móng tay trong hành lý xách tay không?",
+    "answer": "Các vật sắc nhọn có lưỡi kim loại như dao, kéo, bấm móng tay có đầu nhọn, đồ khui rượu BỊ CẤM mang trong hành lý xách tay. Bạn bắt buộc phải để các vật dụng này trong HÀNH LÝ KÝ GỬI trước khi qua cửa soi chiếu an ninh.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Thuốc lá điện tử vape pod có được mang lên máy bay không?",
+    "answer": "Thuốc lá điện tử và tinh dầu chỉ được phép mang trong HÀNH LÝ XÁCH TAY (không được ký gửi). Bạn tuyệt đối không được sạc pin hoặc sử dụng thuốc lá điện tử trên máy bay vì đây là hành vi vi phạm an ninh hàng không nghiêm trọng bị phạt tiền từ 3 - 5 triệu đồng.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Bật lửa, diêm quẹt có được mang lên máy bay không?",
+    "answer": "Mỗi hành khách chỉ được mang theo người tối đa 01 bật lửa ga nhỏ hoặc 01 bao diêm an toàn nhỏ để sử dụng cá nhân. Bật lửa dùng xăng (như bật lửa Zippo chưa hút sạch bấc) hoặc bật lửa khò công suất lớn bị cấm hoàn toàn.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Trẻ em dưới 14 tuổi chưa có CCCD đi máy bay cần giấy tờ gì?",
+    "answer": "Giấy tờ bay cho trẻ em dưới 14 tuổi: 1. Bản gốc Giấy khai sinh hoặc bản sao trích lục có dấu đỏ hợp pháp. 2. Hộ chiếu riêng hoặc hộ chiếu ghép chung với cha mẹ (nếu bay quốc tế). 3. Giấy chứng sinh (đối với trẻ sơ sinh dưới 1 tháng tuổi chưa làm giấy khai sinh).",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Giấy khai sinh bản sao trích lục có được dùng để làm thủ tục bay cho trẻ em không?",
+    "answer": "ĐƯỢC CHẤP THUẬN 100%! Theo quy định của Cục Hàng không Việt Nam, 'Bản sao trích lục Giấy khai sinh' do Ủy ban nhân dân cấp xã/phường cấp có giá trị pháp lý tương đương bản chính khi làm thủ tục lên máy bay nội địa.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Trẻ em không đi cùng bố mẹ mà đi cùng ông bà, cô chú thì cần giấy ủy quyền không?",
+    "answer": "Bay nội địa: Trẻ em đi cùng người thân chỉ cần mang theo Giấy khai sinh hợp lệ, không bắt buộc giấy ủy quyền. Bay quốc tế: Bắt buộc phải có Giấy ủy quyền có công chứng của cha mẹ và Giấy tờ chứng minh quan hệ nhân thân.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Phụ nữ mang thai bà bầu đi máy bay cần giấy khám thai từ tuần thứ mấy?",
+    "answer": "Quy định phụ nữ mang thai đi máy bay: 1. Dưới 28 tuần: Chỉ cần ký 'Phiếu miễn trừ trách nhiệm' tại quầy làm thủ tục. 2. Từ 28 đến 32 tuần: Bắt buộc có Giấy xác nhận sức khỏe/Sổ khám thai của bác sĩ trong vòng 7 ngày trước chuyến bay xác nhận mẹ và thai nhi khỏe mạnh.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Phụ nữ mang thai trên bao nhiêu tuần thì các hãng hàng không từ chối vận chuyển?",
+    "answer": "Các hãng hàng không (Vietnam Airlines, Vietjet, Bamboo) thường TỪ CHỐI VẬN CHUYỂN phụ nữ mang thai từ tuần thứ 36 trở lên (hoặc từ tuần thứ 32 đối với trường hợp mang đa thai như sinh đôi, sinh ba) để phòng ngừa nguy cơ sinh non trên không phận.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Người cao tuổi trên 80 tuổi đi máy bay có cần giấy khám sức khỏe không?",
+    "answer": "Người cao tuổi có sức khỏe bình thường không bắt buộc giấy khám sức khỏe. Tuy nhiên nếu hành khách có tiền sử bệnh tim mạch nặng, huyết áp cao không ổn định hoặc vừa phẫu thuật dưới 2 tuần thì cần có Giấy xác nhận đủ điều kiện bay (MEDIF) từ bác sĩ chuyên khoa.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Dịch vụ hỗ trợ xe lăn wheelchair tại sân bay có mất phí không? Đăng ký thế nào?",
+    "answer": "Dịch vụ xe lăn đưa đón tại sân bay được các hãng hàng không hỗ trợ HOÀN TOÀN MIỄN PHÍ. Bạn chỉ cần thông báo cho hãng hoặc công ty du lịch trước giờ bay tối thiểu 24 tiếng để hãng bố trí nhân viên hỗ trợ từ cửa vào sân bay đến tận chỗ ngồi trên máy bay.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Trọng lượng hành lý xách tay tiêu chuẩn của Vietnam Airlines, Vietjet, Bamboo là bao nhiêu kg?",
+    "answer": "Hạn mức hành lý xách tay tiêu chuẩn: 1. Vietnam Airlines: 12kg (bao gồm 1 kiện 10kg + 1 phụ kiện 2kg). 2. Vietjet Air: 7kg tiêu chuẩn. 3. Bamboo Airways: 7kg tiêu chuẩn + 1 túi xách nhỏ 3kg (tổng 10kg tùy hạng vé).",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Kích thước kiện hành lý xách tay chuẩn được phép mang lên khoang máy bay là bao nhiêu?",
+    "answer": "Kích thước tối đa của kiện hành lý xách tay thường không vượt quá: 56cm (dài) x 36cm (rộng) x 23cm (sâu) (khoảng vali size 20 inch) để đảm bảo vừa vặn ngăn để hành lý phía trên đầu của khoang máy bay.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Hành lý ký gửi quá cân tại sân bay bị phạt bao nhiêu tiền 1 kg?",
+    "answer": "Phí mua thêm hành lý quá cước tại sân bay rất đắt: Dao động từ 40.000 - 80.000 VNĐ/kg đối với chuyến bay nội địa nếu mua tại quầy. Mẹo tiết kiệm: Bạn nên mua thêm gói hành lý ký gửi online trước giờ bay ít nhất 3 tiếng trên website/app hãng với giá rẻ hơn 50%.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Làm thủ tục check-in online trước chuyến bay bao nhiêu tiếng?",
+    "answer": "Hệ thống làm thủ tục trực tuyến (Web Check-in): Mở từ 24 tiếng trước giờ khởi hành và đóng trước 60 phút đối với chuyến bay nội địa. Check-in online giúp bạn chọn trước chỗ ngồi ưng ý và không phải xếp hàng chờ đợi tại quầy check-in.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Có mặt tại sân bay trước giờ khởi hành bao nhiêu lâu đối với chuyến bay nội địa và quốc tế?",
+    "answer": "Thời gian có mặt tại sân bay: 1. Chuyến bay nội địa: Tối thiểu trước 90 - 120 phút so với giờ khởi hành. 2. Chuyến bay quốc tế: Tối thiểu trước 150 - 180 phút (khoảng 2.5 - 3 tiếng) để hoàn tất thủ tục xuất nhập cảnh và an ninh hải quan.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Cửa ra máy bay boarding gate đóng trước giờ cất cánh bao nhiêu phút?",
+    "answer": "Cửa ra tàu bay (Boarding Gate) thường ĐÓNG CỬA trước giờ cất cánh chính xác 15 - 20 phút. Nếu bạn đến cửa ra máy bay muộn sau thời điểm này, hệ thống sẽ tự động hủy quyền lên tàu bay của bạn và máy bay sẽ khởi hành đúng giờ.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Sử dụng tài khoản VNeID mức 2 thay CCCD đi máy bay nội địa có bị từ chối không?",
+    "answer": "HOÀN TOÀN HỢP LỆ! Toàn bộ các sân bay tại Việt Nam đã chính thức áp dụng thẻ Căn cước điện tử trên ứng dụng VNeID mức độ 2 để làm thủ tục check-in tại quầy vé và qua cổng kiểm soát an ninh hàng không.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Giấy phép lái xe bằng lái xe có dùng để đi máy bay nội địa được không?",
+    "answer": "CÓ ĐƯỢC CHẤP NHẬN! Giấy phép lái xe (bằng lái xe ô tô, mô tô thẻ PET còn hạn sử dụng) là một trong những loại giấy tờ tùy thân hợp pháp được Cục Hàng không Việt Nam công nhận để làm thủ tục các chuyến bay nội địa.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Hộ chiếu còn hạn dưới 6 tháng có được xuất cảnh đi du lịch nước ngoài không?",
+    "answer": "KHÔNG ĐƯỢC PHÉP! Hầu hết các quốc gia trên thế giới đều quy định hộ chiếu của du khách phải còn thời hạn tối thiểu 06 tháng tính từ ngày nhập cảnh. Nếu hộ chiếu còn hạn dưới 6 tháng, hãng hàng không sẽ từ chối làm thủ tục lên máy bay.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Đi du lịch các nước Đông Nam Á có cần visa không?",
+    "answer": "Công dân Việt Nam mang hộ chiếu phổ thông được MIỄN THỊ THỰC (miễn visa) khi đi du lịch các nước Đông Nam Á: Thái Lan, Singapore, Malaysia, Indonesia, Lào, Campuchia (miễn visa 30 ngày); Philippines (miễn visa 21 ngày); Myanmar, Brunei (miễn visa 14 ngày).",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Mua hàng miễn thuế duty free tại sân bay có được tính ngoài cân hành lý xách tay không?",
+    "answer": "Hàng hóa miễn thuế (rượu, bánh kẹo, nước hoa) mua tại các cửa hàng Duty Free sau khi đã qua cửa an ninh sân bay được phép mang lên khoang máy bay và thường không bị tính vào trọng lượng hành lý xách tay ban đầu, miễn là có túi niêm phong kèm hóa đơn mua hàng trong ngày.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Đem đàn guitar, gậy đánh golf hoặc xe đạp lên máy bay thì tính cước thế nào?",
+    "answer": "Dụng cụ thể thao và nhạc cụ được vận chuyển dưới dạng 'Hành lý đặc biệt'. Bạn cần đăng ký dịch vụ trước chuyến bay tối thiểu 24 tiếng với mức cước tiêu chuẩn của hãng (thùng gậy golf khoảng 300.000 - 500.000 VNĐ chặng nội địa).",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Đem thú cưng chó mèo lên máy bay thì cần những thủ tục kiểm dịch gì?",
+    "answer": "Vận chuyển thú cưng (PETC/AVIH): Cần đăng ký trước với hãng bay 24-36 tiếng, chuẩn bị lồng nhốt đạt chuẩn IATA, Sổ tiêm phòng dại có hiệu lực từ 30 ngày đến 12 tháng và Giấy chứng nhận kiểm dịch động vật của Chi cục Thú y cấp trong vòng 10 ngày trước chuyến bay.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Làm thủ tục check-in tự động tại kiosk sân bay thế nào nếu không có hành lý ký gửi?",
+    "answer": "Sử dụng Kiosk Check-in: Đến máy kiosk của hãng tại sân bay, chọn ngôn ngữ Tiếng Việt, nhập Mã đặt chỗ (PNR) hoặc quét CCCD/Hộ chiếu, chọn chỗ ngồi ưa thích và nhấn In thẻ lên tàu bay (Boarding Pass). Sau đó bạn có thể đi thẳng lên cửa kiểm tra an ninh mà không cần xếp hàng tại quầy vé.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Mất thẻ hành lý baggage tag thì nhận lại hành lý ký gửi tại sân bay bằng cách nào?",
+    "answer": "Nếu mất cuống thẻ hành lý: Đến ngay quầy Lost and Found sân bay, xuất trình CCCD/Hộ chiếu và vé máy bay. Nhân viên sẽ cùng bạn đối soát thông tin tên hành khách in trên tem dán vali và mở vali kiểm tra các đồ đạc bên trong để xác minh quyền sở hữu trước khi bàn giao.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Có được mang đồ ăn tự nấu hoặc bánh mì qua cửa an ninh sân bay không?",
+    "answer": "Được mang các loại đồ ăn khô như bánh mì, bánh ngọt, xôi, trái cây đã gọt vỏ qua cửa kiểm tra an ninh chặng nội địa. Đối với đồ ăn có nước dùng (như bún, phở, cháo), bạn không được phép mang qua cửa an ninh.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Hãng bay có bồi thường khi hành lý ký gửi bị thất lạc quá 21 ngày không?",
+    "answer": "Nếu hành lý ký gửi không tìm thấy sau 21 ngày kể từ ngày bay, hành lý được tuyên bố mất vĩnh viễn. Hãng hàng không có trách nhiệm bồi thường thiệt hại theo hạn mức quy định của Luật Hàng không Dân dụng (tối đa khoảng 20 USD/kg hoặc gói bồi thường cố định khoảng 1.000 - 1.200 USD/kiện).",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Đi viếng Mộ Cô Sáu tại Nghĩa trang Hàng Dương Côn Đảo lúc mấy giờ là linh thiêng nhất?",
+    "answer": "Thời gian viếng Mộ Cô Sáu: Nghĩa trang Hàng Dương mở cửa từ sáng sớm đến 24h00 đêm. Khung giờ được đông đảo du khách lựa chọn nhiều nhất là từ 21h00 đến 23h30 đêm khi không gian thanh tịnh và linh thiêng nhất.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 19
+  },
+  {
+    "question": "Chuẩn bị mâm lễ viếng Mộ Cô Sáu Côn Đảo gồm những gì?",
+    "answer": "Mâm lễ viếng Cô Sáu truyền thống gồm: 01 bó hoa cúc hoặc hoa hồng trắng (bạch mẫu đơn), 01 mâm ngũ quả có trái lê-ki-ma, gương lược, nón lá, áo dài trắng nữ sinh bằng giấy mã và thẻ hương trầm. Bạn có thể đặt mua trọn gói tại các cửa hàng đồ lễ uy tín gần nghĩa trang.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 19
+  },
+  {
+    "question": "Đi lễ Chùa Bái Đính, Tam Chúc, Yên Tử cần mặc trang phục thế nào để không bị nhắc nhở?",
+    "answer": "Quy tắc trang phục đền chùa tâm linh: Mặc trang phục lịch sự, kín đáo, áo dài tay hoặc có tay che vai, quần dài hoặc váy dài quá đầu gối (tuyệt đối không mặc áo hai dây, quần soóc ngắn, váy xẻ cao). Nên đi giày thể thao hoặc dép quai hậu đế bệt vì khuôn viên chùa rất rộng lớn cần đi bộ nhiều.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 10
+  },
+  {
+    "question": "Đi viếng Miếu Bà Chúa Xứ Núi Sam Châu Đốc cần chuẩn bị lễ vật và lưu ý gì tránh bị chèo kéo?",
+    "answer": "Kinh nghiệm viếng Miếu Bà Chúa Xứ: 1. Chuẩn bị lễ vật: Hoa tươi, trái cây, nhang đèn, bánh bò thốt nốt. 2. Lưu ý an toàn: Tuyệt đối không nhận nhang đèn, bọc lễ vật hoặc chim phóng sinh từ người lạ chèo kéo trước cổng miếu để tránh bị đòi giá cắt cổ.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 18
+  },
+  {
+    "question": "Đi du lịch Sa Pa mùa đông cần chuẩn bị quần áo ấm thế nào? Có tuyết không?",
+    "answer": "Chuẩn bị đi Sa Pa mùa đông (tháng 12 - 2): Nhiệt độ có thể xuống 0 - 5 độ C (đôi khi có băng giá và tuyết rơi trên đỉnh Fansipan). Cần chuẩn bị: Áo phao lông vũ chống nước, áo giữ nhiệt Heattech, khăn len, găng tay lót nỉ, mũ len che tai và giày thể thao có đế bám chống trơn trượt.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 6
+  },
+  {
+    "question": "Chinh phục đỉnh Fansipan bằng cáp treo cần chuẩn bị gì? Lên đỉnh có bị khó thở không?",
+    "answer": "Kinh nghiệm đi Fansipan: 1. Cáp treo đưa lên độ cao 3.000m, sau đó bạn leo thêm 600 bậc đá (hoặc đi tàu hỏa leo núi) lên cột cờ 3.143m. 2. Không khí loãng: Đi thong thả từng bước, không chạy nhảy. Chuẩn bị áo khoác dày vì gió trên đỉnh rất lạnh.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 6
+  },
+  {
+    "question": "Đi phượt đèo Mã Pí Lèng và chèo thuyền sông Nho Quế Hà Giang cần trang phục gì chụp ảnh đẹp?",
+    "answer": "Trang phục đi Hà Giang: Trang phục có tông màu nổi bật (trắng, đỏ, cam, vàng) hoặc thuê trang phục dân tộc H'Mông rực rỡ để chụp ảnh trên mỏm đá Mã Pí Lèng và thuyền hẻm Tu Sản sông Nho Quế xanh ngọc bích. Mang theo áo khoác gió mỏng vì đường đèo gió mạnh.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 9
+  },
+  {
+    "question": "Mùa hoa tam giác mạch Hà Giang nở rộ vào tháng mấy? Đi đâu chụp hoa đẹp nhất?",
+    "answer": "Mùa hoa tam giác mạch: Đẹp nhất từ giữa tháng 10 đến cuối tháng 12 hàng năm. Các thung lũng hoa tam giác mạch bạt ngàn đẹp nhất tại: Cột cờ Lũng Cú, thung lũng Sủng Là, đèo Mã Pí Lèng, dốc Thẩm Mã và thị trấn cổ Đồng Văn.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 9
+  },
+  {
+    "question": "Đi Mộc Châu mùa hoa mận hoa mơ nở trắng rừng vào tháng mấy? Thung lũng mận nào đẹp nhất?",
+    "answer": "Mùa hoa mận Mộc Châu: Rộ nhất từ tháng 1 đến đầu tháng 2 (dịp trước và sau Tết Nguyên Đán). Thung lũng mận đẹp nhất là Thung lũng Nà Ka, Thung lũng Mu Náu và bản Phiêng Cành với bạt ngàn hoa trắng tinh khôi.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 11
+  },
+  {
+    "question": "Trải nghiệm Cầu Kính Bạch Long Mộc Châu có an toàn cho người sợ độ cao không?",
+    "answer": "Cầu Kính Bạch Long (kỷ lục Guinness dài 632m) được làm từ 3 lớp kính cường lực Saint-Gobain của Pháp siêu an toàn chịu tải hơn 450 người cùng lúc. Nếu sợ độ cao, bạn hãy nhìn thẳng về phía trước vách núi, đi vào giữa cầu và đi cùng người thân.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 11
+  },
+  {
+    "question": "Đi du lịch biển Phú Quốc, Nha Trang, Đà Nẵng cần mang kem chống nắng loại nào thân thiện với rạn san hô?",
+    "answer": "Bảo vệ môi trường biển: Nên chọn kem chống nắng vật lý khoáng chất (chứa Zinc Oxide hoặc Titanium Dioxide) có nhãn 'Reef-safe'. Tránh các loại chứa Oxybenzone và Octinoxate vì các hóa chất này làm san hô bị tẩy trắng và chết dần.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 4
+  },
+  {
+    "question": "Lặn biển ngắm san hô cần lưu ý gì cho người không biết bơi?",
+    "answer": "Người không biết bơi hoàn toàn lặn ngắm san hô được: 1. Snorkeling: Mặc áo phao cài dây an toàn dưới đùi, đeo kính lặn có ống thở úp mặt xuống nước ngắm san hô. 2. Đi bộ dưới đáy biển (Seawalker): Có thợ lặn chuyên nghiệp đi kèm 1-1, bạn thở tự nhiên như trên cạn qua mũ oxy.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 4
+  },
+  {
+    "question": "Đi cano ra đảo Kỳ Co Quy Nhơn có say sóng không? Thời điểm nào sóng êm nước trong nhất?",
+    "answer": "Du lịch Kỳ Co: Thời điểm biển êm như gương và làn nước xanh ngọc bích trong nhất là từ tháng 3 đến tháng 9. Thời gian đi cano từ bến Nhơn Lý sang đảo chỉ mất khoảng 10-15 phút lướt sóng nên rất ít khi bị say sóng.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 7
+  },
+  {
+    "question": "Check-in Eo Gió Quy Nhơn ngắm hoàng hôn mấy giờ đẹp nhất? Giá vé vào cổng bao nhiêu?",
+    "answer": "Khám phá Eo Gió: Khung giờ ngắm hoàng hôn rực rỡ nhất là từ 16h30 đến 17h30 chiều khi ánh nắng vàng rọi vào cung đường đi bộ uốn lượn ven biển. Giá vé vào cổng tham quan hiện tại là 25.000 VNĐ/người.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 7
+  },
+  {
+    "question": "Trải nghiệm du thuyền ngủ đêm 5 sao Vịnh Hạ Long và Vịnh Lan Hạ khác nhau thế nào?",
+    "answer": "So sánh Hạ Long và Lan Hạ: 1. Vịnh Hạ Long: Cảnh quan đảo đá kỳ vĩ quy mô lớn, nhiều hang động nổi tiếng (Sửng Sốt, Ti Tốp) nhưng tàu thuyền đông đúc hơn. 2. Vịnh Lan Hạ (Cát Bà): Không gian tĩnh lặng, hoang sơ, nhiều bãi tắm tự nhiên sạch sẽ, thích hợp chèo kayak thư giãn nghỉ dưỡng.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 3
+  },
+  {
+    "question": "Chèo kayak tại Hang Sửng Sốt và Hang Luồn Vịnh Hạ Long cần lưu ý an toàn gì?",
+    "answer": "An toàn khi chèo thuyền kayak: 1. Luôn mặc áo phao cài khóa chắc chắn trong suốt quá trình chèo. 2. Cho điện thoại và ví vào túi chống nước chuyên dụng đeo trước ngực. 3. Không chèo sát mép vách đá vôi có hàu sắc nhọn và giữ khoảng cách an toàn với tàu du lịch lớn.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 3
+  },
+  {
+    "question": "Đi cáp treo Bà Nà Hills Đà Nẵng cần mang áo khoác mỏng không? Nhiệt độ trên núi chênh lệch bao nhiêu độ?",
+    "answer": "Nhiệt độ đỉnh Bà Nà (độ cao gần 1.500m) thường thấp hơn nhiệt độ trung tâm thành phố Đà Nẵng từ 7 đến 10 độ C. Bạn nên mang theo áo khoác mỏng hoặc khăn choàng vì chiều tối và sáng sớm trên núi trời se lạnh và có sương mù lãng mạn.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 1
+  },
+  {
+    "question": "Cầu Vàng Bàn Tay Phật ở Bà Nà Hills chụp ảnh lúc mấy giờ vắng khách và đẹp nhất?",
+    "answer": "Thời điểm vàng chụp ảnh Cầu Vàng: Đẹp nhất là khung giờ sáng sớm từ 7h30 đến 8h30 sáng (khi chuyến cáp treo đầu tiên vừa lên) hoặc chiều tà từ 16h30 đến 17h30 chiều (khi các đoàn khách đi về) để có những bức ảnh vắng người và ánh sáng tuyệt mỹ.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 1
+  },
+  {
+    "question": "Xem Cầu Rồng Đà Nẵng phun lửa và phun nước vào ngày nào, mấy giờ trong tuần?",
+    "answer": "Lịch phun lửa Cầu Rồng: Cầu Rồng biểu tượng của Đà Nẵng biểu diễn phun lửa và phun nước vào đúng 21h00 tối các ngày Thứ Bảy, Chủ Nhật hàng tuần và các ngày lễ lớn trong năm (mỗi đợt phun kéo dài khoảng 15 phút).",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 1
+  },
+  {
+    "question": "Đi thuyền thả đèn hoa đăng trên sông Hoài Phố cổ Hội An mấy giờ đẹp nhất? Giá bao nhiêu?",
+    "answer": "Thả đèn hoa đăng sông Hoài: Khung giờ lung linh nhất là từ 18h30 đến 20h30 tối khi phố cổ đã lên đèn lồng rực rỡ. Giá vé thuyền gỗ dao động khoảng 150.000 - 200.000 VNĐ/thuyền (chở được 4-5 người) trong 20 phút; hoa đăng mua lẻ 10.000 VNĐ/chiếc.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 14
+  },
+  {
+    "question": "Ngồi thuyền thúng lắc lư tại Rừng Dừa Bảy Mẫu Hội An có bị ngã xuống nước không?",
+    "answer": "Thuyền thúng Rừng dừa Cẩm Thanh được thiết kế nan tre trét chai rất đầm và khó lật, tất cả du khách bắt buộc mặc áo phao. Bác chèo thúng chỉ xoay tròn biểu diễn điêu luyện khi có sự đồng ý của khách nên cực kỳ an toàn và thú vị.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 14
+  },
+  {
+    "question": "Tham quan Đại Nội Huế và Lăng Khải Định cần thuê trang phục Cổ Phục Áo Dài ở đâu đẹp?",
+    "answer": "Thuê Cổ Phục tại Huế: Ngay trước cổng Ngọ Môn và quanh đường Đinh Tiên Hoàng có nhiều tiệm cho thuê trang phục Nhật Bình, Áo Tấc, Cổ Phục triều Nguyễn kèm phụ kiện kiềng vàng, nón quai thao với giá chỉ từ 100.000 - 150.000 VNĐ/bộ chụp ảnh cực kỳ uy nghi.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 13
+  },
+  {
+    "question": "Đi thuyền rồng nghe Ca Huế trên sông Hương vào ban đêm có cần đặt vé trước không?",
+    "answer": "Thuyền nghe Ca Huế: Khởi hành tại Bến thuyền Tòa Khâm lúc 19h00 và 20h00 hàng đêm. Bạn nên đặt vé trước 1 ngày để giữ chỗ ngồi khoang VIP giữa thuyền, thưởng thức các làn điệu dân ca Huế ngọt ngào và thả hoa đăng cầu an trên sông Hương.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 13
+  },
+  {
+    "question": "Đi Chợ Nổi Cái Răng Cần Thơ cần thức dậy lúc mấy giờ sáng? Cây bẹo treo đồ có ý nghĩa gì?",
+    "answer": "Khám phá Chợ Nổi Cái Răng: Nên xuất phát từ Bến Ninh Kiều lúc 5h00 - 5h30 sáng để kịp đón bình minh và ngắm cảnh ghe xuồng buôn bán tấp nập nhất. 'Cây bẹo' là cây sào tre cắm trước mũi ghe, trên cây treo gì là ghe bán thứ đó (treo khóm bán khóm, treo dưa bán dưa).",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 8
+  },
+  {
+    "question": "Trải nghiệm xuồng ba lá lướt thảm bèo xanh Rừng Tràm Trà Sư An Giang mùa nào đẹp nhất?",
+    "answer": "Rừng tràm Trà Sư đẹp nhất vào Mùa nước nổi (từ tháng 9 đến tháng 11 âm lịch). Lúc này toàn bộ mặt nước rừng tràm được phủ kín bởi một tấm thảm bèo cám xanh mướt tuyệt đẹp, đàn chim trời ríu rít về tổ rợp bóng cây tràm.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 18
+  },
+  {
+    "question": "Đi du lịch Tây Nguyên mùa hoa cà phê nở trắng sườn đồi vào tháng mấy?",
+    "answer": "Mùa hoa cà phê Tây Nguyên (Buôn Ma Thuột, Pleiku) nở rộ thành 2-3 đợt từ cuối tháng 2 đến cuối tháng 3 hàng năm. Những triền đồi ngút ngàn phủ trắng xóa như tuyết và tỏa hương thơm ngọt ngào thu hút đàn ong lấy mật.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 15
+  },
+  {
+    "question": "Chèo thuyền độc mộc ngắm hoàng hôn trên Hồ Lắk Đắk Lắk cần chuẩn bị gì?",
+    "answer": "Trải nghiệm Hồ Lắk: Hồ nước ngọt tự nhiên lớn thứ 2 Việt Nam. Nên đi thuyền độc mộc của người đồng bào M'Nông lúc 16h30 chiều ngắm hoàng hôn đỏ rực phản chiếu trên mặt nước phẳng lặng. Nhớ mặc áo phao và cầm chắc điện thoại chụp ảnh.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 15
+  },
+  {
+    "question": "Đi xe địa hình vượt đồi cát trắng Bàu Trắng Mũi Né Phan Thiết giá bao nhiêu? Lưu ý gì?",
+    "answer": "Thuê xe jeep hoặc xe cào cào Moto ATV vượt đồi cát Bàu Trắng có giá từ 600.000 - 800.000 VNĐ/xe (chở 2-4 người trong 30-40 phút). Bạn nên đeo kính râm tránh cát bay vào mắt và bọc điện thoại cẩn thận để cát mịn không lọt vào khe sạc.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 16
+  },
+  {
+    "question": "Lội Suối Tiên Mũi Né nước ngập đến đâu? Có cần đi chân trần không?",
+    "answer": "Suối Tiên Mũi Né là dòng suối cạn nước ngập chỉ đến mắt cá chân chảy trên nền cát đỏ mịn màng. Du khách gửi dép tại cổng và đi chân trần lội dọc dòng nước mát lạnh ngắm các nhũ cát đất sét hình tháp kỳ ảo hai bên bờ.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 16
+  },
+  {
+    "question": "Leo gần 800 bậc thang lên Tượng Chúa Kito Vua Vũng Tàu cần mặc trang phục gì?",
+    "answer": "Quy định vào bên trong Tượng Chúa Kito Vua Vũng Tàu: Bắt buộc mặc áo có tay, quần dài qua đầu gối (tuyệt đối không mặc váy ngắn, quần soóc). Du khách phải cởi giày dép để bên ngoài trước khi leo cầu thang xoắn ốc lên 2 cánh tay tượng ngắm trọn biển Vũng Tàu.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 17
+  },
+  {
+    "question": "Đi săn mây tại Đồi Chè Cầu Đất Đà Lạt cần có mặt lúc mấy giờ sáng?",
+    "answer": "Săn mây Cầu Đất: Cần có mặt tại Cầu Đất Panorama lúc 5h00 - 5h30 sáng để đón khoảnh khắc mặt trời mọc và biển mây bồng bềnh cuồn cuộn dưới thung lũng thông. Bạn nên mặc áo ấm dày vì nhiệt độ sáng sớm vùng đồi chè chỉ khoảng 12-14 độ C.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 5
+  },
+  {
+    "question": "Thời tiết Đà Lạt 1 ngày có 4 mùa cần chuẩn bị trang phục phối đồ thế nào?",
+    "answer": "Mẹo phối đồ du lịch Đà Lạt: Sáng se lạnh (khoác cardigan/áo len mỏng), trưa nắng ấm (váy hoa/áo phông năng động), chiều chớm thu mát mẻ và tối lạnh sâu (áo trench coat, áo phao, khăn choàng dạo chợ đêm ăn bánh tráng nướng uống sữa đậu nành).",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 5
+  },
+  {
+    "question": "Mùa hoa mai anh đào Đà Lạt nở đẹp nhất vào tháng mấy ở những cung đường nào?",
+    "answer": "Mùa mai anh đào Đà Lạt: Nở rộ từ giữa tháng 1 đến đầu tháng 2. Cung đường ngắm hoa nhuộm hồng tuyệt đẹp nhất: Đường Trần Hưng Đạo, dốc Đa Quý Trại Mát, quanh Hồ Xuân Hương và đường đi hồ Tuyền Lâm.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 5
+  },
+  {
+    "question": "Cách phân biệt nước mắm Phú Quốc truyền thống cốt nhĩ nguyên chất với nước mắm công nghiệp?",
+    "answer": "Nhận biết nước mắm Phú Quốc chuẩn: 1. Màu sắc: Màu cánh gián nâu đỏ tự nhiên trong suốt. 2. Độ đạm: Độ đạm tự nhiên từ 35N đến 43N (không thể có đạm cao 50-60N nếu không pha hóa chất). 3. Vị: Đậm đà nơi đầu lưỡi và ngọt hậu vị đằm sâu từ cá cơm than ủ chượp muối hạt.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 4
+  },
+  {
+    "question": "Mua hạt bàng Côn Đảo loại rang muối hay rang đường gừng ngon hơn? Bảo quản được bao lâu?",
+    "answer": "Đặc sản hạt bàng Côn Đảo: 1. Rang muối: Thơm bùi nguyên bản, béo ngậy. 2. Rang đường gừng: Ngọt thanh cay nhẹ giòn tan. Hạt bàng hút chân không bảo quản được từ 4 đến 6 tháng ở nơi khô ráo, là món quà biểu tượng ý nghĩa từ hòn đảo anh hùng.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 19
+  },
+  {
+    "question": "Mua sâm Ngọc Linh, chè Shan Tuyết cổ thụ Hà Giang ở đâu chuẩn không bị làm giả?",
+    "answer": "Địa chỉ mua nông sản quý: Nên mua tại các Hợp tác xã dược liệu có chứng nhận OCOP của tỉnh Hà Giang, có tem chống hàng giả mã QR truy xuất nguồn gốc rõ ràng (như HTX Dược liệu Nậm Đăm Quản Bạ, Chè Shan Tuyết Phìn Hồ Thông Nguyên).",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 9
+  },
+  {
+    "question": "Mua nón lá bài thơ, mè xửng, mắm tôm chua Huế làm quà ở địa chỉ nào uy tín?",
+    "answer": "Đặc sản Cố Đô Huế: Mè xửng Thiên Hương hoặc Nam Thuận (đường Huỳnh Thúc Kháng); Tôm chua Trọng Đức hoặc Cô Ri (chợ Đông Ba); Nón lá bài thơ tại Làng nón Dạ Lê hoặc Làng nón Tây Hồ với hoa văn soi bóng bài thơ tuyệt mỹ.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": 13
+  },
+  {
+    "question": "Kinh nghiệm trả giá mặc cả văn minh khi mua sắm tại các chợ đêm du lịch?",
+    "answer": "Mẹo mặc cả văn minh: 1. Khảo sát giá qua 2-3 quầy trước khi mua. 2. Trả giá nhẹ nhàng khoảng 70-80% giá người bán báo đầu tiên với nụ cười thân thiện. 3. Tránh trả giá mở hàng vào sáng sớm nếu không có ý định mua thực sự.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Quy tắc tiền tip tại các nhà hàng, quán bar và spa massage khi đi du lịch Việt Nam?",
+    "answer": "Tiền tip tại Việt Nam: Tại các nhà hàng hóa đơn thường đã có 5% phí phục vụ và 8-10% VAT. Tại các cơ sở spa massage trị liệu, tiền tip cho kỹ thuật viên thường khoảng 50.000 - 100.000 VNĐ cho gói 60-90 phút tùy sự hài lòng.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Đi taxi ở các thành phố du lịch nên chọn những hãng taxi uy tín nào?",
+    "answer": "Hãng taxi uy tín: 1. Toàn quốc: Taxi Mai Linh (tổng đài 1055), Taxi điện Xanh SM (tổng đài 1900.2088). 2. Miền Bắc: Taxi Group Hà Nội. 3. Đà Nẵng: Taxi Tiên Sa. 4. Miền Nam & Phú Quốc: Taxi Vinasun (028.3827.2727).",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Cách nhận biết các quán ăn đặc sản chuẩn vị dân bản địa thay vì quán chuyên làm tour?",
+    "answer": "Bí quyết tìm quán ăn ngon bản địa: 1. Quán có đông xe máy của người dân địa phương vào giờ ăn cao điểm. 2. Quán có menu ít món nhưng chuyên sâu (chuyên bánh khọt, chuyên bún chả, chuyên mì Quảng). 3. Tránh các quán có cò mồi đứng vẫy khách ngoài cổng.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Nên mang bao nhiêu tiền mặt khi đi du lịch 3 ngày 2 đêm? Có thanh toán quét mã QR mọi nơi được không?",
+    "answer": "Dự trù tiền mặt: Hầu hết các điểm du lịch tại Việt Nam hiện nay đều thanh toán quét mã QR (VietQR, MoMo, VNPay) rất tiện lợi. Bạn chỉ cần mang theo khoảng 1.000.000 - 2.000.000 VNĐ tiền mặt cho các chi tiêu vặt ven đường (uống nước mía, đi thuyền thúng, mua vé gửi xe).",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Dùng thẻ ATM ngân hàng nào dễ rút tiền nhất tại các huyện đảo và vùng cao?",
+    "answer": "Rút tiền tại vùng xa: Ngân hàng Nông nghiệp & Phát triển Nông thôn (Agribank) là ngân hàng có mạng lưới phòng giao dịch và cây ATM bao phủ rộng nhất ở tất cả các huyện đảo (Côn Đảo, Phú Quốc, Cát Bà) và vùng cao biên giới (Đồng Văn, Mèo Vạc).",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Đi du lịch biển vào mùa mưa bão miền Trung cần theo dõi dự báo thời tiết ở kênh nào chuẩn?",
+    "answer": "Kênh dự báo thời tiết chính thống: Theo dõi Trung tâm Dự báo Khí tượng Thủy văn Quốc gia (nchmf.gov.vn) hoặc ứng dụng Windy để cập nhật hướng đi bão, sức gió và lượng mưa trước chuyến đi 3-5 ngày.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Quy định chụp ảnh flycam drone tại các điểm du lịch di sản, biên giới hải đảo có bị cấm không?",
+    "answer": "Quy định bay Flycam: Bị cấm bay tại các khu vực quân sự biên giới (Cột cờ Lũng Cú, Côn Đảo), sân bay và khu di tích cấm bay. Du khách muốn bay flycam cần xin giấy phép bay của Cục Tác chiến - Bộ Tổng Tham mưu Quân đội để tránh bị tịch thu thiết bị.",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Gia đình có em bé dưới 1 tuổi nên chọn điểm du lịch nghỉ dưỡng nào yên tĩnh và tiện nghi nhất?",
+    "answer": "Gợi ý cho gia đình có bé dưới 1 tuổi: Nên chọn Phú Quốc hoặc Đà Nẵng nghỉ dưỡng tại các resort ven biển có bãi tắm riêng, sân vườn thoáng mát, không phải di chuyển nhiều bằng tàu xe, dịch vụ y tế và đồ ăn dặm luôn sẵn sàng hỗ trợ chu đáo.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": 4
+  },
+  {
+    "question": "Gia đình có trẻ nhỏ 3-6 tuổi thì nên đi Đà Nẵng hay Phú Quốc?",
+    "answer": "So sánh cho trẻ 3-6 tuổi: Cả hai đều rất tuyệt vời. Đà Nẵng nổi bật với Bà Nà Hills và biển Mỹ Khê êm đềm; trong khi Phú Quốc vượt trội về công viên chủ đề VinWonders và vườn thú bán hoang dã Safari lớn nhất Việt Nam nơi các bé được ngắm động vật hoang dã cự ly gần.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": 4
+  },
+  {
+    "question": "Bố mẹ lớn tuổi trên 65 tuổi thích du lịch tâm linh nhẹ nhàng thì tour nào phù hợp nhất?",
+    "answer": "Tour cho người lớn tuổi: Tour Ninh Bình 2N1Đ (ngồi thuyền nan ngắm Tràng An, chiêm bái Đại Tượng Phật Chùa Bái Đính bằng xe điện) hoặc Tour Huế - Hội An 3N2Đ (vãn cảnh Cố đô trầm mặc, nghe ca Huế sông Hương) với cung đường bằng phẳng, nhịp độ thư thái nhẹ nhàng.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": 10
+  },
+  {
+    "question": "Người bị đau khớp thoái hóa cột sống không leo bậc thang được thì nên đi tour nào?",
+    "answer": "Tư vấn cho người đau khớp: Tránh các tour leo núi (như Fansipan, Sa Pa, Mã Pí Lèng, leo Tượng Chúa Kito). Nên chọn Tour Du thuyền 5 sao Vịnh Hạ Long (có thang máy, ngồi ngắm vịnh trên boong tàu) hoặc Tour Resort nghỉ dưỡng Phú Quốc, Nha Trang suối khoáng nóng thư giãn xương khớp.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": 3
+  },
+  {
+    "question": "Cặp đôi đi hưởng tuần trăng mật honeymoon 3 ngày 2 đêm nên chọn resort nào lãng mạn?",
+    "answer": "Gợi ý tuần trăng mật ngọt ngào: Đà Lạt (khu resort phong cách Pháp cổ ven Hồ Tuyền Lâm ngắm rừng thông sương mờ) hoặc Phú Quốc (Sunset Town thị trấn hoàng hôn ngắm biển ngọc và cầu Hôn Kiss Bridge lãng mạn).",
+    "intent": "tu_van_dat_tour",
+    "tour_id": 5
+  },
+  {
+    "question": "Nhóm bạn thân 4-6 người thích trải nghiệm năng động sống ảo thì nên đi Quy Nhơn hay Đà Lạt?",
+    "answer": "Lựa chọn cho nhóm bạn trẻ: 1. Nếu thích biển xanh, cano lướt sóng, lặn san hô Kỳ Co, ngắm hoàng hôn Eo Gió: Chọn Quy Nhơn. 2. Nếu thích săn mây, quán cafe view thung lũng, cắm trại đêm nướng BBQ và thời tiết se lạnh: Chọn Đà Lạt.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": 7
+  },
+  {
+    "question": "Bạn nữ đi du lịch một mình solo traveler cần lưu ý gì để đảm bảo an toàn tuyệt đối?",
+    "answer": "Lời khuyên cho bạn nữ đi solo: 1. Chọn khách sạn/homestay uy tín tại khu trung tâm đông đúc, có lễ tân 24/7. 2. Chia sẻ định vị trực tiếp với người thân qua Zalo/Find My. 3. Tránh đi về quá khuya tại các cung đường vắng và luôn giữ thẻ phòng khách sạn trong người.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Khách ăn chay vegan vegetarian đi tour trọn gói thì thực đơn ăn uống được sắp xếp thế nào?",
+    "answer": "Dịch vụ ăn chay trong tour: Bạn chỉ cần báo trước khi đặt tour, TourAI sẽ làm việc với toàn bộ các nhà hàng trong lịch trình để chuẩn bị các mâm cỗ chay thanh tịnh, phong phú dinh dưỡng từ nấm, rau củ quả tươi sạch phục vụ chu đáo cho bạn.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Đoàn công ty teambuilding 50 khách thì bãi biển nào ở miền Trung tổ chức trò chơi bãi biển tốt nhất?",
+    "answer": "Bãi biển tổ chức Teambuilding hoàn hảo: Bãi biển Mỹ Khê (Đà Nẵng), Bãi Dài (Cam Ranh - Nha Trang) hoặc Bãi Sau (Vũng Tàu) với bãi cát phẳng mịn, bờ biển rộng thênh thang, sóng êm và hệ thống âm thanh, đạo cụ teambuilding chuyên nghiệp.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": 1
+  },
+  {
+    "question": "Lịch trình du lịch Đà Nẵng 3 ngày 2 đêm tự túc gợi ý từ sáng đến đêm chi tiết thế nào?",
+    "answer": "Gợi ý lịch trình Đà Nẵng 3N2Đ: Ngày 1: Đón khách, tắm biển Mỹ Khê, viếng Chùa Linh Ứng Sơn Trà, tối ngắm Cầu Rồng phun lửa. Ngày 2: Vui chơi trọn ngày tại Bà Nà Hills, check-in Cầu Vàng, chiều về dạo phố cổ Hội An thả hoa đăng. Ngày 3: Mua sắm đặc sản Chợ Hàn, tắm bùn khoáng nóng và tiễn sân bay.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 1
+  },
+  {
+    "question": "Lịch trình du lịch Phú Quốc 4 ngày 3 đêm cho gia đình có trẻ nhỏ đi chơi Grand World và Safari?",
+    "answer": "Lịch trình Phú Quốc 4N3Đ gia đình: Ngày 1: Nhận phòng resort, khám phá Grand World xem nhạc nước Venice. Ngày 2: Thăm vườn thú bán hoang dã Vinpearl Safari và công viên chủ đề VinWonders. Ngày 3: Cáp treo Hòn Thơm vượt biển, cano lặn ngắm san hô. Ngày 4: Check-in Cầu Hôn, mua ngọc trai và tiễn sân bay.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 20
+  },
+  {
+    "question": "Lịch trình Sa Pa 3 ngày 2 đêm săn mây Fansipan và dạo bản Cát Cát sắp xếp thế nào hợp lý?",
+    "answer": "Lịch trình Sa Pa 3N2Đ: Ngày 1: Xe đón lên Sa Pa, tham quan Nhà thờ đá và tìm hiểu văn hóa bản Cát Cát của người H'Mông. Ngày 2: Đi cáp treo chinh phục nóc nhà Đông Dương Fansipan 3.143m, chiều ngắm hoàng hôn đèo Ô Quy Hồ. Ngày 3: Check-in Núi Hàm Rồng ngắm toàn cảnh thị trấn rồi lên xe về Hà Nội.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 6
+  },
+  {
+    "question": "Lịch trình Hà Giang 3 ngày 2 đêm xuất phát từ Hà Nội vượt Mã Pí Lèng ngắm sông Nho Quế?",
+    "answer": "Lịch trình Hà Giang 3N2Đ: Ngày 1: Hà Nội - Quản Bạ ngắm Núi Đôi, rừng thông Yên Minh, check-in Dốc Thẩm Mã. Ngày 2: Chinh phục tứ đại đỉnh đèo Mã Pí Lèng, chèo thuyền hẻm Tu Sản sông Nho Quế, tối dạo phố cổ Đồng Văn. Ngày 3: Chào cờ tại Cột cờ Lũng Cú cực Bắc Tổ quốc, thăm Dinh Vua Mèo rồi về Hà Nội.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 9
+  },
+  {
+    "question": "Lịch trình Ninh Bình 2 ngày 1 đêm Tràng An - Bái Đính - Hang Múa cho người ít thời gian?",
+    "answer": "Lịch trình Ninh Bình 2N1Đ: Ngày 1: Hà Nội về Ninh Bình, ngồi thuyền nan khám phá Hang Sáng Hang Tối Quần thể Tràng An di sản thế giới, chiều leo 500 bậc đá đỉnh Hang Múa ngắm trọn Tam Cốc. Ngày 2: Viếng Chùa Bái Đính chiêm bái Đại Tượng Phật bằng đồng lớn nhất Đông Nam Á, ăn thịt dê cơm cháy rồi về Hà Nội.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 10
+  },
+  {
+    "question": "Lịch trình Hạ Long 2 ngày 1 đêm du thuyền ngủ đêm trên vịnh có những hoạt động gì?",
+    "answer": "Lịch trình du thuyền Hạ Long 2N1Đ: Ngày 1: Check-in du thuyền 5 sao, ăn buffet hải sản, khám phá Hang Sửng Sốt, chèo kayak luồn lách qua hang nước, tối câu mực đêm trên boong tàu. Ngày 2: Tập Thái Cực Quyền đón bình minh trên sundeck, tắm biển đảo Ti Tốp ngắm toàn cảnh vịnh từ trên cao.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 3
+  },
+  {
+    "question": "Lịch trình Huế 2 ngày 1 đêm khám phá di tích Đại Nội Lăng Tự Đức ngắm hoàng hôn đầm Chuồn?",
+    "answer": "Lịch trình Huế 2N1Đ: Ngày 1: Thăm Đại Nội Hoàng Thành, Chùa Thiên Mụ bên sông Hương, tối đi thuyền rồng nghe Ca Huế thả hoa đăng. Ngày 2: Chiêm ngưỡng Lăng Khải Định kiến trúc sành sứ độc bản, chiều ngắm hoàng hôn phá Tam Giang - đầm Chuồn thưởng thức bánh khoái cá kình.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 13
+  },
+  {
+    "question": "Lịch trình Quy Nhơn Phú Yên 4 ngày 3 đêm Kỳ Co Eo Gió Ghềnh Đá Đĩa Bãi Xép đi thế nào?",
+    "answer": "Lịch trình Quy Nhơn - Phú Yên 4N3Đ: Ngày 1: Đón sân bay Phù Cát, Ghềnh Ráng Tiên Sa viếng mộ thi sĩ Hàn Mặc Tử. Ngày 2: Cano đi bãi biển Kỳ Co trong vắt, lặn san hô Bãi Dứa, ngắm hoàng hôn Eo Gió. Ngày 3: Khám phá Ghềnh Đá Đĩa kỳ quan đá bazan, Bãi Xép phim trường Hoa vàng cỏ xanh. Ngày 4: Tháp Đôi Chăm Pa và tiễn khách.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 7
+  },
+  {
+    "question": "Lịch trình Miền Tây 2 ngày 1 đêm Cần Thơ Chợ Nổi Cái Răng An Giang Rừng Tràm Trà Sư?",
+    "answer": "Lịch trình Miền Tây 2N1Đ: Ngày 1: Xuất phát từ Sài Gòn đi Châu Đốc viếng Miếu Bà Chúa Xứ Núi Sam, chiều ngồi xuồng ba lá lướt thảm bèo xanh Rừng Tràm Trà Sư. Ngày 2: Sáng sớm xuôi thuyền ngắm Chợ Nổi Cái Răng Cần Thơ, thưởng thức hủ tiếu nổi và trái cây miệt vườn trước khi về TP.HCM.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 8
+  },
+  {
+    "question": "Lịch trình Côn Đảo 3 ngày 2 đêm viếng Mộ Cô Sáu tham quan Nhà Tù và tắm biển Đầm Trầu?",
+    "answer": "Lịch trình Côn Đảo 3N2Đ: Ngày 1: Đón sân bay Cỏ Ống, ngắm đỉnh Tình Yêu, đêm 22h00 dâng hương viếng Mộ Cô Sáu tại Nghĩa trang Hàng Dương. Ngày 2: Tham quan Di tích Nhà tù Côn Đảo, Chuồng Cọp Pháp - Mỹ, chiều thư giãn bãi biển Đầm Trầu cát trắng ngắm máy bay hạ cánh. Ngày 3: Viếng Miếu Bà Phi Yến, mua hạt bàng và tiễn bay.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 19
+  },
+  {
+    "question": "Lịch trình Mộc Châu 2 ngày 1 đêm ngắm đồi chè trái tim Thác Dải Yếm và Cầu Kính Bạch Long?",
+    "answer": "Lịch trình Mộc Châu 2N1Đ: Ngày 1: Vượt đèo Thung Khe mây phủ, check-in Đồi chè trái tim xanh mướt, dạo rừng thông Bản Áng. Ngày 2: Tham quan Thác Dải Yếm hùng vĩ, thử thách đi bộ trên Cầu Kính Bạch Long dài nhất thế giới, thưởng thức bê chao sữa tươi Mộc Châu rồi về Hà Nội.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 11
+  },
+  {
+    "question": "Lịch trình Cát Bà 2 ngày 1 đêm vịnh Lan Hạ chèo kayak Hang Sáng Hang Tối tắm Đảo Khỉ?",
+    "answer": "Lịch trình Cát Bà 2N1Đ: Ngày 1: Lên du thuyền ngoạn cảnh Vịnh Lan Hạ hoang sơ, chèo kayak luồn lách qua Hang Sáng Hang Tối ngập nước, tắm biển Đảo Khỉ. Ngày 2: Trekking đỉnh Ngự Lâm ngắm toàn cảnh rừng kim giao Vườn Quốc Gia Cát Bà, tham quan Làng chài cổ Cái Bèo trước khi tiễn khách.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 12
+  },
+  {
+    "question": "Lịch trình Buôn Ma Thuột 3 ngày 2 đêm Thác Dray Nur Bảo tàng Cà phê và chèo thuyền Hồ Lắk?",
+    "answer": "Lịch trình Tây Nguyên 3N2Đ: Ngày 1: Check-in Bảo tàng Cà phê Thế Giới kiến trúc nhà dài, thưởng thức cafe Robusta thượng hạng. Ngày 2: Chiêm ngưỡng thác nước Dray Nur hùng vĩ gầm vang, giao lưu văn hóa Buôn Đôn bên dòng Sêrêpôk. Ngày 3: Chèo thuyền độc mộc lướt trên mặt Hồ Lắk thơ mộng rồi tiễn sân bay.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 15
+  },
+  {
+    "question": "Lịch trình Mũi Né Phan Thiết 2 ngày 1 đêm trượt cát Bàu Trắng lội Suối Tiên và ăn hải sản?",
+    "answer": "Lịch trình Mũi Né 2N1Đ: Ngày 1: Di chuyển cao tốc từ Sài Gòn, lội dòng suối cát đỏ Suối Tiên tuyệt mỹ, ngắm cảnh ghe thuyền tại Làng chài Mũi Né. Ngày 2: Đi xe jeep đón bình minh vượt đồi cát trắng Bàu Trắng, trượt ván cát Đồi Cát Bay và mua nước mắm Phan Thiết làm quà.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 16
+  },
+  {
+    "question": "Lịch trình Vũng Tàu 2 ngày 1 đêm cuối tuần tắm Bãi Sau leo Tượng Chúa và ngọn Hải Đăng?",
+    "answer": "Lịch trình Vũng Tàu 2N1Đ: Ngày 1: Tắm biển Bãi Sau cát vàng sóng êm, chiều leo 800 bậc đá lên cánh tay Tượng Chúa Kito Vua ngắm trọn thành phố. Ngày 2: Ngắm cảnh từ Ngọn Hải Đăng cổ Pháp, check-in bến thuyền buồm Marina và thưởng thức bánh khọt Gốc Vú Sữa nóng giòn.",
+    "intent": "hoi_lich_trinh",
+    "tour_id": 17
+  },
+  {
+    "question": "Dự toán chi phí du lịch Đà Nẵng 3 ngày 2 đêm cho 2 người hết khoảng bao nhiêu tiền?",
+    "answer": "Dự toán chi phí Đà Nẵng 3N2Đ cho 2 người: Vé máy bay khứ hồi (khoảng 2.500.000 - 3.500.000 VNĐ/người); Khách sạn 3-4 sao gần biển (khoảng 1.200.000 - 1.800.000 VNĐ/2 đêm); Vé Bà Nà Hills (khoảng 900.000 VNĐ/người); Ăn uống và đi lại (khoảng 1.500.000 VNĐ/người). Tổng cộng khoảng 5.500.000 - 7.000.000 VNĐ/người.",
+    "intent": "hoi_gia",
+    "tour_id": 1
+  },
+  {
+    "question": "Dự toán chi phí du lịch Phú Quốc 3N2Đ tiết kiệm nhưng vẫn ở khách sạn 3-4 sao?",
+    "answer": "Dự toán Phú Quốc 3N2Đ tiết kiệm: Vé máy bay khứ hồi săn khuyến mãi (khoảng 2.000.000 - 2.800.000 VNĐ); Khách sạn 3-4 sao khu Dương Đông hoặc Sunset Town (khoảng 600.000 - 800.000 VNĐ/đêm/phòng chia 2 người); Tour cano 4 đảo lặn san hô (khoảng 750.000 VNĐ); Ăn uống hải sản (khoảng 1.200.000 VNĐ). Tổng khoảng 4.800.000 - 5.500.000 VNĐ/người.",
+    "intent": "hoi_gia",
+    "tour_id": 4
+  },
+  {
+    "question": "Mẹo săn vé máy bay giá rẻ cho chuyến du lịch mùa hè cao điểm?",
+    "answer": "Bí quyết săn vé máy bay rẻ: 1. Đặt trước ngày khởi hành từ 1.5 đến 3 tháng. 2. Chọn bay vào các ngày đầu tuần (Thứ 2 đến Thứ 4) thay vì cuối tuần (Thứ 6, Chủ Nhật). 3. Chọn khung giờ bay sáng sớm (5h-6h) hoặc đêm muộn (21h-23h). 4. Bỏ các dịch vụ phụ trợ không cần thiết như chọn chỗ ngồi có phí hoặc bảo hiểm trùng lặp.",
+    "intent": "hoi_gia",
+    "tour_id": null
+  },
+  {
+    "question": "Nên đi du lịch đầu tuần hay cuối tuần để tiết kiệm chi phí và tránh đông đúc?",
+    "answer": "Lời khuyên: Nên đi vào ĐẦU TUẦN (Thứ Hai đến Thứ Năm). Đi đầu tuần giúp giá vé máy bay rẻ hơn 20-30%, giá phòng khách sạn giảm đến 40% so với cuối tuần, và các điểm danh thắng (như Bà Nà, Cáp treo Fansipan, Tràng An) không bị cảnh chen chúc, chờ đợi lâu.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Đi tour du lịch trọn gói đã bao gồm những gì và những khoản nào thường tự túc?",
+    "answer": "Chi phí tour trọn gói: 1. ĐÃ BAO GỒM: Xe du lịch máy lạnh đưa đón, khách sạn tiện nghi theo tiêu chuẩn, các bữa ăn chính theo chương trình, vé tham quan tất cả các điểm đến trong lịch trình, Hướng dẫn viên và Bảo hiểm du lịch. 2. TỰ TÚC: Đồ uống trong bữa ăn, giặt là, tiền tip và chi tiêu mua sắm cá nhân.",
+    "intent": "hoi_gia",
+    "tour_id": null
+  },
+  {
+    "question": "Khách sạn nhận phòng check in lúc mấy giờ và trả phòng check out lúc mấy giờ?",
+    "answer": "Quy định giờ nhận trả phòng khách sạn quốc tế: Giờ nhận phòng (Check-in) tiêu chuẩn là từ 14h00 chiều; Giờ trả phòng (Check-out) là trước 12h00 trưa. Khung giờ từ 12h00 đến 14h00 là thời gian bộ phận buồng phòng dọn dẹp và khử khuẩn phòng cho đợt khách mới.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Muốn nhận phòng sớm early check in hoặc trả phòng trễ late check out tính phí thế nào?",
+    "answer": "Chính sách phụ thu phòng: 1. Nhận phòng sớm trước 6h00 sáng: Thường phụ thu 100% tiền phòng 1 đêm; từ 6h00 đến 9h00 sáng: Phụ thu 50%; từ 9h00 đến 12h00 trưa: Phụ thu 30% (hoặc miễn phí nếu khách sạn còn phòng trống). 2. Trả phòng muộn từ 12h00 đến 18h00: Phụ thu 50% tiền phòng; sau 18h00: Phụ thu 100%.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Tiền đặt cọc phòng khách sạn deposit thường là bao nhiêu và được hoàn lại khi nào?",
+    "answer": "Tiền cọc phòng (Deposit): Các khách sạn 4-5 sao thường thu cọc khoảng 500.000 - 1.000.000 VNĐ/phòng/đêm (bằng tiền mặt hoặc phong tỏa hạn mức thẻ tín dụng) để bảo đảm các chi phí minibar, giặt là. Khoản cọc này được hoàn trả nguyên vẹn ngay khi bạn làm thủ tục check-out nếu không phát sinh dịch vụ phụ.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Phụ thu phòng đơn single supplement trong tour du lịch là gì? Khi nào phải đóng?",
+    "answer": "Phụ thu phòng đơn: Tiêu chuẩn phòng khách sạn trong tour trọn gói là phòng đôi (ngủ 2 khách/phòng). Nếu bạn đi du lịch một mình và không muốn ghép phòng cùng khách khác, bạn sẽ đóng khoản 'Phụ thu phòng đơn' để được sở hữu riêng toàn bộ 01 phòng khách sạn tiện nghi suốt chuyến đi.",
+    "intent": "hoi_gia",
+    "tour_id": null
+  },
+  {
+    "question": "Trẻ em dưới mấy tuổi thì được miễn phí tour du lịch? Tiêu chuẩn tính vé trẻ em ra sao?",
+    "answer": "Tiêu chuẩn vé tour trẻ em: 1. Dưới 5 tuổi (hoặc cao dưới 1m): Miễn phí 100% giá tour (bố mẹ tự túc ăn uống và ngủ chung giường). 2. Từ 5 đến 9 tuổi: Tính 50-70% giá tour người lớn (có suất ăn riêng, ghế ngồi riêng, ngủ chung với bố mẹ). 3. Từ 10 tuổi trở lên: Tính như vé người lớn tiêu chuẩn.",
+    "intent": "hoi_gia",
+    "tour_id": null
+  },
+  {
+    "question": "Tour trọn gói có đón khách tại nhà riêng hoặc sân bay không hay phải đến điểm tập trung?",
+    "answer": "Chính sách điểm đón: Đối với tour ghép đoàn, xe tour đón khách tại sân bay địa phương hoặc các điểm tập trung cố định trung tâm thành phố. Đối với tour riêng (Private Tour) cho gia đình hoặc đoàn cơ quan, xe sẽ đến đón và tiễn tận nhà riêng theo yêu cầu.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Người nước ngoài đi cùng người Việt Nam ở chung một phòng khách sạn có cần giấy đăng ký kết hôn không?",
+    "answer": "Quy định lưu trú hiện hành: Theo Nghị định 96/2016/NĐ-CP của Chính phủ, pháp luật Việt Nam đã bãi bỏ quy định bắt buộc phải có Giấy đăng ký kết hôn khi người nước ngoài và người Việt Nam lưu trú chung phòng. Cả hai chỉ cần xuất trình Hộ chiếu và CCCD hợp lệ để lễ tân khai báo tạm trú.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Làm thế nào để chọn được phòng khách sạn view biển đẹp và yên tĩnh không bị ồn?",
+    "answer": "Mẹo chọn phòng khách sạn: 1. Đặt phòng hạng 'Ocean View' ở tầng cao (từ tầng 5 đến tầng 15) để có tầm nhìn thoáng đãng và cách xa tiếng ồn xe cộ đường ven biển. 2. Ghi chú yêu cầu phòng ở xa khu vực buồng thang máy và quầy bar để có giấc ngủ ngon giấc nhất.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Có nên mua bảo hiểm du lịch ngoài gói bảo hiểm có sẵn của tour không?",
+    "answer": "Tư vấn bảo hiểm: Gói bảo hiểm trọn gói có sẵn của TourAI (50.000.000 VNĐ/khách) đã đủ bao quát toàn bộ các sự cố y tế và mất mát tư trang thông thường. Nếu bạn có các đồ công nghệ rất đắt tiền (máy ảnh chuyên nghiệp vài chục triệu) hoặc người cao tuổi có bệnh nền, có thể cân nhắc mua thêm gói bảo hiểm thương mại mở rộng.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Những bệnh lý nào không nên tham gia các trò chơi mạo hiểm dù lượn lặn biển tàu lượn siêu tốc?",
+    "answer": "Khuyến cáo y tế: Du khách có tiền sử bệnh tim mạch, huyết áp cao, động kinh, chấn thương cột sống lưng hoặc phụ nữ có thai tuyệt đối KHÔNG NÊN tham gia các trò chơi cảm giác mạnh như nhảy Bungee, dù lượn, tàu lượn siêu tốc và lặn sâu bằng bình dưỡng khí (Scuba diving).",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Người bị tiền đình huyết áp thấp cần chuẩn bị gì khi đi cáp treo hoặc cano cao tốc?",
+    "answer": "Lời khuyên cho người tiền đình: Mang theo trà gừng ấm, ngậm kẹo gừng hoặc viên sủi gừng. Khi đi cáp treo vượt biển (Hòn Thơm, Bà Nà) hoặc cano, hãy ngồi hướng cùng chiều chuyển động của xe tàu, nhắm mắt nghỉ ngơi hoặc trò chuyện cùng người bên cạnh, tránh nhìn chằm chằm xuống vực sâu.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Khi đi du lịch mùa hè trẻ nhỏ bị say nắng sốt phát ban thì sơ cứu thế nào?",
+    "answer": "Sơ cứu say nắng trẻ em: Đưa bé ngay vào phòng mát kín gió, cởi bớt quần áo, lau mát cơ thể bằng nước ấm (đặc biệt vùng nách, bẹn, trán), cho bé uống nước oresol từng thìa nhỏ. Nếu bé sốt trên 38.5 độ C, cho uống thuốc hạ sốt Paracetamol theo đúng liều lượng cân nặng của bé.",
+    "intent": "su_co_du_lich",
+    "tour_id": null
+  },
+  {
+    "question": "Cách bảo quản sữa mẹ đồ ăn dặm cho em bé khi di chuyển trên xe tour cả ngày?",
+    "answer": "Mẹo bảo quản đồ ăn dặm cho bé: Sử dụng túi giữ nhiệt chuyên dụng kèm 2-3 thanh đá gel đông lạnh (giữ lạnh sữa mẹ và cháo ăn dặm an toàn trong 8-10 tiếng). Khi đến điểm ăn trưa tại nhà hàng, bạn có thể nhờ nhà hàng quay nóng lại cháo bằng lò vi sóng rất thuận tiện.",
+    "intent": "hoi_dich_vu",
+    "tour_id": null
+  },
+  {
+    "question": "Những homestay đẹp gần gũi thiên nhiên tại Sa Pa và Đà Lạt cho người thích nghỉ dưỡng yên bình?",
+    "answer": "Gợi ý homestay nghỉ dưỡng: 1. Sa Pa: Eco Palms House, Phơri's House tại thung lũng Mường Hoa với view ruộng bậc thang ngút ngàn. 2. Đà Lạt: The Wilder-nest, Cú Trên Cây Homestay lọt thỏm giữa rừng thông xanh rì, tĩnh lặng và trong lành.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": 5
+  },
+  {
+    "question": "Nên đi tour ghép hay thuê xe tự lái khi đi du lịch cùng gia đình 5-7 người?",
+    "answer": "Tư vấn phương tiện: Với gia đình 5-7 người có người già và trẻ nhỏ, thuê xe du lịch 7-16 chỗ có tài xế riêng là phương án tối ưu nhất: Bác tài bản địa rành đường xá an toàn, gia đình tự do nghỉ ngơi trên xe không bị mệt mỏi vì phải tập trung lái xe đèo dốc xa lạ.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Đi du lịch vào dịp Lễ 30/4 - 1/5 hoặc Tết Nguyên Đán cần đặt dịch vụ trước bao lâu để không bị cháy phòng?",
+    "answer": "Kinh nghiệm du lịch dịp cao điểm: Vào các kỳ nghỉ lễ lớn, bạn cần đặt vé máy bay và phòng khách sạn trước tối thiểu 1.5 đến 2 tháng. Nếu đặt sát ngày (dưới 2 tuần), giá dịch vụ thường tăng vọt gấp 2-3 lần hoặc hết sạch phòng tại các vị trí trung tâm.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Thời tiết các vùng miền Việt Nam vào dịp Tết Nguyên Đán như thế nào? Đi đâu đẹp nhất?",
+    "answer": "Du xuân Tết Nguyên Đán: 1. Miền Bắc: Tiết trời se lạnh chớm xuân, ngàn hoa đua nở, thích hợp du xuân trẩy hội chùa chiền (Tràng An, Bái Đính, Sa Pa, Mộc Châu). 2. Miền Trung: Mát mẻ, dễ chịu (Huế, Hội An, Đà Nẵng). 3. Miền Nam & Đảo ngọc: Nắng vàng rực rỡ, biển lặng như gương (Phú Quốc, Côn Đảo, Nha Trang).",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Mùa mưa bão ở miền Trung kéo dài từ tháng mấy đến tháng mấy? Có nên đi du lịch biển mùa này không?",
+    "answer": "Mùa bão miền Trung: Thường tập trung từ tháng 9 đến hết tháng 11 dương lịch. Vào mùa này, biển thường có sóng to gió lớn và mưa dầm. Bạn nên cân nhắc chuyển hướng du lịch sang Tây Bắc (mùa lúa chín, mùa hoa tam giác mạch) hoặc Phú Quốc, Miền Tây (mùa nước nổi tuyệt đẹp).",
+    "intent": "tu_van_dat_tour",
+    "tour_id": null
+  },
+  {
+    "question": "Tháng mấy là mùa khô đẹp nhất ở các đảo phương Nam như Phú Quốc và Côn Đảo?",
+    "answer": "Thời điểm vàng biển đảo phương Nam: Từ tháng 11 đến hết tháng 4 năm sau là đỉnh cao mùa khô tại Phú Quốc và Côn Đảo. Biển êm đềm sóng lặng, bầu trời trong vắt, nước biển xanh màu ngọc bích cực kỳ thích hợp cho các hoạt động tắm biển, cano và lặn ngắm san hô.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": 4
+  },
+  {
+    "question": "Thời điểm nào trong năm thích hợp nhất để đi ngắm lúa chín vàng ở Mù Cang Chải, Sa Pa, Tam Cốc?",
+    "answer": "Mùa lúa chín vàng rực rỡ: 1. Tam Cốc Ninh Bình: Cuối tháng 5 đến đầu tháng 6 (mùa lúa chín dọc dòng sông Ngô Đồng). 2. Sa Pa và Mù Cang Chải, Hoàng Su Phì: Rộ nhất từ giữa tháng 9 đến đầu tháng 10 dương lịch khi các triền ruộng bậc thang khoác lên chiếc áo vàng óng ả.",
+    "intent": "tu_van_dat_tour",
+    "tour_id": 6
+  },
+  {
+    "question": "Những ứng dụng điện thoại hữu ích nhất cần cài đặt trước khi đi du lịch Việt Nam?",
+    "answer": "Top app du lịch cần có: 1. VNeID (định danh điện tử mức 2 làm thủ tục bay). 2. Google Maps (dẫn đường chính xác). 3. Grab / Xanh SM (đặt xe di chuyển minh bạch cước). 4. Traveloka / Agoda (tra cứu phòng và vé tham quan). 5. Windy (theo dõi radar thời tiết chuẩn xác).",
+    "intent": "kinh_nghiem_du_lich",
+    "tour_id": null
   }
 ]
