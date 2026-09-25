@@ -109,6 +109,32 @@ class TestChatbotTourConsultation(unittest.TestCase):
         self.assertIn("Ngày 1", r2)
         self.assertIn("VinWonders", r2)
 
+    def test_monthly_travel_consultation(self):
+        resp = self.bot.generate_response("địa điểm du lịch phù hợp cho tháng 10")
+        self.assertIn("THÁNG 10", resp)
+        self.assertIn("Hà Giang", resp)
+        self.assertIn("tam giác mạch", resp.lower())
+        self.assertIn("/tours/9", resp)
+
+    def test_seasonal_travel_consultation(self):
+        resp = self.bot.generate_response("mùa hè nên đi đâu tránh nóng")
+        self.assertIn("MÙA HÈ", resp)
+        self.assertIn("Đà Nẵng", resp)
+        self.assertIn("/tours/1", resp)
+
+    def test_audience_travel_consultation(self):
+        resp = self.bot.generate_response("gia đình có con nhỏ nên đi du lịch ở đâu")
+        self.assertIn("TRẺ NHỎ", resp)
+        self.assertIn("Đà Nẵng", resp)
+        self.assertIn("/tours/1", resp)
+
+    def test_thematic_travel_consultation(self):
+        resp = self.bot.generate_response("đi săn mây ở đâu đẹp nhất")
+        self.assertIn("SĂN BIỂN MÂY", resp)
+        self.assertIn("Sa Pa", resp)
+        self.assertIn("/tours/6", resp)
+
 
 if __name__ == "__main__":
     unittest.main()
+

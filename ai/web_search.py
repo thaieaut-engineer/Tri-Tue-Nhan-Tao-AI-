@@ -484,8 +484,14 @@ def synthesize_travel_search_response(query, results, destination_name=None):
             sentences = re.split(r'(?<=[.!?])\s+', snippet)
             for s in sentences:
                 s_clean = s.strip()
-                # Lọc các câu quá ngắn hoặc mang tính quảng cáo
-                if len(s_clean) > 25 and not any(junk in s_clean.lower() for junk in ["xem thêm", "xem chi tiết", "xem full", "bấm vào đây", "đăng ký ngay"]):
+                # Lọc các câu quá ngắn, câu hỏi tu từ (?) hoặc mang tính dạo đầu, quảng cáo của bài viết blog
+                is_rhetorical_question = s_clean.endswith('?')
+                is_intro_junk = any(junk in s_clean.lower() for junk in [
+                    "xem thêm", "xem chi tiết", "xem full", "bấm vào đây", "đăng ký ngay",
+                    "hãy cùng", "bài viết này", "sẽ giúp bạn", "dưới đây là", "bạn đang phân vân",
+                    "cùng tìm hiểu", "bạn đã biết", "bạn có biết", "nên đi đâu để", "vậy tháng", "vậy mùa"
+                ])
+                if len(s_clean) > 25 and not is_rhetorical_question and not is_intro_junk:
                     extracted_facts.append(s_clean)
 
         lines.append(f"🌐 **Thông Tin Du Lịch Tổng Hợp Về: \"{query}\"**\n")

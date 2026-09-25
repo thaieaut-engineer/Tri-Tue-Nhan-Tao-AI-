@@ -344,6 +344,347 @@ def extract_duration_days(text):
     return None
 
 
+def extract_month(text):
+    """Trích xuất số tháng (1-12) từ câu hỏi người dùng."""
+    t_low = text.lower()
+    m_num = re.search(r'\b(?:tháng|thang|t)\s*([1-9]|1[0-2])\b', t_low)
+    if m_num:
+        return int(m_num.group(1))
+
+    words_map = {
+        "giêng": 1, "một": 1, "hai": 2, "ba": 3, "tư": 4, "bốn": 4, "năm": 5,
+        "sáu": 6, "bảy": 7, "tám": 8, "chín": 9, "mười một": 11, "mười hai": 12,
+        "mười": 10, "chạp": 12
+    }
+    for w, num in sorted(words_map.items(), key=lambda x: -len(x[0])):
+        if re.search(rf'\btháng\s+{re.escape(w)}\b', t_low):
+            return num
+    return None
+
+
+def extract_season(text):
+    """Trích xuất mùa trong năm (xuân, hè, thu, đông)."""
+    t_low = text.lower()
+    if re.search(r'\b(?:mùa\s+xuân|mua\s+xuan)\b', t_low):
+        return "xuân"
+    if re.search(r'\b(?:mùa\s+hè|mua\s+he|mùa\s+hạ|mua\s+ha)\b', t_low):
+        return "hè"
+    if re.search(r'\b(?:mùa\s+thu|mua\s+thu)\b', t_low):
+        return "thu"
+    if re.search(r'\b(?:mùa\s+đông|mua\s+dong)\b', t_low):
+        return "đông"
+    return None
+
+
+def extract_audience(text):
+    """Trích xuất nhóm đối tượng du khách."""
+    t_low = text.lower()
+    if any(w in t_low for w in ["gia đình", "gia dinh", "trẻ nhỏ", "tre nho", "con nhỏ", "con nho", "em bé", "em be", "trẻ em", "tre em"]):
+        return "family"
+    if any(w in t_low for w in ["người già", "nguoi gia", "người lớn tuổi", "nguoi lon tuoi", "người cao tuổi", "nguoi cao tuoi", "bố mẹ", "bo me", "ông bà", "ong ba"]):
+        return "elderly"
+    if any(w in t_low for w in ["cặp đôi", "cap doi", "người yêu", "nguoi yeu", "trăng mật", "trang mat", "honeymoon", "2 người", "hai người"]):
+        return "couple"
+    if any(w in t_low for w in ["nhóm bạn", "nhom ban", "bạn thân", "ban than", "giới trẻ", "gioi tre", "phượt", "phuot", "sinh viên"]):
+        return "youth"
+    return None
+
+
+def extract_theme(text):
+    """Trích xuất chủ đề du lịch đặc trưng."""
+    t_low = text.lower()
+    if any(w in t_low for w in ["săn mây", "san may"]):
+        return "cloud"
+    if any(w in t_low for w in ["lặn ngắm san hô", "lan ngam san ho", "lặn san hô", "lan san ho", "lặn biển", "lan bien", "ngắm san hô"]):
+        return "coral"
+    if any(w in t_low for w in ["2 ngày 1 đêm", "2 ngay 1 dem", "2n1đ", "2n1d", "cuối tuần", "cuoi tuan", "ngắn ngày", "ngan ngay"]):
+        return "weekend"
+    if any(w in t_low for w in ["tâm linh", "tam linh", "di sản", "di san", "lễ chùa", "le chua", "chùa chiền", "chua chien", "cầu an", "cau an"]):
+        return "culture"
+    return None
+
+
+# ====================================================================
+# CƠ SỞ TRI THỨC MÙA VỤ & ĐỐI TƯỢNG (SEASONAL & THEMATIC ADVISORY)
+# ====================================================================
+MONTHLY_TRAVEL_KNOWLEDGE = {
+    1: {
+        "title": "CẨM NANG DU LỊCH THÁNG 1: DU XUÂN ĐÓN TẾT & MÙA HOA CAO NGUYÊN",
+        "weather": "Miền Bắc se lạnh chớm xuân, Tây Bắc ngàn hoa bung nở; Miền Trung dịu mát; Miền Nam và các đảo ngọc bước vào mùa khô nắng ấm rực rỡ biển êm.",
+        "destinations": [
+            ("Mộc Châu", "Mùa hoa mơ, hoa mận trắng muốt nở bạt ngàn thung lũng Nà Ka và rừng thông Bản Áng mộng mơ.", 11),
+            ("Sa Pa", "Chinh phục nóc nhà Đông Dương Fansipan trong biển mây, ngắm hoa đào Sa Pa chớm nở và tận hưởng cái rét vùng cao.", 6),
+            ("Đà Lạt", "Mai anh đào nhuộm hồng các triền dốc, thời tiết se lạnh 14-18°C vô cùng lãng mạn.", 5),
+            ("Phú Quốc", "Đỉnh cao mùa khô, biển lặng như gương, làn nước trong vắt màu ngọc bích thích hợp đi cano 4 đảo.", 4)
+        ],
+        "tips": "Vùng cao phía Bắc cần chuẩn bị áo ấm dày, khăn len; du lịch biển đảo phương Nam chuẩn bị kem chống nắng và đồ bơi."
+    },
+    2: {
+        "title": "CẨM NANG DU LỊCH THÁNG 2: DU XUÂN TRẨY HỘI & CẦU TÀI LỘC ĐẦU NĂM",
+        "weather": "Không khí Tết cổ truyền rộn ràng trên khắp mọi miền, thời tiết mát mẻ dễ chịu, trăm hoa khoe sắc rất thích hợp du xuân cầu an.",
+        "destinations": [
+            ("Ninh Bình", "Lễ hội xuân Tràng An - Chùa Bái Đính lớn nhất miền Bắc, ngồi thuyền nan ngắm non nước hữu tình, chiêm bái Đại Tượng Phật cầu bình an.", 10),
+            ("Côn Đảo", "Hành hương tâm linh đầu năm viếng Mộ Cô Sáu tại Nghĩa trang Hàng Dương và An Sơn Miếu thiêng liêng; biển mùa này êm ả.", 19),
+            ("Mộc Châu", "Mùa hoa cải trắng tinh khôi và thu hoạch dâu tây chín mọng tại các nhà vườn.", 11),
+            ("Huế & Hội An", "Dạo bước phố cổ đèn lồng lung linh đêm rằm, vãn cảnh Đại Nội Cố Đô Huế trầm mặc đón xuân.", 13)
+        ],
+        "tips": "Dịp đầu năm đền chùa đông đúc, nên đặt tour sớm từ 1-2 tuần để giữ chỗ xe và phòng khách sạn tiện nghi nhất."
+    },
+    3: {
+        "title": "CẨM NANG DU LỊCH THÁNG 3: MÙA HOA CÀ PHÊ TÂY NGUYÊN & BIỂN ĐẢO NẮNG VÀNG",
+        "weather": "Khí hậu ôn hòa lý tưởng khắp 3 miền, biển miền Trung và Nam Bộ êm đềm, Tây Nguyên bước vào mùa hoa cà phê tuyết trắng bạt ngàn.",
+        "destinations": [
+            ("Buôn Ma Thuột", "Mùa hoa cà phê nở trắng muốt các sườn đồi tỏa hương ngào ngạt, chiêm ngưỡng Thác Dray Nur hùng vĩ và chèo thuyền Hồ Lắk.", 15),
+            ("Quy Nhơn - Phú Yên", "Khởi đầu mùa khô biển êm, Kỳ Co - Eo Gió nước trong xanh ngọc bích, check-in Ghềnh Đá Đĩa kỳ quan.", 7),
+            ("Phú Quốc", "Thời tiết vàng son, biển lặng sóng êm, ngắm hoàng hôn lộng lẫy tại Sunset Town và lặn ngắm san hô Hòn Thơm.", 4),
+            ("Đà Nẵng", "Nắng nhẹ 24-28°C cực kỳ dễ chịu, tắm biển Mỹ Khê và vui chơi Bà Nà Hills không lo đông đúc chen chúc.", 1)
+        ],
+        "tips": "Tháng 3 là thời điểm du lịch thông minh vì chi phí vé máy bay và tour rất mềm so với mùa hè cao điểm."
+    },
+    4: {
+        "title": "CẨM NANG DU LỊCH THÁNG 4: CHÀO HÈ RỰC RỠ & KỲ NGHỈ LỄ 30/4 - 1/5",
+        "weather": "Nắng vàng rực rỡ mở màn mùa hè biển đảo, biển trong xanh không mưa bão trên khắp các vịnh biển Việt Nam.",
+        "destinations": [
+            ("Hạ Long & Cát Bà", "Thời điểm tuyệt vời nhất để trải nghiệm du thuyền ngủ đêm 5 sao, chèo kayak luồn lách qua các hang động kỳ ảo vịnh Lan Hạ.", 3),
+            ("Đà Nẵng - Hội An", "Tắm biển Mỹ Khê nước mát trong lành, check-in Cầu Vàng Bàn Tay Phật và thả đèn hoa đăng lung linh phố cổ.", 1),
+            ("Nha Trang", "Vịnh biển ngập tràn ánh nắng, lặn ngắm rạn san hô Hòn Mun, tắm bùn khoáng nóng thư giãn và vui chơi VinWonders.", 2),
+            ("Phan Thiết - Mũi Né", "Lái xe jeep vượt đồi cát Bàu Trắng, lội Suối Tiên mát lạnh và thưởng thức hải sản biển tươi ngon.", 16)
+        ],
+        "tips": "Tháng 4 có kỳ nghỉ lễ lớn 30/4, quý khách nên đăng ký tour sớm từ 2-3 tuần để bảo đảm giữ chỗ tốt nhất."
+    },
+    5: {
+        "title": "CẨM NANG DU LỊCH THÁNG 5: MÙA NƯỚC ĐỔ TÂY BẮC & BIỂN XANH NẮNG VÀNG",
+        "weather": "Mùa hè sôi động bắt đầu, miền Trung biển trong vắt; vùng cao Tây Bắc bước vào mùa đổ ải lấp lánh như những tấm gương trời.",
+        "destinations": [
+            ("Sa Pa", "Mùa nước đổ Thung lũng Mường Hoa, ruộng bậc thang lấp lánh phản chiếu mây trời tuyệt mỹ; không khí núi cao mát mẻ xua tan oi bức.", 6),
+            ("Quy Nhơn - Phú Yên", "Nắng vàng rực rỡ, biển Kỳ Co trong vắt thấy đáy, check-in con đường ven biển Eo Gió và phim trường Hoa Vàng Trên Cỏ Xanh.", 7),
+            ("Hạ Long", "Vịnh di sản ngập tràn nắng hè, lý tưởng để bơi lội, chèo thuyền kayak và ngắm hoàng hôn lộng lẫy từ boong tàu du thuyền.", 3),
+            ("Nha Trang", "Khám phá thế giới đại dương phong phú tại Viện Hải dương học, cano du ngoạn 4 đảo và thưởng thức nem nướng Ninh Hòa.", 2)
+        ],
+        "tips": "Chuẩn bị kem chống nắng SPF 50+, kính mát, mũ rộng vành và trang phục rực rỡ để có những bức ảnh check-in tuyệt đẹp."
+    },
+    6: {
+        "title": "CẨM NANG DU LỊCH THÁNG 6: CAO ĐIỂM HÈ RỰC RỠ CHO GIA ĐÌNH & BẠN BÈ",
+        "weather": "Thời tiết nắng ráo tuyệt đối, biển xanh cát trắng trải dài ba miền, rất thuận lợi cho các hoạt động tắm biển và thể thao dưới nước.",
+        "destinations": [
+            ("Đà Nẵng", "Lễ hội Pháo hoa Quốc tế rực rỡ bên bờ sông Hàn, tắm biển Mỹ Khê an toàn cho trẻ nhỏ, công viên giải trí Bà Nà Hills.", 1),
+            ("Cát Bà - Vịnh Lan Hạ", "Tránh nóng tuyệt vời miền Bắc, tắm biển Đảo Khỉ hoang sơ, chèo kayak qua hàng trăm đảo đá vôi xanh ngát.", 12),
+            ("Nha Trang", "Thiên đường vui chơi VinWonders Hòn Tre với công viên nước khổng lồ và cano lặn ngắm san hô đảo Hòn Mun.", 2),
+            ("Đà Lạt", "Điểm trốn nóng số 1 phía Nam với khí hậu mát lạnh 18-22°C quanh năm, ngắm thung lũng thông reo và thưởng thức dâu tây.", 5)
+        ],
+        "tips": "Tháng 6 lượng khách rất đông, TourAI khuyến khích gia đình bạn chốt lịch sớm để được sắp xếp xe và phòng khách sạn view đẹp."
+    },
+    7: {
+        "title": "CẨM NANG DU LỊCH THÁNG 7: NGHỈ MÁT MÙA HÈ & KHÁM PHÁ THIÊN NHIÊN HOANG SƠ",
+        "weather": "Nắng ấm rực rỡ, các bãi biển miền Trung và vịnh đảo phương Bắc đạt độ trong xanh tuyệt đỉnh.",
+        "destinations": [
+            ("Quy Nhơn - Phú Yên", "Bãi tắm Kỳ Co xanh như ngọc bích, check-in Bãi Xép ngắm biển vỗ ghềnh đá, Ghềnh Đá Đĩa độc nhất vô nhị.", 7),
+            ("Đà Nẵng & Hội An", "Hòa mình vào làn sóng biển Mỹ Khê, viếng Chùa Linh Ứng ngắm trọn vịnh Đà Nẵng và dạo phố cổ lung linh về đêm.", 1),
+            ("Hạ Long", "Nghỉ dưỡng thượng lưu trên du thuyền 5 sao, ăn buffet hải sản tươi sống và ngắm kỳ quan thế giới khi hoàng hôn buông.", 3),
+            ("Vũng Tàu", "Chuyến đi 2N1Đ nhanh chóng và tiện lợi từ TP.HCM, tắm biển Bãi Sau, ăn bánh khọt giòn rụm và ngắm ngọn hải đăng cổ.", 17)
+        ],
+        "tips": "Nên mang theo túi chống nước bảo vệ điện thoại khi đi cano, kính bơi và giày bệt để thoải mái dạo chơi."
+    },
+    8: {
+        "title": "CẨM NANG DU LỊCH THÁNG 8: CHUYỂN MÙA SANG THU & BIỂN CHIỀU DỊU MÁT",
+        "weather": "Thời tiết dịu mát hơn khi chớm thu, miền Trung biển êm đềm, vùng cao bắt đầu chuyển màu lúa mới và miền Tây chớm đón mùa nước nổi.",
+        "destinations": [
+            ("Nha Trang", "Tiết trời dịu nhẹ, biển cực êm và trong vắt, tắm bùn khoáng nóng phục hồi sức khỏe rất hợp cho gia đình có người lớn tuổi.", 2),
+            ("Sa Pa", "Khí hậu mùa thu trong trẻo se lạnh, ruộng bậc thang bắt đầu ngả sang sắc vàng óng ả, sương mù lãng đãng quanh thị xã.", 6),
+            ("Huế Cố Đô", "Mùa thu xứ Huế mang nét trầm mặc thi vị, dạo sông Hương êm đềm và nghe ca Huế trên thuyền rồng lúc đêm về.", 13),
+            ("Cần Thơ", "Bắt đầu đón con nước đầu nguồn đổ về sông Tiền, sông Hậu; các miệt vườn trái cây sầu riêng, chôm chôm chín ngọt lịm.", 8)
+        ],
+        "tips": "Tháng 8 có thể có những cơn mưa rào ngắn buổi chiều tối, bạn nên mang theo ô gấp gọn và áo khoác gió nhẹ."
+    },
+    9: {
+        "title": "CẨM NANG DU LỊCH THÁNG 9: MÙA VÀNG TÂY BẮC & MÙA NƯỚC NỔI MIỀN TÂY",
+        "weather": "Một trong những tháng đẹp nhất trong năm của du lịch Việt Nam: Tây Bắc ngập tràn hương lúa chín vàng óng và miền Tây vào mùa nước nổi.",
+        "destinations": [
+            ("Hà Giang", "Mùa lúa chín vàng rực Hoàng Su Phì, chinh phục đỉnh đèo Mã Pí Lèng hùng vĩ và đi thuyền ngắm Hẻm Tu Sản sông Nho Quế.", 9),
+            ("Sa Pa", "Thung lũng Mường Hoa vào chính hội gặt lúa rực rỡ nhất trong năm, hương lúa mới thơm ngát các bản làng Tả Van, Cát Cát.", 6),
+            ("Rừng Tràm Trà Sư - An Giang", "Bắt đầu mùa nước nổi huyền thoại, xuồng ba lá lướt trên thảm bèo cám xanh mướt mát rượi, ăn lẩu cá linh bông điên điển.", 18),
+            ("Ninh Bình", "Tiết trời thu mát dịu trong vắt, nước sông Tràng An phẳng lặng như gương soi bóng vách đá vôi kỳ ảo.", 10)
+        ],
+        "tips": "Thời điểm này Tây Bắc cực đẹp để chụp ảnh phong cảnh, hãy sạc đầy pin máy ảnh/điện thoại để lưu lại những khoảnh khắc tuyệt mỹ."
+    },
+    10: {
+        "title": "CẨM NANG DU LỊCH THÁNG 10: HOA TAM GIÁC MẠCH, ĐỈNH CAO NƯỚC NỔI & MÙA DÃ QUỲ",
+        "weather": "Khí hậu mát mẻ dễ chịu nhất năm trên cả 3 miền; miền Bắc se lạnh săn mây, miền Tây đỉnh cao mùa nước nổi, phương Nam biển êm sóng lặng.",
+        "destinations": [
+            ("Hà Giang", "Khởi đầu mùa Lễ hội Hoa Tam Giác Mạch phủ sắc hồng tím khắp các triền đá Đồng Văn, đi thuyền sông Nho Quế lộng gió.", 9),
+            ("An Giang & Cần Thơ", "Đỉnh cao mùa nước nổi miền Tây Nam Bộ! Thảm bèo xanh ngát Rừng Tràm Trà Sư, chợ nổi Cái Răng tấp nập buổi sớm mai.", 18),
+            ("Sa Pa", "Tiết trời se lạnh đón mùa thu đông, biển mây bồng bềnh bao phủ đỉnh Fansipan 3.143m và ngắm hoàng hôn đèo Ô Quy Hồ.", 6),
+            ("Đà Lạt", "Hoa dã quỳ bắt đầu bung nở vàng rực khắp các triền đồi, sáng sớm săn mây đồi chè Cầu Đất tuyệt đẹp.", 5),
+            ("Phú Quốc", "Bắt đầu bước vào mùa khô, biển lặng sóng êm, nước biển ngọc bích hoàn hảo để đi cano 4 đảo và lặn ngắm san hô.", 4)
+        ],
+        "tips": "Đi vùng cao và Đà Lạt nhớ mang áo khoác ấm vì nhiệt độ 16-19°C về đêm; đi miền Tây và Phú Quốc thời tiết ấm áp dễ chịu."
+    },
+    11: {
+        "title": "CẨM NANG DU LỊCH THÁNG 11: MÙA HOA CAO NGUYÊN & MÙA KHÔ BIỂN ĐẢO PHƯƠNG NAM",
+        "weather": "Mùa săn mây và hoa cao nguyên phía Bắc; phương Nam chính thức bước vào mùa khô đẹp nhất năm với nắng vàng biển lặng.",
+        "destinations": [
+            ("Hà Giang", "Chính hội hoa tam giác mạch bung nở rực rỡ nhất trên Cao nguyên đá Đồng Văn, check-in Cột cờ Lũng Cú cực Bắc.", 9),
+            ("Mộc Châu", "Mùa hoa cải trắng bạt ngàn các bản làng Ba Phách, Pa Phách và hoa dã quỳ vàng ruộm bên đồi chè xanh mướt.", 11),
+            ("Phú Quốc", "Chính thức bước vào mùa du lịch đẹp nhất năm! Biển êm như mặt hồ, nắng vàng óng ả, cano lặn ngắm san hô ngọc bích.", 4),
+            ("Đà Lạt", "Đồi cỏ hồng mộng mơ tại thung lũng Đan Kia - Suối Vàng và mùa hoa dã quỳ vàng ruộm, tiết trời se lạnh ngọt ngào.", 5),
+            ("Côn Đảo", "Biển êm đềm, nước biển xanh ngắt, viếng Mộ Cô Sáu và khám phá di tích nhà tù lịch sử thiêng liêng.", 19)
+        ],
+        "tips": "Miền Bắc bắt đầu chuyển rét về đêm và sáng sớm, quý khách chuẩn bị áo khoác dày khi tham quan Hà Giang, Mộc Châu."
+    },
+    12: {
+        "title": "CẨM NANG DU LỊCH THÁNG 12: ĐÓN GIÁNG SINH, SĂN TUYẾT VÙNG CAO & NGHỈ DƯỠNG TRÁNH RÉT",
+        "weather": "Không khí lễ hội rực rỡ cuối năm; miền Bắc bước vào mùa đông giá lạnh có băng tuyết; phương Nam nắng ấm biển êm hoàn hảo để tránh rét.",
+        "destinations": [
+            ("Sa Pa", "Cơ hội săn tuyết và ngắm biển mây cuồn cuộn trên đỉnh Fansipan 3.143m, thưởng thức lẩu cá hồi nóng hổi trong cái rét vùng cao.", 6),
+            ("Phú Quốc", "Thiên đường nghỉ dưỡng tránh rét số 1, nắng ấm 28°C chan hòa, đón Giáng sinh và Countdown năm mới tại Grand World.", 20),
+            ("Đà Lạt", "Mùa Festival Hoa rực rỡ, đồi cỏ hồng mộng mơ và tiết trời se lạnh 12-16°C uống sữa đậu nành nóng hổi dạo chợ đêm.", 5),
+            ("Mộc Châu", "Thung lũng hoa cải trắng tinh khôi nở rộ khắp các triền đồi, đồi chè trái tim xanh mướt trong lành.", 11),
+            ("Phan Thiết - Mũi Né", "Nắng ấm chan hòa quanh năm, biển êm đềm, trải nghiệm xe jeep lướt đồi cát Bàu Trắng cực kỳ phấn khích.", 16)
+        ],
+        "tips": "Đi Sa Pa mang áo phao ấm dày, găng tay, mũ len; đi Phú Quốc chuẩn bị trang phục đi biển rực rỡ và kính mát."
+    }
+}
+
+SEASONAL_TRAVEL_KNOWLEDGE = {
+    "xuân": {
+        "title": "CẨM NANG DU LỊCH MÙA XUÂN (THÁNG 1 - THÁNG 3): DU XUÂN TRẨY HỘI & MÙA HOA CAO NGUYÊN",
+        "desc": "Mùa của khởi đầu may mắn, tiết trời se lạnh ấm dần, trăm hoa khoe sắc khắp non sông và các lễ hội tâm linh rộn ràng.",
+        "highlights": [
+            ("Tràng An - Chùa Bái Đính (Ninh Bình)", "Lễ hội xuân lớn nhất miền Bắc, ngồi thuyền nan ngắm non xanh nước biếc, chiêm bái Phật cầu bình an.", 10),
+            ("Mộc Châu", "Bạt ngàn hoa mơ, hoa mận trắng muốt và mùa thu hoạch dâu tây ngọt lành tại các nhà vườn.", 11),
+            ("Buôn Ma Thuột", "Mùa hoa cà phê nở trắng muốt bạt ngàn Tây Nguyên tỏa hương thơm ngát, ngắm thác Dray Nur hùng vĩ.", 15),
+            ("Đà Lạt", "Mùa mai anh đào nhuộm hồng phố núi, thời tiết se lạnh 14-18°C lãng mạn.", 5),
+            ("Phú Quốc", "Mùa khô biển êm sóng lặng, làn nước xanh trong ngọc bích thích hợp nghỉ dưỡng.", 4)
+        ]
+    },
+    "hè": {
+        "title": "CẨM NANG DU LỊCH MÙA HÈ (THÁNG 5 - THÁNG 8): THIÊN ĐƯỜNG BIỂN ĐẢO & NGHỈ MÁT TRÁNH NÓNG",
+        "desc": "Mùa của biển xanh cát trắng nắng vàng rực rỡ, các hoạt động bơi lội, lặn biển và kỳ nghỉ sôi động cùng gia đình.",
+        "highlights": [
+            ("Đà Nẵng", "Tắm biển Mỹ Khê lọt top đẹp nhất thế giới, xem Lễ hội Pháo hoa DIFF, Cầu Vàng Bà Nà Hills.", 1),
+            ("Nha Trang", "Lặn ngắm san hô tại Hòn Mun, tắm bùn khoáng nóng thư giãn và vui chơi công viên nước VinWonders.", 2),
+            ("Quy Nhơn - Phú Yên", "Bãi tắm Kỳ Co màu ngọc bích, check-in cung đường Eo Gió và Ghềnh Đá Đĩa kỳ quan.", 7),
+            ("Vịnh Hạ Long & Cát Bà", "Du thuyền 5 sao ngủ đêm trên vịnh, chèo thuyền kayak qua các hang động kỳ vĩ.", 3),
+            ("Sa Pa & Đà Lạt", "Hai địa điểm tránh nóng núi cao hoàn hảo với khí hậu mát lạnh trong lành.", 6)
+        ]
+    },
+    "thu": {
+        "title": "CẨM NANG DU LỊCH MÙA THU (THÁNG 9 - THÁNG 11): MÙA VÀNG TÂY BẮC & MÙA NƯỚC NỔI MIỀN TÂY",
+        "desc": "Mùa lãng mạn và quyến rũ nhất trong năm của Việt Nam: rẻo cao Tây Bắc nhuộm sắc lúa vàng và miền Tây mênh mang mùa nước nổi.",
+        "highlights": [
+            ("Hà Giang", "Mùa lúa chín vàng Hoàng Su Phì, hoa tam giác mạch hồng tím và du thuyền sông Nho Quế hẻm Tu Sản.", 9),
+            ("Sa Pa", "Thung lũng Mường Hoa vàng óng mùa lúa chín, săn biển mây đỉnh Fansipan 3.143m và hoàng hôn đèo Ô Quy Hồ.", 6),
+            ("Rừng Tràm Trà Sư & Cần Thơ", "Mùa nước nổi miền Tây Nam Bộ, xuồng ba lá lướt thảm bèo xanh và khám phá chợ nổi Cái Răng.", 18),
+            ("Ninh Bình", "Tiết trời thu Tràng An trong vắt soi bóng non nước, không còn nắng gắt hè.", 10),
+            ("Đà Lạt", "Mùa hoa dã quỳ vàng rực rỡ và đồi cỏ hồng mộng mơ tại thung lũng Đan Kia.", 5)
+        ]
+    },
+    "đông": {
+        "title": "CẨM NANG DU LỊCH MÙA ĐÔNG (THÁNG 12 - THÁNG 2): SĂN BĂNG TUYẾT VÙNG CAO & NGHỈ DƯỠNG NẮNG ẤM PHƯƠNG NAM",
+        "desc": "Hai xu hướng du lịch độc đáo: lên vùng cao săn mây đón rét hoặc bay về phương Nam tắm biển tránh rét ngập tràn ánh nắng.",
+        "highlights": [
+            ("Sa Pa", "Chinh phục đỉnh Fansipan săn biển mây và trải nghiệm băng tuyết kỳ thú, ăn lẩu cá hồi nóng hổi.", 6),
+            ("Phú Quốc", "Nghỉ dưỡng tránh rét số 1, nắng ấm 28°C chan hòa, biển phẳng lặng như gương.", 20),
+            ("Mộc Châu", "Thung lũng hoa mận, hoa cải trắng tinh khôi nở rộ khắp các triền đồi.", 11),
+            ("Đà Lạt", "Festival Hoa rực rỡ, đồi cỏ hồng mộng mơ và không khí Giáng sinh se lạnh ngọt ngào.", 5),
+            ("Phan Thiết - Mũi Né", "Nắng ấm quanh năm, biển êm, trải nghiệm xe jeep lướt đồi cát Bàu Trắng.", 16)
+        ]
+    }
+}
+
+AUDIENCE_TRAVEL_KNOWLEDGE = {
+    "family": {
+        "title": "TƯ VẤN TOUR DU LỊCH CHO GIA ĐÌNH CÓ TRẺ NHỎ (AN TOÀN & TIỆN NGHI)",
+        "criteria": "Lịch trình thong thả nhẹ nhàng, xe du lịch máy lạnh chất lượng cao đưa đón tận nơi, khách sạn tiện nghi và có khu vui chơi cho bé.",
+        "recommendations": [
+            ("Đà Nẵng (3N2Đ)", "Bãi biển Mỹ Khê thoai thoải an toàn cho bé tắm, vui chơi công viên Fantasy Park trên Bà Nà Hills.", 1),
+            ("Nha Trang (3N2Đ)", "Cáp treo vượt biển, công viên nước và thủy cung VinWonders khổng lồ bé cực kỳ thích thú.", 2),
+            ("Phú Quốc (3N2Đ hoặc 4N3Đ 5 Sao)", "Khám phá Vườn thú bán hoang dã Vinpearl Safari ngắm động vật tự nhiên, show nhạc nước Grand World.", 4),
+            ("Vũng Tàu (2N1Đ)", "Điểm đến gần chỉ 2 giờ ô tô từ TP.HCM, tắm biển Bãi Sau sạch sẽ và ăn uống hải sản nhẹ nhàng.", 17)
+        ]
+    },
+    "elderly": {
+        "title": "TƯ VẤN TOUR NGHỈ DƯỠNG CHO NGƯỜI CAO TUỔI & BỐ MẸ (THANH TỊNH & PHỤC HỒI SỨC KHỎE)",
+        "criteria": "Lịch trình nghỉ dưỡng thong thả, không leo trèo vận động mạnh, khí hậu trong lành và kết hợp chăm sóc sức khỏe, tâm linh cầu an.",
+        "recommendations": [
+            ("Nha Trang (3N2Đ)", "Trải nghiệm tắm bùn khoáng nóng và suối khoáng tự nhiên rất tốt cho xương khớp, ngắm biển êm đềm.", 2),
+            ("Du thuyền Vịnh Hạ Long (2N1Đ)", "Nghỉ dưỡng đẳng cấp trên du thuyền 5 sao lướt êm ru trên vịnh di sản, tập thái cực quyền đón bình minh.", 3),
+            ("Huế Cố Đô (2N1Đ)", "Không gian cổ kính thanh tịnh, nghe ca Huế trên sông Hương êm ả và viếng Chùa Thiên Mụ.", 13),
+            ("Ninh Bình (2N1Đ)", "Thuyền nan lướt nhẹ trên dòng sông Tràng An ngắm cảnh hữu tình, chiêm bái Chùa Bái Đính cầu an sức khỏe.", 10),
+            ("Côn Đảo (3N2Đ)", "Hành trình tâm linh sâu sắc viếng Nghĩa trang Hàng Dương và hít thở không khí biển đảo trong lành.", 19)
+        ]
+    },
+    "couple": {
+        "title": "TƯ VẤN TOUR CHO CẶP ĐÔI & TUẦN TRĂNG MẬT (LÃNG MẠN & RIÊNG TƯ)",
+        "criteria": "Không gian riêng tư, phong cảnh lãng mạn, hoàng hôn thơ mộng và những khoảnh khắc check-in đôi ngọt ngào.",
+        "recommendations": [
+            ("Đà Lạt (3N2Đ)", "Xứ sở sương mù ngàn hoa, dạo Hồ Xuân Hương se lạnh, cà phê ngắm thung lũng mây bồng bềnh.", 5),
+            ("Phú Quốc Resort 5 Sao (4N3Đ)", "Nghỉ dưỡng ven biển riêng tư, check-in Cầu Hôn Kiss Bridge ngắm hoàng hôn và ăn tối lãng mạn bên bờ biển.", 20),
+            ("Du thuyền Vịnh Hạ Long (2N1Đ)", "Phòng ngủ view trọn vẹn vịnh kỳ quan, ăn tối nến lung linh trên boong du thuyền giữa biển đêm tĩnh lặng.", 3),
+            ("Hội An (2N1Đ)", "Bách bộ qua những con ngõ hoa giấy rực rỡ và cùng thả đèn hoa đăng cầu nguyện trên dòng sông Hoài.", 14)
+        ]
+    },
+    "youth": {
+        "title": "TƯ VẤN DU LỊCH CHO NHÓM BẠN THÂN & GIỚI TRẺ (CHECK-IN & BÙNG NỔ TRẢI NGHIỆM)",
+        "criteria": "Khám phá cung đường kỳ vĩ, góc chụp ảnh sống ảo đỉnh cao và các hoạt động trải nghiệm bùng nổ.",
+        "recommendations": [
+            ("Hà Giang (3N2Đ)", "Chinh phục tứ đại đỉnh đèo Mã Pí Lèng, chèo kayak Hẻm Tu Sản và dạo phố cổ Đồng Văn ăn thắng dền bên bếp lửa.", 9),
+            ("Sa Pa (3N2Đ)", "Chạm tay cột mốc Fansipan 3.143m nóc nhà Đông Dương, săn mây đèo Ô Quy Hồ và check-in bản Cát Cát.", 6),
+            ("Phan Thiết - Mũi Né (2N1Đ)", "Trải nghiệm xe jeep địa hình phóng vèo vèo qua đồi cát Bàu Trắng, trượt ván cát cực đã.", 16),
+            ("Quy Nhơn - Phú Yên (4N3Đ)", "Con đường ven biển Eo Gió, cắm trại bãi biển Kỳ Co và phim trường Tôi thấy hoa vàng trên cỏ xanh.", 7),
+            ("Buôn Ma Thuột (3N2Đ)", "Check-in Bảo tàng Cà phê Thế Giới kiến trúc độc lạ và vượt dòng thác Dray Nur bọt tung trắng xóa.", 15)
+        ]
+    }
+}
+
+THEMATIC_TRAVEL_KNOWLEDGE = {
+    "cloud": {
+        "title": "TOP ĐỊA ĐIỂM SĂN BIỂN MÂY BỒNG BỀNH ĐẸP NHẤT VIỆT NAM",
+        "recommendations": [
+            ("Sa Pa (Fansipan & Đèo Ô Quy Hồ)", "Đỉnh Fansipan 3.143m ngắm biển mây cuồn cuộn như chốn bồng lai; cổng trời Ô Quy Hồ ngắm hoàng hôn trong mây.", 6),
+            ("Đà Lạt (Đồi chè Cầu Đất)", "Đón bình minh 5h00 sáng tại thảm gỗ săn mây Cầu Đất, mây luồn qua những đồi thông bát ngát.", 5),
+            ("Hà Giang (Đèo Mã Pí Lèng)", "Những dải mây trắng vờn quanh các ngọn núi đá tai mèo sừng sững bên dòng sông Nho Quế xanh ngọc.", 9)
+        ],
+        "tips": "Thời điểm săn mây đẹp nhất là từ 5h00 - 6h30 sáng vào những ngày lặng gió, độ ẩm cao."
+    },
+    "coral": {
+        "title": "CẨM NANG TOUR BIỂN ĐẢO & LẶN NGẮM SAN HÔ ĐẸP NHẤT VIỆT NAM",
+        "recommendations": [
+            ("Phú Quốc (Quần đảo An Thới)", "Rạn san hô Hòn Mây Rút, Hòn Gầm Ghì nước trong vắt thấy đáy; trải nghiệm đi bộ dưới đáy biển Seawalker.", 4),
+            ("Nha Trang (Khu bảo tồn Hòn Mun)", "Khu bảo tồn sinh vật biển đầu tiên tại VN với hơn 350 loài san hô quý hiếm rực rỡ sắc màu.", 2),
+            ("Quy Nhơn (Kỳ Co - Bãi Dứa)", "Làn nước màu xanh ngọc bích phẳng lặng, cano đưa khách lặn ngắm san hô tự nhiên tuyệt đẹp.", 7),
+            ("Cù Lao Chàm (Hội An)", "Khu dự trữ sinh quyển thế giới với thảm san hô nguyên sơ Bãi Chồng, lặn ống thở cực kỳ thú vị.", 14)
+        ],
+        "tips": "TourAI trang bị đầy đủ kính lặn, áo phao, ống thở và có hướng dẫn viên lặn biển kèm sát bảo đảm an toàn 100%."
+    },
+    "weekend": {
+        "title": "GỢI Ý TOUR DU LỊCH CUỐI TUẦN 2 NGÀY 1 ĐÊM (2N1Đ) TỐI ƯU THỜI GIAN & CHI PHÍ",
+        "north": [
+            ("Ninh Bình (Tràng An - Bái Đính)", "Chỉ 90 phút từ Hà Nội, đi thuyền ngắm non xanh nước biếc di sản.", 10),
+            ("Du thuyền Vịnh Hạ Long 5 Sao", "Nghỉ dưỡng du thuyền sang trọng ngủ đêm trên vịnh, chèo kayak, ngắm hoàng hôn kỳ quan.", 3),
+            ("Mộc Châu", "Hít thở không khí cao nguyên trong lành, check-in đồi chè trái tim và thác Dải Yếm.", 11),
+            ("Cát Bà - Vịnh Lan Hạ", "Tắm biển đảo Khỉ, chèo kayak hang Sáng Tối hoang sơ.", 12)
+        ],
+        "south": [
+            ("Vũng Tàu Biển Xanh", "Chỉ 2 giờ từ TP.HCM, tắm biển Bãi Sau, ăn bánh khọt và ngắm cảnh ngọn hải đăng.", 17),
+            ("Phan Thiết - Mũi Né", "Chạy cao tốc 2.5 giờ, trải nghiệm xe jeep đồi cát Bàu Trắng và lội Suối Tiên.", 16),
+            ("Rừng Tràm Trà Sư - An Giang", "Ngồi xuồng ba lá lướt thảm bèo xanh mát mắt, viếng Miếu Bà Chúa Xứ Núi Sam.", 18),
+            ("Cần Thơ Miệt Vườn", "Đi chợ nổi Cái Răng từ sáng sớm, thưởng thức trái cây chín cây ngọt lịm.", 8)
+        ]
+    },
+    "culture": {
+        "title": "CẨM NANG TOUR DU LỊCH VĂN HÓA, LỊCH SỬ & TÂM LINH Ý NGHĨA",
+        "recommendations": [
+            ("Côn Đảo (Nghĩa trang Hàng Dương)", "Địa danh thiêng liêng biểu tượng ý chí quật cường, viếng Mộ Cô Sáu lúc nửa đêm và thăm Trại giam Chuồng Cọp.", 19),
+            ("Cố Đô Huế", "Di sản UNESCO với Đại Nội Hoàng Thành 13 đời vua Nguyễn, lăng tẩm Khải Định và Chùa Thiên Mụ bên sông Hương.", 13),
+            ("Ninh Bình (Chùa Bái Đính - Tràng An)", "Chiêm bái đại tượng Phật bằng đồng lớn nhất Đông Nam Á, hành hương Tràng An thanh tịnh.", 10),
+            ("Hội An (Phố Cổ Di Sản)", "Nhà cổ hàng trăm năm tuổi, Chùa Cầu biểu tượng và thả hoa đăng cầu may mắn trên sông Hoài.", 14),
+            ("An Giang (Miếu Bà Chúa Xứ Núi Sam)", "Trung tâm hành hương tâm linh nổi tiếng bậc nhất Nam Bộ cầu bình an và tài lộc.", 18)
+        ]
+    }
+}
+
+
 # ====================================================================
 # LỚP CHATBOT AI CHÍNH
 # ====================================================================
@@ -771,6 +1112,111 @@ class Chatbot:
             lines.append("Bạn muốn tham khảo lịch trình chi tiết của tour nào trong danh sách trên?")
             return "\n".join(lines)
 
+    def consult_seasonal_or_monthly(self, month=None, season=None):
+        """
+        ĐỘNG CƠ TƯ VẤN DU LỊCH THEO THÁNG & MÙA VỤ CHUYÊN SÂU
+        Tổng hợp cẩm nang thời tiết, cảnh sắc đặc trưng và liên kết các Tour nội bộ tương ứng.
+        """
+        if month and month in MONTHLY_TRAVEL_KNOWLEDGE:
+            info = MONTHLY_TRAVEL_KNOWLEDGE[month]
+            lines = [
+                f"🗓️ **{info['title']}**\n",
+                f"🌤️ **Khí hậu & Thời tiết đặc trưng:**\n{info['weather']}\n",
+                "🌟 **Các điểm đến lý tưởng nhất và Tour trọn gói tương ứng:**"
+            ]
+            for idx, (dest, highlight, tour_id) in enumerate(info["destinations"], 1):
+                tour = self.get_tour(tour_id)
+                if tour:
+                    lines.append(
+                        f"{idx}. **{dest}**: {highlight}\n"
+                        f"   👉 Gợi ý: [{tour['name']}](/tours/{tour['id']}) - ⏱ {tour['duration']} - 💰 **{tour['price']:,.0f} VNĐ/khách**"
+                    )
+                else:
+                    lines.append(f"{idx}. **{dest}**: {highlight}")
+
+            lines.append(f"\n🎒 **Gợi ý chuẩn bị & Lưu ý:**\n{info['tips']}\n")
+            lines.append("💡 *Bạn muốn tìm hiểu thêm về lịch trình chi tiết hoặc đặt tour nào trong danh sách trên?*")
+            return "\n".join(lines)
+
+        if season and season in SEASONAL_TRAVEL_KNOWLEDGE:
+            info = SEASONAL_TRAVEL_KNOWLEDGE[season]
+            lines = [
+                f"🍂 **{info['title']}**\n",
+                f"🌤️ **Đặc điểm mùa:** {info['desc']}\n",
+                "🌟 **Hành trình khám phá tiêu biểu:**"
+            ]
+            for idx, (dest, highlight, tour_id) in enumerate(info["highlights"], 1):
+                tour = self.get_tour(tour_id)
+                if tour:
+                    lines.append(
+                        f"{idx}. **{dest}**: {highlight}\n"
+                        f"   👉 Gợi ý: [{tour['name']}](/tours/{tour['id']}) - ⏱ {tour['duration']} - 💰 **{tour['price']:,.0f} VNĐ/khách**"
+                    )
+                else:
+                    lines.append(f"{idx}. **{dest}**: {highlight}")
+
+            lines.append("\n💡 *Bạn muốn tham khảo lịch trình chi tiết của tour nào trong số này?*")
+            return "\n".join(lines)
+
+        return None
+
+    def consult_audience_or_theme(self, audience=None, theme=None):
+        """
+        ĐỘNG CƠ TƯ VẤN DU LỊCH THEO ĐỐI TƯỢNG VÀ CHỦ ĐỀ CHUYÊN BIỆT
+        """
+        if audience and audience in AUDIENCE_TRAVEL_KNOWLEDGE:
+            info = AUDIENCE_TRAVEL_KNOWLEDGE[audience]
+            lines = [
+                f"🎯 **{info['title']}**\n",
+                f"📋 **Tiêu chí chuyến đi:** {info['criteria']}\n",
+                "🌟 **Top gợi ý tour hoàn hảo nhất:**"
+            ]
+            for idx, (title, highlight, tour_id) in enumerate(info["recommendations"], 1):
+                tour = self.get_tour(tour_id)
+                if tour:
+                    lines.append(
+                        f"{idx}. **{title}**: {highlight}\n"
+                        f"   👉 Chi tiết: [{tour['name']}](/tours/{tour['id']}) - 💰 **{tour['price']:,.0f} VNĐ/khách**"
+                    )
+                else:
+                    lines.append(f"{idx}. **{title}**: {highlight}")
+
+            lines.append("\n🛡️ *Tất cả các tour của TourAI đều có bảo hiểm du lịch trọn gói, xe đưa đón chất lượng cao và hướng dẫn viên tận tâm.*")
+            return "\n".join(lines)
+
+        if theme and theme in THEMATIC_TRAVEL_KNOWLEDGE:
+            info = THEMATIC_TRAVEL_KNOWLEDGE[theme]
+            lines = [f"✨ **{info['title']}**\n"]
+            if "desc" in info:
+                lines.append(f"{info['desc']}\n")
+
+            if theme == "weekend":
+                lines.append("🚗 **Khu vực miền Bắc (Khởi hành từ Hà Nội):**")
+                for idx, (title, highlight, tour_id) in enumerate(info["north"], 1):
+                    tour = self.get_tour(tour_id)
+                    price_str = f" - 💰 **{tour['price']:,.0f} VNĐ**" if tour else ""
+                    lines.append(f"{idx}. **{title}**: {highlight}\n   👉 [{tour['name'] if tour else title}](/tours/{tour_id}){price_str}")
+                lines.append("\n🚗 **Khu vực miền Nam (Khởi hành từ TP.HCM):**")
+                for idx, (title, highlight, tour_id) in enumerate(info["south"], 1):
+                    tour = self.get_tour(tour_id)
+                    price_str = f" - 💰 **{tour['price']:,.0f} VNĐ**" if tour else ""
+                    lines.append(f"{idx}. **{title}**: {highlight}\n   👉 [{tour['name'] if tour else title}](/tours/{tour_id}){price_str}")
+            else:
+                for idx, (title, highlight, tour_id) in enumerate(info["recommendations"], 1):
+                    tour = self.get_tour(tour_id)
+                    if tour:
+                        lines.append(
+                            f"{idx}. **{title}**: {highlight}\n"
+                            f"   👉 Gợi ý: [{tour['name']}](/tours/{tour['id']}) - ⏱ {tour['duration']} - 💰 **{tour['price']:,.0f} VNĐ/khách**"
+                        )
+                    else:
+                        lines.append(f"{idx}. **{title}**: {highlight}")
+
+            if "tips" in info:
+                lines.append(f"\n💡 **Lưu ý & Mẹo trải nghiệm:**\n{info['tips']}")
+
+            return "\n".join(lines)
+
         return None
 
     def generate_response(self, question, session_id=None, force_web_search=False):
@@ -866,6 +1312,41 @@ class Chatbot:
                 return rec_result
 
         # -------------------------------------------------------------
+        # XỬ LÝ 3.5: ĐỘNG CƠ TƯ VẤN DU LỊCH THEO MÙA VỤ, THỜI GIAN, ĐỐI TƯỢNG & CHỦ ĐỀ
+        # (SEASONAL & THEMATIC CONSULTATION ENGINE)
+        # -------------------------------------------------------------
+        month = extract_month(q_clean)
+        season = extract_season(q_clean)
+        audience = extract_audience(q_clean)
+        theme = extract_theme(q_clean)
+
+        consult_triggers = [
+            "nên đi đâu", "nen di dau", "đi đâu", "di dau", "phù hợp", "phu hop",
+            "gợi ý", "goi y", "tư vấn", "tu van", "đẹp nhất", "dep nhat",
+            "chơi gì", "choi gi", "đi tour nào", "di tour nao", "tour nào", "tour nao",
+            "địa điểm", "dia diem", "tháng nào", "mùa nào", "được không", "hợp không",
+            "thời tiết", "thoi tiet"
+        ]
+        is_explicit_consult = any(w in q_low for w in consult_triggers)
+        # Các câu hỏi ngắn mang tính thời gian (ví dụ: "tháng 10", "thang 10 nen di dau", "t10", "mùa hè", "du lịch mùa thu")
+        is_short_temporal = (month is not None or season is not None) and len(q_clean.split()) <= 8
+
+        # Kiểm tra xem có đang hỏi giá hoặc lịch trình của 1 tour nội bộ cụ thể hay không
+        is_specific_single_tour_query = matched_local and any(w in q_low for w in [
+            "giá", "gia", "lịch trình", "lich trinh", "bao nhiêu", "chi phí", "ngày 1", "ngày 2", "bao tiền"
+        ])
+
+        if (is_explicit_consult or is_short_temporal) and not is_specific_single_tour_query:
+            if month or season:
+                resp = self.consult_seasonal_or_monthly(month=month, season=season)
+                if resp:
+                    return resp
+            if audience or theme:
+                resp = self.consult_audience_or_theme(audience=audience, theme=theme)
+                if resp:
+                    return resp
+
+        # -------------------------------------------------------------
         # XỬ LÝ 4: TF-IDF VECTORIZATION & DEEP HYBRID INTENT PROBABILITIES
         # -------------------------------------------------------------
         processed_question = preprocess_text(q_clean)
@@ -946,9 +1427,12 @@ class Chatbot:
             has_duration_word = bool(re.search(duration_pat, q_low))
             has_faq_word = bool(re.search(faq_pat, q_low))
 
-            is_schedule_query = has_schedule_word or (predicted_intent in ("hoi_lich_trinh", "tour_schedule") and not has_price_word and not has_faq_word)
-            is_price_query = has_price_word or (predicted_intent in ("hoi_gia", "tour_price") and not has_schedule_word and not has_faq_word)
-            is_general_tour_query = (
+            # Khi điểm đến có nhiều tour và câu hỏi không chứa từ khóa giá/lịch trình cụ thể -> ưu tiên hiển thị danh sách các tour
+            is_destination_overview = len(matched_local) > 1 and not has_price_word and not has_schedule_word and not has_faq_word
+
+            is_schedule_query = not is_destination_overview and (has_schedule_word or (predicted_intent in ("hoi_lich_trinh", "tour_schedule") and intent_confidence >= 0.35 and not has_price_word and not has_faq_word))
+            is_price_query = not is_destination_overview and (has_price_word or (predicted_intent in ("hoi_gia", "tour_price") and intent_confidence >= 0.35 and not has_schedule_word and not has_faq_word))
+            is_general_tour_query = is_destination_overview or (
                 predicted_intent in ("tour_info", "thong_tin_tour", "tim_tour", "tour_search")
                 or any(k in q_low for k in ["tư vấn", "tu van", "chi tiết", "thông tin", "giới thiệu", "tour", "điểm đến"])
                 or (not has_duration_word and not has_faq_word and len(q_clean.split()) <= 6)
