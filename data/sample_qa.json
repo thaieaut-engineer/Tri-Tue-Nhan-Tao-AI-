@@ -1381,19 +1381,19 @@
   },
   {
     "question": "Khách sạn trong tour mấy sao?",
-    "answer": "TourAI sử dụng hệ thống khách sạn và resort tiêu chuẩn từ 3 đến 5 sao (tùy gói tour bạn chọn), phòng đầy đủ tiện nghi, sạch sẽ, vị trí trung tâm hoặc view biển đẹp.",
+    "answer": "TourAI sử dụng hệ thống khách sạn và resort tiêu chuẩn từ 3 đến 4 sao cao cấp trong các gói tour phổ thông, và 5 sao quốc tế cho các gói tour nghỉ dưỡng cao cấp. TourAI luôn hỗ trợ nâng cấp lên khách sạn/resort 5 sao theo yêu cầu riêng của đoàn.",
     "intent": "hoi_dich_vu",
     "tour_id": null
   },
   {
     "question": "KS trong tour mấy sao?",
-    "answer": "TourAI sử dụng hệ thống khách sạn và resort tiêu chuẩn từ 3 đến 5 sao (tùy gói tour bạn chọn), phòng đầy đủ tiện nghi, sạch sẽ, vị trí trung tâm hoặc view biển đẹp.",
+    "answer": "TourAI sử dụng hệ thống khách sạn và resort tiêu chuẩn từ 3 đến 4 sao cao cấp trong các gói tour phổ thông, và 5 sao quốc tế cho các gói tour nghỉ dưỡng cao cấp. TourAI luôn hỗ trợ nâng cấp lên khách sạn/resort 5 sao theo yêu cầu riêng của đoàn.",
     "intent": "hoi_dich_vu",
     "tour_id": null
   },
   {
     "question": "Ở khách sạn nào?",
-    "answer": "TourAI bố trí lưu trú tại các khách sạn và resort tiêu chuẩn từ 3 đến 5 sao có thương hiệu uy tín, vị trí trung tâm hoặc sát biển, đầy đủ buffet sáng và tiện ích.",
+    "answer": "TourAI hợp tác với các khách sạn và resort uy tín từ 3 đến 5 sao có vị trí trung tâm hoặc sát biển. Ví dụ: tại Đà Nẵng (Sala Danang Beach, Belle Maison, Novotel, Mường Thanh Luxury); Nha Trang (Novotel, Vinpearl, Sheraton); Phú Quốc (Novotel Resort, Vinpearl Resort); Hạ Long (Novotel, FLC Grand, du thuyền 5 sao). Thông tin phòng và mã đặt phòng chính thức sẽ được gửi cho bạn trước ngày khởi hành.",
     "intent": "hoi_dich_vu",
     "tour_id": null
   },

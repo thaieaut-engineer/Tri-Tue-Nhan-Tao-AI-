@@ -10,7 +10,7 @@ Kiểm thử toàn diện các phân hệ cốt lõi của Chatbot AI Tư Vấn 
 
 import unittest
 from ai.preprocess import preprocess_text, correct_travel_typos, remove_accents
-from ai.chatbot import Chatbot, extract_budget, extract_duration_days
+from ai.chatbot import Chatbot, extract_budget, extract_duration_days, extract_group_size
 from ai.web_search import synthesize_travel_search_response, format_web_response, get_curated_destination_guide
 
 
@@ -38,6 +38,13 @@ class TestNaturalLanguageProcessing(unittest.TestCase):
         self.assertEqual(extract_duration_days("tour 3 ngày 2 đêm"), 3)
         self.assertEqual(extract_duration_days("đi 4n3đ"), 4)
         self.assertEqual(extract_duration_days("khoảng 2 ngày"), 2)
+
+    def test_group_size_extraction(self):
+        self.assertEqual(extract_group_size("lấy 1 tour rẻ nhất cho đoàn 10 người đi đà nẵng"), 10)
+        self.assertEqual(extract_group_size("đoàn 15 khách"), 15)
+        self.assertEqual(extract_group_size("nhóm 8 bạn"), 8)
+        self.assertEqual(extract_group_size("tôi đi 4 người"), 4)
+        self.assertIsNone(extract_group_size("tour 3 ngày 2 đêm"))
 
 
 class TestTravelSearchSynthesis(unittest.TestCase):
@@ -175,8 +182,64 @@ class TestChatbotTourConsultation(unittest.TestCase):
         self.assertNotIn("TourAI hiện tập trung chuyên sâu phục vụ 20 tuyến tour trọn gói", resp)
         self.assertIn("Cẩm Nang Du Lịch Thái Lan", resp)
 
+    def test_cheap_tour_with_destination_and_group_size(self):
+        # Kiểm tra xử lý tour rẻ nhất có chỉ định điểm đến & số lượng đoàn (Turn 1 log)
+        sid = "unit_test_group_danang"
+        resp = self.bot.generate_response("lấy 1 tour rẻ nhất cho đoàn 10 người đi đà nẵng", session_id=sid)
+        self.assertIn("Đà Nẵng", resp)
+        self.assertIn("4,500,000", resp)
+        self.assertIn("45,000,000", resp)
+        self.assertIn("16 chỗ", resp)
+        # Đảm bảo không bị nhảy sang Tour Mộc Châu rẻ nhất hệ thống
+        self.assertNotIn("Mộc Châu", resp)
+        self.assertNotIn("1,650,000", resp)
+
+    def test_hotel_star_and_upgrade_advisory(self):
+        # Kiểm tra hỏi tiêu chuẩn sao khách sạn và nâng cấp 5 sao trong tour (Turn 2 & 3 log)
+        sid = "unit_test_hotel_stars"
+        # Khởi tạo ngữ cảnh với Tour Đà Nẵng
+        self.bot.generate_response("Tư vấn Tour Đà Nẵng", session_id=sid)
+
+        # Hỏi tiêu chuẩn sao
+        resp = self.bot.generate_response("khách sạn có 5 sao ko", session_id=sid)
+        self.assertIn("TIÊU CHUẨN KHÁCH SẠN", resp)
+        self.assertIn("3 - 4 sao", resp)
+        self.assertIn("5 sao", resp)
+        # Không được xả cả bài tổng quan hành trình dài 50 dòng
+        self.assertNotIn("Lịch trình trải nghiệm chi tiết từng ngày", resp)
+
+        # Hỏi lặp lại tiêu chuẩn sao
+        resp2 = self.bot.generate_response("t hỏi khách sạn mấy sao", session_id=sid)
+        self.assertIn("TIÊU CHUẨN KHÁCH SẠN", resp2)
+        self.assertIn("3 - 4 sao", resp2)
+        self.assertNotIn("Lịch trình trải nghiệm chi tiết từng ngày", resp2)
+
+    def test_hotel_name_and_partner_listing(self):
+        # Kiểm tra yêu cầu nêu tên khách sạn cụ thể cho điểm đến (Turn 7, 8 & 9 log)
+        sid = "unit_test_hotel_names"
+        self.bot.generate_response("lấy 1 tour rẻ nhất cho đoàn 10 người đi đà nẵng", session_id=sid)
+
+        # Hỏi ở khách sạn nào
+        r1 = self.bot.generate_response("ơ thế m cho t ở ksan nào", session_id=sid)
+        self.assertIn("DANH SÁCH KHÁCH SẠN", r1)
+        self.assertIn("Sala Danang Beach Hotel", r1)
+        self.assertIn("Belle Maison Parosand", r1)
+        self.assertIn("Novotel Danang Premier Han River", r1)
+
+        # Hỏi gặng yêu cầu nêu tên ra
+        r2 = self.bot.generate_response("đã bảo là nêu tên ra", session_id=sid)
+        self.assertIn("DANH SÁCH KHÁCH SẠN", r2)
+        self.assertIn("Sala Danang Beach Hotel", r2)
+
+        # Hỏi ngắn "tên khách sạn"
+        r3 = self.bot.generate_response("tên khách sạn", session_id=sid)
+        self.assertIn("DANH SÁCH KHÁCH SẠN", r3)
+        self.assertIn("Sala Danang Beach Hotel", r3)
+        self.assertNotIn("Lịch trình trải nghiệm chi tiết từng ngày", r3)
+
 
 class TestDeepLearningSystem(unittest.TestCase):
+
     """
     Kiểm thử chuyên sâu cho Hệ thống Học sâu Deep Learning (PyTorch):
     1. Kiểm tra sự tồn tại và tính hợp lệ của các file trọng số (.pth, .pkl, .npy, .json).

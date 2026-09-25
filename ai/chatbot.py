@@ -345,6 +345,23 @@ def extract_duration_days(text):
     return None
 
 
+def extract_group_size(text):
+    """
+    Trích xuất số lượng thành viên/khách trong đoàn từ câu hỏi.
+    Hỗ trợ các mẫu: 'đoàn 10 người', 'đoàn 15 khách', 'nhóm 8 bạn', '10 người', '12 khách', 'đoàn 20 người lớn'.
+    """
+    t_low = text.lower()
+    m1 = re.search(r'\b(?:đoàn|doan|nhóm|nhom)(?:\s+tôi)?(?:\s+mình)?(?:\s+có)?\s+(\d+)\s*(?:người|nguoi|khách|khach|thành viên|thanh vien|bạn|ban|ng)?\b', t_low)
+    if m1:
+        return int(m1.group(1))
+
+    m2 = re.search(r'\b(\d+)\s*(?:người|nguoi|khách|khach|thành viên|thanh vien)\b', t_low)
+    if m2:
+        return int(m2.group(1))
+
+    return None
+
+
 def extract_month(text):
     """Trích xuất số tháng (1-12) từ câu hỏi người dùng."""
     t_low = text.lower()
@@ -681,6 +698,339 @@ THEMATIC_TRAVEL_KNOWLEDGE = {
             ("Ninh Bình (Chùa Bái Đính - Tràng An)", "Chiêm bái đại tượng Phật bằng đồng lớn nhất Đông Nam Á, hành hương Tràng An thanh tịnh.", 10),
             ("Hội An (Phố Cổ Di Sản)", "Nhà cổ hàng trăm năm tuổi, Chùa Cầu biểu tượng và thả hoa đăng cầu may mắn trên sông Hoài.", 14),
             ("An Giang (Miếu Bà Chúa Xứ Núi Sam)", "Trung tâm hành hương tâm linh nổi tiếng bậc nhất Nam Bộ cầu bình an và tài lộc.", 18)
+        ]
+    }
+}
+
+
+# ====================================================================
+# CƠ SỞ TRI THỨC KHÁCH SẠN & ĐỐI TÁC LƯU TRÚ (HOTEL & RESORT DIRECTORY)
+# ====================================================================
+HOTEL_DATABASE_BY_DESTINATION = {
+    "Đà Nẵng": {
+        "standard_stars": "3 - 4 sao (Có thể nâng cấp 5 sao theo yêu cầu)",
+        "description": "Nằm gần bãi biển Mỹ Khê xinh đẹp hoặc trung tâm sông Hàn sầm uất, thuận tiện tắm biển và ngắm cầu Rồng.",
+        "partners_4star": [
+            "Sala Danang Beach Hotel (4 sao - đối diện bãi biển Mỹ Khê, hồ bơi vô cực trên tầng thượng view toàn cảnh biển)",
+            "Belle Maison Parosand Danang (4 sao - sát bãi biển Mỹ Khê, phòng ban công view đại dương, buffet sáng quốc tế)",
+            "Mường Thanh Grand Danang (4 sao - trung tâm thành phố, dịch vụ chu đáo, phòng ốc hiện đại)"
+        ],
+        "partners_5star": [
+            "Mường Thanh Luxury Danang (5 sao - mặt đường Võ Nguyên Giáp trực diện biển Mỹ Khê, đẳng cấp sang trọng)",
+            "Novotel Danang Premier Han River (5 sao - tọa lạc bờ tây sông Hàn, ngắm trọn vẹn cầu Rồng và thành phố về đêm)",
+            "Furama Resort Danang (5 sao - khu nghỉ dưỡng biển di sản danh tiếng bậc nhất với bãi biển riêng)"
+        ],
+        "partners_3star": [
+            "Gemma Hotel & Apartment Danang (3 sao - tiện nghi hiện đại, cách bãi biển Mỹ Khê 300m)",
+            "Dana Marina Hotel (3 sao - gần biển Mỹ Khê, có hồ bơi tầng thượng thoáng mát)"
+        ]
+    },
+    "Nha Trang": {
+        "standard_stars": "3 - 4 sao (Có thể nâng cấp 5 sao theo yêu cầu)",
+        "description": "Nằm dọc cung đường biển Trần Phú đẹp nhất Nha Trang hoặc trung tâm phố Tây, chỉ vài bước chân là ra đến bãi cát vàng.",
+        "partners_4star": [
+            "Novotel Nha Trang (4 sao - mặt đường Trần Phú, tất cả các phòng đều có ban công hướng biển)",
+            "Liberty Central Nha Trang Hotel (4 sao - trung tâm phố Tây, tiện ích cao cấp và hồ bơi tầng thượng)",
+            "Green World Hotel Nha Trang (4 sao - dịch vụ chuyên nghiệp, hồ bơi trong nhà và spa thư giãn)"
+        ],
+        "partners_5star": [
+            "Vinpearl Resort Nha Trang (5 sao - trên đảo Hòn Tre biệt lập, bãi biển riêng và công viên nước VinWonders)",
+            "Sheraton Nha Trang Hotel & Spa (5 sao - thương hiệu quốc tế cao cấp mặt biển Trần Phú)",
+            "Havana Nha Trang Hotel (5 sao - khách sạn quy mô lớn với đường hầm riêng thông thẳng ra bãi biển)"
+        ],
+        "partners_3star": [
+            "Elegance Nha Trang Hotel (3 sao - tiện nghi, sạch sẽ gần biển)",
+            "Regalia Nha Trang Hotel (3 sao - vị trí trung tâm Trần Phú, thuận tiện dạo bộ)"
+        ]
+    },
+    "Phú Quốc": {
+        "standard_stars": "4 - 5 sao (Tour 3N2Đ chuẩn 4 sao; Tour 4N3Đ nghỉ dưỡng chuẩn 5 sao)",
+        "description": "Hệ thống resort ven biển Bãi Dài, Bãi Trường hoặc gần tổ hợp giải trí Grand World Phú Quốc United Center.",
+        "partners_4star": [
+            "Novotel Phu Quoc Resort (4-5 sao - tọa lạc Bãi Trường, bãi tắm riêng cát trắng, hồ bơi sát biển)",
+            "Sol by Meliá Phu Quoc (4 sao - phong cách Địa Trung Hải trẻ trung, bãi biển riêng lãng mạn)",
+            "Sunset Sanato Resort & Villas (4 sao - điểm check-in ngắm hoàng hôn đẹp nhất đảo ngọc)"
+        ],
+        "partners_5star": [
+            "Vinpearl Resort & Spa Phú Quốc (5 sao - phong cách tân cổ điển, bãi biển riêng Bãi Dài, sát Safari)",
+            "InterContinental Phu Quoc Long Beach Resort (5 sao - kiến trúc tháp Sao Biển đẳng cấp quốc tế)",
+            "JW Marriott Phu Quoc Emerald Bay (5 sao - kiệt tác nghỉ dưỡng Bãi Khem danh tiếng)"
+        ],
+        "partners_3star": [
+            "Amarin Resort Phú Quốc (3-4 sao - hồ bơi ngoài trời, dịch vụ chu đáo)",
+            "Orange Resort Phú Quốc (3 sao - bungalow vườn nhiệt đới sát biển)"
+        ]
+    },
+    "Hạ Long": {
+        "standard_stars": "4 sao trên bờ hoặc Du thuyền 4-5 sao ngủ đêm trên Vịnh",
+        "description": "Nằm tại trung tâm Bãi Cháy view trọn vịnh hoặc trải nghiệm ngủ đêm sang trọng trên du thuyền giữa lòng kỳ quan.",
+        "partners_4star": [
+            "Mường Thanh Grand Hạ Long Hotel (4 sao - trung tâm khu du lịch Bãi Cháy)",
+            "Novotel Hạ Long (4 sao - ngay cạnh công viên Sun World Hạ Long, view vịnh tuyệt đẹp)",
+            "Heritage Halong Hotel (4 sao - phong cách thanh lịch truyền thống)"
+        ],
+        "partners_5star": [
+            "FLC Grand Hotel Hạ Long (5 sao - trên đỉnh đồi cao ngắm toàn cảnh kỳ quan Vịnh Hạ Long)",
+            "Vinpearl Resort & Spa Hạ Long (5 sao - tọa lạc biệt lập hoàn toàn trên đảo Rều)",
+            "Du thuyền Ambassador Cruise / Paradise Elegance Cruise (5 sao - du thuyền ngủ đêm 5 sao cao cấp)"
+        ],
+        "partners_3star": [
+            "Halong Pearl Hotel (3 sao - vị trí Bãi Cháy thuận tiện, tiện nghi đầy đủ)",
+            "New Star Halong Hotel (3 sao - sạch sẽ, phòng ốc ấm cúng)"
+        ]
+    },
+    "Sa Pa": {
+        "standard_stars": "3 - 4 sao (Có thể nâng cấp 5 sao theo yêu cầu)",
+        "description": "Nằm tại trung tâm thị xã Sa Pa gần Nhà thờ Đá hoặc view trực diện thung lũng Mường Hoa săn biển mây kỳ vĩ.",
+        "partners_4star": [
+            "Pao's Sapa Leisure Hotel (4 sao - sườn đồi view trọn thung lũng Mường Hoa thơ mộng)",
+            "Bamboo Sapa Hotel (4 sao - hồ bơi vô cực nước ấm ngắm dãy Hoàng Liên Sơn)",
+            "Charming Sapa Hotel (4 sao - phong cách boutique ấm cúng ngay trung tâm thị xã)"
+        ],
+        "partners_5star": [
+            "Hotel de la Coupole - MGallery (5 sao - kiệt tác kiến trúc của Bill Bensley giữa lòng Sa Pa)",
+            "Silk Path Grand Resort & Spa Sapa (5 sao - tọa lạc trên ngọn đồi riêng với vườn hoa hồng rực rỡ)",
+            "Topas Ecolodge (5 sao - resort sinh thái trên đỉnh đồi độc đáo bậc nhất thế giới)"
+        ],
+        "partners_3star": [
+            "Sapa Vista Hotel (3 sao - view thung lũng Mường Hoa đẹp, sạch sẽ)",
+            "Chapa Romance Hotel (3 sao - gần Nhà thờ Đá, phục vụ chu đáo)"
+        ]
+    },
+    "Đà Lạt": {
+        "standard_stars": "3 - 4 sao (Có thể nâng cấp 5 sao theo yêu cầu)",
+        "description": "Nằm gần Hồ Xuân Hương hoặc trung tâm chợ đêm Đà Lạt, không gian lãng mạn giữa rừng thông.",
+        "partners_4star": [
+            "TTC Hotel Premium Đà Lạt (4 sao - ngay sát chợ Đà Lạt, thuận tiện đi dạo chợ đêm)",
+            "Sam Tuyền Lâm Resort (4 sao - ven hồ Tuyền Lâm thanh bình, phong cách châu Âu)",
+            "Colline Dalat Hotel (4 sao - khách sạn kiến trúc hiện đại tại trung tâm Đà Lạt)"
+        ],
+        "partners_5star": [
+            "Dalat Palace Heritage Hotel (5 sao - khách sạn di sản cổ kính phong cách hoàng gia Pháp)",
+            "Ana Mandara Villas Dalat Resort & Spa (5 sao - quần thể biệt thự cổ kiến trúc Pháp giữa rừng thông)",
+            "Dalat Edensee Lake Resort & Spa (5 sao - bán đảo hồ Tuyền Lâm thơ mộng)"
+        ],
+        "partners_3star": [
+            "Mai Vàng Hotel Đà Lạt (3 sao - gần trung tâm, ấm cúng)",
+            "Roy Dalat Hotel (3 sao - vị trí thuận tiện, phòng sạch đẹp)"
+        ]
+    },
+    "Quy Nhơn": {
+        "standard_stars": "3 - 4 sao (Có thể nâng cấp 5 sao theo yêu cầu)",
+        "description": "Nằm sát bờ biển Quy Nhơn thơ mộng hoặc khu vực trung tâm thành phố biển thanh bình.",
+        "partners_4star": [
+            "Anya Hotel Quy Nhon (4 sao - phong cách sang trọng, tiện nghi chuẩn quốc tế)",
+            "Saigon Quy Nhon Hotel (4 sao - mặt đường biển An Dương Vương)",
+            "Hai Au Hotel Quy Nhon (4 sao - sát biển, ban công lộng gió)"
+        ],
+        "partners_5star": [
+            "FLC Luxury Resort Quy Nhon (5 sao - quần thể nghỉ dưỡng biển Nhơn Lý)",
+            "Anantara Quy Nhon Villas (5 sao - khu nghỉ dưỡng biệt thự biển cao cấp bậc nhất)"
+        ],
+        "partners_3star": [
+            "Thành Thảo Hotel Quy Nhơn (3 sao - tiện nghi, trung tâm)",
+            "Mento Hotel Quy Nhơn (3 sao - sạch sẽ, gần biển)"
+        ]
+    },
+    "Cần Thơ": {
+        "standard_stars": "3 - 4 sao",
+        "description": "Nằm gần Bến Ninh Kiều hoặc trung tâm TP Cần Thơ, view ngắm trọn dòng sông Hậu hiền hòa.",
+        "partners_4star": [
+            "Ninh Kiều Riverside Hotel (4 sao - ngay Bến Ninh Kiều, view cầu đi bộ Cần Thơ)",
+            "Victoria Can Tho Resort (4 sao - resort phong cách Đông Dương cổ điển ven sông Hậu)",
+            "TTC Hotel Cần Thơ (4 sao - trung tâm Bến Ninh Kiều)"
+        ],
+        "partners_5star": [
+            "Vinpearl Hotel Cần Thơ / Sheraton Can Tho (5 sao - tòa tháp khách sạn cao nhất ĐBSCL)",
+            "Azerai Can Tho (5 sao - resort biệt lập trên cồn Ấu đẳng cấp quốc tế)"
+        ],
+        "partners_3star": [
+            "Hậu Giang Hotel Cần Thơ (3 sao - trung tâm, dịch vụ chu đáo)",
+            "Khách sạn Tây Đô (3 sao - gần Bến Ninh Kiều)"
+        ]
+    },
+    "Hà Giang": {
+        "standard_stars": "3 sao / Khách sạn & Homestay cao cấp",
+        "description": "Hệ thống khách sạn tiện nghi tại TP Hà Giang và Đồng Văn, cùng các homestay sinh thái cộng đồng chuẩn mực.",
+        "partners_4star": [
+            "H'Mong Village Resort (4 sao - Quản Bạ, kiến trúc quẩy tấu độc đáo view thung lũng sông Miện)",
+            "P'apiu Resort (Khu nghỉ dưỡng cao cấp phong cách Bắc Bộ trên vùng cao)"
+        ],
+        "partners_5star": [
+            "H'Mong Village Resort (Hạng Bungalow cao cấp trên sườn núi)"
+        ],
+        "partners_3star": [
+            "Khách sạn Hoa Cương Đồng Văn (3 sao - trung tâm phố cổ Đồng Văn)",
+            "Khách sạn Phoenix Hà Giang (3 sao - trung tâm TP Hà Giang, tiện nghi hiện đại)",
+            "Khách sạn Trường Xuân Resort (3 sao - sinh thái bên bờ sông Miện)"
+        ]
+    },
+    "Ninh Bình": {
+        "standard_stars": "3 - 4 sao / Resort sinh thái",
+        "description": "Nằm gần quần thể danh thắng Tràng An - Bái Đính hoặc giữa thung lũng non nước hữu tình.",
+        "partners_4star": [
+            "Ninh Binh Legend Hotel (4 sao - trung tâm TP Ninh Bình, tiện nghi chuẩn quốc tế)",
+            "Hidden Charm Hotel & Resort (4 sao - ngay lối vào Tam Cốc Bích Động)",
+            "Tràng An Retreat (Resort sinh thái giữa lòng thung lũng di sản Tràng An)"
+        ],
+        "partners_5star": [
+            "Emeralda Resort Ninh Binh (5 sao - phong cách làng quê Bắc Bộ cổ kính bên đầm Vân Long)"
+        ],
+        "partners_3star": [
+            "Khải Hoàn Hotel Ninh Bình (3 sao - sạch sẽ, tiện nghi)",
+            "Tam Coc Boutique Garden (3 sao - bungalow ven sông yên tĩnh)"
+        ]
+    },
+    "Mộc Châu": {
+        "standard_stars": "3 sao / Khách sạn & Resort cao nguyên",
+        "description": "Nằm giữa đồi chè hoặc cao nguyên Mộc Châu xanh ngát, khí hậu mát mẻ quanh năm.",
+        "partners_4star": [
+            "Mường Thanh Luxury Mộc Châu (4 sao - khách sạn quy mô lớn nhất cao nguyên Mộc Châu)",
+            "Thảo Nguyên Resort Mộc Châu (4 sao - khu nghỉ dưỡng sinh thái cao cấp)",
+            "Rừng Thông Bản Áng Glamping & Resort"
+        ],
+        "partners_5star": [
+            "Mộc Châu Island - Cầu Kính Bạch Long Resort (Tổ hợp nghỉ dưỡng & giải trí đẳng cấp)"
+        ],
+        "partners_3star": [
+            "Khách sạn Sao Xanh Mộc Châu (3 sao - trung tâm thị trấn Mộc Châu)",
+            "Mộc Châu Arena Village (3 sao - bungalow container độc đáo giữa đồi chè)"
+        ]
+    },
+    "Cát Bà": {
+        "standard_stars": "3 - 4 sao (Có thể nâng cấp 5 sao theo yêu cầu)",
+        "description": "Nằm tại trung tâm thị trấn Cát Bà hoặc tọa lạc bãi biển Cát Cò view vịnh Lan Hạ.",
+        "partners_4star": [
+            "Flamingo Cat Ba Beach Resort (4-5 sao - bãi biển Cát Cò 1 và 2, view vịnh Lan Hạ tuyệt mỹ)",
+            "Cat Ba Island Resort & Spa (4 sao - bãi Cát Cò 1, bãi tắm riêng)"
+        ],
+        "partners_5star": [
+            "Hôtel Perle d'Orient Cat Ba - MGallery (5 sao - kiệt tác phong cách Đông Dương Bãi Cát Cò 3)",
+            "Flamingo Cat Ba Resorts (5 sao - quần thể nghỉ dưỡng xanh đẳng cấp)"
+        ],
+        "partners_3star": [
+            "Khách sạn Giếng Ngọc Cát Bà (3 sao - trung tâm cảng Cát Bà)",
+            "Hung Long Harbour Hotel (3 sao - view biển Cát Bà)"
+        ]
+    },
+    "Huế": {
+        "standard_stars": "3 - 4 sao",
+        "description": "Nằm bên bờ sông Hương thơ mộng hoặc trung tâm Cố đô, gần Đại Nội Hoàng Thành.",
+        "partners_4star": [
+            "Hương Giang Hotel Resort & Spa (4 sao - bên bờ sông Hương êm đềm)",
+            "Eldora Hotel Huế (4 sao - kiến trúc hoàng gia Pháp cổ kính)",
+            "Century Riverside Hue Hotel (4 sao - view sông Hương thoáng mát)"
+        ],
+        "partners_5star": [
+            "Azerai La Residence Hue (5 sao - biệt thự cổ Art Deco bên bờ sông Hương)",
+            "Silk Path Grand Hue Hotel (5 sao - phong cách quý tộc cung đình pha nét hiện đại)",
+            "Melia Vinpearl Hue (5 sao - tòa tháp cao nhất trung tâm Cố đô)"
+        ],
+        "partners_3star": [
+            "Rosaleen Boutique Hotel (3 sao - trung tâm phố đi bộ Huế)",
+            "Park View Hotel Huế (3 sao - tiện nghi, chu đáo)"
+        ]
+    },
+    "Hội An": {
+        "standard_stars": "3 - 4 sao",
+        "description": "Nằm gần khu Phố cổ Hội An hoặc ven dòng sông Hoài, bãi biển An Bàng/Cửa Đại.",
+        "partners_4star": [
+            "Hoi An Historic Hotel (4 sao - ngay sát phố cổ, không gian vườn xanh mát)",
+            "Silkotel Hoi An (4 sao - phong cách lồng đèn đặc trưng Hội An)",
+            "Vinh Hung Riverside Resort & Spa (4 sao - bên bờ sông Hoài thơ mộng)"
+        ],
+        "partners_5star": [
+            "Four Seasons Resort The Nam Hai (5 sao - resort sang trọng bậc nhất bãi biển Hà My)",
+            "Anantara Hoi An Resort (5 sao - ven sông Thu Bồn thanh bình)",
+            "Allegro Hoi An - A Little Luxury Hotel & Spa (5 sao - đậm chất di sản)"
+        ],
+        "partners_3star": [
+            "Hội An Rosemary Boutique Hotel (3 sao - tiện nghi, thân thiện)",
+            "Phú Thịnh Boutique Resort (3 sao - sân vườn hồ bơi thanh bình)"
+        ]
+    },
+    "Buôn Ma Thuột": {
+        "standard_stars": "3 - 4 sao",
+        "description": "Nằm tại trung tâm thủ phủ cà phê Buôn Ma Thuột hoặc khu nghỉ dưỡng sinh thái Tây Nguyên.",
+        "partners_4star": [
+            "Mường Thanh Luxury Buôn Ma Thuột (4 sao - trung tâm TP, tiện nghi hiện đại)",
+            "Elephants Hotel Buôn Ma Thuột (4 sao - phong cách Tây Nguyên ấn tượng)",
+            "Hai Ba Trung Hotel & Spa (4 sao - trung tâm sầm uất)"
+        ],
+        "partners_5star": [
+            "Coffee Tour Resort & Villas (Khu nghỉ dưỡng văn hóa cà phê độc đáo)",
+            "Lắk Tented Camp (Resort lều nghỉ dưỡng sinh thái ven Hồ Lắk)"
+        ],
+        "partners_3star": [
+            "Khách sạn Bạch Mã Buôn Ma Thuột (3 sao - tiện nghi, chu đáo)",
+            "Dakruco Hotel (3 sao - không gian xanh mát)"
+        ]
+    },
+    "Phan Thiết": {
+        "standard_stars": "3 - 4 sao",
+        "description": "Nằm dọc cung đường resort Nguyễn Đình Chiểu (Mũi Né) sát biển hoặc trung tâm TP Phan Thiết.",
+        "partners_4star": [
+            "Pandanus Resort Mũi Né (4 sao - gần Đồi Cát Bay, bãi biển riêng thơ mộng)",
+            "The Cliff Resort & Residences (4 sao - ngắm trọn vịnh Mũi Né)",
+            "Muine Bay Resort (4 sao - phong cách tháp Chăm pa độc đáo)"
+        ],
+        "partners_5star": [
+            "Anantara Mui Ne Resort (5 sao - khu nghỉ dưỡng 5 sao sang trọng bậc nhất Mũi Né)",
+            "Centara Mirage Resort Mui Ne (5 sao - công viên nước giải trí theo chủ đề Địa Trung Hải)",
+            "Radisson Resort Phan Thiet (5 sao - thương hiệu quốc tế cao cấp)"
+        ],
+        "partners_3star": [
+            "Tien Dat Resort Mũi Né (3 sao - ven biển, hồ bơi ngoài trời)",
+            "Canary Beach Resort (3 sao - bãi biển riêng yên tĩnh)"
+        ]
+    },
+    "Vũng Tàu": {
+        "standard_stars": "3 - 4 sao",
+        "description": "Nằm tại Bãi Sau hoặc Bãi Trước TP Vũng Tàu, view biển thoáng mát.",
+        "partners_4star": [
+            "Malibu Hotel Vũng Tàu (4 sao - Bãi Sau, hồ bơi vô cực chân mây)",
+            "Vias Hotel Vũng Tàu (4 sao - đối diện Bãi Sau, phong cách hiện đại)",
+            "Riva Hotel Vũng Tàu (4 sao - mặt đường Thùy Vân Bãi Sau)"
+        ],
+        "partners_5star": [
+            "The Imperial Hotel Vung Tau (5 sao - phong cách cổ điển hoàng gia châu Âu duy nhất tại Vũng Tàu)",
+            "Marina Bay Vung Tau Resort & Spa (5 sao - Sao Mai, view hoàng hôn biển tuyệt đẹp)",
+            "Pullman Vung Tau (5 sao - trung tâm hội nghị và nghỉ dưỡng quốc tế)"
+        ],
+        "partners_3star": [
+            "Romeliess Hotel Vũng Tàu (3 sao - Bãi Sau)",
+            "Khách sạn Corvin Vũng Tàu (3 sao - mặt biển Thùy Vân)"
+        ]
+    },
+    "An Giang": {
+        "standard_stars": "3 sao / Khách sạn & Lodge sinh thái",
+        "description": "Nằm tại TP Châu Đốc hoặc sườn Núi Sam ngắm trọn cánh đồng biên giới.",
+        "partners_4star": [
+            "Victoria Chau Doc Hotel (4 sao - ngã ba sông Hậu thơ mộng)",
+            "Victoria Nui Sam Lodge (4 sao - trên sườn Núi Sam, hồ bơi vô cực view cánh đồng)"
+        ],
+        "partners_5star": [
+            "Victoria Nui Sam Lodge (Hạng biệt thự cao cấp view hoàng hôn)"
+        ],
+        "partners_3star": [
+            "Khách sạn Hùng Cường Châu Đốc (3 sao - trung tâm Châu Đốc)",
+            "Khách sạn Đông Nam (3 sao - gần Miếu Bà Chúa Xứ Núi Sam)"
+        ]
+    },
+    "Côn Đảo": {
+        "standard_stars": "3 - 4 sao / Resort 5 sao",
+        "description": "Nằm ven biển Côn Đảo hoặc trung tâm thị trấn gần nghĩa trang Hàng Dương.",
+        "partners_4star": [
+            "The Secret Côn Đảo (4 sao - trung tâm thị trấn, kiến trúc di sản tinh tế)",
+            "Poulo Condor Boutique Resort & Spa (4 sao - Bãi Vông, phong cách Pháp hoài niệm)",
+            "Marina Bay Côn Đảo Hotel (4 sao - view biển Côn Đảo)"
+        ],
+        "partners_5star": [
+            "Six Senses Côn Đảo (5 sao - khu nghỉ dưỡng biển sang trọng hàng đầu thế giới, Bãi Đất Dốc)"
+        ],
+        "partners_3star": [
+            "Côn Đảo Resort (3 sao - mặt biển An Hải)",
+            "Khách sạn Sài Gòn Côn Đảo (3 sao - trung tâm thị trấn)"
         ]
     }
 }
@@ -1078,14 +1428,33 @@ class Chatbot:
         lines.append(f"👉 Bạn có thể xem hình ảnh và chi tiết tour tại: [{tour['name']}](/tours/{tour['id']})")
         return "\n".join(lines)
 
-    def recommend_tours_by_criteria(self, text):
+    def recommend_tours_by_criteria(self, text, session_id=None):
         """
         ĐỘNG CƠ TƯ VẤN THÔNG MINH (SMART RECOMMENDATION ENGINE):
-        Tự động bóc tách ngân sách, thời gian, sở thích và vùng miền để đề xuất danh sách tour tối ưu.
+        Tự động bóc tách ngân sách, thời gian, số lượng đoàn (group size), sở thích và vùng miền để đề xuất danh sách tour tối ưu.
         """
         t_low = text.lower()
         budget = extract_budget(text)
         duration_days = extract_duration_days(text)
+        group_size = extract_group_size(text)
+
+        # 1. Nhận diện điểm đến được chỉ định cụ thể trong câu hỏi
+        matched_local_dests, matched_outside_dests = self.detect_destination_context(text)
+        dest_filter = [t["destination"] for t in matched_local_dests]
+
+        # Kế thừa điểm đến từ session nếu câu hỏi không nêu điểm đến mới
+        if not dest_filter and session_id:
+            ctx = self.memory.get_context(session_id)
+            if ctx.get("active_destination"):
+                dest_filter = [ctx["active_destination"]]
+
+        candidates = list(self.local_tours)
+
+        # Lọc theo điểm đến cụ thể nếu người dùng đã chỉ định
+        if dest_filter:
+            filtered = [t for t in candidates if t["destination"] in dest_filter]
+            if filtered:
+                candidates = filtered
 
         is_cheap_query = any(w in t_low for w in ["rẻ nhất", "re nhat", "tiết kiệm", "tiet kiem", "thấp nhất", "gia re", "giá rẻ"])
         is_beach = any(w in t_low for w in ["biển", "bien", "đảo", "dao", "tắm biển", "tam bien", "lan bien", "lặn biển"])
@@ -1094,24 +1463,23 @@ class Chatbot:
         is_south = any(w in t_low for w in ["miền tây", "mien tay", "sông nước", "song nuoc", "miệt vườn", "chợ nổi"])
         is_north = any(w in t_low for w in ["miền bắc", "mien bac", "gần hà nội", "gan ha noi"])
 
-        candidates = list(self.local_tours)
-
-        # Lọc theo sở thích vùng miền
-        if is_beach:
-            beach_dests = ["Đà Nẵng", "Nha Trang", "Hạ Long", "Phú Quốc", "Quy Nhơn", "Cát Bà", "Phan Thiết", "Vũng Tàu", "Côn Đảo"]
-            candidates = [t for t in candidates if t["destination"] in beach_dests] or candidates
-        elif is_mountain:
-            mountain_dests = ["Sa Pa", "Đà Lạt", "Hà Giang", "Mộc Châu", "Buôn Ma Thuột"]
-            candidates = [t for t in candidates if t["destination"] in mountain_dests] or candidates
-        elif is_south:
-            south_dests = ["Cần Thơ", "An Giang"]
-            candidates = [t for t in candidates if t["destination"] in south_dests] or candidates
-        elif is_central:
-            central_dests = ["Huế", "Hội An", "Đà Nẵng", "Quy Nhơn"]
-            candidates = [t for t in candidates if t["destination"] in central_dests] or candidates
-        elif is_north:
-            north_dests = ["Hạ Long", "Sa Pa", "Hà Giang", "Ninh Bình", "Mộc Châu", "Cát Bà"]
-            candidates = [t for t in candidates if t["destination"] in north_dests] or candidates
+        # Nếu người dùng KHÔNG chỉ định điểm đến cụ thể thì mới lọc theo vùng miền/sở thích
+        if not dest_filter:
+            if is_beach:
+                beach_dests = ["Đà Nẵng", "Nha Trang", "Hạ Long", "Phú Quốc", "Quy Nhơn", "Cát Bà", "Phan Thiết", "Vũng Tàu", "Côn Đảo"]
+                candidates = [t for t in candidates if t["destination"] in beach_dests] or candidates
+            elif is_mountain:
+                mountain_dests = ["Sa Pa", "Đà Lạt", "Hà Giang", "Mộc Châu", "Buôn Ma Thuột"]
+                candidates = [t for t in candidates if t["destination"] in mountain_dests] or candidates
+            elif is_south:
+                south_dests = ["Cần Thơ", "An Giang"]
+                candidates = [t for t in candidates if t["destination"] in south_dests] or candidates
+            elif is_central:
+                central_dests = ["Huế", "Hội An", "Đà Nẵng", "Quy Nhơn"]
+                candidates = [t for t in candidates if t["destination"] in central_dests] or candidates
+            elif is_north:
+                north_dests = ["Hạ Long", "Sa Pa", "Hà Giang", "Ninh Bình", "Mộc Châu", "Cát Bà"]
+                candidates = [t for t in candidates if t["destination"] in north_dests] or candidates
 
         # Lọc theo thời lượng
         if duration_days:
@@ -1122,23 +1490,54 @@ class Chatbot:
         if is_cheap_query and candidates:
             candidates.sort(key=lambda x: x["price"])
             cheapest = candidates[0]
-            return (
-                f"🏷️ **Tour có chi phí tiết kiệm nhất hiện nay** là:\n"
-                f"👉 **{cheapest['name']}** - Điểm đến: **{cheapest['destination']}**\n"
-                f"⏱ Thời gian: {cheapest['duration']}\n"
-                f"💰 Giá trọn gói: **{cheapest['price']:,.0f} VNĐ/khách**\n\n"
-                f"📝 {cheapest['description']}\n\n"
-                f"👉 Xem chi tiết tại: /tours/{cheapest['id']}"
-            )
+            dest_tag = f" tại **{cheapest['destination']}**" if dest_filter else ""
+
+            lines = [
+                f"🏷️ **Tour có chi phí tiết kiệm và tối ưu nhất{dest_tag}** hiện nay là:\n",
+                f"👉 **{cheapest['name']}** - Điểm đến: **{cheapest['destination']}**",
+                f"⏱ Thời gian: {cheapest['duration']}",
+                f"💰 Giá trọn gói: **{cheapest['price']:,.0f} VNĐ/khách**\n"
+            ]
+
+            if group_size and group_size > 1:
+                total_grp_price = cheapest['price'] * group_size
+                lines.append(f"👥 **DỰ TOÁN & CHÍNH SÁCH ƯU ĐÃI CHO ĐOÀN {group_size} NGƯỜI:**")
+                lines.append(f"  • 💰 **Tổng chi phí dự kiến:** {group_size} khách × {cheapest['price']:,.0f} VNĐ = **{total_grp_price:,.0f} VNĐ** (đã bao gồm toàn bộ vé tham quan, khách sạn tiêu chuẩn, xe du lịch đưa đón, các bữa ăn đặc sản và bảo hiểm du lịch 50.000.000 VNĐ).")
+                if group_size >= 10:
+                    veh_type = "16 chỗ" if group_size <= 12 else ("29 chỗ" if group_size <= 24 else "45 chỗ")
+                    lines.append(f"  • 🚐 **Xe du lịch riêng:** Bố trí xe du lịch {veh_type} đời mới máy lạnh đón tiễn phục vụ riêng cho đoàn suốt tuyến, chủ động thời gian không ghép với khách lẻ.")
+                    lines.append(f"  • 🏨 **Khách sạn:** Bố trí linh hoạt phòng tiêu chuẩn 2 khách/phòng (hoặc phòng 3, phòng gia đình theo yêu cầu của đoàn).")
+                    lines.append(f"  • 👨‍💼 **Hướng dẫn viên riêng:** Hướng dẫn viên bản địa chuyên biệt tận tâm chăm sóc đoàn.")
+                    lines.append(f"  • 📑 **Hóa đơn & Hợp đồng:** TourAI hỗ trợ xuất hóa đơn GTGT (VAT) điện tử và hợp đồng lữ hành pháp lý đầy đủ cho cơ quan, công ty.\n")
+                else:
+                    lines.append(f"  • 🚐 **Phương tiện & dịch vụ:** Xe du lịch đời mới máy lạnh đón tiễn, sắp xếp phòng khách sạn linh hoạt theo yêu cầu đoàn.\n")
+
+            lines.append(f"📝 {cheapest['description']}\n")
+            lines.append(f"👉 Bạn có thể xem hình ảnh và chi tiết tour tại: [{cheapest['name']}](/tours/{cheapest['id']})")
+
+            if session_id:
+                self.memory.update_context(
+                    session_id,
+                    active_tour_id=cheapest["id"],
+                    active_destination=cheapest["destination"],
+                    last_intent="tour_recommendation"
+                )
+            return "\n".join(lines)
 
         if budget and candidates:
+            # Nếu người dùng có nêu số lượng đoàn và ngân sách là tổng chi phí lớn
+            effective_budget = budget
+            is_group_total_budget = False
+            if group_size and group_size > 1 and budget >= 10_000_000:
+                effective_budget = budget // group_size
+                is_group_total_budget = True
+
             # Phân loại theo ngân sách
-            within_budget = [t for t in candidates if t["price"] <= budget]
-            # Sắp xếp các tour trong ngân sách ưu tiên tour giá sát ngân sách nhất
-            within_budget.sort(key=lambda x: abs(x["price"] - budget))
+            within_budget = [t for t in candidates if t["price"] <= effective_budget]
+            within_budget.sort(key=lambda x: abs(x["price"] - effective_budget))
 
             # Tour chênh lệch nhẹ không quá 15%
-            slightly_above = [t for t in candidates if budget < t["price"] <= budget * 1.15]
+            slightly_above = [t for t in candidates if effective_budget < t["price"] <= effective_budget * 1.15]
             slightly_above.sort(key=lambda x: x["price"])
 
             selected = within_budget[:3]
@@ -1146,26 +1545,45 @@ class Chatbot:
                 selected.extend(slightly_above[:(3 - len(selected))])
 
             if not selected:
-                candidates.sort(key=lambda x: abs(x["price"] - budget))
+                candidates.sort(key=lambda x: abs(x["price"] - effective_budget))
                 selected = candidates[:3]
 
-            lines = [f"💡 Với mức ngân sách dự kiến khoảng **{budget:,.0f} VNĐ**, TourAI gợi ý các lựa chọn tour du lịch tối ưu nhất dành cho bạn:\n"]
+            if is_group_total_budget:
+                lines = [f"💡 Với mức tổng ngân sách khoảng **{budget:,.0f} VNĐ** cho **đoàn {group_size} người** (~**{effective_budget:,.0f} VNĐ/khách**), TourAI gợi ý các tour tối ưu nhất:\n"]
+            else:
+                lines = [f"💡 Với mức ngân sách dự kiến khoảng **{budget:,.0f} VNĐ/khách**, TourAI gợi ý các lựa chọn tour du lịch tối ưu nhất dành cho bạn:\n"]
+
             for idx, t in enumerate(selected, 1):
-                price_diff = t["price"] - budget
+                price_diff = t["price"] - effective_budget
                 if price_diff <= 0:
                     status = f"✅ *(Tiết kiệm {abs(price_diff):,.0f} VNĐ)*" if price_diff < 0 else "🎯 *(Vừa vặn ngân sách)*"
                 else:
                     status = f"⭐ *(Chênh lệch nhẹ +{price_diff:,.0f} VNĐ)*"
 
+                group_calc_str = ""
+                if group_size and group_size > 1:
+                    total_t_price = t["price"] * group_size
+                    group_calc_str = f" | Tổng đoàn {group_size} khách: **{total_t_price:,.0f} VNĐ**"
+
                 lines.append(
                     f"{idx}. **{t['name']}** ({t['destination']})\n"
                     f"   • ⏱ Thời gian: {t['duration']}\n"
-                    f"   • 💰 Giá trọn gói: **{t['price']:,.0f} VNĐ/khách** {status}\n"
+                    f"   • 💰 Giá trọn gói: **{t['price']:,.0f} VNĐ/khách**{group_calc_str} {status}\n"
                     f"   • 📝 {t['description'][:95]}...\n"
                     f"   • 👉 Xem chi tiết tại: /tours/{t['id']}\n"
                 )
             lines.append("Bạn muốn tham khảo lịch trình chi tiết của tour nào trong danh sách trên?")
+
+            if session_id and selected:
+                self.memory.update_context(
+                    session_id,
+                    active_tour_id=selected[0]["id"],
+                    active_destination=selected[0]["destination"],
+                    last_intent="tour_recommendation"
+                )
+
             return "\n".join(lines)
+
 
     def consult_seasonal_or_monthly(self, month=None, season=None):
         """
@@ -1466,9 +1884,164 @@ class Chatbot:
                 "  • Hướng dẫn viên và Trưởng đoàn luôn sẵn sàng đứng ra can thiệp trực tiếp với cơ sở dịch vụ để bảo vệ quyền lợi chính đáng cho du khách."
             )
 
+    def handle_hotel_inquiry(self, q_clean, q_low, matched_local=None, session_id=None):
+        """
+        ĐỘNG CƠ TƯ VẤN KHÁCH SẠN & LƯU TRÚ CHUYÊN SÂU (HOTEL & RESORT ADVISORY ENGINE):
+        Tư vấn chính xác:
+        1. Tiêu chuẩn sao (3 sao, 4 sao, chính sách nâng cấp 5 sao theo yêu cầu đoàn).
+        2. Danh sách tên khách sạn/resort đối tác cụ thể theo từng điểm đến.
+        3. Tiện nghi phòng, buffet sáng, quy trình xác nhận phòng.
+        """
+        q_noacc = remove_accents(q_low)
+
+        hotel_triggers = [
+            "khách sạn", "khach san", "ksan", "ks", "resort", "homestay",
+            "chỗ ở", "cho o", "nơi ở", "noi o", "lưu trú", "luu tru"
+        ]
+        has_hotel_kw = any(w in q_low or remove_accents(w) in q_noacc for w in hotel_triggers)
+
+        star_triggers = [
+            "mấy sao", "may sao", "5 sao", "4 sao", "3 sao", "bao nhiêu sao",
+            "sao không", "sao ko", "sao k", "tiêu chuẩn khách sạn", "tiêu chuẩn ksan",
+            "hạng sao", "hang sao", "hạng mấy sao"
+        ]
+        has_star_kw = any(w in q_low or remove_accents(w) in q_noacc for w in star_triggers)
+
+        name_triggers = [
+            "tên khách sạn", "ten khach san", "tên ksan", "ten ksan", "tên ks", "ten ks",
+            "tên của khách sạn", "tên resort", "ten resort", "khách sạn tên gì", "khach san ten gi",
+            "ở khách sạn nào", "o khach san nao", "ở ksan nào", "o ksan nao", "ở ks nào", "o ks nao",
+            "khách sạn nào", "khach san nao", "ksan nào", "ks nào", "nêu tên ra", "neu ten ra",
+            "nêu tên", "neu ten", "chỉ rõ tên", "chi ro ten", "tên cụ thể", "đã bảo là nêu tên",
+            "tên là gì", "tên ks là gì", "danh sách khách sạn", "danh sach khach san",
+            "gợi ý khách sạn", "các khách sạn", "danh sách ksan", "cho tôi ở đâu", "cho t ở đâu",
+            "cho t ở ksan nào", "cho tôi ở ksan nào", "cho mình ở ksan nào", "nghỉ ở đâu", "ở resort nào"
+        ]
+        has_name_kw = any(w in q_low or remove_accents(w) in q_noacc for w in name_triggers)
+
+        # Không can thiệp nếu là sự cố mất đồ / trộm cắp khách sạn (đã do handle_travel_incident xử lý)
+        if any(w in q_low for w in ["ăn cắp", "trộm cắp", "mất đồ", "mất cắp", "mất tiền", "mất tài sản"]):
+            return None
+
+        # Kiểm tra nếu ngữ cảnh trước đó đang bàn về khách sạn
+        ctx = self.memory.get_context(session_id) if session_id else {}
+        is_context_hotel = ctx.get("last_topic") == "hotel" or ctx.get("last_intent") == "hotel_inquiry"
+
+        if not has_hotel_kw and not has_star_kw and not has_name_kw and not is_context_hotel:
+            return None
+
+        # Bóc tách điểm đến
+        dest = None
+        if matched_local:
+            dest = matched_local[0]["destination"]
+        elif ctx.get("active_destination"):
+            dest = ctx["active_destination"]
+        elif ctx.get("active_tour_id"):
+            tour = self.get_tour(ctx["active_tour_id"])
+            if tour:
+                dest = tour["destination"]
+        else:
+            # Tìm trong q_low xem có nhắc trực tiếp địa danh nào không
+            for d in HOTEL_DATABASE_BY_DESTINATION.keys():
+                if d.lower() in q_low or remove_accents(d.lower()) in q_noacc:
+                    dest = d
+                    break
+
+        # TRƯỜNG HỢP 1: HỎI VỀ TÊN KHÁCH SẠN / RESORT
+        # (Ví dụ: "ơ thế m cho t ở ksan nào", "đã bảo là nêu tên ra", "tên khách sạn", "ở khách sạn nào")
+        if has_name_kw or (has_hotel_kw and any(w in q_low or remove_accents(w) in q_noacc for w in ["ở đâu", "o dau", "cho tôi ở đâu", "tên gì", "cụ thể", "chỗ nào", "nào"])):
+            if dest and dest in HOTEL_DATABASE_BY_DESTINATION:
+                hdata = HOTEL_DATABASE_BY_DESTINATION[dest]
+                lines = [
+                    f"🏨 **DANH SÁCH KHÁCH SẠN LƯU TRÚ TẠI {dest.upper()} CỦA TOURAI:**\n",
+                    f"TourAI hợp tác trực tiếp với các khách sạn và resort hàng đầu tại **{dest}**, phân bổ theo các phân khúc chất lượng rõ ràng như sau:\n",
+                    f"1️⃣ **Hạng 4 sao Tiêu chuẩn (Gói dịch vụ mặc định theo tour):**"
+                ]
+                for p in hdata.get("partners_4star", []):
+                    lines.append(f"  • **{p}**")
+
+                lines.append(f"\n2️⃣ **Hạng 5 sao Cao cấp (Lựa chọn nâng cấp theo yêu cầu đoàn):**")
+                for p in hdata.get("partners_5star", []):
+                    lines.append(f"  • **{p}**")
+
+                if hdata.get("partners_3star"):
+                    lines.append(f"\n3️⃣ **Hạng 3 sao Tiết kiệm:**")
+                    for p in hdata.get("partners_3star", []):
+                        lines.append(f"  • **{p}**")
+
+                lines.extend([
+                    "\n📌 **Quy trình xếp phòng & bàn giao minh bạch:**",
+                    "  • **Tiêu chuẩn phòng:** 2 người lớn/phòng (hoặc 3 người nếu đi nhóm lẻ hoặc gia đình có trẻ em). Đầy đủ buffet sáng, wifi, máy lạnh và tiện ích.",
+                    "  • **Xác nhận phòng:** Trước ngày khởi hành từ 3 - 5 ngày, TourAI sẽ gửi văn bản xác nhận chính thức mã đặt phòng (Booking Code), tên khách sạn cụ thể cùng số hotline Quản lý tour cho quý khách."
+                ])
+
+                if session_id:
+                    self.memory.update_context(
+                        session_id,
+                        active_destination=dest,
+                        last_topic="hotel",
+                        last_intent="hotel_inquiry"
+                    )
+                return "\n".join(lines)
+            else:
+                lines = [
+                    "🏨 **HỆ THỐNG KHÁCH SẠN ĐỐI TÁC DANH TIẾNG CỦA TOURAI:**\n",
+                    "TourAI luôn bố trí du khách lưu trú tại hệ thống khách sạn và resort tiêu chuẩn **từ 3 đến 5 sao** có thương hiệu uy tín, vị trí đắc địa sát biển hoặc trung tâm thành phố:\n",
+                    "• **Tại Đà Nẵng:** *Sala Danang Beach Hotel (4 sao)*, *Belle Maison Parosand (4 sao)*, *Mường Thanh Luxury Đà Nẵng (5 sao)*, *Novotel Premier Han River (5 sao)*.",
+                    "• **Tại Nha Trang:** *Novotel Nha Trang (4 sao)*, *Vinpearl Resort Nha Trang (5 sao)*, *Sheraton Nha Trang (5 sao)*.",
+                    "• **Tại Phú Quốc:** *Novotel Phu Quoc Resort (4-5 sao)*, *Vinpearl Resort & Spa Phú Quốc (5 sao)*, *Sunset Sanato (4 sao)*.",
+                    "• **Tại Hạ Long:** *Novotel Hạ Long (4 sao)*, *FLC Grand Hotel Hạ Long (5 sao)*, *Du thuyền 5 sao vịnh Hạ Long*.\n",
+                    "👉 Bạn đang chuẩn bị tham quan điểm đến nào để TourAI cung cấp danh sách tên khách sạn chính xác nhất của tuyến tour đó?"
+                ]
+                return "\n".join(lines)
+
+        # TRƯỜNG HỢP 2: HỎI VỀ TIÊU CHUẨN SAO / CÓ 5 SAO KHÔNG / MẤY SAO
+        # (Ví dụ: "khách sạn có 5 sao ko", "t hỏi khách sạn mấy sao", "khách sạn mấy sao")
+        if has_star_kw or has_hotel_kw:
+            if dest and dest in HOTEL_DATABASE_BY_DESTINATION:
+                hdata = HOTEL_DATABASE_BY_DESTINATION[dest]
+                lines = [
+                    f"🏨 **TIÊU CHUẨN KHÁCH SẠN LƯU TRÚ TOUR {dest.upper()}:**\n",
+                    f"⭐ **Tiêu chuẩn mặc định trong gói tour:**",
+                    f"  • Tour sử dụng khách sạn tiêu chuẩn **{hdata['standard_stars']}**.",
+                    f"  • **Vị trí:** {hdata['description']}",
+                    f"  • **Tiện nghi:** Phòng nghỉ hiện đại, điều hòa, TV, minibar, két sắt an toàn, wifi tốc độ cao và buffet sáng tự chọn phong phú mỗi ngày.\n",
+                    f"🌟 **Khách sạn có 5 sao không? (Chính sách nâng cấp 5 sao):**",
+                    f"  • **Hoàn toàn CÓ ạ!** Nếu bạn hoặc đoàn có nhu cầu nghỉ dưỡng chuẩn **5 sao**, TourAI luôn sẵn sàng hỗ trợ **nâng cấp trọn gói lên các Khách sạn / Resort 5 sao đối tác danh tiếng**.",
+                    f"  • Mức phụ thu nâng hạng phòng áp dụng trực tiếp theo giá hợp đồng lữ hành đối tác cực kỳ ưu đãi của TourAI.\n",
+                    f"🏨 **Các khách sạn đối tác cụ thể tại {dest}:**",
+                    f"  • **Khách sạn 4 sao tiêu chuẩn:** {', '.join([p.split(' - ')[0] for p in hdata.get('partners_4star', [])])}",
+                    f"  • **Khách sạn & Resort 5 sao:** {', '.join([p.split(' - ')[0] for p in hdata.get('partners_5star', [])])}"
+                ]
+                if hdata.get("partners_3star"):
+                    lines.append(f"  • **Khách sạn 3 sao tiết kiệm:** {', '.join([p.split(' - ')[0] for p in hdata.get('partners_3star', [])])}")
+
+                lines.append(f"\n💡 Bạn muốn lựa chọn gói khách sạn 4 sao tiêu chuẩn hay nâng cấp lên resort 5 sao cho đoàn?")
+
+                if session_id:
+                    self.memory.update_context(
+                        session_id,
+                        active_destination=dest,
+                        last_topic="hotel",
+                        last_intent="hotel_inquiry"
+                    )
+                return "\n".join(lines)
+            else:
+                lines = [
+                    "🏨 **TIÊU CHUẨN KHÁCH SẠN TRONG CÁC TOUR CỦA TOURAI:**\n",
+                    "⭐ **Hạng sao tiêu chuẩn:**",
+                    "  • Tất cả các gói tour trọn gói của TourAI mặc định bố trí khách sạn tiêu chuẩn **từ 3 đến 4 sao cao cấp**, nằm tại trung tâm hoặc sát biển, đầy đủ buffet sáng và tiện nghi.",
+                    "  • Riêng các gói tour nghỉ dưỡng cao cấp (như Phú Quốc 5 Sao, Du thuyền Vịnh Hạ Long) sử dụng trọn gói khách sạn và du thuyền chuẩn **5 sao quốc tế**.\n",
+                    "🌟 **Chính sách nâng cấp 5 sao theo yêu cầu:**",
+                    "  • **Hoàn toàn CÓ ạ!** Với mọi tuyến tour, TourAI đều hỗ trợ nâng cấp lên các khách sạn & resort 5 sao đối tác (Vinpearl, Novotel, Mường Thanh Luxury, FLC, Silk Path...) theo mong muốn của quý khách với mức phụ thu ưu đãi nhất.\n",
+                    "👉 Bạn đang dự định tham gia tour tại điểm đến nào để TourAI tư vấn khách sạn chi tiết nhất?"
+                ]
+                return "\n".join(lines)
+
         return None
 
     def generate_response(self, question, session_id=None, force_web_search=False):
+
         """
         QUY TRÌNH RA QUYẾT ĐỊNH TOÀN DIỆN:
         1. Tra cứu thời tiết thời gian thực (nếu là câu hỏi thời tiết).
@@ -1530,8 +2103,9 @@ class Chatbot:
                 # Nếu câu hỏi liên quan đến lịch trình, giá cả, dịch vụ -> áp dụng tour cũ
                 topic_followup = any(w in q_low for w in [
                     "lịch trình", "lich trinh", "mấy ngày", "bao lâu", "thời gian",
-                    "giá", "bao nhiêu", "chi phí", "có gì", "đi đâu", "khách sạn",
-                    "ăn uống", "xe đưa đón", "chuẩn bị gì", "mặc gì", "vé máy bay", "thế nào"
+                    "giá", "bao nhiêu", "chi phí", "có gì", "đi đâu", "khách sạn", "ksan", "ks", "resort",
+                    "ăn uống", "xe đưa đón", "chuẩn bị gì", "mặc gì", "vé máy bay", "thế nào",
+                    "nêu tên", "neu ten"
                 ])
                 if topic_followup:
                     matched_local = [inherited_tour]
@@ -1547,6 +2121,14 @@ class Chatbot:
         incident_resp = self.handle_travel_incident(q_clean, q_low)
         if incident_resp:
             return incident_resp
+
+        # -------------------------------------------------------------
+        # XỬ LÝ 2.8: ĐỘNG CƠ TƯ VẤN KHÁCH SẠN & LƯU TRÚ CHUYÊN SÂU
+        # (HOTEL & RESORT ADVISORY ENGINE)
+        # -------------------------------------------------------------
+        hotel_resp = self.handle_hotel_inquiry(q_clean, q_low, matched_local=matched_local, session_id=session_id)
+        if hotel_resp:
+            return hotel_resp
 
         # -------------------------------------------------------------
         # XỬ LÝ 3: ĐỘNG CƠ TƯ VẤN THEO NGÂN SÁCH & SỞ THÍCH (RECOMMENDATION)
@@ -1568,7 +2150,7 @@ class Chatbot:
         )
 
         if is_recommend_query:
-            rec_result = self.recommend_tours_by_criteria(q_clean)
+            rec_result = self.recommend_tours_by_criteria(q_clean, session_id=session_id)
             if rec_result:
                 return rec_result
 
@@ -1687,10 +2269,18 @@ class Chatbot:
             is_schedule_query = not is_destination_overview and (has_schedule_word or (predicted_intent in ("hoi_lich_trinh", "tour_schedule") and intent_confidence >= 0.35 and not has_price_word and not has_faq_word))
             is_price_query = not is_destination_overview and (has_price_word or (predicted_intent in ("hoi_gia", "tour_price") and intent_confidence >= 0.35 and not has_schedule_word and not has_faq_word))
             is_general_tour_query = is_destination_overview or (
-                predicted_intent in ("tour_info", "thong_tin_tour", "tim_tour", "tour_search")
-                or any(k in q_low for k in ["tư vấn", "tu van", "chi tiết", "thông tin", "giới thiệu", "tour", "điểm đến"])
-                or (not has_duration_word and not has_faq_word and len(q_clean.split()) <= 6)
+                (
+                    predicted_intent in ("tour_info", "thong_tin_tour", "tim_tour", "tour_search")
+                    or any(k in q_low for k in ["tư vấn", "tu van", "chi tiết", "thông tin", "giới thiệu", "tour", "điểm đến"])
+                    or (not has_duration_word and not has_faq_word and len(q_clean.split()) <= 6)
+                )
+                and not any(h in q_low for h in [
+                    "khách sạn", "khach san", "ksan", "ks", "resort", "homestay",
+                    "nêu tên", "neu ten", "mấy sao", "may sao", "ăn chay", "an chay",
+                    "hóa đơn", "hoa don", "nhận phòng", "nhan phong", "trả phòng", "tra phong"
+                ])
             )
+
 
             if is_schedule_query:
                 self.memory.update_context(
