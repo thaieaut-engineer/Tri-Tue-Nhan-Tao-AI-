@@ -6,9 +6,11 @@ from models.chat_session import (
     get_session_by_id,
     delete_session
 )
+from ai.self_learning import self_learning_engine
 from models.chat_history import (
     save_chat_message,
-    get_chat_history_by_session
+    get_chat_history_by_session,
+    update_chat_feedback
 )
 from routes.auth_routes import login_required
 
@@ -54,8 +56,8 @@ def chat():
     - Tìm kiếm cơ sở dữ liệu nội bộ
     - Tra cứu thời tiết thời gian thực (OpenWeatherMap / Open-Meteo)
     - Tự động tìm kiếm trên mạng Internet nếu câu hỏi không có trong DB hoặc người dùng yêu cầu
-    - Lưu lịch sử hội thoại nếu đã đăng nhập
-    - Đảm bảo ngữ cảnh multi-turn cho cả khách vãng lai (qua UUID session)
+    - Lưu lịch sử hội thoại của TẤT CẢ USER (cả đã đăng nhập lẫn khách vãng lai) phục vụ Tự học (Continual Learning)
+    - Kích hoạt kiểm tra tự học ngầm (Background Continual Learning)
     """
     import uuid
     data = request.get_json() or {}
@@ -69,18 +71,22 @@ def chat():
     user_id = session.get("user_id")
     active_session_id = session_id
 
-    # 1. Quản lý phiên hội thoại:
-    # Nếu chưa có session_id:
-    # - Nếu người dùng đã đăng nhập: tạo phiên mới trong MySQL DB
-    # - Nếu là khách vãng lai: tạo UUID session tạm thời để duy trì multi-turn context trong RAM
-    if not active_session_id:
-        if user_id:
-            try:
-                short_title = question if len(question) <= 32 else question[:29] + "..."
-                active_session_id = create_chat_session(user_id, title=short_title)
-            except Exception as e:
-                print("Lỗi tạo chat_session:", e)
-        if not active_session_id:
+    # 1. Quản lý phiên hội thoại cho TẤT CẢ USER:
+    db_sid = None
+    if active_session_id:
+        if isinstance(active_session_id, int):
+            db_sid = active_session_id
+        elif isinstance(active_session_id, str) and active_session_id.isdigit():
+            db_sid = int(active_session_id)
+
+    # Nếu chưa có phiên hợp lệ trong DB, tạo phiên mới cho cả người dùng đăng nhập lẫn khách vãng lai (user_id có thể là int hoặc None)
+    if not db_sid:
+        try:
+            short_title = question if len(question) <= 32 else question[:29] + "..."
+            db_sid = create_chat_session(user_id, title=short_title)
+            active_session_id = db_sid
+        except Exception as e:
+            print("Lỗi tạo chat_session:", e)
             active_session_id = f"guest_{uuid.uuid4().hex[:12]}"
 
     # 2. AI sinh câu trả lời kết hợp DB nội bộ, Memory đa lượt và Tìm kiếm Internet
@@ -90,33 +96,52 @@ def chat():
         force_web_search=force_web_search
     )
 
-    # 3. Nếu người dùng đã đăng nhập và session hợp lệ trong DB, lưu tin nhắn vào chat_history
-    if user_id:
-        db_sid = None
-        if isinstance(active_session_id, int):
-            db_sid = active_session_id
-        elif isinstance(active_session_id, str) and active_session_id.isdigit():
-            db_sid = int(active_session_id)
-
-        if db_sid:
-            try:
-                save_chat_message(
-                    db_sid,
-                    question,
-                    answer,
-                    intent=chatbot.last_predicted_intent,
-                    confidence=chatbot.last_confidence
-                )
-            except Exception as e:
-                print("Lỗi lưu lịch sử chat vào DB:", e)
+    # 3. Lưu lịch sử chat cho TẤT CẢ USER vào database phục vụ Continual Learning
+    msg_id = None
+    if db_sid:
+        try:
+            msg_id = save_chat_message(
+                db_sid,
+                question,
+                answer,
+                intent=chatbot.last_predicted_intent,
+                confidence=chatbot.last_confidence
+            )
+            # Tự động kích hoạt kiểm tra tự học ngầm
+            self_learning_engine.trigger_background_auto_learning()
+        except Exception as e:
+            print("Lỗi lưu lịch sử chat vào DB:", e)
 
     return jsonify({
         "answer": answer,
         "response": answer,
         "session_id": active_session_id,
+        "message_id": msg_id,
         "intent": chatbot.last_predicted_intent,
         "confidence": chatbot.last_confidence
     })
+
+
+@chat_bp.route("/api/chat/feedback", methods=["POST"])
+def api_chat_feedback():
+    """
+    API tiếp nhận phản hồi của người dùng cho câu trả lời (+1: like / hữu ích, -1: dislike).
+    Tín hiệu này giúp hệ thống Continual Learning đánh giá độ tin cậy thực tế và tự học ngay.
+    """
+    data = request.get_json() or {}
+    message_id = data.get("message_id")
+    feedback_val = data.get("feedback", 1)
+
+    if not message_id:
+        return jsonify({"success": False, "error": "Thiếu message_id"}), 400
+
+    success = update_chat_feedback(message_id, feedback_val)
+
+    # Nếu người dùng hài lòng (+1), kích hoạt tự học ngầm
+    if success and feedback_val == 1:
+        self_learning_engine.trigger_background_auto_learning()
+
+    return jsonify({"success": success})
 
 
 @chat_bp.route("/api/chat/sessions", methods=["GET"])

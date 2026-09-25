@@ -151,13 +151,14 @@
                                 <th>Câu hỏi thực tế</th>
                                 <th>Ý định dự đoán</th>
                                 <th>Độ tin cậy</th>
-                                <th>Ghi chú</th>
+                                <th>Câu trả lời gợi ý</th>
+                                <th class="text-end">Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for c in scan_results.needs_review %}
                             <tr>
-                                <td class="fw-semibold small" style="max-width: 280px;">"{{ c.question }}"</td>
+                                <td class="fw-semibold small" style="max-width: 250px;">"{{ c.question }}"</td>
                                 <td>
                                     <span class="badge bg-warning-subtle text-warning-emphasis border border-warning small font-monospace">
                                         {{ c.predicted_intent }}
@@ -165,19 +166,37 @@
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center gap-2">
-                                        <div class="progress flex-grow-1" style="height: 6px; width: 70px;">
+                                        <div class="progress flex-grow-1" style="height: 6px; width: 60px;">
                                             <div class="progress-bar bg-warning" style="width: {{ c.confidence_percent }}%"></div>
                                         </div>
                                         <span class="text-warning-emphasis fw-bold small">{{ c.confidence_percent }}%</span>
                                     </div>
                                 </td>
-                                <td class="small text-muted">
-                                    Độ tin cậy chưa đạt ngưỡng tự động (&ge;80%). Có thể thêm thủ công tại mục Quản lý Q&A.
+                                <td class="small text-muted text-truncate" style="max-width: 220px;" title="{{ c.suggested_answer }}">
+                                    {{ c.suggested_answer }}
+                                </td>
+                                <td class="text-end">
+                                    <button class="btn btn-xs btn-outline-success rounded-pill px-2 py-1 me-1" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#customLearnModal"
+                                            data-id="{{ c.id }}"
+                                            data-question="{{ c.question }}"
+                                            data-intent="{{ c.predicted_intent }}"
+                                            data-answer="{{ c.suggested_answer }}"
+                                            data-tour="{{ c.tour_id or '' }}">
+                                        <i class="bi bi-plus-circle me-1"></i>Kết nạp
+                                    </button>
+                                    <form action="/admin/self-learning/dismiss" method="POST" class="d-inline">
+                                        <input type="hidden" name="history_id" value="{{ c.id }}">
+                                        <button type="submit" class="btn btn-xs btn-outline-secondary rounded-pill px-2 py-1" onclick="return confirm('Bỏ qua câu hỏi này?');">
+                                            <i class="bi bi-x-circle"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             {% else %}
                             <tr>
-                                <td colspan="4" class="text-center py-5 text-muted small">
+                                <td colspan="5" class="text-center py-5 text-muted small">
                                     Không có câu hỏi nào trong nhóm cần xem xét.
                                 </td>
                             </tr>
@@ -196,27 +215,46 @@
                                 <th>Câu hỏi của khách</th>
                                 <th>Độ tin cậy</th>
                                 <th>Phân tích của hệ thống</th>
+                                <th class="text-end">Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for c in scan_results.novel_topics %}
                             <tr>
-                                <td class="fw-semibold small text-danger" style="max-width: 300px;">
+                                <td class="fw-semibold small text-danger" style="max-width: 280px;">
                                     "{{ c.question }}"
                                 </td>
                                 <td>
                                     <span class="badge bg-danger-subtle text-danger border border-danger small">
-                                        {{ c.confidence_percent }}% (Quá thấp)
+                                        {{ c.confidence_percent }}% (Chưa học)
                                     </span>
                                 </td>
                                 <td class="small text-muted">
                                     <i class="bi bi-lightbulb text-warning me-1"></i>
-                                    Khách hàng có thể đang hỏi về địa danh hoặc câu hỏi ngoài tập huấn luyện. Đề xuất thêm câu trả lời mới tại <a href="/admin/qa" class="text-decoration-none">Dữ liệu AI Q&A</a>.
+                                    Câu hỏi mới mẻ từ người dùng. Nhấn <strong>"Tạo câu trả lời"</strong> để mở rộng tri thức cho AI.
+                                </td>
+                                <td class="text-end">
+                                    <button class="btn btn-xs btn-primary rounded-pill px-2 py-1 me-1" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#customLearnModal"
+                                            data-id="{{ c.id }}"
+                                            data-question="{{ c.question }}"
+                                            data-intent="{{ c.predicted_intent }}"
+                                            data-answer=""
+                                            data-tour="">
+                                        <i class="bi bi-pencil-square me-1"></i>Tạo câu trả lời
+                                    </button>
+                                    <form action="/admin/self-learning/dismiss" method="POST" class="d-inline">
+                                        <input type="hidden" name="history_id" value="{{ c.id }}">
+                                        <button type="submit" class="btn btn-xs btn-outline-secondary rounded-pill px-2 py-1" onclick="return confirm('Bỏ qua câu hỏi này?');">
+                                            <i class="bi bi-x-circle"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             {% else %}
                             <tr>
-                                <td colspan="3" class="text-center py-5 text-muted small">
+                                <td colspan="4" class="text-center py-5 text-muted small">
                                     Không có câu hỏi nào bị nhận diện sai hoặc ngoài tầm hiểu biết.
                                 </td>
                             </tr>
@@ -228,4 +266,87 @@
         </div>
     </div>
 </div>
+
+<!-- MODAL DUYỆT & KẾT NẠP CÂU HỎI TỰ HỌC TÙY BIẾN -->
+<div class="modal fade" id="customLearnModal" tabindex="-1" aria-labelledby="customLearnModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content rounded-4 border-0 shadow">
+            <div class="modal-header border-bottom">
+                <h5 class="modal-title fw-bold" id="customLearnModalLabel">
+                    <i class="bi bi-mortarboard-fill text-primary me-2"></i>Duyệt & Kết Nạp Câu Hỏi Vào Tri Thức AI
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/admin/self-learning/learn-custom" method="POST">
+                <div class="modal-body p-4">
+                    <input type="hidden" name="history_id" id="modalHistoryId">
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">Câu hỏi thực tế của khách hàng:</label>
+                        <input type="text" class="form-control" name="question" id="modalQuestion" required>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Ý định (Intent):</label>
+                            <select class="form-select" name="intent" id="modalIntent" required>
+                                <option value="tu_van_dat_tour">tu_van_dat_tour (Tư vấn đặt tour & điểm đến)</option>
+                                <option value="kinh_nghiem_du_lich">kinh_nghiem_du_lich (Kinh nghiệm & cẩm nang)</option>
+                                <option value="hoi_gia">hoi_gia (Hỏi giá & chi phí)</option>
+                                <option value="hoi_lich_trinh">hoi_lich_trinh (Hỏi lịch trình & hoạt động)</option>
+                                <option value="hoi_thoi_gian">hoi_thoi_gian (Hỏi thời điểm, tháng, mùa)</option>
+                                <option value="hoi_dich_vu">hoi_dich_vu (Dịch vụ, khách sạn, xe cộ)</option>
+                                <option value="tim_tour">tim_tour (Tìm kiếm tour)</option>
+                                <option value="chao_hoi">chao_hoi (Chào hỏi)</option>
+                                <option value="tam_biet">tam_biet (Tạm biệt / cảm ơn)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Tour liên quan (nếu có, Tour ID 1-20):</label>
+                            <input type="number" class="form-control" name="tour_id" id="modalTourId" placeholder="Ví dụ: 1, 4, 9...">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">Câu trả lời mẫu của AI:</label>
+                        <textarea class="form-control" name="answer" id="modalAnswer" rows="4" required placeholder="Nhập câu trả lời tư vấn chi tiết, có tâm dành cho khách..."></textarea>
+                    </div>
+
+                    <div class="alert alert-light border small text-muted mb-0">
+                        <i class="bi bi-info-circle me-1 text-primary"></i>
+                        Sau khi nhấn "Lưu & Tái Huấn Luyện AI", câu hỏi này sẽ được bổ sung vĩnh viễn vào cơ sở dữ liệu và mô hình Deep Learning sẽ học ngay lập tức.
+                    </div>
+                </div>
+                <div class="modal-footer border-top">
+                    <button type="button" class="btn btn-outline-secondary rounded-pill px-3" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4">
+                        <i class="bi bi-check-lg me-1"></i>Lưu & Tái Huấn Luyện AI
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var modal = document.getElementById('customLearnModal');
+    if (modal) {
+        modal.addEventListener('show.bs.modal', function(event) {
+            var button = event.relatedTarget;
+            var id = button.getAttribute('data-id') || '';
+            var question = button.getAttribute('data-question') || '';
+            var intent = button.getAttribute('data-intent') || 'tu_van_dat_tour';
+            var answer = button.getAttribute('data-answer') || '';
+            var tour = button.getAttribute('data-tour') || '';
+
+            document.getElementById('modalHistoryId').value = id;
+            document.getElementById('modalQuestion').value = question;
+            document.getElementById('modalIntent').value = intent;
+            document.getElementById('modalAnswer').value = answer;
+            document.getElementById('modalTourId').value = tour;
+        });
+    }
+});
+</script>
 {% endblock %}

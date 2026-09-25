@@ -446,3 +446,40 @@ def self_learning_run():
     else:
         flash(result.get("message", "Không thể thực hiện tự học."), "danger")
     return redirect(url_for("admin.self_learning_view"))
+
+
+@admin_bp.route("/self-learning/learn-custom", methods=["POST"])
+@admin_required
+def self_learning_learn_custom():
+    history_id = request.form.get("history_id", type=int)
+    question = request.form.get("question", "").strip()
+    answer = request.form.get("answer", "").strip()
+    intent = request.form.get("intent", "tu_van_dat_tour").strip()
+    tour_id = request.form.get("tour_id", type=int)
+
+    if not question or not answer:
+        flash("Câu hỏi và câu trả lời không được để trống.", "warning")
+        return redirect(url_for("admin.self_learning_view"))
+
+    success = self_learning_engine.learn_custom_question(
+        history_id=history_id,
+        question=question,
+        answer=answer,
+        intent=intent,
+        tour_id=tour_id
+    )
+    if success:
+        flash(f"✅ Đã kết nạp thành công câu hỏi \"{question[:35]}...\" vào tri thức AI!", "success")
+    else:
+        flash("Lỗi kết nạp câu hỏi vào cơ sở dữ liệu.", "danger")
+    return redirect(url_for("admin.self_learning_view"))
+
+
+@admin_bp.route("/self-learning/dismiss", methods=["POST"])
+@admin_required
+def self_learning_dismiss():
+    history_id = request.form.get("history_id", type=int)
+    if history_id:
+        self_learning_engine.dismiss_questions([history_id])
+        flash("Đã bỏ qua câu hỏi khỏi danh sách tự học.", "info")
+    return redirect(url_for("admin.self_learning_view"))
