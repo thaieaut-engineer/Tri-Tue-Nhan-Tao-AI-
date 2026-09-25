@@ -176,7 +176,54 @@ class TestChatbotTourConsultation(unittest.TestCase):
         self.assertIn("Cẩm Nang Du Lịch Thái Lan", resp)
 
 
+class TestDeepLearningSystem(unittest.TestCase):
+    """
+    Kiểm thử chuyên sâu cho Hệ thống Học sâu Deep Learning (PyTorch):
+    1. Kiểm tra sự tồn tại và tính hợp lệ của các file trọng số (.pth, .pkl, .npy, .json).
+    2. Kiểm tra không gian nhúng 64 chiều (64-D Latent Semantic Space) và chuẩn L2 = 1.0.
+    3. Kiểm tra thông số mạng nơ-ron sâu PyTorch (tổng số tham số > 1.000.000).
+    4. Kiểm tra thuật toán Deep Neural Semantic Matching và độ tương đồng sâu.
+    """
+    @classmethod
+    def setUpClass(cls):
+        cls.bot = Chatbot()
+
+    def test_model_artifacts_exist(self):
+        import os
+        saved_dir = "ai/saved_models"
+        self.assertTrue(os.path.exists(os.path.join(saved_dir, "deep_intent_model.pth")), "Thiếu file trọng số PyTorch")
+        self.assertTrue(os.path.exists(os.path.join(saved_dir, "model_metadata.pkl")), "Thiếu file model metadata")
+        self.assertTrue(os.path.exists(os.path.join(saved_dir, "question_embeddings.npy")), "Thiếu file question embeddings")
+        self.assertTrue(os.path.exists(os.path.join(saved_dir, "training_metrics.json")), "Thiếu file metrics JSON")
+
+    def test_latent_semantic_embeddings_dimension_and_norm(self):
+        import numpy as np
+        self.assertIsNotNone(self.bot.deep_embeddings)
+        self.assertEqual(len(self.bot.deep_embeddings.shape), 2)
+        self.assertEqual(self.bot.deep_embeddings.shape[1], 64, "Embedding phải có đúng 64 chiều")
+        self.assertGreaterEqual(self.bot.deep_embeddings.shape[0], 1000, "Phải có hơn 1000 mẫu embedding")
+
+        # Kiểm tra chuẩn L2 của từng vector xấp xỉ 1.0
+        norms = np.linalg.norm(self.bot.deep_embeddings, axis=1)
+        np.testing.assert_allclose(norms, 1.0, rtol=1e-3, atol=1e-3)
+
+    def test_pytorch_parameter_count_and_metrics(self):
+        self.assertIsNotNone(self.bot.model_metrics)
+        self.assertIn("total_parameters", self.bot.model_metrics)
+        self.assertGreater(self.bot.model_metrics["total_parameters"], 1_000_000, "Mô hình phải có hơn 1 triệu tham số")
+        self.assertIn("val_accuracy", self.bot.model_metrics)
+        self.assertIn("val_macro_f1", self.bot.model_metrics)
+
+    def test_deep_neural_similarity_inference(self):
+        # Truy vấn mẫu và kiểm tra điểm tương đồng sâu
+        resp = self.bot.generate_response("Tôi muốn đi ngắm hoa mận ở Mộc Châu")
+        self.assertIsNotNone(resp)
+        self.assertIsNotNone(self.bot.last_deep_similarity)
+        self.assertGreater(self.bot.last_deep_similarity, 0.0, "Deep similarity phải dương")
+
+
 if __name__ == "__main__":
     unittest.main()
+
 
 

@@ -255,9 +255,9 @@ class ChatSelfLearningEngine:
             if new_qa_list:
                 sync_qa_to_sample_file(new_qa_list)
 
-            # Tái huấn luyện mạng nơ-ron sâu PyTorch với dữ liệu mới
+            # Tái huấn luyện mạng nơ-ron sâu PyTorch với dữ liệu mới và cập nhật trọng số
             bot = self._get_chatbot()
-            bot.reload()
+            bot.reload(force_retrain=True)
 
             return {
                 "success": True,

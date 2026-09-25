@@ -72,13 +72,13 @@
   - Cập nhật trạng thái đơn (Chờ duyệt -> Đã xác nhận -> Hoàn thành) và xóa đơn.
 - [x] **Kiểm duyệt đánh giá ([`admin/reviews.html`](templates/admin/reviews.html))**: Xem và xóa các nhận xét không phù hợp.
 - [x] **Quản lý 20 Tour & 52 Lịch trình ngày**: Thêm, sửa, xóa tour và lịch trình từng ngày.
-- [x] **Quản lý tri thức AI (QA Data)**: Quản lý ngân hàng 799+ câu hỏi đáp, gán intent và liên kết tour.
+- [x] **Quản lý tri thức AI (QA Data)**: Quản lý ngân hàng 1.265+ câu hỏi đáp mẫu, gán 11 intent và liên kết tour.
 - [x] **Quản lý tài khoản & Phân quyền**: Xem danh sách thành viên, cấp/hạ quyền Admin hoặc xóa tài khoản.
 - [x] **Lịch sử hội thoại toàn hệ thống**: Theo dõi các câu hỏi thực tế của khách hàng.
 
 ---
 
-### C. Kiến trúc Hệ Thống & Trí Tuệ Nhân Tạo
+### C. Kiến trúc Hệ Thống & Trí Tuệ Nhân Tạo Học Sâu (Deep Learning Architecture)
 
 ```mermaid
 flowchart TD
@@ -88,28 +88,47 @@ flowchart TD
     Pre --> Feat["TF-IDF Vectorizer (1-3 ngrams, Sublinear TF)"]
     Feat --> Deep["DeepHybridModel Ensemble (ai/train_model.py)"]
     
-    subgraph Deep ["Kiến Trúc Học Sâu & Phân Loại"]
-        M1["PyTorchDeepIntentNet (256-128-64 MLP, BatchNorm, LeakyReLU, Dropout)"]
+    subgraph Deep ["Kiến Trúc Học Sâu PyTorch & Trích Xuất Ngữ Nghĩa"]
+        M1["PyTorchDeepIntentNet (256-128-64 MLP, 3.26M Tham số, BatchNorm, LeakyReLU)"]
+        Emb["64-D Latent Semantic Embedding (Chuẩn hóa L2: ||e|| = 1.0)"]
         M2["Complement Naive Bayes (Bù trừ dữ liệu mất cân bằng)"]
         M3["Softmax Probability Fusion (65% PyTorch + 35% CNB)"]
+        M1 --> Emb
         M1 --> M3
         M2 --> M3
     end
     
-    M3 --> Sim["Hybrid Intent-Weighted Cosine Similarity (ai/chatbot.py)"]
+    Emb --> Sim["Deep Neural Hybrid Matching (ai/chatbot.py)"]
+    Feat --> Sim
+    M3 --> Sim
     
-    Sim -->|Khớp tri thức nội bộ| Ans["Phản hồi từ Ngân hàng Tri thức & Thuộc tính 20 Tour DB"]
+    Sim -->|Khớp tri thức nội bộ| Ans["Tư vấn chuyên sâu từ 1.265 QA & 20 Tour DB"]
     Sim -->|Tra cứu thời tiết| Wea["Live Weather Service (OpenWeatherMap / Open-Meteo)"]
-    Sim -->|Điểm ngoài hệ thống| Web["Directed Web Search (Khử nhập nhằng + Lọc bài viết)"]
+    Sim -->|Điểm ngoài hệ thống| Web["Directed Deep Web Scraping (BeautifulSoup & Trích xuất nội dung)"]
     
     Ans --> Log["Lưu lịch sử kèm Intent & Confidence vào chat_history"]
     
     subgraph SelfLearn ["Cơ Chế Tự Học Deep Learning (ai/self_learning.py)"]
         Log --> Filter["Lọc sạch nhiễu & Loại bỏ trùng lặp"]
         Filter --> Pseudo["Tự gán nhãn giả (Softmax Confidence >= 80%)"]
-        Pseudo --> Retrain["Huấn luyện thích ứng PyTorch (chatbot.reload())"]
+        Pseudo --> Retrain["Tái huấn luyện PyTorch & Cập nhật saved_models/"]
     end
 ```
+
+#### Các trụ cột kỹ thuật Học sâu (Deep Learning Core Pillars):
+1. **Mạng nơ-ron sâu đa tầng PyTorch (`PyTorchDeepIntentNet`)**:
+   - Kiến trúc trích xuất đặc trưng sâu 3 tầng ẩn: $D \rightarrow 256 \rightarrow 128 \rightarrow 64$.
+   - Mỗi tầng ẩn tích hợp `BatchNorm1d` ổn định gradient, hàm kích hoạt `LeakyReLU(0.1)` chống triệt tiêu đạo hàm, và `Dropout` chống quá khớp.
+   - Hơn **3.261.195 tham số** học sâu được tối ưu bằng giải thuật `AdamW` (weight decay $= 10^{-4}$), điều chỉnh tốc độ học hàm Cosine `CosineAnnealingLR` và hàm mất mát `CrossEntropyLoss(label_smoothing=0.05)`.
+2. **Không gian nhúng ngữ nghĩa tiềm ẩn 64 chiều (64-D Latent Semantic Embedding)**:
+   - Trích xuất từ tầng ẩn thứ 3 của mạng nơ-ron sâu và chuẩn hóa hình cầu $L_2$: $\mathbf{e} = \frac{f(\mathbf{x})}{\|f(\mathbf{x})\|_2} \in \mathbb{R}^{64}$.
+   - Biểu diễn ngữ nghĩa tiềm ẩn trừu tượng độc lập với từ vựng bề mặt.
+3. **Thuật toán so khớp học sâu kết hợp (Deep Neural Semantic Hybrid Matching)**:
+   - $S_{\text{hybrid}} = 0.50 \cdot S_{\text{deep}} + 0.30 \cdot S_{\text{lexical}} + 0.20 \cdot (S_{\text{deep}} \cdot P_{\text{intent}})$.
+   - Tính toán Cosine trên không gian 64 chiều qua phép nhân vô hướng ma trận $\mathbf{e}_q \cdot \mathbf{E}$ trong chưa đầy 2ms.
+4. **Lưu trữ mô hình và khởi động siêu tốc (Model Persistence & Fast Startup)**:
+   - Lưu trữ tại `ai/saved_models/`: `deep_intent_model.pth` (13 MB), `model_metadata.pkl` (2.5 MB), `question_embeddings.npy` (1265 $\times$ 64, 317 KB), `training_metrics.json`.
+   - Giảm thời gian nạp mô hình khi khởi động từ 48 giây xuống **1.3 giây** (< 50ms nạp ma trận).
 
 ---
 
@@ -120,11 +139,16 @@ flowchart TD
 │   ├── chatbot.py              # Bộ điều phối hội thoại, Memory, Recommendation & Hybrid Matching
 │   ├── preprocess.py           # Tiền xử lý văn bản, chuẩn hóa từ lóng, Fuzzy Typo Correction
 │   ├── self_learning.py        # Engine Continual Learning & Pseudo-Labeling từ lịch sử chat
-│   ├── train_model.py          # Huấn luyện Mạng nơ-ron sâu PyTorch & Complement Naive Bayes
+│   ├── train_model.py          # Huấn luyện Mạng nơ-ron sâu PyTorch & Trích xuất 64-D Embedding
 │   ├── weather_service.py      # Dịch vụ tra cứu thời tiết đa nguồn
-│   └── web_search.py           # Tìm kiếm Internet có định hướng và khử nhập nhằng
+│   ├── web_search.py           # Tìm kiếm Internet có định hướng và khử nhập nhằng
+│   └── saved_models/           # Bộ nhớ đệm trọng số học sâu đã huấn luyện
+│       ├── deep_intent_model.pth    # Trọng số mạng nơ-ron sâu PyTorch (13 MB)
+│       ├── model_metadata.pkl       # Metadata, Vectorizer, LabelEncoder (2.5 MB)
+│       ├── question_embeddings.npy  # Ma trận 64-D Latent Semantic Embeddings (1265x64)
+│       └── training_metrics.json    # Báo cáo tham số và chỉ số đánh giá mô hình
 ├── data/
-│   └── sample_qa.json          # Ngân hàng 799 câu hỏi đáp mẫu chuẩn hóa
+│   └── sample_qa.json          # Ngân hàng 1.265 câu hỏi đáp mẫu chuẩn hóa (11 intent classes)
 ├── database/
 │   ├── db.py                   # Kết nối cơ sở dữ liệu MySQL (hỗ trợ .env)
 │   └── schema.sql              # Kịch bản khởi tạo database 10 bảng và dữ liệu mẫu

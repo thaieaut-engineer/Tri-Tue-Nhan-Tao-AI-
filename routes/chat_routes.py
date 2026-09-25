@@ -118,7 +118,9 @@ def chat():
         "session_id": active_session_id,
         "message_id": msg_id,
         "intent": chatbot.last_predicted_intent,
-        "confidence": chatbot.last_confidence
+        "confidence": chatbot.last_confidence,
+        "deep_similarity": chatbot.last_deep_similarity,
+        "engine": "PyTorch Deep Learning (64-D Latent Semantic Embedding)"
     })
 
 

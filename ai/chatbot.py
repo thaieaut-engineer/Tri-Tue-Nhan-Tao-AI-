@@ -13,11 +13,12 @@ import os
 import re
 import json
 import time
+import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
 from database.db import get_connection
 from ai.preprocess import preprocess_text, remove_accents, correct_travel_typos
-from ai.train_model import train_model
+from ai.train_model import train_model, load_or_train_model
 from ai.web_search import search_web_for_travel, format_web_response
 from ai.weather_service import (
     is_weather_query,
@@ -692,8 +693,10 @@ class Chatbot:
 
     def __init__(self):
         self.vectorizer = None   # Mô hình TF-IDF
-        self.model = None        # Mô hình DeepHybridModel (Deep MLP + ComplementNB)
+        self.model = None        # Mô hình DeepHybridModel (PyTorch Deep Intent Net + ComplementNB)
+        self.deep_embeddings = None # 64-D Latent Semantic Embeddings của tập mẫu (N x 64)
         self.data_vectors = None # Vector TF-IDF của tập dữ liệu mẫu
+        self.model_metrics = None # Báo cáo chỉ số huấn luyện và tham số mô hình PyTorch
 
         self.questions = []
         self.answers = []
@@ -704,11 +707,14 @@ class Chatbot:
         self.memory = ChatSessionMemory()
         self.last_predicted_intent = None
         self.last_confidence = None
+        self.last_deep_similarity = None
+        self.last_lexical_similarity = None
         self.reload()
 
-    def reload(self):
+    def reload(self, force_retrain=False):
         """
-        Nạp lại dữ liệu và huấn luyện lại mô hình AI (TF-IDF + Naive Bayes).
+        Nạp lại dữ liệu và nạp mô hình AI Deep Learning (PyTorch + Complement Naive Bayes).
+        Tự động nạp nhanh từ bộ nhớ đệm (saved_models/) nếu đã có trọng số và vector nhúng.
         """
         self.questions = []
         self.answers = []
@@ -722,12 +728,20 @@ class Chatbot:
         self.load_local_tours()
         self.load_tour_schedules()
 
-        # 2. Huấn luyện TF-IDF Vectorizer và Naive Bayes Classifier
-        self.vectorizer, self.model = train_model()
+        # 2. Nạp nhanh mô hình Deep Learning từ bộ nhớ đệm (hoặc huấn luyện nếu chưa có hoặc force_retrain=True)
+        self.vectorizer, self.model, self.deep_embeddings, self.model_metrics = load_or_train_model(force_retrain=force_retrain)
 
         # 3. Tiền tính toán ma trận vector TF-IDF cho toàn bộ câu hỏi mẫu
         if self.vectorizer and self.questions:
             self.data_vectors = self.vectorizer.transform(self.questions)
+
+        # 4. Đảm bảo ma trận 64-D Latent Semantic Embeddings đồng bộ với tập câu hỏi
+        if self.deep_embeddings is None or (self.questions and len(self.questions) != len(self.deep_embeddings)):
+            if self.model and self.data_vectors is not None and hasattr(self.model, "extract_embedding"):
+                try:
+                    self.deep_embeddings = self.model.extract_embedding(self.data_vectors)
+                except Exception as e:
+                    print("Lỗi tính toán Deep Embeddings khi reload:", e)
 
     def load_local_tours(self):
         """Lấy danh sách các tour và điểm đến trong hệ thống."""
@@ -876,25 +890,53 @@ class Chatbot:
 
     def compute_hybrid_cosine_similarity(self, question_vector, intent_probs, allowed_tour_ids=None):
         """
-        THUẬT TOÁN SO KHỚP KẾT HỢP (HYBRID INTENT-WEIGHTED COSINE SIMILARITY):
-        Kết hợp ma trận xác suất từ DeepHybridModel (Deep MLP + Naive Bayes) với độ đo Cosine TF-IDF:
-        - Tính độ đo Cosine thuần túy giữa vector câu hỏi và các câu hỏi mẫu.
-        - Tăng trọng số (boost) lên đến +25% cho các câu hỏi mẫu có intent trùng khớp với
-          phân phối xác suất từ mô hình học sâu.
+        THUẬT TOÁN SO KHỚP HỌC SÂU KẾT HỢP (DEEP NEURAL HYBRID MATCHING ALGORITHM):
+        Kết hợp 3 thành phần thông tin ở các tầng biểu diễn khác nhau:
+        1. Deep Neural Semantic Cosine Similarity (50%):
+           Trích xuất vector nhúng 64 chiều (64-D Latent Semantic Embedding) từ tầng ẩn thứ 3
+           của mạng nơ-ron sâu PyTorch (PyTorchDeepIntentNet) đã chuẩn hóa L2,
+           tính tích vô hướng ma trận (Dot Product) với 1.265 câu hỏi mẫu trong 1-2ms.
+        2. Lexical TF-IDF Cosine Similarity (30%):
+           Bắt chính xác các thực thể từ vựng, con số, tên riêng và n-grams.
+        3. Intent Posterior Compatibility (20%):
+           Xác suất hậu nghiệm từ mô hình DeepHybridModel (65% PyTorch Deep NN + 35% Complement Naive Bayes).
+        - Công thức: S_hybrid = 0.50 * S_deep + 0.30 * S_lexical + 0.20 * (S_deep * P_intent)
+        - Boost thêm +15% nếu câu hỏi mẫu có intent khớp với intent có xác suất cao nhất.
         - Lọc ưu tiên theo allowed_tour_ids nếu có điểm đến cụ thể.
         """
         if self.data_vectors is None or self.vectorizer is None or len(self.questions) == 0:
             return -1, 0.0
 
-        raw_similarities = cosine_similarity(question_vector, self.data_vectors)[0]
+        num_samples = len(self.questions)
+        raw_lexical = cosine_similarity(question_vector, self.data_vectors)[0]
+        raw_lexical = np.clip(raw_lexical, 0.0, 1.0)
 
-        # Áp dụng trọng số tăng cường từ DeepHybridModel Intent Probabilities
-        weighted_similarities = raw_similarities.copy()
+        # 1. Tính toán độ tương đồng không gian nơ-ron sâu 64-D (Deep Neural Semantic Similarity)
+        if self.deep_embeddings is not None and self.model is not None and hasattr(self.model, "extract_embedding"):
+            try:
+                query_embedding = self.model.extract_embedding(question_vector)
+                deep_sims = np.dot(self.deep_embeddings, query_embedding[0])
+                deep_sims = np.clip(deep_sims, 0.0, 1.0)
+            except Exception as e:
+                deep_sims = raw_lexical
+        else:
+            deep_sims = raw_lexical
+
+        # 2. Tính toán điểm số tương thích ý định (Intent Posterior Compatibility)
+        intent_scores = np.zeros(num_samples)
         if intent_probs:
-            for i, intent in enumerate(self.intents):
-                prob = intent_probs.get(intent, 0.0)
-                # Tăng tối đa 25% điểm cho câu hỏi mẫu đúng intent được dự đoán
-                weighted_similarities[i] = raw_similarities[i] * (1.0 + 0.25 * prob)
+            for i, it in enumerate(self.intents):
+                intent_scores[i] = intent_probs.get(it, 0.0)
+
+        # 3. Phối hợp kết hợp trọng số Deep Learning: 50% Deep NN + 30% Lexical + 20% Intent Match
+        hybrid_scores = 0.50 * deep_sims + 0.30 * raw_lexical + 0.20 * (deep_sims * intent_scores)
+
+        # Tăng trọng số tăng cường (boost +15%) cho mẫu có cùng intent
+        if intent_probs:
+            best_intent = max(intent_probs, key=intent_probs.get) if intent_probs else None
+            for i, it in enumerate(self.intents):
+                if it == best_intent and intent_probs[best_intent] > 0.4:
+                    hybrid_scores[i] *= 1.15
 
         if allowed_tour_ids:
             valid_indices = [
@@ -902,14 +944,18 @@ class Chatbot:
                 if tid is None or tid in allowed_tour_ids
             ]
             if valid_indices:
-                filtered_sims = weighted_similarities[valid_indices]
+                filtered_sims = hybrid_scores[valid_indices]
                 best_sub_idx = int(filtered_sims.argmax())
                 best_index = valid_indices[best_sub_idx]
-                best_score = float(weighted_similarities[best_index])
+                best_score = float(hybrid_scores[best_index])
+                self.last_deep_similarity = float(deep_sims[best_index])
+                self.last_lexical_similarity = float(raw_lexical[best_index])
                 return best_index, best_score
 
-        best_index = int(weighted_similarities.argmax())
-        best_score = float(weighted_similarities[best_index])
+        best_index = int(hybrid_scores.argmax())
+        best_score = float(hybrid_scores[best_index])
+        self.last_deep_similarity = float(deep_sims[best_index])
+        self.last_lexical_similarity = float(raw_lexical[best_index])
 
         return best_index, best_score
 

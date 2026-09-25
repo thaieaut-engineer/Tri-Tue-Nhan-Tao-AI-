@@ -11,5 +11,7 @@ ENV/
 
 # Thư mục báo cáo & tài liệu Word bài thi
 bao_cao/
+report_images/
 .~lock.*
 *.tmp
+
