@@ -24,7 +24,14 @@
 #### 1. Trợ lý Chatbot AI Thông Minh & Học Sâu
 - [x] **Mạng nơ-ron sâu PyTorch (PyTorchDeepIntentNet)**:
   - 3 tầng ẩn với Batch Normalization, LeakyReLU, Dropout chống Overfitting và tối ưu hóa AdamW + Cosine Annealing.
-  - Phân loại ý định (Intent Classification) chính xác cao trên bộ dữ liệu mở rộng **799 mẫu câu hỏi đáp**.
+  - Phân loại ý định (Intent Classification) chính xác cao trên bộ dữ liệu mở rộng **1.290 mẫu câu hỏi đáp** (11 Intent Classes).
+- [x] **Bộ sinh câu hỏi tự động & Thu hoạch Dữ liệu Tái huấn luyện (`ai/qa_generator.py` & `tools/generate_and_train.py`)**:
+  - **`TravelQuestionGenerator`**: Tự động sinh hàng loạt câu hỏi tự nhiên theo 7 chuyên mục: *Khách sạn & Resort, Đoàn đông người, Ngân sách, Lịch trình, Thời tiết/Mùa vụ, Dịch vụ/Chính sách, Điểm đến nước ngoài*.
+  - **`DataHarvestingTrainingPipeline`**: Gửi câu hỏi qua Chatbot thu hoạch câu trả lời tư vấn sâu, thẩm định chất lượng, lọc trùng lặp và đồng bộ đồng thời vào MySQL `qa_data` và `data/sample_qa.json`.
+  - Tự động kích hoạt tái huấn luyện PyTorch Deep Intent Net, cập nhật **64-D Latent Semantic Embeddings** và Hot-reload Chatbot trong RAM.
+- [x] **Động cơ tư vấn đoàn đông người & Khách sạn đối tác 3-4-5 sao**:
+  - Tự động bóc tách số lượng khách đoàn (5, 10, 15, 20 người...), tính toán dự toán kinh phí và bố trí xe riêng đời mới.
+  - Tra cứu hệ thống đối tác khách sạn & resort 3 sao, 4 sao, 5 sao tại 19 điểm đến du lịch trọng điểm (`HOTEL_DATABASE_BY_DESTINATION`).
 - [x] **Cơ chế Tự học liên tục (Continual Learning & Active Pseudo-Labeling)**:
   - Tự động quét `chat_history`, tính toán xác suất Softmax Confidence $P(\text{Intent} \mid \text{Question})$.
   - Tự động gán nhãn các biến thể câu hỏi đạt độ tin cậy $\ge 80\%$, bổ sung vào tập tri thức và tái huấn luyện mô hình ngay lập tức.
@@ -102,7 +109,7 @@ flowchart TD
     Feat --> Sim
     M3 --> Sim
     
-    Sim -->|Khớp tri thức nội bộ| Ans["Tư vấn chuyên sâu từ 1.265 QA & 20 Tour DB"]
+    Sim -->|Khớp tri thức nội bộ| Ans["Tư vấn chuyên sâu từ 1.290 QA & 20 Tour DB"]
     Sim -->|Tra cứu thời tiết| Wea["Live Weather Service (OpenWeatherMap / Open-Meteo)"]
     Sim -->|Điểm ngoài hệ thống| Web["Directed Deep Web Scraping (BeautifulSoup & Trích xuất nội dung)"]
     
@@ -127,7 +134,7 @@ flowchart TD
    - $S_{\text{hybrid}} = 0.50 \cdot S_{\text{deep}} + 0.30 \cdot S_{\text{lexical}} + 0.20 \cdot (S_{\text{deep}} \cdot P_{\text{intent}})$.
    - Tính toán Cosine trên không gian 64 chiều qua phép nhân vô hướng ma trận $\mathbf{e}_q \cdot \mathbf{E}$ trong chưa đầy 2ms.
 4. **Lưu trữ mô hình và khởi động siêu tốc (Model Persistence & Fast Startup)**:
-   - Lưu trữ tại `ai/saved_models/`: `deep_intent_model.pth` (13 MB), `model_metadata.pkl` (2.5 MB), `question_embeddings.npy` (1265 $\times$ 64, 317 KB), `training_metrics.json`.
+   - Lưu trữ tại `ai/saved_models/`: `deep_intent_model.pth` (13 MB), `model_metadata.pkl` (2.5 MB), `question_embeddings.npy` (1290 $\times$ 64, 323 KB), `training_metrics.json`.
    - Giảm thời gian nạp mô hình khi khởi động từ 48 giây xuống **1.3 giây** (< 50ms nạp ma trận).
 
 ---
@@ -138,6 +145,7 @@ flowchart TD
 ├── ai/                         # Module Trí tuệ Nhân tạo & Học sâu
 │   ├── chatbot.py              # Bộ điều phối hội thoại, Memory, Recommendation & Hybrid Matching
 │   ├── preprocess.py           # Tiền xử lý văn bản, chuẩn hóa từ lóng, Fuzzy Typo Correction
+│   ├── qa_generator.py         # Sinh câu hỏi du lịch tự động & Continual Retraining Pipeline
 │   ├── self_learning.py        # Engine Continual Learning & Pseudo-Labeling từ lịch sử chat
 │   ├── train_model.py          # Huấn luyện Mạng nơ-ron sâu PyTorch & Trích xuất 64-D Embedding
 │   ├── weather_service.py      # Dịch vụ tra cứu thời tiết đa nguồn
@@ -145,10 +153,11 @@ flowchart TD
 │   └── saved_models/           # Bộ nhớ đệm trọng số học sâu đã huấn luyện
 │       ├── deep_intent_model.pth    # Trọng số mạng nơ-ron sâu PyTorch (13 MB)
 │       ├── model_metadata.pkl       # Metadata, Vectorizer, LabelEncoder (2.5 MB)
-│       ├── question_embeddings.npy  # Ma trận 64-D Latent Semantic Embeddings (1265x64)
+│       ├── question_embeddings.npy  # Ma trận 64-D Latent Semantic Embeddings (1290x64)
 │       └── training_metrics.json    # Báo cáo tham số và chỉ số đánh giá mô hình
 ├── data/
-│   └── sample_qa.json          # Ngân hàng 1.265 câu hỏi đáp mẫu chuẩn hóa (11 intent classes)
+│   ├── sample_qa.json          # Ngân hàng 1.290 câu hỏi đáp mẫu chuẩn hóa (11 intent classes)
+│   └── generated_training_qa.json # Dữ liệu Q&A thu hoạch từ pipeline tự động
 ├── database/
 │   ├── db.py                   # Kết nối cơ sở dữ liệu MySQL (hỗ trợ .env)
 │   └── schema.sql              # Kịch bản khởi tạo database 10 bảng và dữ liệu mẫu
@@ -196,6 +205,11 @@ flowchart TD
 │   ├── tours.html              # Danh sách tour, Nút thả tim yêu thích, Điểm sao
 │   ├── 404.html                # Báo lỗi 404
 │   └── 500.html                # Báo lỗi 500
+├── tests/                      # Thư mục kiểm thử tự động (Unit & Integration Tests)
+│   ├── test_ai_system.py       # Kiểm thử toàn diện Chatbot, NLP và Deep Learning
+│   └── test_question_generator_and_training.py # Kiểm thử sinh câu hỏi & tái huấn luyện
+├── tools/                      # Công cụ hỗ trợ vận hành và huấn luyện
+│   └── generate_and_train.py   # CLI tự động sinh câu hỏi, thu hoạch & tái huấn luyện AI
 ├── bao_cao/                    # Thư mục chứa tài liệu báo cáo kỹ thuật (được gitignore bảo vệ)
 ├── .env                        # File cấu hình môi trường kết nối MySQL
 ├── .gitignore                  # Cấu hình bỏ qua file tạm, môi trường ảo và báo cáo
@@ -237,6 +251,18 @@ python app.py
 ```
 Truy cập hệ thống tại: `http://localhost:5000`
 
+#### 5. Công cụ Tự động sinh câu hỏi & Tái huấn luyện học sâu (CLI Tool)
+```bash
+# Sinh 30 câu hỏi ngẫu nhiên và tự động tái huấn luyện mô hình PyTorch:
+python tools/generate_and_train.py --num-samples 30
+
+# Chạy thử nghiệm mô phỏng không ghi vào CSDL (Dry-Run):
+python tools/generate_and_train.py --num-samples 15 --dry-run
+
+# Chạy kiểm thử tự động toàn diện hệ thống:
+python -m unittest discover tests
+```
+
 ---
 
 ### F. Tài khoản thử nghiệm mặc định
@@ -254,17 +280,19 @@ Truy cập hệ thống tại: `http://localhost:5000`
    - `Tôi có 4 triệu nên đi đâu?`
    - `3 triệu 4 thì đi tour nào`
    - `Tour nào rẻ nhất hiện nay?`
-2. **Hỏi tour & giá cả**:
+2. **Hỏi tour & giá cả cho đoàn**:
    - `Tour Phú Quốc 3 ngày 2 đêm giá bao nhiêu?`
+   - `Đoàn mình 15 người đi Đà Lạt chi phí khoảng bao nhiêu?`
    - `phu qouc 3n2d gia bn` *(Thử nghiệm sửa lỗi chính tả & từ viết tắt)*
 3. **Hỏi lịch trình & khách sạn**:
    - `Lịch trình tour Sa Pa đi những đâu?`
-   - `1 vài khách sạn ở Cần Thơ` *(Danh sách khách sạn 4-5 sao cụ thể)*
+   - `Khách sạn ở Đà Nẵng mấy sao?` *(Tư vấn khách sạn 3-4-5 sao cụ thể)*
+   - `Nêu tên các khách sạn đối tác ở Phú Quốc`
 4. **Tra cứu thời tiết thời gian thực**:
    - `Thời tiết Đà Lạt hôm nay thế nào?`
    - `Hôm nay ở Hà Nội có mưa không?`
-5. **Thử nghiệm AI Tự học (Continual Learning)**:
-   - Đặt các câu hỏi mới vào ô chat, sau đó vào `Admin -> AI Tự học` để xem mô hình Deep Learning phân loại và kích hoạt tự gán nhãn.
+5. **Thử nghiệm AI Tự học & Sinh dữ liệu (Continual Learning Pipeline)**:
+   - Chạy `python tools/generate_and_train.py --num-samples 20` để quan sát AI tự động sinh câu hỏi, trả lời, thu hoạch và tái huấn luyện mạng nơ-ron sâu PyTorch.
 
 ---
 
@@ -273,4 +301,5 @@ Truy cập hệ thống tại: `http://localhost:5000`
 Toàn bộ tài liệu báo cáo kỹ thuật và sơ đồ của đề tài được lưu trữ tập trung trong thư mục [`bao_cao/`](bao_cao/) và được bảo vệ an toàn trong `.gitignore`:
 * **Báo cáo hoàn chỉnh (Word)**: `bao_cao/Đề số 34_Nhóm 13_Báo cáo hoàn chỉnh.docx`
 * **Bản nháp báo cáo kỹ thuật (Markdown)**: `bao_cao/BAO_CAO_NHOM_13_DE_34.md`
+* **Báo cáo hệ thống sinh câu hỏi & tái huấn luyện**: `bao_cao/BaoCao_HeThong_SinhCauHoi_Va_TaiHuanLuyen.md`
 * **Thư mục sơ đồ & hình ảnh báo cáo**: `bao_cao/report_images/`
