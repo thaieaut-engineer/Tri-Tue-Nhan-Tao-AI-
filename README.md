@@ -2,10 +2,10 @@
 ## Đề tài: Xây Dựng Chatbot Xử Lý Ngôn Ngữ Tự Nhiên & Học Sâu Tư Vấn Tour Du Lịch
 
 ### Danh sách các thành viên thực hiện:
-1. **Quang Duy Thai**
-2. **Truong Hoai Son**
-3. **Tran Long Vu**
-4. **Le Nguyen Nam Anh**
+1. **Quàng Duy Thái**
+2. **Trương Hoài Sơn**
+3. **Trần Long Vũ**
+4. **Lê Nguyễn Nam Anh**
 
 ---
 
