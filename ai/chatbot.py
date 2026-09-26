@@ -2080,6 +2080,8 @@ class Chatbot:
                         display_name = ctx["active_destination"]
                         query_name = remove_accents(display_name)
 
+            self.last_predicted_intent = "kinh_nghiem_du_lich"
+            self.last_confidence = 0.95
             if display_name:
                 weather_data = get_weather_for_location(display_name, query_name)
                 if weather_data:
@@ -2116,10 +2118,14 @@ class Chatbot:
         # -------------------------------------------------------------
         guide_resp = self.handle_tour_guide_language(q_clean, q_low)
         if guide_resp:
+            self.last_predicted_intent = "huong_dan_vien"
+            self.last_confidence = 0.95
             return guide_resp
 
         incident_resp = self.handle_travel_incident(q_clean, q_low)
         if incident_resp:
+            self.last_predicted_intent = "su_co_du_lich"
+            self.last_confidence = 0.95
             return incident_resp
 
         # -------------------------------------------------------------
@@ -2128,6 +2134,8 @@ class Chatbot:
         # -------------------------------------------------------------
         hotel_resp = self.handle_hotel_inquiry(q_clean, q_low, matched_local=matched_local, session_id=session_id)
         if hotel_resp:
+            self.last_predicted_intent = "hoi_dich_vu"
+            self.last_confidence = 0.95
             return hotel_resp
 
         # -------------------------------------------------------------
@@ -2152,6 +2160,8 @@ class Chatbot:
         if is_recommend_query:
             rec_result = self.recommend_tours_by_criteria(q_clean, session_id=session_id)
             if rec_result:
+                self.last_predicted_intent = "tu_van_dat_tour"
+                self.last_confidence = 0.95
                 return rec_result
 
         # -------------------------------------------------------------
@@ -2183,10 +2193,14 @@ class Chatbot:
             if month or season:
                 resp = self.consult_seasonal_or_monthly(month=month, season=season)
                 if resp:
+                    self.last_predicted_intent = "kinh_nghiem_du_lich"
+                    self.last_confidence = 0.95
                     return resp
             if audience or theme:
                 resp = self.consult_audience_or_theme(audience=audience, theme=theme)
                 if resp:
+                    self.last_predicted_intent = "kinh_nghiem_du_lich"
+                    self.last_confidence = 0.95
                     return resp
 
         # -------------------------------------------------------------
