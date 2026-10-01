@@ -340,7 +340,8 @@ Hệ thống **TourAI** vận hành dựa trên sự kết hợp chặt chẽ gi
 │   └── generated_training_qa.json # Dữ liệu Q&A thu hoạch từ pipeline tự động
 ├── database/
 │   ├── db.py                   # Kết nối cơ sở dữ liệu MySQL (hỗ trợ .env)
-│   └── schema.sql              # Kịch bản khởi tạo database 10 bảng và dữ liệu mẫu
+│   ├── schema.sql              # Kịch bản khởi tạo database 10 bảng và dữ liệu mẫu
+│   └── chatbot_tour_full.sql   # Bản dump CSDL đầy đủ 10 bảng, 20 tour, 52 lịch trình, 1.290 QA, users
 ├── models/                     # Các lớp thao tác dữ liệu (Data Access Objects)
 │   ├── booking.py              # Quản lý đơn đặt tour và doanh thu
 │   ├── category.py             # Quản lý danh mục tour
@@ -420,10 +421,17 @@ DB_USER=kenny
 DB_PASSWORD=123456
 DB_NAME=chatbot_tour
 ```
-Chạy script tự động kiểm tra và khởi tạo bảng:
-```bash
-python check_and_init_db.py
-```
+
+Bạn có thể khởi tạo CSDL theo 1 trong 2 cách:
+* **Cách 1 (Tự động bằng Python)**:
+  ```bash
+  python check_and_init_db.py
+  ```
+* **Cách 2 (Import trực tiếp file SQL đầy đủ vào DBeaver / CloudBeaver / MySQL CLI)**:
+  Sử dụng tệp [`database/chatbot_tour_full.sql`](database/chatbot_tour_full.sql) (đã tích hợp sẵn 10 bảng, 20 tour, 52 lịch trình và 1.290 câu hỏi đáp tri thức AI):
+  ```bash
+  mysql -u kenny -p chatbot_tour < database/chatbot_tour_full.sql
+  ```
 
 #### 4. Khởi chạy ứng dụng
 ```bash
