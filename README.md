@@ -418,7 +418,7 @@ pip install -r requirements.txt
 DB_HOST=localhost
 DB_PORT=3306
 DB_USER=kenny
-DB_PASSWORD=123456
+DB_PASSWORD=your_password
 DB_NAME=chatbot_tour
 ```
 
