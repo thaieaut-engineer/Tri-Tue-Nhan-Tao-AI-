@@ -4,10 +4,15 @@ __pycache__/
 .venv/
 venv/
 ENV/
+# Environment files
+.env
+.env.*
 *.env
 !.env.example
+
 .DS_Store
 *.log
+TourAI_HoiThoai_*.txt
 
 # Thư mục báo cáo & tài liệu Word bài thi
 bao_cao/
