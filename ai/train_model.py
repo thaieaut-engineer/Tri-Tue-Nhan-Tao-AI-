@@ -196,16 +196,24 @@ class DeepHybridModel:
         """
         X_dense = X.toarray() if hasattr(X, "toarray") else np.array(X)
 
+        p_cnb = self.cnb.predict_proba(X)
+
         if self.has_torch and self.torch_model is not None:
             self.torch_model.eval()
             with torch.no_grad():
                 logits = self.torch_model(torch.FloatTensor(X_dense))
                 p_deep = torch.softmax(logits, dim=1).cpu().numpy()
-        else:
-            p_deep = self.mlp.predict_proba(X)
+            return 0.65 * p_deep + 0.35 * p_cnb
 
-        p_cnb = self.cnb.predict_proba(X)
-        return 0.65 * p_deep + 0.35 * p_cnb
+        if self.mlp is not None and hasattr(self.mlp, "predict_proba"):
+            try:
+                p_deep = self.mlp.predict_proba(X)
+                return 0.65 * p_deep + 0.35 * p_cnb
+            except Exception:
+                pass
+
+        # Fallback an toàn: khi mô hình sâu không sẵn hoặc chưa được fit, dùng CNB làm dự đoán chính.
+        return p_cnb
 
     def predict(self, X):
         """Dự đoán nhãn ý định có xác suất kết hợp cao nhất."""
@@ -287,7 +295,7 @@ class DeepHybridModel:
                 meta = pickle.load(f)
 
             model = cls()
-            model.has_torch = meta.get("has_torch", False) and HAS_TORCH
+            model.has_torch = bool(meta.get("has_torch", False)) and HAS_TORCH
             model.in_features = meta.get("in_features")
             model.num_classes = meta.get("num_classes")
             model.classes_ = meta.get("classes_")
@@ -302,8 +310,24 @@ class DeepHybridModel:
                     torch_model.load_state_dict(torch.load(pth_path, map_location="cpu"))
                     torch_model.eval()
                     model.torch_model = torch_model
-            elif not model.has_torch:
+            else:
                 model.mlp = meta.get("mlp")
+                if model.mlp is None and vectorizer is not None:
+                    model.mlp = MLPClassifier(
+                        hidden_layer_sizes=(256, 128, 64),
+                        activation="relu",
+                        solver="adam",
+                        alpha=0.001,
+                        max_iter=500,
+                        random_state=42
+                    )
+                    try:
+                        questions, intents = load_training_data()
+                        if len(questions) >= 2:
+                            X_train = vectorizer.transform(questions)
+                            model.mlp.fit(X_train, intents)
+                    except Exception:
+                        pass
 
             # Nạp Dense Question Embeddings
             npy_path = os.path.join(save_dir, "question_embeddings.npy")

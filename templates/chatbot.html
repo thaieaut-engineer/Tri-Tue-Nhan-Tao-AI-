@@ -949,9 +949,25 @@ async function sendChatMessage() {
             })
         });
 
-        const data = await response.json();
+        const contentType = response.headers.get("content-type") || "";
+        let data = null;
+
+        if (contentType.includes("application/json")) {
+            data = await response.json();
+        } else {
+            const text = await response.text();
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${text.slice(0, 200)}`);
+            }
+            data = { answer: text || "Tôi đã nhận được câu hỏi của bạn." };
+        }
+
         const loadingElem = document.getElementById(loadingId);
         if (loadingElem) loadingElem.remove();
+
+        if (!response.ok) {
+            throw new Error(data && data.error ? data.error : `HTTP ${response.status}`);
+        }
 
         if (data.session_id) {
             currentSessionId = data.session_id;
@@ -986,12 +1002,14 @@ async function sendChatMessage() {
         const loadingElem = document.getElementById(loadingId);
         if (loadingElem) loadingElem.remove();
 
+        const errorMessage = error && error.message ? error.message : "Không xác định";
         chatBox.innerHTML += `
             <div class="msg-group msg-group-bot">
                 <div class="msg-icon msg-icon-bot"><i class="bi bi-robot"></i></div>
                 <div class="msg-content-wrap">
                     <div class="msg-bubble-main text-danger small">
-                        <i class="bi bi-exclamation-triangle-fill me-1"></i> Có lỗi khi kết nối đến máy chủ AI. Vui lòng thử lại!
+                        <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                        Có lỗi khi kết nối đến máy chủ AI. Vui lòng thử lại! ${errorMessage.length > 80 ? "" : "(" + errorMessage + ")"}
                     </div>
                 </div>
             </div>

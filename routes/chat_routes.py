@@ -90,11 +90,18 @@ def chat():
             active_session_id = f"guest_{uuid.uuid4().hex[:12]}"
 
     # 2. AI sinh câu trả lời kết hợp DB nội bộ, Memory đa lượt và Tìm kiếm Internet
-    answer = chatbot.generate_response(
-        question,
-        session_id=active_session_id,
-        force_web_search=force_web_search
-    )
+    try:
+        answer = chatbot.generate_response(
+            question,
+            session_id=active_session_id,
+            force_web_search=force_web_search
+        )
+    except Exception as e:
+        print("Lỗi khi sinh câu trả lời AI:", e)
+        answer = "Hiện tôi đang gặp sự cố kỹ thuật khi xử lý câu hỏi của bạn. Vui lòng thử lại sau vài giây hoặc đặt câu hỏi khác."
+        chatbot.last_predicted_intent = "system_error"
+        chatbot.last_confidence = 0.0
+        chatbot.last_deep_similarity = 0.0
 
     # 3. Lưu lịch sử chat cho TẤT CẢ USER vào database phục vụ Continual Learning
     msg_id = None
